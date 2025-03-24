@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
-import { Button } from "@/components/ui/button";
+import React, { useContext } from "react"
+
+import Login from "@/components/pages/login/login"
 
 function App() {
   return (
     <>
-      <Button>Button</Button>
+      <Login></Login>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
