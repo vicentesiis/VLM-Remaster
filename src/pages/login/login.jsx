@@ -6,7 +6,7 @@ import { H2, H4 } from "@/components/ui/typography"
 import logo from "@/assets/logo.png"
 import { Navigate } from "react-router-dom"
 
-function Login() {
+export const Login = () => {
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
