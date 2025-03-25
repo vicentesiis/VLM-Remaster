@@ -5,6 +5,9 @@ export * from "@/pages/main/main-page"
 export * from "@/pages/main/tasks/tasks"
 // Client
 export * from "@/pages/main/clients/clients"
+// Client - Client Detail
+export * from "@/pages/main/clients/client-detail/client-detail"
+
 // Orders
 export * from "@/pages/main/orders/orders"
 // Reports

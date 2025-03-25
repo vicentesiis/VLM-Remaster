@@ -3,13 +3,11 @@ import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
 
 export const Clients = () => {
   return (
-    <div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Cliente</CardTitle>
-        </CardHeader>
-      </Card>
-    </div>
+    <Card className="mx-auto max-w-screen-xl px-4">
+      <CardHeader>
+        <CardTitle>Cliente</CardTitle>
+      </CardHeader>
+    </Card>
   )
 }
 

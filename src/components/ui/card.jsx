@@ -1,5 +1,6 @@
 import * as React from "react"
 import { H4, PLead } from "@/components/ui/typography"
+import { Separator } from "@radix-ui/react-dropdown-menu"
 import { cn } from "@/lib/utils"
 
 const Card = React.forwardRef(({ className, ...props }, ref) => (
@@ -19,7 +20,7 @@ const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
     ref={ref}
     className={cn("flex flex-col space-y-1.5 p-6", className)}
     {...props}
-  />
+  ></div>
 ))
 CardHeader.displayName = "CardHeader"
 
@@ -64,4 +65,12 @@ const CardFooter = React.forwardRef(({ className, ...props }, ref) => (
 ))
 CardFooter.displayName = "CardFooter"
 
-export { Card, CardHeader, CardFooter, CardTitle, CardSubTitle, CardDescription, CardContent }
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardSubTitle,
+  CardDescription,
+  CardContent,
+}

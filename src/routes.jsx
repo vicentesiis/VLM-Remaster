@@ -1,33 +1,36 @@
 import React from "react"
-import { Tasks, Clients, Orders, Reports, Info } from "@/pages"
+import { Tasks, Clients, Orders, Reports, Info, ClientDetail } from "@/pages"
 
 export const routes = [
   {
-    path: "",
-    element: <>Home</>,
+    path: "/",
+    element: <>Home</>, // Assuming Home component for the root page
   },
   {
-    path: "tareas",
+    path: "/tareas",
     element: <Tasks />,
   },
   {
-    path: "clientes",
+    path: "/clientes",
     element: <Clients />,
-    childrens: [{ path: ":clientId", element: <Clients />}],
+    childrens: [
+      {
+        path: ":clientId", // This handles dynamic routes like /clientes/:clientId
+        element: <ClientDetail />,
+      },
+    ],
   },
   {
-    path: "ordenes",
+    path: "/ordenes",
     element: <Orders />,
-    childrens: [{ path: "buscar_orden", element: <Orders />,}],
   },
   {
-    path: "reportes",
+    path: "/reportes",
     element: <Reports />,
-    childrens: [{ path: "reporte_personal", element: <Reports />,}],
   },
   {
-    path: "Info",
-    element: <Tasks />,
+    path: "/info",
+    element: <Info />,
   },
 ]
 

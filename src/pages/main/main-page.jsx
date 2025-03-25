@@ -15,6 +15,7 @@ export const Main = () => {
 }
 export const MainRoutes = () => (
   <Routes>
+    {/* The Main component will wrap the nested routes */}
     <Route path="/" element={<Main />}>
       {routes.map(({ path, element, childrens }) => (
         <Route key={path} path={path} element={element}>
