@@ -51,7 +51,7 @@ const P = ({ className, children }) => {
 
 const Blockquote = ({ className, children }) => {
   return (
-    <blockquote className={`mt-6 border-l-2 pl-6 italic ${className}`}>
+    <blockquote className={`italic ${className}`}>
       {children}
     </blockquote>
   )
@@ -70,6 +70,12 @@ const InlineCode = ({ className, children }) => {
 const Lead = ({ className, children }) => {
   return (
     <p className={`text-xl text-muted-foreground ${className}`}>{children}</p>
+  )
+}
+
+const PLead = ({ className, children }) => {
+  return (
+    <p className={`text-muted-foreground ${className}`}>{children}</p>
   )
 }
 
@@ -99,4 +105,4 @@ H1.propTypes =
       children: PropTypes.node.isRequired,
     }
 
-export { H1, H2, H3, H4, P, Lead, Large, Muted, Blockquote, InlineCode }
+export { H1, H2, H3, H4, P, Lead, PLead, Large, Muted, Blockquote, InlineCode }

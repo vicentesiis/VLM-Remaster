@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { H2, H4 } from "@/components/ui/typography"
+import { H2, H4, Lead } from "@/components/ui/typography"
 import logo from "@/assets/logo.png"
 import { Navigate } from "react-router-dom"
 
@@ -38,7 +38,7 @@ export const Login = () => {
         <Card shadow="sm" className="p-8 md:p-16">
           <CardHeader className="mt-0 flex-col sm:w-[400px]">
             <H2 className="!text-3xl lg:text-4xl">Bienvenid@</H2>
-            <H4 className="mb-4 !text-gray-600">Por favor ingresa tus datos</H4>
+            <Lead>Por favor ingresa tus datos</Lead>
           </CardHeader>
 
           <CardContent>

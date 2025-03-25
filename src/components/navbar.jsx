@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { H3 } from "@/components/ui/typography"
+import { Lead } from "@/components/ui/typography"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils" // Helper function for classnames
 import logo from "@/assets/logo.png"
@@ -54,7 +54,7 @@ export function Navbar() {
         {/* Logo & Title */}
         <div className="flex items-center gap-2">
           <img src={logo} width={40} height={40} alt="Logo" />
-          <H3>Proyecto VLM</H3>
+          <Lead>Proyecto VLM</Lead>
         </div>
 
         {/* Desktop Navigation */}
