@@ -8,25 +8,25 @@ export const Main = () => {
     <div>
       <Navbar />
       <div className="p-4">
-        <Outlet />
+        <Routes>
+          <Route path="/" element={<Outlet />}>
+            {routes.map(({ path, element, children }) => (
+              <Route key={path} path={path} element={<Outlet />}>
+                <Route index element={element} />
+                {children?.map(({ path: childPath, element: childElement }) => (
+                  <Route
+                    key={childPath}
+                    path={childPath}
+                    element={childElement}
+                  />
+                ))}
+              </Route>
+            ))}
+          </Route>
+        </Routes>
       </div>
     </div>
   )
 }
-export const MainRoutes = () => (
-  <Routes>
-    {/* The Main component will wrap the nested routes */}
-    <Route path="/" element={<Main />}>
-      {routes.map(({ path, element, childrens }) => (
-        <Route key={path} path={path} element={element}>
-          {childrens &&
-            childrens.map(({ path: childPath, element: childElement }) => (
-              <Route key={childPath} path={childPath} element={childElement} />
-            ))}
-        </Route>
-      ))}
-    </Route>
-  </Routes>
-)
 
 export default Main

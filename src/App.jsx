@@ -1,13 +1,13 @@
 import React from "react"
-import { Routes, Route } from "react-router-dom"
-import { Login } from "@/pages/login/login"
-import { MainRoutes } from "@/pages/main/main-page" // Import MainRoutes
+import { Routes, Route, Navigate } from "react-router-dom"
+import Main from "@/pages/main/main-page"
+import { Login } from "@/pages"
 
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/*" element={<MainRoutes />} /> {/* Fix: Use MainRoutes */}
+      <Route path="/*" element={<Main />} />
     </Routes>
   )
 }
