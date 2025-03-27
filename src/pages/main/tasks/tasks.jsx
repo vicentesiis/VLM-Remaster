@@ -16,37 +16,23 @@ import { Input } from "@/components/ui/input"
 import { TasksTable } from "@/components/table-data/tasks-table"
 import { Button } from "@/components/ui/button"
 import { ChevronDown } from "lucide-react"
+import { FancyMultiSelect } from "@/components/customs/fancy-multi-select"
+import PageLayout from "@/components/customs/page-layout"
 
 export const Tasks = () => {
   return (
-    <Card className="mx-auto max-w-screen-xl px-4">
-      <CardHeader>
-        <CardTitle className="mb-2">Tareas</CardTitle>
-        <CardSubTitle> Sub Tareas </CardSubTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center py-4">
-          <Input placeholder="Filtrar tareas" className="max-w-sm" />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                Estatus <ChevronDown />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuCheckboxItem key="a">Test</DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem key="b">
-                Test 2
-              </DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem key="c">
-                Test 3
-              </DropdownMenuCheckboxItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-        <TasksTable />
-      </CardContent>
-    </Card>
+    <PageLayout title="Tareas">
+      <Card className="mx-auto max-w-screen-xl px-4">
+        <CardContent className="p-8">
+          <CardSubTitle>Tareas encontradas: 23</CardSubTitle>
+          <div className="flex justify-between flex-row space-x-24 py-4">
+            <Input placeholder="Filtrar tareas" className="max-w-sm" />
+            <FancyMultiSelect  />
+          </div>
+          <TasksTable />
+        </CardContent>
+      </Card>
+    </PageLayout>
   )
 }
 

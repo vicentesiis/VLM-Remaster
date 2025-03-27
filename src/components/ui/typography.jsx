@@ -75,7 +75,7 @@ const Lead = ({ className, children }) => {
 
 const PLead = ({ className, children }) => {
   return (
-    <p className={`text-muted-foreground ${className}`}>{children}</p>
+    <p className={`text-muted-foreground text-lg ${className}`}>{children}</p>
   )
 }
 
