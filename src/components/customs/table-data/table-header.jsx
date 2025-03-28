@@ -1,6 +1,5 @@
 import React from "react"
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { generateTitle } from "@/utils/columnTitleGenerator"
 
 // Reusable TableHeader Component
 const TableHeaderComponent = ({ columns }) => (

@@ -11,9 +11,28 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
         className
       )}
       ref={ref}
-      {...props} />
-  );
+      {...props}
+    />
+  )
 })
 Input.displayName = "Input"
 
-export { Input }
+const InputWithIcon = React.forwardRef(
+  ({ className, icon: Icon, ...props }, ref) => {
+    return (
+      <div className="flex w-full max-w-sm items-center rounded-md border border-input px-2.5 py-1.5">
+        {Icon && <Icon className="mr-2.5 h-4 w-4" />}
+        {/* Render the icon if provided */}
+        <Input
+          className={cn("border-0 shadow-none", className)} // Apply custom className to Input
+          ref={ref}
+          {...props}
+        />
+      </div>
+    )
+  }
+)
+
+InputWithIcon.displayName = "InputWithIcon"
+
+export { Input, InputWithIcon }

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { TasksTable } from "@/components/customs/table-data/tasks-table"
+import { TasksTable } from "@/components/customs/table-data/tables/tasks-table"
 import { H3 } from "@/components/ui/typography"
 import { Button } from "@/components/ui/button"
 import { ClientOrderDialog } from "@/components/customs/client-order-dialog"
