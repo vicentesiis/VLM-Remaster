@@ -22,12 +22,12 @@ import PageLayout from "@/components/customs/page-layout"
 export const Tasks = () => {
   return (
     <PageLayout title="Tareas">
-      <Card className="mx-auto max-w-screen-xl px-4">
-        <CardContent className="p-8">
+      <Card className="mx-auto max-w-screen-xl p-2 sm:px-4">
+        <CardContent className="p-2 sm:p-8">
           <CardSubTitle>Tareas encontradas: 23</CardSubTitle>
-          <div className="flex justify-between flex-row space-x-24 py-4">
+          <div className="flex flex-row justify-between space-x-24 py-4">
             <Input placeholder="Filtrar tareas" className="max-w-sm" />
-            <FancyMultiSelect  />
+            <FancyMultiSelect />
           </div>
           <TasksTable />
         </CardContent>

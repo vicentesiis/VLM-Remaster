@@ -15,10 +15,10 @@ import {
 
 const PageLayout = ({ title, buttons, children }) => {
   return (
-    <div className="mx-auto my-4 max-w-screen-xl">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="mx-auto -mt-4 sm:my-4 max-w-screen-xl">
+      <div className="sm:mb-4 flex items-center justify-between">
         <H4 className="text-2xl font-bold">{title}</H4>
-        <div className="flex gap-2">{buttons}</div>
+        <div className="flex sm:gap-2">{buttons}</div>
       </div>
       <div>{children}</div>
     </div>

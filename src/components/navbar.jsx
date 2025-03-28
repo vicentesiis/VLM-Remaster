@@ -3,8 +3,9 @@ import { Link, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Lead } from "@/components/ui/typography"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { cn } from "@/lib/utils" // Helper function for classnames
+import { cn } from "@/lib/utils"
 import logo from "@/assets/logo.png"
+import { NavigationMenuDemo } from "@/components/customs/temporal-navigation" // Import the navigation menu
 
 export function Navbar() {
   const [openNav, setOpenNav] = useState(false)
@@ -24,7 +25,6 @@ export function Navbar() {
 
   function NavButton({ name, path }) {
     const isActive = location.pathname.includes(path)
-
     return (
       <Link to={`/${path}`} className="w-full">
         <Button variant={isActive ? "default" : "ghost"} className="w-full">
@@ -57,9 +57,10 @@ export function Navbar() {
           <Lead>Proyecto VLM</Lead>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation with NavigationMenu */}
         <nav className="hidden items-center gap-4 md:flex">
-          <NavList />
+          {/* <NavList /> */}
+          <NavigationMenuDemo />
           <Button variant="outline">Hola Agente</Button>
         </nav>
 

@@ -1,6 +1,6 @@
 import React from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
-import Navbar from "@/components/navbar"
+import Navbar from "@/components/new-nav-bar/navbar"
 import routes from "@/routes"
 
 export const Main = () => {
