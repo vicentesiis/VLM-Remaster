@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": "./src", // or your project root folder
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
