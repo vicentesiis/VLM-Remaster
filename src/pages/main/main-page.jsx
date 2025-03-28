@@ -1,12 +1,14 @@
 import React from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
-import Navbar from "@/components/new-nav-bar/navbar"
+import Navbar from "@/components/customs/navbar/navbar"
 import routes from "@/routes"
 
 export const Main = () => {
   return (
     <div>
-      <Navbar />
+      <div className="sticky top-0 z-50 border-b bg-background">
+        <Navbar />
+      </div>
       <div className="p-4">
         <Routes>
           <Route path="/" element={<Outlet />}>

@@ -42,7 +42,7 @@ const FRAMEWORKS = [
 export function FancyMultiSelect({ className = "" }) {
   const inputRef = React.useRef(null)
   const [open, setOpen] = React.useState(false)
-  const [selected, setSelected] = React.useState([FRAMEWORKS[1]])
+  const [selected, setSelected] = React.useState([])
   const [inputValue, setInputValue] = React.useState("")
 
   const handleUnselect = React.useCallback((framework) => {
@@ -76,7 +76,7 @@ export function FancyMultiSelect({ className = "" }) {
       onKeyDown={handleKeyDown}
       className={`overflow-visible bg-transparent ${className}`}
     >
-      <div className="group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+      <div className="group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-1 focus-within:ring-ring">
         <div className="flex flex-wrap gap-1">
           {selected.map((framework) => {
             return (
@@ -107,7 +107,7 @@ export function FancyMultiSelect({ className = "" }) {
             onBlur={() => setOpen(false)}
             onFocus={() => setOpen(true)}
             placeholder="Selecciona Estatus..."
-            className="ml-2 flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
+            className="flex-1 outline-none placeholder "
           />
         </div>
       </div>

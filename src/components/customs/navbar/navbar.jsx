@@ -7,9 +7,9 @@ import { Lead } from "@/components/ui/typography"
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 z-50 h-16 border-b bg-background">
+    <nav className="h-16 border-b bg-background">
       <div className="mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex p-4 lg:pl-16">
+        <div className="flex lg:pl-6">
           <img src={logo} width={50} height={40} alt="Logo" />
           <Lead>Proyecto VLM</Lead>
         </div>

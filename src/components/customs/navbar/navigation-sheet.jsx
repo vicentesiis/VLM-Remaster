@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import { Menu, ChevronDown } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
@@ -36,7 +41,9 @@ export const NavigationSheet = () => {
         </Button>
       </SheetTrigger>
       <SheetContent className="flex flex-col">
-        <H2>Modulos</H2>
+        <SheetHeader>
+          <H2>Modulos</H2>
+        </SheetHeader>
 
         {/* Scrollable */}
         <div className="space-y-3 overflow-y-auto text-base">
