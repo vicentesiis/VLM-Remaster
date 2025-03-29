@@ -4,10 +4,10 @@ import { TableHeaderComponent } from "@/components/customs/table-data/table-head
 import TaskTableBody from "@/components/customs/table-data/table-body/task-table-body"
 
 export function BaseTable({ data }) {
-  const columns = Object.keys(data[0])
   return (
     <Table>
-      <TableHeaderComponent columns={columns} />
+      {/* TODO: - Handle when is null */}
+      <TableHeaderComponent data={data[0]} />
       <TaskTableBody data={data} />
     </Table>
   )

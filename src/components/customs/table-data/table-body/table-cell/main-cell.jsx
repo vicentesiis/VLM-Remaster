@@ -6,7 +6,7 @@ import { P } from "@/components/ui/typography"
 export const MainCell = ({ path, title, id }) => {
   return (
     <TableCell className="flex flex-col">
-      <Link to={`${path}/${id}`} className="font-bold hover:text-blue-600">
+      <Link to={`${path}${id}`} className="font-bold hover:text-blue-600">
         <P>{title}</P>
       </Link>
       <Link to={`${path}/${id}`} className="hover:text-blue-600">

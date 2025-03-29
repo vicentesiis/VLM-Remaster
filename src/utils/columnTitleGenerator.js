@@ -1,4 +1,4 @@
-const titles = {
+export const titles = {
   // Tasks
   id: "Cliente",
   name: "Nombre",
@@ -20,9 +20,9 @@ const titles = {
 export const generateColumnTitle = (key) => {
   const titleObj = titles[key]
   if (titleObj) {
-    return { title: titleObj, align: "left" } // ← Always an object
+    return { title: titleObj }
   }
-  return { title: key.charAt(0).toUpperCase() + key.slice(1), align: "left" }
+  return { title: key.charAt(0).toUpperCase() + key.slice(1) }
 }
 
 export default generateColumnTitle

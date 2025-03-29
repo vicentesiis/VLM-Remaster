@@ -18,7 +18,7 @@ const PageLayout = ({ title, buttons, children }) => {
     <div className="mx-auto max-w-screen-xl">
       {/* --- Header + Buttons --- */}
       <div className="flex items-center justify-between">
-        <H4 className="text-2xl font-bold">{title}</H4>
+        <H4 className="text-2xl font-bold -mt-2">{title}</H4>
         <div className="flex sm:gap-2">{buttons}</div>
       </div>
 

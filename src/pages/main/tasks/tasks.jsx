@@ -71,7 +71,7 @@ export const Tasks = () => {
 
   return (
     <PageLayout title="Tareas">
-      <Card className="mx-auto max-w-screen-xl sm:pt-6">
+      <Card>
         <CardContent className="sm:-mt-2 sm:px-8">
           <FilterTableLayout
             FilterComponent={TaskFilter}

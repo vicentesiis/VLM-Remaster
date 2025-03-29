@@ -3,13 +3,13 @@ import { TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import generateColumnTitle from "@/utils/columnTitleGenerator"
 
 // Reusable TableHeader Component
-export const TableHeaderComponent = ({ columns }) => (
+export const TableHeaderComponent = ({ data }) => (
   <TableHeader>
     <TableRow>
-      {columns.map((column) => {
-        const { title, align } = generateColumnTitle(column)
+      {Object.entries(data).map(([key, value]) => {
+        const { title } = generateColumnTitle(key)
         return (
-          <TableHead key={column} className={`text-${align}`}>
+          <TableHead key={key} className={`text-${value.align}`}>
             {title}
           </TableHead>
         )
