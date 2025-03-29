@@ -1,28 +1,28 @@
 const titles = {
-
   // Tasks
-  id: { title: "Cliente" },
-  type: { title: "Vacante", align: "center" },
-  status: { title: "Estatus", align: "center" },
-  comments: { title: "Comentarios" },
-  phone: { title: "Teléfono" },
-  actions: { title: "Acciones", align: "center" },
+  id: "Cliente",
+  name: "Nombre",
+  type: "Vacante",
+  status: "Estatus",
+  comments: "Comentarios",
+  phone: "Teléfono",
+  actions: "Acciones",
   // Orders
-  orderID: { title: "ID de Orden", align: "" },
-  reference: { title: "Referencia", align: "" },
-  creationDate: { title: "Fecha de Creación", align: "" },
-  paymentStatus: { title: "Estatus", align: "center" },
-  quantity: { title: "Monto", align: "" },
-  pay: { title: "Método", align: "center" },
-  voucher: { title: "Voucher", align: "" },
+  orderID: "ID",
+  reference: "Referencia",
+  creationDate: "Fecha",
+  paymentStatus: "Estatus",
+  quantity: "Monto",
+  pay: "Método",
+  voucher: "Voucher",
 }
 
-export const generateTitle = (key) => {
+export const generateColumnTitle = (key) => {
   const titleObj = titles[key]
   if (titleObj) {
-    return titleObj
+    return { title: titleObj, align: "left" } // ← Always an object
   }
   return { title: key.charAt(0).toUpperCase() + key.slice(1), align: "left" }
 }
 
-export default generateTitle
+export default generateColumnTitle

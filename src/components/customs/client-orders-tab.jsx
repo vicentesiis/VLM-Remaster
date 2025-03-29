@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { TasksTable } from "@/components/customs/table-data/tables/tasks-table"
 import { H3 } from "@/components/ui/typography"
 import { Button } from "@/components/ui/button"
 import { ClientOrderDialog } from "@/components/customs/client-order-dialog"
@@ -17,7 +16,6 @@ export function ClientOrdersTab() {
         <H3>Órdenes</H3>
         <Button onClick={handleOpen}>Crear Órden</Button>
       </div>
-      <TasksTable />
 
       {/* Show ClientOrderDialog when open is true */}
       <ClientOrderDialog open={open} handleOpen={handleOpen} />

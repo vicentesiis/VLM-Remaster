@@ -1,16 +1,17 @@
 import React, { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { TasksTable } from "@/components/customs/table-data/tables/tasks-table"
 import PageLayout from "@/components/customs/page-layout"
 import { CollapsibleFilter } from "@/components/customs/collapsible-filter"
-import { FilterTableLayout } from "@/components/customs/table-data/filter-table-layout"
+import { FilterTableLayout } from "@/components/customs/filter-table-layout"
 import { SearchIcon } from "lucide-react"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
 import InputIcon from "@/components/customs/input-icon"
-import { H3Border, PLead } from "@/components/ui/typography"
+import { H3Border, PLead, H3 } from "@/components/ui/typography"
 import CheckboxList from "@/components/customs/checkbox-list"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
+import BaseTable from "@/components/customs/table-data/base-table"
+import tasksTableData from "@/data/tasks-table-data"
 
 export const Tasks = () => {
   const options = [
@@ -57,11 +58,15 @@ export const Tasks = () => {
         <CollapsibleFilter title="Estatus de la Tarea">
           <CheckboxList options={options} />
         </CollapsibleFilter>
-        <div className="sm:mt-8 flex justify-end">
+        <div className="flex justify-end sm:mt-8">
           <Button>Aplicar</Button>
         </div>
       </div>
     )
+  }
+
+  function TaskTable() {
+    return <BaseTable data={tasksTableData} />
   }
 
   return (
@@ -70,7 +75,9 @@ export const Tasks = () => {
         <CardContent className="sm:-mt-2 sm:px-8">
           <FilterTableLayout
             FilterComponent={TaskFilter}
-            TableComponent={TasksTable}
+            TableComponent={TaskTable}
+            tableTitle={"Lista de Tareas"}
+            helperTitle={"23 de 23 Tareas"}
           />
         </CardContent>
       </Card>

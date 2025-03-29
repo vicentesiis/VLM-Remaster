@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/command"
 import { Command as CommandPrimitive } from "cmdk"
 
-const FRAMEWORKS = [
+const data = [
   {
     value: "creado",
     label: "Creado",
@@ -67,7 +67,7 @@ export function FancyMultiSelect({ className = "" }) {
     }
   }, [])
 
-  const selectables = FRAMEWORKS.filter(
+  const selectables = data.filter(
     (framework) => !selected.includes(framework)
   )
 
