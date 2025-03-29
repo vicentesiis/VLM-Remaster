@@ -4,10 +4,15 @@ import { TableHeaderComponent } from "@/components/customs/table-data/table-head
 import TaskTableBody from "@/components/customs/table-data/table-body/task-table-body"
 
 export function BaseTable({ data }) {
+  if (!data || data.length === 0) {
+    return <div>No data available</div> // Handle empty or null data
+  }
+
+  const columns = Object.keys(data[0]) // Get keys from the first task object
+
   return (
     <Table>
-      {/* TODO: - Handle when is null */}
-      <TableHeaderComponent data={data[0]} />
+      <TableHeaderComponent columns={columns} />
       <TaskTableBody data={data} />
     </Table>
   )

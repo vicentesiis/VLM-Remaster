@@ -19,11 +19,7 @@ export const titles = {
 }
 
 export const generateColumnTitle = (key) => {
-  const titleObj = titles[key]
-  if (titleObj) {
-    return { title: titleObj }
-  }
-  return { title: key.charAt(0).toUpperCase() + key.slice(1) }
+  return titles[key]
 }
 
 export default generateColumnTitle

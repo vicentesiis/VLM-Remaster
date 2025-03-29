@@ -10,9 +10,9 @@ import { MoreHorizontal } from "lucide-react"
 
 const ActionDropdown = ({ items = [] }) => {
   return (
-    <DropdownMenu>
+    <DropdownMenu >
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
+        <Button variant="ghost" className="ml-2">
           <MoreHorizontal />
         </Button>
       </DropdownMenuTrigger>

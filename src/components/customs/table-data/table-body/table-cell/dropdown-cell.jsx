@@ -4,7 +4,7 @@ import ActionDropdown from "@/components/customs/action-dropdown"
 
 export const DropdownCell = ({ items }) => {
   return (
-    <TableCell className="">
+    <TableCell >
       <ActionDropdown items={items} />
     </TableCell>
   )

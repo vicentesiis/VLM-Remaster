@@ -8,25 +8,21 @@ import StatusBadgeCell from "./table-cell/status-badge-cell"
 export function TaskTableBody({ data }) {
   const columns = Object.keys(data[0]) // Dynamically get the column names from data
 
-  const renderCell = (column, task) => {
-    const align = task[column].align
+  const renderCell = (column, task, columnIndex) => {
     switch (column) {
       case "id":
         return (
           <MainCell
-            key={`${task["id"].title}-${column}`}
-            // key={column}
+            key={`${task["id"]}-${column}-${columnIndex}`} // Add columnIndex to ensure uniqueness
             path={"/clientes/"}
-            title={task["name"].title} // Safely access task.name
-            id={task["id"].title}
-            align={align} // Pass alignment to the cell component
+            title={task["name"] || "N/A"} // Safely access task.name and provide fallback
+            id={task["id"]}
           />
         )
       case "actions":
         return (
           <DropdownCell
-            key={`${task["id"].title}-${column}`}
-            align={align} // Pass alignment to the cell component
+            key={`${task["id"]}-${column}-${columnIndex}`} // Add columnIndex to ensure uniqueness
             items={[
               { title: "View Details", onSelect: () => alert("View") },
               { title: "Edit", onSelect: () => alert("Edit") },
@@ -39,15 +35,28 @@ export function TaskTableBody({ data }) {
           />
         )
       case "status":
-        return <StatusBadgeCell title={task["status"].title} align={align}  />
-      default:
-        // Default rendering for other columns
-        // Check if task[column] exists and has a title
+        return (
+          <StatusBadgeCell
+            key={`${task["id"]}-${column}-${columnIndex}`}
+            title={task["status"] || "N/A"}
+          />
+        )
+
+      case "type":
         return (
           <DefaultCell
-            key={`${task["id"].title}-${column}`}
-            title={task[column]?.title || task[column] || "N/A"} // Fallback if title is undefined
-            align={align}
+            key={`${task["id"]}-${column}-${columnIndex}`} // Add columnIndex to ensure uniqueness
+            title={task[column] || "N/A"} // Fallback if value is undefined
+            align={"center"}
+          />
+        )
+
+      default:
+        // Default rendering for other columns
+        return (
+          <DefaultCell
+            key={`${task["id"]}-${column}-${columnIndex}`} // Add columnIndex to ensure uniqueness
+            title={task[column] || "N/A"} // Fallback if value is undefined
           />
         )
     }
@@ -56,8 +65,10 @@ export function TaskTableBody({ data }) {
   return (
     <TableBody>
       {data.map((task) => (
-        <TableRow key={task.id.title}>
-          {columns.map((column) => renderCell(column, task))}
+        <TableRow key={task.id}>
+          {columns.map((column, columnIndex) =>
+            renderCell(column, task, columnIndex)
+          )}
         </TableRow>
       ))}
     </TableBody>
