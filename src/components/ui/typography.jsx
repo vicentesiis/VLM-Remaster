@@ -66,8 +66,6 @@ const LabelStyle = ({ className, children, htmlFor }) => {
   )
 }
 
-export default LabelStyle
-
 const P = ({ className, children }) => {
   return (
     <p className={`leading-7 [&:not(:first-child)]:mt-6 ${className}`}>

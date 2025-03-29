@@ -2,6 +2,7 @@ export const titles = {
   // Tasks
   id: "Cliente",
   name: "Nombre",
+  country: "País",
   type: "Vacante",
   status: "Estatus",
   comments: "Comentarios",

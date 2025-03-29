@@ -1,13 +1,12 @@
 import React from "react"
 import { TableCell } from "@/components/ui/table"
-import { P } from "@/components/ui/typography"
+import { ListStyle } from "@/components/ui/typography"
 
-export const DefaultCell = ({ title }) => {
+export const DefaultCell = ({ title, align }) => {
   return (
-    <TableCell>
-      <P>{title}</P>
+    <TableCell className={`text-${align}`}>
+      <ListStyle>{title}</ListStyle>
     </TableCell>
   )
 }
-
 export default DefaultCell
