@@ -19,11 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
-import {
-  ChevronUpIcon,
-  ChevronDownIcon,
-  CheckIcon,
-} from "@radix-ui/react-icons"
+import { CheckIcon } from "@radix-ui/react-icons"
 import { cn } from "@/lib/utils"
 
 export interface DateRangePickerProps {
@@ -45,7 +41,7 @@ export interface DateRangePickerProps {
   showCompare?: boolean
 }
 
-const formatDate = (date: Date, locale: string = "en-us"): string => {
+const formatDate = (date: Date, locale: string = "es-MX"): string => {
   return date.toLocaleDateString(locale, {
     month: "short",
     day: "numeric",
@@ -79,26 +75,26 @@ interface Preset {
 
 // Define presets
 const PRESETS: Preset[] = [
-  { name: "today", label:"Hoy" },
-  { name: "yesterday", label:"Ayer" },
-  { name: "thisWeek", label:"Esta Semana" },
-  { name: "lastWeek", label:"Semana Pasada" },
-  { name: "last14", label:"Últimos 14 días" },
-  { name: "thisMonth", label:"Mes Actual" },
-  { name: "lastMonth", label:"Mes pasado" },
+  { name: "today", label: "Hoy" },
+  { name: "yesterday", label: "Ayer" },
+  { name: "thisWeek", label: "Esta Semana" },
+  { name: "lastWeek", label: "Semana Pasada" },
+  { name: "last14", label: "Últimos 14 días" },
+  { name: "thisMonth", label: "Mes Actual" },
+  { name: "lastMonth", label: "Mes pasado" },
 ]
 
 /** The DateRangePicker component allows a user to select a range of dates */
 export const DateRangePicker: FC<DateRangePickerProps> & {
   filePath: string
 } = ({
-  initialDateFrom = new Date(new Date().setHours(0, 0, 0, 0)),
+  initialDateFrom,
   initialDateTo,
   initialCompareFrom,
   initialCompareTo,
   onUpdate,
   align = "center",
-  locale = "en-US",
+  locale = "es-MX",
   showCompare = true,
 }): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
@@ -340,40 +336,49 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
       open={isOpen}
       onOpenChange={(open: boolean) => {
         if (!open) {
-          resetValues()
+          // Check if the user has not made a selection, or you want to reset the values explicitly
+          if (!range.from || !range.to) {
+            resetValues()
+          }
         }
         setIsOpen(open)
       }}
     >
       <PopoverTrigger asChild>
-        <Button size={"lg"} variant="outline">
+        <Button
+          size={"xl"}
+          variant="outline"
+          className={`h-10 ${isOpen ? "bg-black text-white" : ""}`}
+          onClick={() => setIsOpen((prev) => !prev)} // Toggle isOpen on click
+        >
           <div className="text-right">
-            <div className="py-1">
-              <div>{`${formatDate(range.from, locale)}${
-                range.to != null ? " - " + formatDate(range.to, locale) : ""
-              }`}</div>
-            </div>
-            {rangeCompare != null && (
+            {range.from && range.to ? (
+              <div className="py-1">
+                <div>
+                  {`${formatDate(range.from, locale)} - ${formatDate(range.to, locale)}`}
+                </div>
+              </div>
+            ) : (
+              <span>Selecciona un rango</span>
+            )}
+            {rangeCompare && rangeCompare.from && rangeCompare.to && (
               <div className="-mt-1 text-xs opacity-60">
                 <>
                   vs. {formatDate(rangeCompare.from, locale)}
-                  {rangeCompare.to != null
+                  {rangeCompare.to
                     ? ` - ${formatDate(rangeCompare.to, locale)}`
                     : ""}
                 </>
               </div>
             )}
           </div>
-          <div className="-mr-2 scale-125 pl-1 opacity-60">
-            {isOpen ? (
-              <ChevronUpIcon width={24} />
-            ) : (
-              <ChevronDownIcon width={24} />
-            )}
-          </div>
         </Button>
       </PopoverTrigger>
-      <PopoverContent align={align} side={!isSmallScreen ? "left" : "bottom"} className="w-auto">
+      <PopoverContent
+        align={align}
+        side={!isSmallScreen ? "left" : "bottom"}
+        className="w-auto"
+      >
         <div className="flex py-2">
           <div className="flex">
             <div className="flex flex-col">
@@ -551,7 +556,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
             }}
             variant="ghost"
           >
-            Cancel
+            Limpiar
           </Button>
           <Button
             onClick={() => {
@@ -564,7 +569,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               }
             }}
           >
-            Update
+            Aplicar
           </Button>
         </div>
       </PopoverContent>

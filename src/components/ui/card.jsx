@@ -1,5 +1,5 @@
 import * as React from "react"
-import { H4, PLead } from "@/components/ui/typography"
+import { H1, PLead } from "@/components/ui/typography"
 import { Separator } from "@radix-ui/react-dropdown-menu"
 import { cn } from "@/lib/utils"
 
@@ -25,9 +25,12 @@ const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
 CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef(({ className, ...props }, ref) => (
-  <H4
+  <div
     ref={ref}
-    className={cn("font-semibold leading-none tracking-tight", className)}
+    className={cn(
+      "text-3xl font-bold pl-6 tracking-tight",
+      className
+    )}
     {...props}
   />
 ))

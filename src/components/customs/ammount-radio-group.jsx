@@ -1,5 +1,6 @@
-import React from "react";
-import * as RadioGroup from "@radix-ui/react-radio-group";
+import React from "react"
+import * as RadioGroup from "@radix-ui/react-radio-group"
+import { P } from "@/components/ui/typography"
 
 // Define the options
 const options = [
@@ -23,24 +24,28 @@ const options = [
     value: "5890",
     label: "$5,890.00",
   },
-];
+]
 
 // Updated AmmountRadioGroup to accept className prop in JSX
 const AmmountRadioGroup = ({ className }) => {
   return (
     <RadioGroup.Root
       defaultValue={options[0].value}
-      className={`grid grid-cols-5 h-8 ${className}`}> {/* Apply className */}
+      className={`grid h-8 grid-cols-5 ${className}`}
+    >
+      {" "}
+      {/* Apply className */}
       {options.map((option) => (
         <RadioGroup.Item
           key={option.value}
           value={option.value}
-          className="ring-[1px] ring-border rounded py-1 px-3 data-[state=checked]:ring-2 data-[state=checked]:ring-black">
-          <span className="font-semibold tracking-tight">{option.label}</span>
+          className="rounded px-3 py-1 ring-[1px] ring-border data-[state=checked]:bg-black data-[state=checked]:font-bold data-[state=checked]:text-white"
+        >
+          <P >{option.label}</P>
         </RadioGroup.Item>
       ))}
     </RadioGroup.Root>
-  );
-};
+  )
+}
 
-export default AmmountRadioGroup;
+export default AmmountRadioGroup

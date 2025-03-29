@@ -2,7 +2,7 @@ import React from "react"
 
 export function FilterTableLayout({ FilterComponent, TableComponent }) {
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6">
+    <div className="container mx-auto px-1 py-4 sm:py-8 md:px-6">
       <div className="flex flex-col gap-8 md:gap-12">
         {/* Filters Section */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr]">

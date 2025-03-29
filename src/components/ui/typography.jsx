@@ -31,6 +31,16 @@ const H3 = ({ className, children }) => {
   )
 }
 
+const H3Border = ({ className, children }) => {
+  return (
+    <h3
+      className={`scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight ${className}`}
+    >
+      {children}
+    </h3>
+  )
+}
+
 const H4 = ({ className, children }) => {
   return (
     <h4
@@ -41,6 +51,23 @@ const H4 = ({ className, children }) => {
   )
 }
 
+const ListStyle = ({ className, children }) => {
+  return <ul className={`${className} list-disc [&>li]:mt-2`}>{children}</ul>
+}
+
+const LabelStyle = ({ className, children, htmlFor }) => {
+  return (
+    <label
+      htmlFor={htmlFor} // Pass the htmlFor prop here
+      className={`flex items-center text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ${className}`}
+    >
+      {children}
+    </label>
+  )
+}
+
+export default LabelStyle
+
 const P = ({ className, children }) => {
   return (
     <p className={`leading-7 [&:not(:first-child)]:mt-6 ${className}`}>
@@ -50,11 +77,7 @@ const P = ({ className, children }) => {
 }
 
 const Blockquote = ({ className, children }) => {
-  return (
-    <blockquote className={`italic ${className}`}>
-      {children}
-    </blockquote>
-  )
+  return <blockquote className={`italic ${className}`}>{children}</blockquote>
 }
 
 const InlineCode = ({ className, children }) => {
@@ -75,7 +98,15 @@ const Lead = ({ className, children }) => {
 
 const PLead = ({ className, children }) => {
   return (
-    <p className={`text-muted-foreground text-lg ${className}`}>{children}</p>
+    <p className={`text-lg text-muted-foreground ${className}`}>{children}</p>
+  )
+}
+
+const PLeadOption = ({ className, children }) => {
+  return (
+    <p className={`text-sm font-bold text-muted-foreground ${className}`}>
+      {children}
+    </p>
   )
 }
 
@@ -105,4 +136,20 @@ H1.propTypes =
       children: PropTypes.node.isRequired,
     }
 
-export { H1, H2, H3, H4, P, Lead, PLead, Large, Muted, Blockquote, InlineCode }
+export {
+  H1,
+  H2,
+  H3,
+  H3Border,
+  H4,
+  P,
+  Lead,
+  PLead,
+  ListStyle,
+  LabelStyle,
+  PLeadOption,
+  Large,
+  Muted,
+  Blockquote,
+  InlineCode,
+}

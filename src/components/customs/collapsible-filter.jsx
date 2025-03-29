@@ -1,0 +1,35 @@
+import React from "react"
+import { H2, PLead } from "@/components/ui/typography"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import { ChevronDown } from "lucide-react"
+import { Separator } from "@/components/ui/separator"
+
+export const CollapsibleFilter = ({
+  title,
+  open,
+  icon: Icon,
+  showChevrown,
+  children,
+}) => (
+  <div>
+    <Collapsible open={open}>
+      <CollapsibleTrigger className="group flex w-full items-center justify-between py-3">
+        <PLead className="flex items-center gap-1">
+          {!!Icon && <Icon className="h-5 w-5" />} {title}
+        </PLead>
+        {showChevrown ?? (
+          <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
+        )}
+      </CollapsibleTrigger>
+      <CollapsibleContent className="flex flex-col">
+        {children}
+      </CollapsibleContent>
+    </Collapsible>
+  </div>
+)
+
+export default CollapsibleFilter
