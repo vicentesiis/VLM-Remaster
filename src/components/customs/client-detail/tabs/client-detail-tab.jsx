@@ -30,7 +30,7 @@ export const ClientDetailTab = ({ sections }) => {
                 {row.map((detail, index) => (
                   <div
                     key={index}
-                    className="flex flex-row justify-between sm:w-1/2 sm:items-center sm:pr-16 py-2 sm:py-0"
+                    className="flex flex-row justify-between py-2 sm:w-1/2 sm:items-center sm:py-0 sm:pr-16"
                   >
                     <PLead className="">{detail.label}:</PLead>
                     <Lead className="text-right font-semibold sm:text-lg">
