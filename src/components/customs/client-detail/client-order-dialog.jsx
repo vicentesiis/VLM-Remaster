@@ -32,7 +32,7 @@ export const ClientOrderDialog = ({ open, handleOpen }) => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
-      <DialogContent className="h-[60%] flex flex-col w-full max-w-2xl sm:h-auto sm:p-10">
+      <DialogContent className="flex h-[60%] w-full max-w-2xl flex-col sm:h-auto sm:p-10">
         <DialogHeader className="relative flex justify-between">
           <DialogTitle className="text-xl font-semibold">
             Nueva Órden

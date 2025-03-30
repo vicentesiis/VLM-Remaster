@@ -3,7 +3,7 @@ import { CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { H3, PLead, Lead } from "@/components/ui/typography"
 
-export function ClientDetailTab({ sections }) {
+export const ClientDetailTab = ({ sections }) => {
   // Helper function to group content into pairs of two
   const groupIntoPairs = (content) => {
     return content.reduce((acc, _, i) => {

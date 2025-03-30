@@ -1,11 +1,8 @@
-"use client"
-
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, FormProvider } from "react-hook-form" // Import FormProvider here
+import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
 import { H3 } from "@/components/ui/typography"
 import { Separator } from "@/components/ui/separator"
-
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -18,7 +15,6 @@ import {
 import { Input } from "@/components/ui/input"
 import DatePickerField from "../date-range-picker/date-picker-field"
 
-// Define the schema with zod validation
 const formSchema = z.object({
   email: z
     .string()
@@ -53,8 +49,7 @@ const formSchema = z.object({
   servicio: z.string().min(1, { message: "El servicio es obligatorio" }),
 })
 
-export function ClientForm() {
-  // Setup form with validation
+export const ClientForm = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -78,7 +73,6 @@ export function ClientForm() {
     },
   })
 
-  // Submit function
   const onSubmit = (data) => {
     console.log(data)
   }

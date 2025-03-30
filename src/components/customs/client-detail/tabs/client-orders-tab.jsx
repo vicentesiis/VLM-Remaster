@@ -3,11 +3,8 @@ import { H3 } from "@/components/ui/typography"
 import { Button } from "@/components/ui/button"
 import { ClientOrderDialog } from "@/components/customs/client-detail/client-order-dialog"
 
-export function ClientOrdersTab() {
-  // State to control the visibility of the dialog
+export const ClientOrdersTab = () => {
   const [open, setOpen] = useState(false)
-
-  // Function to toggle the dialog visibility
   const handleOpen = () => setOpen(!open)
 
   return (
@@ -16,8 +13,6 @@ export function ClientOrdersTab() {
         <H3>Órdenes</H3>
         <Button onClick={handleOpen}>Crear Órden</Button>
       </div>
-
-      {/* Show ClientOrderDialog when open is true */}
       <ClientOrderDialog open={open} handleOpen={handleOpen} />
     </div>
   )
