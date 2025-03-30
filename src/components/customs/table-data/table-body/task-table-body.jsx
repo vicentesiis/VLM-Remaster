@@ -50,7 +50,6 @@ export function TaskTableBody({ data }) {
             align={"center"}
           />
         )
-
       default:
         // Default rendering for other columns
         return (

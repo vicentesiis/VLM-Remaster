@@ -1,14 +1,12 @@
 import React, { useState } from "react"
 import { H3, PLead } from "@/components/ui/typography"
-import { Separator } from "../ui/separator"
-import { Button } from "@/components/ui/button" // Assuming this is your Button component
-import * as CollapsiblePrimitive from "@radix-ui/react-collapsible"
+import { PanelLeftClose, PanelRightClose } from "lucide-react"
+import { Button } from "../ui/button"
 import {
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@/components/ui/collapsible" // Adjust import as per your file structure
-import { PanelLeftClose, PanelRightClose } from "lucide-react"
 
 export function FilterTableLayout({
   FilterComponent,
@@ -47,12 +45,16 @@ export function FilterTableLayout({
     <div className="container mx-auto py-4 sm:py-8 md:px-6">
       <div className="flex flex-col gap-8 md:gap-12">
         {/* Filters Section */}
+        {/* className={`grid grid-cols-1 gap-6 md:grid-cols-[${isCollapsed ? "0px" : "240px"}_1fr]`} */}
         <div
-          className={`grid grid-cols-1 gap-6 md:grid-cols-[${isCollapsed ? "0px" : "240px"}_1fr]`}
+          className={
+            !isCollapsed
+              ? `md:grid-cols-[240px"_1fr] flex gap-3 `
+              : `grid md:grid-cols-[0px_1fr]`
+          }
         >
           {/* Filter Sidebar */}
           <div className="flex flex-col gap-6">
-            {/* Collapsible for Filters */}
             <Collapsible
               open={!isCollapsed}
               onOpenChange={(open) => setIsCollapsed(!open)}
