@@ -16,28 +16,41 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import DatePickerField from "@/components/customs/date-picker/date-picker-field"
 
 // Define the schema with zod validation
 const formSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  nombre: z.string().min(1, { message: "Name is required" }),
-  fechaNacimiento: z.string().min(1, { message: "Date of birth is required" }),
-  telefono: z.string().min(1, { message: "Phone number is required" }),
-  nacionalidad: z.string().min(1, { message: "Nationality is required" }),
-  estado: z.string().min(1, { message: "State is required" }),
-  curp: z.string().min(1, { message: "CURP is required" }),
-  documentoDelCliente: z.string().min(1, { message: "Document is required" }),
+  email: z
+    .string()
+    .email({ message: "Dirección de correo electrónico inválida" }),
+  nombre: z.string().min(1, { message: "El nombre es obligatorio" }),
+  fechaNacimiento: z.date({
+    required_error: "La fecha de nacimiento es obligatoria",
+  }),
+  telefono: z
+    .string()
+    .min(1, { message: "El número de teléfono es obligatorio" }),
+  nacionalidad: z
+    .string()
+    .min(1, { message: "La nacionalidad es obligatoria" }),
+  estado: z.string().min(1, { message: "El estado es obligatorio" }),
+  curp: z.string().min(1, { message: "La CURP es obligatoria" }),
+  documentoDelCliente: z
+    .string()
+    .min(1, { message: "El documento es obligatorio" }),
   fechadeDeportacion: z
     .string()
-    .min(1, { message: "Deportation date is required" }),
-  tramite: z.string().min(1, { message: "Process is required" }),
-  vacante: z.string().min(1, { message: "Vacancy is required" }),
-  destino: z.string().min(1, { message: "Destination is required" }),
-  periodo: z.string().min(1, { message: "Period is required" }),
-  estatus: z.string().min(1, { message: "Status is required" }),
-  salida: z.string().min(1, { message: "Exit is required" }),
-  comentarios: z.string().min(1, { message: "Comments are required" }),
-  servicio: z.string().min(1, { message: "Service is required" }),
+    .min(1, { message: "La fecha de deportación es obligatoria" }),
+  tramite: z.string().min(1, { message: "El trámite es obligatorio" }),
+  vacante: z.string().min(1, { message: "La vacante es obligatoria" }),
+  destino: z.string().min(1, { message: "El destino es obligatorio" }),
+  periodo: z.string().min(1, { message: "El periodo es obligatorio" }),
+  estatus: z.string().min(1, { message: "El estatus es obligatorio" }),
+  salida: z.string().min(1, { message: "La salida es obligatoria" }),
+  comentarios: z
+    .string()
+    .min(1, { message: "Los comentarios son obligatorios" }),
+  servicio: z.string().min(1, { message: "El servicio es obligatorio" }),
 })
 
 export function ClientForm() {
@@ -47,7 +60,7 @@ export function ClientForm() {
     defaultValues: {
       email: "",
       nombre: "",
-      fechaNacimiento: "",
+      fechaNacimiento: null,
       telefono: "",
       nacionalidad: "",
       estado: "",
@@ -81,6 +94,38 @@ export function ClientForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {/* Nombre Field */}
+            <FormField
+              control={form.control}
+              name="nombre"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nombre Completo</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Nombre" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* Fecha de Nacimiento Field */}
+            <FormField
+              control={form.control}
+              name="fechaNacimiento"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Fecha de Nacimiento</FormLabel>
+                  <FormControl>
+                    <DatePickerField
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             {/* Email Field */}
             <FormField
               control={form.control}
@@ -96,36 +141,6 @@ export function ClientForm() {
               )}
             />
 
-            {/* Nombre Field */}
-            <FormField
-              control={form.control}
-              name="nombre"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nombre</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Nombre" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Fecha de Nacimiento Field */}
-            <FormField
-              control={form.control}
-              name="fechaNacimiento"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Fecha de Nacimiento</FormLabel>
-                  <FormControl>
-                    <Input type="date" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             {/* Telefono Field */}
             <FormField
               control={form.control}
@@ -134,7 +149,7 @@ export function ClientForm() {
                 <FormItem>
                   <FormLabel>Telefono</FormLabel>
                   <FormControl>
-                    <Input placeholder="Phone number" {...field} />
+                    <Input type="tel" placeholder="Telefono" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -149,7 +164,7 @@ export function ClientForm() {
                 <FormItem>
                   <FormLabel>Nacionalidad</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nationality" {...field} />
+                    <Input placeholder="Nacionalidad" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -171,21 +186,6 @@ export function ClientForm() {
               )}
             />
 
-            {/* CURP Field */}
-            <FormField
-              control={form.control}
-              name="curp"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>CURP</FormLabel>
-                  <FormControl>
-                    <Input placeholder="CURP" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             {/* Documento del Cliente Field */}
             <FormField
               control={form.control}
@@ -194,7 +194,7 @@ export function ClientForm() {
                 <FormItem>
                   <FormLabel>Documento del Cliente</FormLabel>
                   <FormControl>
-                    <Input placeholder="Document" {...field} />
+                    <Input placeholder="Documento" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -216,6 +216,21 @@ export function ClientForm() {
               )}
             />
           </div>
+
+          {/* CURP Field */}
+          <FormField
+            control={form.control}
+            name="curp"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>CURP</FormLabel>
+                <FormControl>
+                  <Input placeholder="CURP" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Process Status Section */}
           <div className="mt-8 space-y-4">
