@@ -1,6 +1,6 @@
+import { Separator } from "@radix-ui/react-dropdown-menu"
 import * as React from "react"
 import { H1, PLead } from "@/components/ui/typography"
-import { Separator } from "@radix-ui/react-dropdown-menu"
 import { cn } from "@/lib/utils"
 
 const Card = React.forwardRef(({ className, ...props }, ref) => (

@@ -1,6 +1,6 @@
 import React from "react"
-import { Badge } from "@/components/ui/badge"
 import { LabelStyle } from "../../ui/typography"
+import { Badge } from "@/components/ui/badge"
 
 const IconBadge = ({ title, icon, variant, className = "" }) => {
   return (

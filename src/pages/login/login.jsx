@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react"
+import { Navigate } from "react-router-dom"
+import logo from "@/assets/logo.png"
+import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { H2, H4, Lead } from "@/components/ui/typography"
-import logo from "@/assets/logo.png"
-import { Navigate } from "react-router-dom"
 
 export const Login = () => {
   const [userName, setUserName] = useState("")

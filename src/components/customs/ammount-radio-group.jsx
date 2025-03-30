@@ -1,5 +1,5 @@
-import React from "react"
 import * as RadioGroup from "@radix-ui/react-radio-group"
+import React from "react"
 import { P } from "@/components/ui/typography"
 
 // Define the options

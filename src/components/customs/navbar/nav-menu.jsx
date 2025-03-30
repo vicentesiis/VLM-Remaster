@@ -1,3 +1,6 @@
+import React from "react"
+import { Link, useLocation } from "react-router-dom"
+import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -6,11 +9,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
-import { cn } from "@/lib/utils"
-import { Link, useLocation } from "react-router-dom"
-import React from "react"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 export const NavMenu = (props) => {
   const location = useLocation() // Get current location (route)

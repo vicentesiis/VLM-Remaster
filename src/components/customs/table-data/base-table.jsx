@@ -1,7 +1,7 @@
 import React from "react"
-import { Table } from "@/components/ui/table"
-import { TableHeaderComponent } from "@/components/customs/table-data/table-header"
 import TaskTableBody from "@/components/customs/table-data/table-body/task-table-body"
+import { TableHeaderComponent } from "@/components/customs/table-data/table-header"
+import { Table } from "@/components/ui/table"
 import useFilteredColumns from "@/hooks/useFilteredColumns" // Import the hook
 
 export function BaseTable({ data, tableType }) {

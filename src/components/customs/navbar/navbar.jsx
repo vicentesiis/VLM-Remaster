@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button"
+import { ArrowUpRight } from "lucide-react"
 import { NavMenu } from "./nav-menu"
 import { NavigationSheet } from "./navigation-sheet"
-import { ArrowUpRight } from "lucide-react"
 import logo from "@/assets/logo.png"
+import { Button } from "@/components/ui/button"
 import { Lead } from "@/components/ui/typography"
 
 const Navbar = () => {

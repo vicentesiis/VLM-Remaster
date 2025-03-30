@@ -1,6 +1,6 @@
 import React from "react"
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
 import PageLayout from "@/components/customs/page-layout"
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
 
 export const Clients = () => {
   return (

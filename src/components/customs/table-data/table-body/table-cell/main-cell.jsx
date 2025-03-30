@@ -1,6 +1,6 @@
 import React from "react"
-import { TableCell } from "@/components/ui/table"
 import { Link } from "react-router-dom"
+import { TableCell } from "@/components/ui/table"
 import { P } from "@/components/ui/typography"
 
 export const MainCell = ({ path, title, id }) => {

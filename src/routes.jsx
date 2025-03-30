@@ -1,5 +1,10 @@
 import React from "react"
-import { Tasks, Clients, Orders, Reports, Info, ClientDetail } from "@/pages"
+import { Tasks } from "@/pages/main/tasks/tasks"
+import { Clients } from "@/pages/main/clients/clients"
+import { ClientDetail } from "@/pages/main/clients/client-detail/client-detail"
+import { Orders } from "@/pages/main/orders/orders"
+import { Reports } from "@/pages/main/reports/reports"
+import { Info } from "@/pages/main/info/info"
 
 export const routes = [
   {

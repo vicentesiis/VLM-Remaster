@@ -1,9 +1,9 @@
 import React from "react"
-import { TableBody, TableCell, TableRow } from "@/components/ui/table"
-import MainCell from "@/components/customs/table-data/table-body/table-cell/main-cell"
-import DropdownCell from "./table-cell/dropdown-cell"
 import DefaultCell from "./table-cell/default-cell"
+import DropdownCell from "./table-cell/dropdown-cell"
 import StatusBadgeCell from "./table-cell/status-badge-cell"
+import MainCell from "@/components/customs/table-data/table-body/table-cell/main-cell"
+import { TableBody, TableCell, TableRow } from "@/components/ui/table"
 
 export function TaskTableBody({ data, filteredColumns }) {
   const renderCell = (column, task, columnIndex) => {

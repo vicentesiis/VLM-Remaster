@@ -1,10 +1,10 @@
 "use client"
 
-import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { H3 } from "@/components/ui/typography"
-import { Separator } from "@/components/ui/separator"
 import { X } from "lucide-react"
+import * as React from "react"
+import { Separator } from "@/components/ui/separator"
+import { H3 } from "@/components/ui/typography"
 
 import { cn } from "@/lib/utils"
 

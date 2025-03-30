@@ -1,13 +1,15 @@
+import { Copy } from "lucide-react"
+import { Hash, Headset, Briefcase } from "lucide-react"
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
-import { Button } from "@/components/ui/button"
+import IconBadge from "@/components/customs/badge/icon-badge"
+import StatusBadge from "@/components/customs/badge/status-badge"
+import DownloadDropdown from "@/components/customs/download-dropdown"
 import PageLayout from "@/components/customs/page-layout"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import ComboBox from "@/components/ui/combobox"
-import DownloadDropdown from "@/components/customs/download-dropdown"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Copy } from "lucide-react"
-import { ClientTabs } from "@/pages/main/clients/client-detail/client-tabs"
 import {
   H4,
   P,
@@ -17,9 +19,7 @@ import {
   Muted,
   Blockquote,
 } from "@/components/ui/typography"
-import IconBadge from "@/components/customs/badge/icon-badge"
-import { Hash, Headset, Briefcase } from "lucide-react"
-import StatusBadge from "@/components/customs/badge/status-badge"
+import { ClientTabs } from "@/pages/main/clients/client-detail/client-tabs"
 
 export const ClientDetail = () => {
   const { clientId } = useParams()

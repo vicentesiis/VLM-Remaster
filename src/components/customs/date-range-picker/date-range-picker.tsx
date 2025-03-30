@@ -1,16 +1,17 @@
-/* eslint-disable max-lines */
+ 
 "use client"
 
+import { CheckIcon } from "@radix-ui/react-icons"
 import React, { type FC, useState, useEffect, useRef } from "react"
+import { DateInput } from "@/components/customs/date-range-picker/date-input"
 import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { Label } from "@/components/ui/label"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Calendar } from "@/components/ui/calendar"
-import { DateInput } from "@/components/customs/date-range-picker/date-input"
-import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
@@ -19,7 +20,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
-import { CheckIcon } from "@radix-ui/react-icons"
 import { cn } from "@/lib/utils"
 
 export interface DateRangePickerProps {

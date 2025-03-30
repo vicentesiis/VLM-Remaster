@@ -1,12 +1,12 @@
+import { ChevronDown } from "lucide-react"
 import React from "react"
-import { H2, PLead } from "@/components/ui/typography"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { ChevronDown } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
+import { H2, PLead } from "@/components/ui/typography"
 
 export const CollapsibleFilter = ({
   title,

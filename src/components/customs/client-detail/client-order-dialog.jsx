@@ -1,4 +1,7 @@
+import { CreditCard, CircleDollarSign } from "lucide-react" // Import the icons from lucide-react
 import React, { useState } from "react"
+import AmmountRadioGroup from "@/components/customs/ammount-radio-group"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -9,12 +12,9 @@ import {
   DialogClose,
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-import { CreditCard, CircleDollarSign } from "lucide-react" // Import the icons from lucide-react
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group" // Import the custom RadioGroup components
 import { Separator } from "@/components/ui/separator"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import AmmountRadioGroup from "@/components/customs/ammount-radio-group"
 import {
   H1,
   H2,

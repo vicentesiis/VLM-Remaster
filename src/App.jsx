@@ -1,7 +1,7 @@
 import React from "react"
 import { Routes, Route, Navigate } from "react-router-dom"
-import Main from "@/pages/main/main-page"
 import { Login } from "@/pages"
+import Main from "@/pages/main/main-page"
 
 function App() {
   return (

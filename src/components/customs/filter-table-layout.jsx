@@ -1,12 +1,12 @@
-import React, { useState } from "react"
-import { H3, PLead } from "@/components/ui/typography"
 import { PanelLeftClose, PanelRightClose } from "lucide-react"
+import React, { useState } from "react"
 import { Button } from "../ui/button"
 import {
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@/components/ui/collapsible" // Adjust import as per your file structure
+import { H3, PLead } from "@/components/ui/typography"
 
 export function FilterTableLayout({
   FilterComponent,
