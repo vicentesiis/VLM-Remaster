@@ -21,19 +21,19 @@ export function ClientDetailTab({ sections }) {
           <Separator />
 
           {/* Section Content */}
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-6 px-0 sm:px-5">
             {groupIntoPairs(section.content).map((row, rowIndex) => (
               <div
                 key={rowIndex}
-                className="flex flex-col items-center sm:flex-row"
+                className="flex flex-col sm:flex-row sm:items-center"
               >
                 {row.map((detail, index) => (
                   <div
                     key={index}
-                    className="flex flex-row justify-between sm:w-1/2 sm:items-center sm:pr-16"
+                    className="flex flex-row justify-between sm:w-1/2 sm:items-center sm:pr-16 py-2 sm:py-0"
                   >
                     <PLead className="">{detail.label}:</PLead>
-                    <Lead className="text-right font-bold">
+                    <Lead className="text-right font-semibold sm:text-lg">
                       {detail.value || "—"}
                     </Lead>
                   </div>

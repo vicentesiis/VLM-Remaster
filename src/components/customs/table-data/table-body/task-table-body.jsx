@@ -12,9 +12,9 @@ export function TaskTableBody({ data, filteredColumns }) {
         return (
           <MainCell
             key={`${task["id"]}-${column}-${columnIndex}`} // Add columnIndex to ensure uniqueness
-            path={"/clientes/"}
+            path={"/clientes"}
             title={task["name"] || "N/A"} // Safely access task.name and provide fallback
-            id={task["id"]}
+            id={task["id"].toUpperCase()}
           />
         )
       case "actions":

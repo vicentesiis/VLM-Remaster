@@ -31,7 +31,7 @@ const AmmountRadioGroup = ({ className }) => {
   return (
     <RadioGroup.Root
       defaultValue={options[0].value}
-      className={`grid h-8 grid-cols-5 ${className}`}
+      className={`flex flex-col sm:grid h-8 sm:grid-cols-5 ${className}`}
     >
       {" "}
       {/* Apply className */}

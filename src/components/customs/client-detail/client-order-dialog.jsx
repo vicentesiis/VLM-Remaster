@@ -32,7 +32,7 @@ export const ClientOrderDialog = ({ open, handleOpen }) => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
-      <DialogContent className="w-full max-w-2xl p-10">
+      <DialogContent className="h-[60%] flex flex-col w-full max-w-2xl sm:h-auto sm:p-10">
         <DialogHeader className="relative flex justify-between">
           <DialogTitle className="text-xl font-semibold">
             Nueva Órden
@@ -40,7 +40,7 @@ export const ClientOrderDialog = ({ open, handleOpen }) => {
         </DialogHeader>
         <DialogDescription className="">
           <Lead className="mb-2 font-bold">Método de Pago</Lead>
-          <RadioGroup >
+          <RadioGroup>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="default" id="r1" />
               <CircleDollarSign />
@@ -62,7 +62,7 @@ export const ClientOrderDialog = ({ open, handleOpen }) => {
             <AmmountRadioGroup className="pt-4" />
           </div>
         </DialogDescription>
-        <DialogFooter className={"mt-10"}>
+        <DialogFooter className={"mt-44 sm:mt-10"}>
           <Button appearance="primary" size="lg">
             Crear Órden
           </Button>

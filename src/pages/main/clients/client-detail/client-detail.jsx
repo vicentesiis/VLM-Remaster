@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import PageLayout from "@/components/customs/page-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Tag from "@/components/ui/tag"
 import ComboBox from "@/components/ui/combobox"
 import DownloadDropdown from "@/components/customs/download-dropdown"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -18,6 +17,9 @@ import {
   Muted,
   Blockquote,
 } from "@/components/ui/typography"
+import IconBadge from "@/components/customs/badge/icon-badge"
+import { Hash, Headset, Briefcase } from "lucide-react"
+import StatusBadge from "@/components/customs/badge/status-badge"
 
 export const ClientDetail = () => {
   const { clientId } = useParams()
@@ -42,39 +44,16 @@ export const ClientDetail = () => {
     },
   ]
 
-  const tabs = [
-    {
-      name: "pnpm",
-      value: "pnpm",
-      content: "pnpm dlx shadcn@latest add tabs",
-    },
-    {
-      name: "npm",
-      value: "npm",
-      content: "npx shadcn@latest add tabs",
-    },
-    {
-      name: "yarn",
-      value: "yarn",
-      content: "npx shadcn@latest add tabs",
-    },
-    {
-      name: "bun",
-      value: "bun",
-      content: "bunx --bun shadcn@latest add tabs",
-    },
-  ]
-
   return (
     <PageLayout title={`Detalle del Cliente: ${clientId}`}>
       <Card className="mx-auto max-w-screen-xl px-4">
         <CardHeader className="mb-8">
-          <div className="flex justify-between">
-            <div className="flex flex-row items-center space-x-2">
-              <CardTitle>{clientId}</CardTitle>
-              <Tag label="Contrato Generado" variant="filled" />
+          <div className="flex flex-col justify-between sm:flex-row">
+            <div className="mb-2 flex items-center justify-center space-x-2">
+              <CardTitle>Lawrence Cannon</CardTitle>
+              <StatusBadge status="Corregir Contrato" />
             </div>
-            <div className="flex space-x-2">
+            <div className="mb-4 flex space-x-2 sm:mb-0 justify-end">
               <ComboBox
                 options={comboBoxStatus}
                 value={selectedStatus}
@@ -84,10 +63,14 @@ export const ClientDetail = () => {
               <DownloadDropdown label="Open Menu" items={menuItems} />
             </div>
           </div>
-          <div className="space-x-2">
-            <Tag label="Contrato Generado" variant="outline" />
-            <Tag label="Pendiente" variant="outline" />
-            <Tag label="Pagada" type="payment" variant="outline" />
+          <div className="flex space-x-2">
+            <IconBadge title={clientId} icon={<Hash />} variant={"primary"} />
+            <IconBadge
+              title="agentev"
+              icon={<Headset />}
+              variant={"secondary"}
+            />
+            <IconBadge title="B" icon={<Briefcase />} variant={"secondary"} />
           </div>
         </CardHeader>
       </Card>

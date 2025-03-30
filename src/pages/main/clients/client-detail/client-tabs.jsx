@@ -1,14 +1,13 @@
 import React from "react"
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
-import { Tag } from "@/components/ui/tag"
 import { ComboBox } from "@/components/ui/combobox"
 import { DownloadDropdown } from "@/components/customs/download-dropdown"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { User, Edit, List } from "lucide-react" // Import icons from lucide-react
-import ClientDetailTab from "@/components/customs/client-detail-tab"
+import ClientDetailTab from "@/components/customs/client-detail/tabs/client-detail-tab"
 import clientDetailData from "@/data/client-detail-data"
-import ClientForm from "@/components/customs/client-form"
-import ClientOrdersTab from "@/components/customs/client-orders-tab"
+import ClientForm from "@/components/customs/client-detail/client-form"
+import ClientOrdersTab from "@/components/customs/client-detail/tabs/client-orders-tab"
 import { H3 } from "@/components/ui/typography"
 
 export function ClientTabs() {

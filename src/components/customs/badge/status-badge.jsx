@@ -1,6 +1,6 @@
 import React from "react"
 import { Badge } from "@/components/ui/badge"
-import { ListStyle } from "../ui/typography"
+import { LabelStyle } from "@/components/ui/typography"
 
 // A function to categorize statuses and return the appropriate styles
 const getStatusStyles = (status) => {
@@ -63,10 +63,10 @@ const StatusBadge = ({ status }) => {
 
   return (
     <Badge
-      className={`rounded-full ${bgColor} ${textColor} ${borderColor} shadow-none hover:${bgColor} dark:${bgColor}`}
+      className={`inline-flex py-2 items-center rounded-2xl ${bgColor} ${textColor} ${borderColor} shadow-none hover:${bgColor} dark:${bgColor}`}
     >
       <div className={`mr-2 h-1.5 w-1.5 rounded-full ${dotColor}`} />
-      <ListStyle>{status}</ListStyle>
+      <LabelStyle className={"font-extrabold"} >{status}</LabelStyle>
     </Badge>
   )
 }
