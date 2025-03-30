@@ -1,7 +1,7 @@
 import { PanelLeftClose, PanelRightClose } from "lucide-react"
 import PropTypes from "prop-types"
 import React, { useState } from "react"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
 import { H3, PLead } from "@/components/ui/typography"
 

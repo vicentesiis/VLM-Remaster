@@ -13,32 +13,34 @@ import {
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { P, Lead } from "@/components/ui/typography"
+import { Separator } from "@/components/ui/separator"
+import { P, Lead, H3 } from "@/components/ui/typography"
 
 export const ClientOrderDialog = ({ open, handleOpen }) => {
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
       <DialogContent className="flex h-[60%] w-full max-w-2xl flex-col sm:h-auto sm:p-10">
-        <DialogHeader className="relative flex justify-between">
-          <DialogTitle className="text-xl font-semibold">
-            Nueva Órden
+        <DialogHeader>
+          <DialogTitle>
+            <H3>Nueva Órden</H3>
+            <Separator />
           </DialogTitle>
         </DialogHeader>
-        <DialogDescription className="">
+        <DialogDescription>
           <Lead className="mb-2 font-bold">Método de Pago</Lead>
           <RadioGroup>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="default" id="r1" />
               <CircleDollarSign />
-              <Label htmlFor="r1">
-                <P className={"font-bold"}>Efectivo</P>
+              <Label className="font-bold" htmlFor="r1">
+                Efectivo
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem id="r2" />
               <CreditCard />
-              <Label htmlFor="r2">
-                <P className={"font-bold"}>Transferencia</P>
+              <Label className="font-bold" htmlFor="r2">
+                Transferencia
               </Label>
             </div>
           </RadioGroup>

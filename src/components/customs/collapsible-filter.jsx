@@ -34,7 +34,7 @@ export const CollapsibleFilter = ({
 
 CollapsibleFilter.propTypes = {
   title: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
+  open: PropTypes.bool,
   icon: PropTypes.elementType,
   showChevrown: PropTypes.bool,
   children: PropTypes.node.isRequired,

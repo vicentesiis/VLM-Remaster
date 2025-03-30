@@ -3,8 +3,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 import * as React from "react"
-import { Separator } from "@/components/ui/separator"
-import { H3 } from "@/components/ui/typography"
 
 import { cn } from "@/lib/utils"
 
@@ -74,10 +72,14 @@ const DialogFooter = ({ className, ...props }) => (
 DialogFooter.displayName = "DialogFooter"
 
 const DialogTitle = React.forwardRef(({ className, ...props }, ref) => (
-  <div className="mb-2 space-y-2">
-    <H3 ref={ref} {...props} />
-    <Separator />
-  </div>
+  <DialogPrimitive.Title
+    ref={ref}
+    className={cn(
+      "scroll-m-20 text-2xl font-semibold tracking-tight", // H3 styles
+      className
+    )}
+    {...props}
+  />
 ))
 DialogTitle.displayName = DialogPrimitive.Title.displayName
 
