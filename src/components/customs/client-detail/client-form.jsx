@@ -115,6 +115,7 @@ export function ClientForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Fecha de Nacimiento</FormLabel>
+                  {/* TODO: - (1) In the PickerDate add a year picker */}
                   <FormControl>
                     <DatePickerField
                       value={field.value}
@@ -361,7 +362,9 @@ export function ClientForm() {
           </div>
 
           {/* Submit Button */}
-          <Button type="submit">Submit</Button>
+          <div className="flex justify-end">
+            <Button type="submit">Actualizar</Button>
+          </div>
         </form>
       </Form>
     </FormProvider>
