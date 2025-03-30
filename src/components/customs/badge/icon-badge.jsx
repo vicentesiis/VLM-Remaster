@@ -7,7 +7,7 @@ const IconBadge = ({ title, icon, variant, className = "" }) => {
   return (
     <Badge variant={variant} color="blue" className={`${className}`}>
       <div className="flex w-auto items-center space-x-2">
-        {icon && <div>{icon}</div>}
+        {icon && <div className="inline-flex h-5 w-5 items-center">{icon}</div>}
         <LabelStyle>{title}</LabelStyle>
       </div>
     </Badge>
