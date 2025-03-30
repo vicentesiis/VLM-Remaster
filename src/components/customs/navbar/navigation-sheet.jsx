@@ -1,7 +1,7 @@
 import { Menu, ChevronDown } from "lucide-react"
+import React from "react"
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import logo from "@/assets/logo.png"
 import { Button } from "@/components/ui/button"
 import {
   Collapsible,
@@ -14,7 +14,7 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { H2, H3, H4, P, PLead } from "@/components/ui/typography"
+import { H2, H4, P } from "@/components/ui/typography"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
 import { cn } from "@/lib/utils"
 

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import { MoreHorizontal } from "lucide-react"
 import React from "react"
 import { Button } from "@/components/ui/button"
@@ -10,7 +11,7 @@ import {
 
 const ActionDropdown = ({ items = [] }) => {
   return (
-    <DropdownMenu >
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="ml-2">
           <MoreHorizontal />
@@ -29,6 +30,16 @@ const ActionDropdown = ({ items = [] }) => {
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+
+ActionDropdown.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      onSelect: PropTypes.func.isRequired,
+      danger: PropTypes.bool,
+    })
+  ),
 }
 
 export default ActionDropdown

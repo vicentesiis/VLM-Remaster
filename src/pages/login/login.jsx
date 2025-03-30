@@ -4,7 +4,7 @@ import logo from "@/assets/logo.png"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { H2, H4, Lead } from "@/components/ui/typography"
+import { H2, Lead } from "@/components/ui/typography"
 
 export const Login = () => {
   const [userName, setUserName] = useState("")

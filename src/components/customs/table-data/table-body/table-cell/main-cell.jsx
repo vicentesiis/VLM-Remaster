@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { Link } from "react-router-dom"
 import { TableCell } from "@/components/ui/table"
@@ -14,6 +15,12 @@ export const MainCell = ({ path, title, id }) => {
       </Link>
     </TableCell>
   )
+}
+
+MainCell.propTypes = {
+  path: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 }
 
 export default MainCell

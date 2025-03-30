@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import {
@@ -5,15 +6,14 @@ import {
   generateColumnAlign,
 } from "@/utils/columnTitleGenerator"
 
-// Reusable TableHeader Component
 export const TableHeaderComponent = ({ columns }) => (
   <TableHeader>
     <TableRow>
       {columns.map((column) => {
-        const title = generateColumnTitle(column) // Extract title and align dynamically
+        const title = generateColumnTitle(column)
         const align = generateColumnAlign(column)
         return (
-          <TableHead key={column} align={align} >
+          <TableHead key={column} align={align}>
             {title}
           </TableHead>
         )
@@ -21,5 +21,9 @@ export const TableHeaderComponent = ({ columns }) => (
     </TableRow>
   </TableHeader>
 )
+
+TableHeaderComponent.propTypes = {
+  columns: PropTypes.array.isRequired,
+}
 
 export default TableHeaderComponent

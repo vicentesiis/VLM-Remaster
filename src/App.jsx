@@ -1,5 +1,5 @@
 import React from "react"
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import { Login } from "@/pages"
 import Main from "@/pages/main/main-page"
 

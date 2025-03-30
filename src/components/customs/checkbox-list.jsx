@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+import React from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { LabelStyle } from "@/components/ui/typography"
 
@@ -8,7 +10,7 @@ export function CheckboxList({ options }) {
         <div key={name} className="flex items-center gap-3">
           <Checkbox id={`${name}-vertical`} />
           <LabelStyle
-            htmlFor={`${name}-vertical`} // Ensures the label is clickable
+            htmlFor={`${name}-vertical`}
             className="flex items-center gap-2 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             {label}
@@ -17,6 +19,15 @@ export function CheckboxList({ options }) {
       ))}
     </div>
   )
+}
+
+CheckboxList.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 }
 
 export default CheckboxList

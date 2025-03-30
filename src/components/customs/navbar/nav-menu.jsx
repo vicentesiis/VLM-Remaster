@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button"
@@ -13,12 +14,11 @@ import { menuItems, dropdownMenus } from "@/data/navbar-config"
 import { cn } from "@/lib/utils"
 
 export const NavMenu = (props) => {
-  const location = useLocation() // Get current location (route)
+  const location = useLocation()
 
   return (
     <NavigationMenu {...props}>
       <NavigationMenuList>
-        {/* Plain Menu Items */}
         {menuItems.map((item) => (
           <NavigationMenuItem key={item.title}>
             <Button
@@ -33,8 +33,6 @@ export const NavMenu = (props) => {
             </Button>
           </NavigationMenuItem>
         ))}
-
-        {/* Dropdown Menus */}
         {dropdownMenus.map((menu) => (
           <NavigationMenuItem key={menu.title}>
             <NavigationMenuTrigger className="text-[15px] font-normal">
@@ -72,7 +70,7 @@ const ListItem = React.forwardRef(
             to={to}
             className={cn(
               "flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              isActive && "bg-accent text-accent-foreground", // Active state
+              isActive && "bg-accent text-accent-foreground",
               className
             )}
             {...props}
@@ -89,5 +87,18 @@ const ListItem = React.forwardRef(
   }
 )
 ListItem.displayName = "ListItem"
+
+NavMenu.propTypes = {
+  props: PropTypes.object,
+}
+
+ListItem.propTypes = {
+  className: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  icon: PropTypes.elementType,
+  isActive: PropTypes.bool,
+}
 
 export default NavMenu

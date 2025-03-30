@@ -1,4 +1,3 @@
-import { Copy } from "lucide-react"
 import { Hash, Headset, Briefcase } from "lucide-react"
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
@@ -6,19 +5,8 @@ import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import DownloadDropdown from "@/components/customs/download-dropdown"
 import PageLayout from "@/components/customs/page-layout"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import ComboBox from "@/components/ui/combobox"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  H4,
-  P,
-  Lead,
-  PLead,
-  Large,
-  Muted,
-  Blockquote,
-} from "@/components/ui/typography"
 import { ClientTabs } from "@/pages/main/clients/client-detail/client-tabs"
 
 export const ClientDetail = () => {
@@ -53,7 +41,7 @@ export const ClientDetail = () => {
               <CardTitle>Lawrence Cannon</CardTitle>
               <StatusBadge status="Corregir Contrato" />
             </div>
-            <div className="mb-4 flex space-x-2 sm:mb-0 justify-end">
+            <div className="mb-4 flex justify-end space-x-2 sm:mb-0">
               <ComboBox
                 options={comboBoxStatus}
                 value={selectedStatus}

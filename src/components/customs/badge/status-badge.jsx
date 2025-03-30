@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { Badge } from "@/components/ui/badge"
 import { LabelStyle } from "@/components/ui/typography"
@@ -61,6 +62,10 @@ const StatusBadge = ({ status }) => {
       <LabelStyle className={"font-extrabold"}>{status}</LabelStyle>
     </Badge>
   )
+}
+
+StatusBadge.propTypes = {
+  status: PropTypes.string.isRequired,
 }
 
 export default StatusBadge

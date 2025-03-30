@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react"
+import React from "react"
 import { NavMenu } from "./nav-menu"
 import { NavigationSheet } from "./navigation-sheet"
 import logo from "@/assets/logo.png"

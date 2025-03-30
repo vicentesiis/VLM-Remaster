@@ -1,5 +1,5 @@
 import { SearchIcon } from "lucide-react"
-import React, { useState } from "react"
+import React from "react"
 import CheckboxList from "@/components/customs/checkbox-list"
 import { CollapsibleFilter } from "@/components/customs/collapsible-filter"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
@@ -8,9 +8,9 @@ import InputIcon from "@/components/customs/input-icon"
 import PageLayout from "@/components/customs/page-layout"
 import BaseTable from "@/components/customs/table-data/base-table"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { H3Border, PLead, H3 } from "@/components/ui/typography"
+import { H3Border } from "@/components/ui/typography"
 import tasksTableData from "@/data/tasks-table-data"
 
 export const Tasks = () => {

@@ -1,7 +1,6 @@
-"use client"
-
 import { Command as CommandPrimitive } from "cmdk"
 import { X } from "lucide-react"
+import PropTypes from "prop-types"
 import * as React from "react"
 
 import { Badge } from "@/components/ui/badge"
@@ -39,7 +38,7 @@ const data = [
   },
 ]
 
-export function FancyMultiSelect({ className = "" }) {
+export function FancyMultiSelect({ className }) {
   const inputRef = React.useRef(null)
   const [open, setOpen] = React.useState(false)
   const [selected, setSelected] = React.useState([])
@@ -67,9 +66,7 @@ export function FancyMultiSelect({ className = "" }) {
     }
   }, [])
 
-  const selectables = data.filter(
-    (framework) => !selected.includes(framework)
-  )
+  const selectables = data.filter((framework) => !selected.includes(framework))
 
   return (
     <Command
@@ -107,7 +104,7 @@ export function FancyMultiSelect({ className = "" }) {
             onBlur={() => setOpen(false)}
             onFocus={() => setOpen(true)}
             placeholder="Selecciona Estatus..."
-            className="flex-1 outline-none placeholder "
+            className="placeholder flex-1 outline-none"
           />
         </div>
       </div>
@@ -142,3 +139,9 @@ export function FancyMultiSelect({ className = "" }) {
     </Command>
   )
 }
+
+FancyMultiSelect.propTypes = {
+  className: PropTypes.string,
+}
+
+export default FancyMultiSelect

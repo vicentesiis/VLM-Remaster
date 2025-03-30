@@ -1,9 +1,10 @@
+import PropTypes from "prop-types"
 import React from "react"
 import DefaultCell from "./table-cell/default-cell"
 import DropdownCell from "./table-cell/dropdown-cell"
 import StatusBadgeCell from "./table-cell/status-badge-cell"
 import MainCell from "@/components/customs/table-data/table-body/table-cell/main-cell"
-import { TableBody, TableCell, TableRow } from "@/components/ui/table"
+import { TableBody, TableRow } from "@/components/ui/table"
 
 export function TaskTableBody({ data, filteredColumns }) {
   const renderCell = (column, task, columnIndex) => {
@@ -11,16 +12,16 @@ export function TaskTableBody({ data, filteredColumns }) {
       case "id":
         return (
           <MainCell
-            key={`${task["id"]}-${column}-${columnIndex}`} // Add columnIndex to ensure uniqueness
+            key={`${task["id"]}-${column}-${columnIndex}`}
             path={"/clientes"}
-            title={task["name"] || "N/A"} // Safely access task.name and provide fallback
+            title={task["name"] || "N/A"}
             id={task["id"].toUpperCase()}
           />
         )
       case "actions":
         return (
           <DropdownCell
-            key={`${task["id"]}-${column}-${columnIndex}`} // Add columnIndex to ensure uniqueness
+            key={`${task["id"]}-${column}-${columnIndex}`}
             items={[
               { title: "View Details", onSelect: () => alert("View") },
               { title: "Edit", onSelect: () => alert("Edit") },
@@ -43,17 +44,16 @@ export function TaskTableBody({ data, filteredColumns }) {
       case "type":
         return (
           <DefaultCell
-            key={`${task["id"]}-${column}-${columnIndex}`} // Add columnIndex to ensure uniqueness
-            title={task[column] || "N/A"} // Fallback if value is undefined
+            key={`${task["id"]}-${column}-${columnIndex}`}
+            title={task[column] || "N/A"}
             align={"center"}
           />
         )
       default:
-        // Default rendering for other columns
         return (
           <DefaultCell
-            key={`${task["id"]}-${column}-${columnIndex}`} // Add columnIndex to ensure uniqueness
-            title={task[column] || "N/A"} // Fallback if value is undefined
+            key={`${task["id"]}-${column}-${columnIndex}`}
+            title={task[column] || "N/A"}
           />
         )
     }
@@ -70,6 +70,11 @@ export function TaskTableBody({ data, filteredColumns }) {
       ))}
     </TableBody>
   )
+}
+
+TaskTableBody.propTypes = {
+  data: PropTypes.array.isRequired,
+  filteredColumns: PropTypes.array.isRequired,
 }
 
 export default TaskTableBody

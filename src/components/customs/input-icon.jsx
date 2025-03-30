@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import React from "react"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
-export function InputIcon({ className, placeholder, icon: Icon, ...props }) {
+export function InputIcon({ placeholder, icon: Icon, ...props }) {
   return (
     <div className="relative">
       <div className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground">
@@ -13,9 +13,15 @@ export function InputIcon({ className, placeholder, icon: Icon, ...props }) {
         type="search"
         placeholder={placeholder}
         className="w-full rounded-lg bg-background pl-8"
+        {...props}
       />
     </div>
   )
+}
+
+InputIcon.propTypes = {
+  placeholder: PropTypes.string,
+  icon: PropTypes.elementType,
 }
 
 export default InputIcon

@@ -1,6 +1,7 @@
+import PropTypes from "prop-types"
 import React from "react"
-import { LabelStyle } from "../../ui/typography"
 import { Badge } from "@/components/ui/badge"
+import { LabelStyle } from "@/components/ui/typography"
 
 const IconBadge = ({ title, icon, variant, className = "" }) => {
   return (
@@ -11,6 +12,13 @@ const IconBadge = ({ title, icon, variant, className = "" }) => {
       </div>
     </Badge>
   )
+}
+
+IconBadge.propTypes = {
+  title: PropTypes.string.isRequired,
+  icon: PropTypes.node,
+  variant: PropTypes.string,
+  className: PropTypes.string,
 }
 
 export default IconBadge

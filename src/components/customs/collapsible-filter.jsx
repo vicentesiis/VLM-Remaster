@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import { ChevronDown } from "lucide-react"
 import React from "react"
 import {
@@ -5,8 +6,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { Separator } from "@/components/ui/separator"
-import { H2, PLead } from "@/components/ui/typography"
+import { PLead } from "@/components/ui/typography"
 
 export const CollapsibleFilter = ({
   title,
@@ -31,5 +31,13 @@ export const CollapsibleFilter = ({
     </Collapsible>
   </div>
 )
+
+CollapsibleFilter.propTypes = {
+  title: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  icon: PropTypes.elementType,
+  showChevrown: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+}
 
 export default CollapsibleFilter

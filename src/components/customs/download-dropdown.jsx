@@ -1,4 +1,6 @@
 import { EllipsisVertical } from "lucide-react"
+import PropTypes from "prop-types"
+import React from "react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -35,6 +37,21 @@ export const DownloadDropdown = ({ items }) => {
       </DropdownMenuContent>
     </DropdownMenu>
   )
+}
+
+DownloadDropdown.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      childs: PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string.isRequired,
+          onClick: PropTypes.func.isRequired,
+          disabled: PropTypes.bool,
+        })
+      ).isRequired,
+    })
+  ).isRequired,
 }
 
 export default DownloadDropdown

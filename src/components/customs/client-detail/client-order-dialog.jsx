@@ -1,5 +1,6 @@
-import { CreditCard, CircleDollarSign } from "lucide-react" // Import the icons from lucide-react
-import React, { useState } from "react"
+import { CreditCard, CircleDollarSign } from "lucide-react"
+import PropTypes from "prop-types"
+import React from "react"
 import AmmountRadioGroup from "@/components/customs/ammount-radio-group"
 import { Button } from "@/components/ui/button"
 import {
@@ -9,27 +10,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogClose,
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group" // Import the custom RadioGroup components
-import { Separator } from "@/components/ui/separator"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import {
-  H1,
-  H2,
-  H3,
-  H4,
-  P,
-  PLead,
-  Lead,
-  Large,
-  Muted,
-} from "@/components/ui/typography"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { P, Lead } from "@/components/ui/typography"
 
 export const ClientOrderDialog = ({ open, handleOpen }) => {
-  const [selectedValue, setSelectedValue] = useState(null)
-
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
       <DialogContent className="flex h-[60%] w-full max-w-2xl flex-col sm:h-auto sm:p-10">
@@ -70,6 +56,11 @@ export const ClientOrderDialog = ({ open, handleOpen }) => {
       </DialogContent>
     </Dialog>
   )
+}
+
+ClientOrderDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleOpen: PropTypes.func.isRequired,
 }
 
 export default ClientOrderDialog

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { Link, useLocation } from "react-router-dom"
 import {
@@ -60,6 +61,12 @@ const PageLayout = ({ title, buttons, children }) => {
       <div>{children}</div>
     </div>
   )
+}
+
+PageLayout.propTypes = {
+  title: PropTypes.string.isRequired,
+  buttons: PropTypes.node,
+  children: PropTypes.node.isRequired,
 }
 
 export default PageLayout

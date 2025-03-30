@@ -1,8 +1,8 @@
 import * as RadioGroup from "@radix-ui/react-radio-group"
+import PropTypes from "prop-types"
 import React from "react"
 import { P } from "@/components/ui/typography"
 
-// Define the options
 const options = [
   {
     value: "750",
@@ -26,26 +26,27 @@ const options = [
   },
 ]
 
-// Updated AmmountRadioGroup to accept className prop in JSX
 const AmmountRadioGroup = ({ className }) => {
   return (
     <RadioGroup.Root
       defaultValue={options[0].value}
-      className={`flex flex-col sm:grid h-8 sm:grid-cols-5 ${className}`}
+      className={`flex h-8 flex-col sm:grid sm:grid-cols-5 ${className}`}
     >
-      {" "}
-      {/* Apply className */}
       {options.map((option) => (
         <RadioGroup.Item
           key={option.value}
           value={option.value}
           className="rounded px-3 py-1 ring-[1px] ring-border data-[state=checked]:bg-black data-[state=checked]:font-bold data-[state=checked]:text-white"
         >
-          <P >{option.label}</P>
+          <P>{option.label}</P>
         </RadioGroup.Item>
       ))}
     </RadioGroup.Root>
   )
+}
+
+AmmountRadioGroup.propTypes = {
+  className: PropTypes.string,
 }
 
 export default AmmountRadioGroup

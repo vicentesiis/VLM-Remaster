@@ -3,11 +3,8 @@ import React from "react"
 import ClientForm from "@/components/customs/client-detail/client-form"
 import ClientDetailTab from "@/components/customs/client-detail/tabs/client-detail-tab"
 import ClientOrdersTab from "@/components/customs/client-detail/tabs/client-orders-tab"
-import { DownloadDropdown } from "@/components/customs/download-dropdown"
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card"
-import { ComboBox } from "@/components/ui/combobox"
+import { Card } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import { H3 } from "@/components/ui/typography"
 import clientDetailData from "@/data/client-detail-data"
 
 export function ClientTabs() {
