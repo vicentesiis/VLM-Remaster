@@ -33,6 +33,7 @@ const DatePickerField = ({
           mode="single"
           selected={value}
           onSelect={onChange}
+          captionLayout="dropdown-buttons"
           disabled={(date) =>
             date > new Date() || date < new Date("1900-01-01")
           }

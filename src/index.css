@@ -10,7 +10,9 @@ body {
   padding: 0;
 }
 
-
+.rdp-vhidden {
+  @apply hidden;
+}
 
 @layer base {
   :root {
@@ -67,8 +69,6 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {
