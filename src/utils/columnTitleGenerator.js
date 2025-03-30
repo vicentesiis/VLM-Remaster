@@ -22,4 +22,31 @@ export const generateColumnTitle = (key) => {
   return titles[key]
 }
 
-export default generateColumnTitle
+export const columnAlignments = {
+  // Left-aligned columns
+  id: "left",
+  name: "left",
+  country: "left",
+  comments: "left",
+  phone: "left",
+
+  // Center-aligned columns
+  type: "center",
+  status: "left",
+  actions: "left",
+
+  // Right-aligned columns
+  orderID: "left",
+  reference: "left",
+  creationDate: "left",
+  paymentStatus: "left",
+  quantity: "left",
+  pay: "left",
+  voucher: "left",
+}
+
+export const generateColumnAlign = (key) => {
+  return columnAlignments[key] || "left" // Default to "left" if not specified
+}
+
+export default { generateColumnTitle, generateColumnAlign }

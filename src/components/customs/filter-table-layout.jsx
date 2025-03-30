@@ -31,7 +31,7 @@ export function FilterTableLayout({
               <PanelLeftClose style={{ width: "24px", height: "24px" }} />
             )}
           </Button>
-          <div className="flex items-end gap-3">
+          <div className="gap-3 sm:flex sm:items-end">
             <H3>{tableTitle}</H3>
             <PLead>{helperTitle}</PLead>
           </div>
@@ -44,13 +44,11 @@ export function FilterTableLayout({
   return (
     <div className="container mx-auto py-4 sm:py-8 md:px-6">
       <div className="flex flex-col gap-8 md:gap-12">
-        {/* Filters Section */}
-        {/* className={`grid grid-cols-1 gap-6 md:grid-cols-[${isCollapsed ? "0px" : "240px"}_1fr]`} */}
         <div
           className={
             !isCollapsed
-              ? `md:grid-cols-[240px"_1fr] flex gap-3 `
-              : `grid md:grid-cols-[0px_1fr]`
+              ? `md:grid-cols-[240px"_1fr] sm:flex gap-3`
+              : `sm:grid md:grid-cols-[0px_1fr]`
           }
         >
           {/* Filter Sidebar */}
@@ -64,9 +62,9 @@ export function FilterTableLayout({
               </CollapsibleContent>
             </Collapsible>
           </div>
-
-          {/* Main Table Section */}
-          <TableContainer />
+          <div className="grow">
+            <TableContainer />
+          </div>
         </div>
       </div>
     </div>

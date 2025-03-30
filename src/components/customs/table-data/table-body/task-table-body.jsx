@@ -5,9 +5,7 @@ import DropdownCell from "./table-cell/dropdown-cell"
 import DefaultCell from "./table-cell/default-cell"
 import StatusBadgeCell from "./table-cell/status-badge-cell"
 
-export function TaskTableBody({ data }) {
-  const columns = Object.keys(data[0]) // Dynamically get the column names from data
-
+export function TaskTableBody({ data, filteredColumns }) {
   const renderCell = (column, task, columnIndex) => {
     switch (column) {
       case "id":
@@ -65,7 +63,7 @@ export function TaskTableBody({ data }) {
     <TableBody>
       {data.map((task) => (
         <TableRow key={task.id}>
-          {columns.map((column, columnIndex) =>
+          {filteredColumns.map((column, columnIndex) =>
             renderCell(column, task, columnIndex)
           )}
         </TableRow>

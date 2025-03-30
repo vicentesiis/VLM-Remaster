@@ -2,28 +2,22 @@ import React from "react"
 import { Table } from "@/components/ui/table"
 import { TableHeaderComponent } from "@/components/customs/table-data/table-header"
 import TaskTableBody from "@/components/customs/table-data/table-body/task-table-body"
+import useFilteredColumns from "@/hooks/useFilteredColumns" // Import the hook
 
-export function BaseTable({ data, excludedColumns = [] }) {
+export function BaseTable({ data, tableType }) {
   if (!data || data.length === 0) {
     return <div>No data available</div> // Handle empty or null data
   }
 
-  // Dynamically extract columns from the first item in the data array
-  const allColumns = Object.keys(data[0])
+  const allColumns = Object.keys(data[0]) // Get the keys from the first item in data
 
-  function filterColumns() {
-    return allColumns.filter((column) => !excludedColumns.includes(column))
-  }
-
-  // TODO: - exclude elements by array
-  const columns = Object.keys(filterColumns(allColumns))
+  // Get filtered columns based on table type and screen size
+  const filteredColumns = useFilteredColumns(tableType, allColumns)
 
   return (
     <Table>
-      <TableHeaderComponent columns={allColumns} />{" "}
-      {/* Pass columns dynamically */}
-      <TaskTableBody data={data} />{" "}
-      {/* Pass data to the body component */}
+      <TableHeaderComponent columns={filteredColumns} />
+      <TaskTableBody data={data} filteredColumns={filteredColumns} />
     </Table>
   )
 }

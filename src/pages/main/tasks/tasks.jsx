@@ -102,7 +102,7 @@ export const Tasks = () => {
   }
 
   function TaskTable() {
-    return <BaseTable data={tasksTableData} excludedColumns={["name"]} />
+    return <BaseTable data={tasksTableData} tableType={"tasks"} />
   }
 
   return (

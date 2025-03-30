@@ -1,6 +1,9 @@
 import React from "react"
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import generateColumnTitle from "@/utils/columnTitleGenerator"
+import {
+  generateColumnTitle,
+  generateColumnAlign,
+} from "@/utils/columnTitleGenerator"
 
 // Reusable TableHeader Component
 export const TableHeaderComponent = ({ columns }) => (
@@ -8,8 +11,9 @@ export const TableHeaderComponent = ({ columns }) => (
     <TableRow>
       {columns.map((column) => {
         const title = generateColumnTitle(column) // Extract title and align dynamically
+        const align = generateColumnAlign(column)
         return (
-          <TableHead key={column} >
+          <TableHead key={column} align={align} >
             {title}
           </TableHead>
         )
