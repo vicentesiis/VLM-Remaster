@@ -1,10 +1,10 @@
 import React from "react"
-import { Tasks } from "@/pages/main/tasks/tasks"
-import { Clients } from "@/pages/main/clients/clients"
 import { ClientDetail } from "@/pages/main/clients/client-detail/client-detail"
+import { Clients } from "@/pages/main/clients/clients"
+import { Info } from "@/pages/main/info/info"
 import { Orders } from "@/pages/main/orders/orders"
 import { Reports } from "@/pages/main/reports/reports"
-import { Info } from "@/pages/main/info/info"
+import { Tasks } from "@/pages/main/tasks/tasks"
 
 export const routes = [
   {
