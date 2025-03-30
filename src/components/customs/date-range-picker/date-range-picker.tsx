@@ -9,7 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Calendar } from "@/components/ui/calendar"
-import { DateInput } from "@/components/customs/date-picker/date-input"
+import { DateInput } from "@/components/customs/date-range-picker/date-input"
 import { Label } from "@/components/ui/label"
 import {
   Select,

@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import DatePickerField from "@/components/customs/date-picker/date-picker-field"
+import DatePickerField from "../date-range-picker/date-picker-field"
 
 // Define the schema with zod validation
 const formSchema = z.object({
