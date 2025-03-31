@@ -106,7 +106,8 @@ export const GenericBarChart = ({ data }) => {
                 position="right"
                 offset={8}
                 className="fill-[--color-label]"
-                fontSize={12}
+                fontWeight={"bold"}
+                fontSize={18}
               />
             )}
           </Bar>

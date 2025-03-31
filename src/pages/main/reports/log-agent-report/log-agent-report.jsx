@@ -337,7 +337,7 @@ export const LogAgentReport = () => {
       <Card>
         <CardContent>
           <SplitPane
-            title={"Reporte de Registros de Agente"}
+            title={"Reporte de Registros por Agente"}
             subTitle={"Febrero - Marzo 2024"}
             LeftSideComponent={LogAgentReportFilter}
             RightSideComponent={LogAgentReportChart}
