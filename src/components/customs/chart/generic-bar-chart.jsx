@@ -1,64 +1,133 @@
-import { TrendingUp } from "lucide-react"
 import React from "react"
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts"
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Label,
+  XAxis,
+  YAxis,
+  LabelList,
+  Tooltip as ChartTooltip,
+} from "recharts"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
+  CardDescription,
+  CardFooter,
 } from "@/components/ui/card"
 import {
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
 
-export const GenericBarChart = ({ data, title, description, footerText }) => {
-  const chartConfig = {
-    desktop: {
-      label: "AgenteV",
-      color: "hsl(var(--chart-1))",
-    },
-    mobile: {
-      label: "Agentepr",
-      color: "hsl(var(--chart-2))",
-    },
-  }
+const ChartTooltipContent = ({ labelKey, payload }) => {
+  const day = payload?.[0]?.payload?.day // Extract the day from the payload
 
   return (
-    <Card >
+    <div className="rounded bg-white p-2 shadow-lg">
+      {day && (
+        <div className="mb-2 font-bold text-gray-800">
+          <span>Día: </span>
+          <span className="text-blue-500">{day}</span>
+        </div>
+      )}
+      {payload?.map((entry) => (
+        <div
+          key={entry.dataKey}
+          className="mb-1 flex items-center text-sm text-gray-700"
+        >
+          <div
+            className="mr-2 h-3 w-3 rounded"
+            style={{ backgroundColor: entry.color }} // Set square color to the entry's color
+          ></div>
+          <strong>{entry.dataKey}: </strong>
+          <span>{entry.value}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const GenericBarChart = ({ data, title, description, footerText }) => {
+  const dataWithTotal = data.map((item) => ({
+    ...item,
+    total: Object.entries(item)
+      .filter(([key]) => key !== "day")
+      .reduce((sum, [, value]) => sum + value, 0),
+  }))
+
+  const generateChartConfig = (data) => {
+    const firstItem = data[0] || {}
+    return Object.keys(firstItem)
+      .filter((key) => key !== "day")
+      .reduce((acc, key, index) => {
+        acc[key] = {
+          label: key,
+          color: `hsl(var(--chart-${index + 1}))`,
+        }
+        return acc
+      }, {})
+  }
+
+  const chartConfig = generateChartConfig(data)
+  const dataKeys = Object.keys(chartConfig)
+  const lastKey = dataKeys[dataKeys.length - 1]
+
+  return (
+    <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer className="h-[calc(100vh_-_470px)] overflow-auto w-full" config={chartConfig}>
-          <BarChart accessibilityLayer data={data}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
+        <ChartContainer config={chartConfig}>
+          <BarChart layout="vertical" data={dataWithTotal} barSize={18}>
+            <CartesianGrid vertical={true} />
+            <YAxis
+              dataKey="day"
+              type="category"
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-            <ChartLegend content={<ChartLegendContent />} />
+            >
+              <Label
+                value="Día"
+                angle={270}
+                position="insideLeft"
+                style={{ textAnchor: "middle", fontSize: "20px" }}
+              />
+            </YAxis>
+            <XAxis type="number">
+              <Label
+                value="Cantidad"
+                position="bottom"
+                style={{ fontSize: "20px" }}
+              />
+            </XAxis>
 
-            <Bar
-              dataKey="agenteV"
-              stackId="a"
-              fill="var(--color-desktop)"
-            />
-            <Bar
-              dataKey="adminV"
-              stackId="a"
-              fill="var(--color-mobile)"
-            />
+            <ChartTooltip content={<ChartTooltipContent labelKey="day" />} />
+
+            {dataKeys.map((key) => (
+              <Bar
+                key={key}
+                dataKey={key}
+                stackId="a"
+                fill={chartConfig[key].color}
+              >
+                {key === lastKey && (
+                  <LabelList
+                    dataKey="total"
+                    position="right"
+                    offset={8}
+                    className="fill-[--color-label]"
+                    fontSize={12}
+                  />
+                )}
+              </Bar>
+            ))}
+            <ChartLegend layout="vertical" content={<ChartLegendContent />} />
           </BarChart>
         </ChartContainer>
       </CardContent>

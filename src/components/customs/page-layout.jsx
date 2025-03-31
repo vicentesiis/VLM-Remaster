@@ -16,7 +16,7 @@ const PageLayout = ({ title, buttons, children }) => {
   const paths = location.pathname.split("/").filter(Boolean)
 
   return (
-    <div className="mx-auto max-w-screen-xl">
+    <div className="mx-auto max-w-screen-xl p-4 sm:p-0">
       {/* --- Header + Buttons --- */}
       <div className="flex items-center">
         <H4 className="-mt-2 text-2xl font-bold">{title}</H4>
