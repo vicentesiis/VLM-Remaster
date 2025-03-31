@@ -35,18 +35,21 @@ const PageLayout = ({ title, buttons, children }) => {
           {paths.map((path, index) => {
             const to = "/" + paths.slice(0, index + 1).join("/")
             const isLast = index === paths.length - 1
+            // Replace hyphens with spaces
+            const formattedPath = decodeURIComponent(path).replace(/-/g, " ")
+
             return (
               <React.Fragment key={to}>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   {isLast ? (
                     <BreadcrumbPage className="capitalize">
-                      {decodeURIComponent(path)}
+                      {formattedPath}
                     </BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink asChild>
                       <Link to={to} className="capitalize">
-                        {decodeURIComponent(path)}
+                        {formattedPath}
                       </Link>
                     </BreadcrumbLink>
                   )}

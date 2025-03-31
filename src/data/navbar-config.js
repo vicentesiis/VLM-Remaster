@@ -23,7 +23,7 @@ export const dropdownMenus = [
     items: [
       {
         title: "Ventas por agente",
-        to: "/reportes/ventas-por-agente",
+        to: "/reportes/reporte-de-ventas",
         description: "Consulta las ventas individuales de cada agente.",
         icon: BarChart,
       },

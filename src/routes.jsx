@@ -4,6 +4,7 @@ import { Clients } from "@/pages/main/clients/clients"
 import { Info } from "@/pages/main/info/info"
 import { Orders } from "@/pages/main/orders/orders"
 import { Reports } from "@/pages/main/reports/reports"
+import { SalesReport } from "@/pages/main/reports/sales-report/sales-report"
 import { Tasks } from "@/pages/main/tasks/tasks"
 
 export const routes = [
@@ -28,6 +29,12 @@ export const routes = [
   {
     path: "/reportes",
     element: <Reports />,
+    children: [
+      {
+        path: "reporte-de-ventas",
+        element: <SalesReport />,
+      },
+    ],
   },
   {
     path: "/info",

@@ -66,3 +66,5 @@ export const ClientDetail = () => {
     </PageLayout>
   )
 }
+
+export default ClientDetail
