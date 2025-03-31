@@ -30,13 +30,13 @@ export const GenericBarChart = ({ data, title, description, footerText }) => {
   }
 
   return (
-    <Card>
+    <Card >
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer className="h-[calc(100vh_-_470px)] overflow-auto w-full" config={chartConfig}>
           <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -53,21 +53,16 @@ export const GenericBarChart = ({ data, title, description, footerText }) => {
               dataKey="agenteV"
               stackId="a"
               fill="var(--color-desktop)"
-              radius={[0, 0, 4, 4]}
             />
             <Bar
               dataKey="adminV"
               stackId="a"
               fill="var(--color-mobile)"
-              radius={[4, 4, 0, 0]}
             />
           </BarChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
         <div className="leading-none text-muted-foreground">{footerText}</div>
       </CardFooter>
     </Card>

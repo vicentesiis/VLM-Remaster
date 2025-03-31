@@ -13,22 +13,26 @@ export function FilterTableLayout({
 }) {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
-  function TableContainer() {
+  function MainComponentContainer() {
     return (
       <div>
-        <div className="mb-4 flex items-end">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsCollapsed((prev) => !prev)}
-            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {isCollapsed ? (
-              <PanelRightClose style={{ width: "24px", height: "24px" }} />
-            ) : (
-              <PanelLeftClose style={{ width: "24px", height: "24px" }} />
-            )}
-          </Button>
+        <div className="flex">
+          {FilterComponent ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsCollapsed((prev) => !prev)}
+              aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {isCollapsed ? (
+                <PanelRightClose style={{ width: "24px", height: "24px" }} />
+              ) : (
+                <PanelLeftClose style={{ width: "24px", height: "24px" }} />
+              )}
+            </Button>
+          ) : (
+            <p>No filter component provided</p> // This is the fallback when FilterComponent is null
+          )}
           <div className="gap-3 sm:flex sm:items-end">
             <H3>{tableTitle}</H3>
             <PLead>{helperTitle}</PLead>
@@ -40,29 +44,17 @@ export function FilterTableLayout({
   }
 
   return (
-    <div className="container mx-auto py-4 sm:py-8 md:px-6">
-      <div className="flex flex-col gap-8 md:gap-12">
-        <div
-          className={
-            !isCollapsed
-              ? `md:grid-cols-[240px"_1fr] gap-3 sm:flex`
-              : `sm:grid md:grid-cols-[0px_1fr]`
-          }
-        >
-          <div className="flex flex-col gap-6">
-            <Collapsible
-              open={!isCollapsed}
-              onOpenChange={(open) => setIsCollapsed(!open)}
-            >
-              <CollapsibleContent>
-                <FilterComponent />
-              </CollapsibleContent>
-            </Collapsible>
-          </div>
-          <div className="grow">
-            <TableContainer />
-          </div>
-        </div>
+    <div className="py-4 sm:flex sm:py-8 md:px-6">
+      <Collapsible
+        open={!isCollapsed}
+        onOpenChange={(open) => setIsCollapsed(!open)}
+      >
+        <CollapsibleContent>
+          <FilterComponent />
+        </CollapsibleContent>
+      </Collapsible>
+      <div className="grow">
+        <MainComponentContainer />
       </div>
     </div>
   )

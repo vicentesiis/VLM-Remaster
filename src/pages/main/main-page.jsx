@@ -5,11 +5,12 @@ import routes from "@/routes"
 
 export const Main = () => {
   return (
-    <div>
+    <div className="flex h-screen flex-col overflow-hidden"> {/* Prevent scrolling on body */}
       <div className="sticky top-0 z-50 border-b bg-background">
         <Navbar />
       </div>
-      <div className="p-4">
+      <div className="flex-grow overflow-auto py-4">
+        {/* Routes and content */}
         <Routes>
           <Route path="/" element={<Outlet />}>
             {routes.map(({ path, element, children }) => (

@@ -151,7 +151,7 @@ export const SalesReport = () => {
   return (
     <PageLayout title="Reporte de Ventas">
       <Card>
-        <CardContent className="sm:-mt-2 sm:px-2">
+        <CardContent >
           <FilterTableLayout
             FilterComponent={SalesReportFilter}
             TableComponent={SalesReportChart}

@@ -31,11 +31,9 @@ const PageLayout = ({ title, buttons, children }) => {
               <Link to="/">Home</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
-
           {paths.map((path, index) => {
             const to = "/" + paths.slice(0, index + 1).join("/")
             const isLast = index === paths.length - 1
-            // Replace hyphens with spaces
             const formattedPath = decodeURIComponent(path).replace(/-/g, " ")
 
             return (
@@ -61,7 +59,7 @@ const PageLayout = ({ title, buttons, children }) => {
       </Breadcrumb>
 
       {/* --- Content --- */}
-      <div>{children}</div>
+      {children}
     </div>
   )
 }

@@ -79,7 +79,7 @@ export const Tasks = () => {
 
   function TaskFilter() {
     return (
-      <div className="flex flex-col mr-4">
+      <div className="mr-4 flex flex-col">
         <H3Border>Filtros</H3Border>
         <CollapsibleFilter title="Búsqueda" open={true} showChevrown={false}>
           <InputIcon placeholder={"Buscar"} icon={SearchIcon} />
@@ -108,10 +108,12 @@ export const Tasks = () => {
   return (
     <PageLayout title="Tareas">
       <Card>
-        <CardContent className="sm:-mt-2 sm:px-2">
+        <CardContent>
           <FilterTableLayout
             FilterComponent={TaskFilter}
-            TableComponent={TaskTable}
+            TableComponent={() => (
+              <BaseTable data={tasksTableData} tableType={"tasks"} />
+            )}
             tableTitle={"Lista de Tareas"}
             helperTitle={"23 de 23 Tareas"}
           />

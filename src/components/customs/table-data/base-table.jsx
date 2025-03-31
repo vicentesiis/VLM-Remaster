@@ -15,10 +15,12 @@ export function BaseTable({ data, tableType }) {
   const filteredColumns = useFilteredColumns(tableType, allColumns)
 
   return (
-    <Table>
-      <TableHeaderComponent columns={filteredColumns} />
-      <TaskTableBody data={data} filteredColumns={filteredColumns} />
-    </Table>
+    <div className="max-h-[calc(100vh_-_300px)] overflow-auto">
+      <Table>
+        <TableHeaderComponent columns={filteredColumns} />
+        <TaskTableBody data={data} filteredColumns={filteredColumns} />
+      </Table>
+    </div>
   )
 }
 
