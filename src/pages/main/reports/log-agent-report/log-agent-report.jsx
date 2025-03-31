@@ -1,14 +1,11 @@
-import { SearchIcon } from "lucide-react"
 import React from "react"
 import { GenericBarChart } from "@/components/customs/chart/generic-bar-chart"
-import { CollapsibleFilter } from "@/components/customs/collapsible-filter"
+import { CollapsibleComponentGroup } from "@/components/customs/collapsible/collapsible-component-group"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
-import { FilterTableLayout } from "@/components/customs/filter-table-layout"
-import InputIcon from "@/components/customs/input-icon"
 import PageLayout from "@/components/customs/page-layout"
+import SplitPane from "@/components/customs/split-pane"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { H3Border } from "@/components/ui/typography"
 
 export const LogAgentReport = () => {
   const chartData = [
@@ -316,14 +313,14 @@ export const LogAgentReport = () => {
 
   function LogAgentReportFilter() {
     return (
-      <div className="mr-4 flex flex-col">
-        <H3Border>Filtros</H3Border>
-        <CollapsibleFilter
-          className="flex flex-col gap-4"
-          title="Rango de Fechas"
-        >
-          <DateRangePicker locale="es-MX" showCompare={false} />
-        </CollapsibleFilter>
+      <div>
+        <CollapsibleComponentGroup title={"Filtro"}>
+          <DateRangePicker
+            title="Rango de Fechas"
+            locale="es-MX"
+            showCompare={false}
+          />
+        </CollapsibleComponentGroup>
         <div className="flex justify-end sm:mt-8">
           <Button>Aplicar</Button>
         </div>
@@ -339,11 +336,11 @@ export const LogAgentReport = () => {
     <PageLayout title="Reporte de Ventas">
       <Card>
         <CardContent>
-          <FilterTableLayout
-            FilterComponent={LogAgentReportFilter}
-            TableComponent={LogAgentReportChart}
-            tableTitle="Reporte de Registros de Agente"
-            helperTitle="Febrero - Marzo 2024"
+          <SplitPane
+            title={"Reporte de Registros de Agente"}
+            subTitle={"Febrero - Marzo 2024"}
+            LeftSideComponent={LogAgentReportFilter}
+            RightSideComponent={LogAgentReportChart}
           />
         </CardContent>
       </Card>

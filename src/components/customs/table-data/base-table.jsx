@@ -15,7 +15,7 @@ export function BaseTable({ data, tableType }) {
   const filteredColumns = useFilteredColumns(tableType, allColumns)
 
   return (
-    <div className="max-h-[calc(100vh_-_300px)] overflow-auto">
+    <div className="grow overflow-auto">
       <Table>
         <TableHeaderComponent columns={filteredColumns} />
         <TaskTableBody data={data} filteredColumns={filteredColumns} />

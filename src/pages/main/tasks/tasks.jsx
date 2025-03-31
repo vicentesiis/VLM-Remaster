@@ -1,16 +1,14 @@
 import { SearchIcon } from "lucide-react"
 import React from "react"
 import CheckboxList from "@/components/customs/checkbox-list"
-import { CollapsibleFilter } from "@/components/customs/collapsible-filter"
+import CollapsibleComponentGroup from "@/components/customs/collapsible/collapsible-component-group"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
-import { FilterTableLayout } from "@/components/customs/filter-table-layout"
 import InputIcon from "@/components/customs/input-icon"
 import PageLayout from "@/components/customs/page-layout"
+import SplitPane from "@/components/customs/split-pane"
 import BaseTable from "@/components/customs/table-data/base-table"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { H3Border } from "@/components/ui/typography"
 import tasksTableData from "@/data/tasks-table-data"
 
 export const Tasks = () => {
@@ -79,21 +77,21 @@ export const Tasks = () => {
 
   function TaskFilter() {
     return (
-      <div className="">
-        <H3Border>Filtros</H3Border>
-        <CollapsibleFilter title="Búsqueda" open={true} showChevrown={false}>
-          <InputIcon placeholder={"Buscar"} icon={SearchIcon} />
-        </CollapsibleFilter>
-        <CollapsibleFilter
-          className="flex flex-col gap-4"
-          title="Rango de Fechas"
-        >
-          <DateRangePicker locale="es-MX" showCompare={false} />
-        </CollapsibleFilter>
-        <Separator className="sm:h-0" />
-        <CollapsibleFilter title="Estatus de la Tarea">
-          <CheckboxList options={options} />
-        </CollapsibleFilter>
+      <div >
+        <CollapsibleComponentGroup title={"Filtro"}>
+          <InputIcon
+            title="Buscar"
+            alwaysOpen={true}
+            placeholder={"Buscar"}
+            icon={SearchIcon}
+          />
+          <DateRangePicker
+            title="Rango de Fechas"
+            locale="es-MX"
+            showCompare={false}
+          />
+          <CheckboxList title="Estatus" options={options} />
+        </CollapsibleComponentGroup>
         <div className="flex justify-end sm:mt-8">
           <Button>Aplicar</Button>
         </div>
@@ -109,13 +107,11 @@ export const Tasks = () => {
     <PageLayout title="Tareas">
       <Card>
         <CardContent>
-          <FilterTableLayout
-            FilterComponent={TaskFilter}
-            TableComponent={() => (
-              <BaseTable data={tasksTableData} tableType={"tasks"} />
-            )}
-            tableTitle={"Lista de Tareas"}
-            helperTitle={"23 de 23 Tareas"}
+          <SplitPane
+            title={"Lista de Tareas"}
+            subTitle={"12 de 23 Tareas"}
+            LeftSideComponent={TaskFilter}
+            RightSideComponent={TaskTable}
           />
         </CardContent>
       </Card>

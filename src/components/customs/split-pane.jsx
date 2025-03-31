@@ -3,21 +3,22 @@ import PropTypes from "prop-types"
 import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
+import { Separator } from "@/components/ui/separator"
 import { H3, PLead } from "@/components/ui/typography"
 
-export function FilterTableLayout({
-  FilterComponent,
-  TableComponent,
-  tableTitle,
-  helperTitle,
+export function SplitPane({
+  title,
+  subTitle,
+  LeftSideComponent,
+  RightSideComponent,
 }) {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
-  function MainComponentContainer() {
+  function RightSideComponentContainer() {
     return (
       <div>
         <div className="flex">
-          {FilterComponent ? (
+          <div className="flex sm:mb-4">
             <Button
               variant="ghost"
               size="sm"
@@ -30,42 +31,40 @@ export function FilterTableLayout({
                 <PanelLeftClose style={{ width: "24px", height: "24px" }} />
               )}
             </Button>
-          ) : (
-            // TODO: Can be removed
-            <p>Nada que mostrar :(</p>
-          )}
-          <div className="gap-3 sm:flex sm:items-end">
-            <H3>{tableTitle}</H3>
-            <PLead>{helperTitle}</PLead>
+            <div className="gap-3 sm:flex sm:items-end">
+              <H3>{title}</H3>
+              <PLead>{subTitle}</PLead>
+            </div>
           </div>
         </div>
-        <TableComponent />
+        <RightSideComponent />
       </div>
     )
   }
 
   return (
-    <div className="py-4 sm:flex sm:py-8 md:px-6">
+    <div className="py-4 sm:flex sm:gap-3">
       <Collapsible
         open={!isCollapsed}
         onOpenChange={(open) => setIsCollapsed(!open)}
       >
-        <CollapsibleContent>
-          <FilterComponent />
+        <CollapsibleContent className="sm:w-[250px]">
+          <LeftSideComponent />
+          <Separator className="my-4 sm:m-0 sm:h-0" />
         </CollapsibleContent>
       </Collapsible>
       <div className="grow">
-        <MainComponentContainer />
+        <RightSideComponentContainer />
       </div>
     </div>
   )
 }
 
-FilterTableLayout.propTypes = {
-  FilterComponent: PropTypes.elementType.isRequired,
-  TableComponent: PropTypes.elementType.isRequired,
-  tableTitle: PropTypes.string.isRequired,
-  helperTitle: PropTypes.string.isRequired,
+SplitPane.propTypes = {
+  LeftSideComponent: PropTypes.elementType.isRequired,
+  RightSideComponent: PropTypes.elementType.isRequired,
+  title: PropTypes.string.isRequired,
+  subTitle: PropTypes.string.isRequired,
 }
 
-export default FilterTableLayout
+export default SplitPane
