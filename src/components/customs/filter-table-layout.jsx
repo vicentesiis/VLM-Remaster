@@ -31,7 +31,8 @@ export function FilterTableLayout({
               )}
             </Button>
           ) : (
-            <p>No filter component provided</p> // This is the fallback when FilterComponent is null
+            // TODO: Can be removed
+            <p>Nada que mostrar :(</p>
           )}
           <div className="gap-3 sm:flex sm:items-end">
             <H3>{tableTitle}</H3>

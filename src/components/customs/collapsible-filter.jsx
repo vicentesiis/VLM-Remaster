@@ -15,21 +15,19 @@ export const CollapsibleFilter = ({
   showChevrown,
   children,
 }) => (
-  <div>
-    <Collapsible open={open}>
-      <CollapsibleTrigger className="group flex w-full items-center justify-between py-3">
-        <PLead className="flex items-center gap-1">
-          {!!Icon && <Icon className="h-5 w-5" />} {title}
-        </PLead>
-        {showChevrown ?? (
-          <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
-        )}
-      </CollapsibleTrigger>
-      <CollapsibleContent className="flex flex-col">
-        {children}
-      </CollapsibleContent>
-    </Collapsible>
-  </div>
+  <Collapsible open={open}>
+    <CollapsibleTrigger className="group flex w-full items-center justify-between py-3">
+      <PLead className="flex items-center gap-1">
+        {!!Icon && <Icon className="h-5 w-5" />} {title}
+      </PLead>
+      {showChevrown ?? (
+        <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
+      )}
+    </CollapsibleTrigger>
+    <CollapsibleContent className="flex flex-col">
+      {children}
+    </CollapsibleContent>
+  </Collapsible>
 )
 
 CollapsibleFilter.propTypes = {

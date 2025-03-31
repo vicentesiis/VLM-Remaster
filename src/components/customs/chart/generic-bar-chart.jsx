@@ -10,20 +10,12 @@ import {
   Tooltip as ChartTooltip,
 } from "recharts"
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardFooter,
-} from "@/components/ui/card"
-import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
 
-const ChartTooltipContent = ({ labelKey, payload }) => {
+const ChartTooltipContent = ({ payload }) => {
   const day = payload?.[0]?.payload?.day // Extract the day from the payload
 
   return (
@@ -51,7 +43,7 @@ const ChartTooltipContent = ({ labelKey, payload }) => {
   )
 }
 
-export const GenericBarChart = ({ data, title, description, footerText }) => {
+export const GenericBarChart = ({ data }) => {
   const dataWithTotal = data.map((item) => ({
     ...item,
     total: Object.entries(item)
@@ -77,64 +69,51 @@ export const GenericBarChart = ({ data, title, description, footerText }) => {
   const lastKey = dataKeys[dataKeys.length - 1]
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart layout="vertical" data={dataWithTotal} barSize={18}>
-            <CartesianGrid vertical={true} />
-            <YAxis
-              dataKey="day"
-              type="category"
-              tickMargin={10}
-              axisLine={false}
-            >
-              <Label
-                value="Día"
-                angle={270}
-                position="insideLeft"
-                style={{ textAnchor: "middle", fontSize: "20px" }}
-              />
-            </YAxis>
-            <XAxis type="number">
-              <Label
-                value="Cantidad"
-                position="bottom"
-                style={{ fontSize: "20px" }}
-              />
-            </XAxis>
+    <ChartContainer
+      config={chartConfig}
+      className="aspect-auto h-[1200px] overflow-auto"
+    >
+      <BarChart layout="vertical" data={dataWithTotal} barSize={40}>
+        <CartesianGrid vertical={true} horizontal={false} />
+        <YAxis dataKey="day" type="category" tickMargin={10}>
+          <Label
+            value="Día"
+            angle={270}
+            position="insideLeft"
+            style={{ textAnchor: "middle", fontSize: "20px" }}
+          />
+        </YAxis>
+        <XAxis type="number">
+          <Label
+            value="Cantidad"
+            position="bottom"
+            style={{ fontSize: "20px" }}
+          />
+        </XAxis>
 
-            <ChartTooltip content={<ChartTooltipContent labelKey="day" />} />
+        <ChartTooltip content={<ChartTooltipContent labelKey="day" />} />
 
-            {dataKeys.map((key) => (
-              <Bar
-                key={key}
-                dataKey={key}
-                stackId="a"
-                fill={chartConfig[key].color}
-              >
-                {key === lastKey && (
-                  <LabelList
-                    dataKey="total"
-                    position="right"
-                    offset={8}
-                    className="fill-[--color-label]"
-                    fontSize={12}
-                  />
-                )}
-              </Bar>
-            ))}
-            <ChartLegend layout="vertical" content={<ChartLegendContent />} />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="leading-none text-muted-foreground">{footerText}</div>
-      </CardFooter>
-    </Card>
+        {dataKeys.map((key) => (
+          <Bar
+            key={key}
+            dataKey={key}
+            stackId="a"
+            fill={chartConfig[key].color}
+          >
+            {key === lastKey && (
+              <LabelList
+                dataKey="total"
+                position="right"
+                offset={8}
+                className="fill-[--color-label]"
+                fontSize={12}
+              />
+            )}
+          </Bar>
+        ))}
+        <ChartLegend layout="vertical" content={<ChartLegendContent />} />
+      </BarChart>
+    </ChartContainer>
   )
 }
 

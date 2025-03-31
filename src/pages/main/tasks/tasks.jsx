@@ -79,7 +79,7 @@ export const Tasks = () => {
 
   function TaskFilter() {
     return (
-      <div className="mr-4 flex flex-col">
+      <div className="">
         <H3Border>Filtros</H3Border>
         <CollapsibleFilter title="Búsqueda" open={true} showChevrown={false}>
           <InputIcon placeholder={"Buscar"} icon={SearchIcon} />

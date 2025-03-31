@@ -28,8 +28,8 @@ export const dropdownMenus = [
         icon: BarChart,
       },
       {
-        title: "Registros",
-        to: "/reportes/registros",
+        title: "Registros por agente",
+        to: "/reportes/reporte-de-registros-de-agente",
         description: "Lista detallada de registros generados.",
         icon: FileText,
       },
