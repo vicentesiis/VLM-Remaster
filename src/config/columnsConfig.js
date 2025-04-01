@@ -1,14 +1,14 @@
-// Define the columns configuration for each table type
+// Columns to hide in the Table
 export const columnsConfig = {
   tasks: {
     columns: ["name"],
     columnsMobile: ["name", "country", "type", "comments", "phone", "actions"],
   },
-  orders: {
-    columns: ["id", "name", "voucher", "pay", "status", "quantity"],
-    columnsMobile: ["voucher", "pay", "status"],
+  salesAgentReport: {
+    columns: ["sells"],
+    columnsMobile: ["sells"],
   },
-  // Add more table configurations here
+  salesReportDetailTableBody: { columns: [] },
 }
 
 export default columnsConfig

@@ -8,7 +8,6 @@ import {
   ShoppingCart,
   Users,
   Settings,
-  
 } from "lucide-react"
 
 export const menuItems = [
@@ -23,7 +22,7 @@ export const dropdownMenus = [
     items: [
       {
         title: "Ventas por agente",
-        to: "/reportes/reporte-de-ventas",
+        to: "/reportes/reporte-de-ventas-por-agente",
         description: "Consulta las ventas individuales de cada agente.",
         icon: BarChart,
       },

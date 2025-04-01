@@ -35,16 +35,20 @@ const getStatusStyles = (status) => {
     "Con Fecha de Salida": "Good",
     "Fecha de Salida Confirmada": "Good",
     Finalizó: "Good",
+    Pagado: "Good",
+    Pagada: "Good",
 
     "Generar Referencia": "Pending",
     "Generar Contrato": "Pending",
     "Pendiente de Aprobación": "Pending",
     "Eligiendo Fecha de Salida": "Pending",
+    "En Proceso": "Pending",
 
     "Información Pendiente": "Warning",
     "Corregir Contrato": "Warning",
     "Primer Aviso": "Warning",
     "Temporalmente Inactivo": "Warning",
+    "Por Pagar": "Warning"
   }
 
   const category = statusCategory[status] || "Pending"

@@ -5,6 +5,7 @@ import { Info } from "@/pages/main/info/info"
 import { Orders } from "@/pages/main/orders/orders"
 import { LogAgentReport } from "@/pages/main/reports/log-agent-report/log-agent-report"
 import { Reports } from "@/pages/main/reports/reports"
+import { SalesAgentReport } from "@/pages/main/reports/sales-agent-report/sales-agent-report"
 import { Tasks } from "@/pages/main/tasks/tasks"
 
 export const routes = [
@@ -30,6 +31,10 @@ export const routes = [
     path: "/reportes",
     element: <Reports />,
     children: [
+      {
+        path: "reporte-de-ventas-por-agente",
+        element: <SalesAgentReport />,
+      },
       {
         path: "reporte-de-registros-de-agente",
         element: <LogAgentReport />,

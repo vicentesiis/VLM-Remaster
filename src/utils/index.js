@@ -1,1 +1,1 @@
-export * from "./columnTitleGenerator";
+export * from "./columnGenerator";

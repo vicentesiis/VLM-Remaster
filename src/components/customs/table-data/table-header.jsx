@@ -4,16 +4,16 @@ import { TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import {
   generateColumnTitle,
   generateColumnAlign,
-} from "@/utils/columnTitleGenerator"
+} from "@/utils/columnGenerator"
 
-export const TableHeaderComponent = ({ columns }) => (
+export const TableHeaderComponent = ({ columns, type }) => (
   <TableHeader>
     <TableRow>
       {columns.map((column) => {
-        const title = generateColumnTitle(column)
-        const align = generateColumnAlign(column)
+        const title = generateColumnTitle(type, column)
+        const align = generateColumnAlign(type, column)
         return (
-          <TableHead key={column} align={align}>
+          <TableHead key={column} className={`text-${align}`}>
             {title}
           </TableHead>
         )
@@ -23,7 +23,8 @@ export const TableHeaderComponent = ({ columns }) => (
 )
 
 TableHeaderComponent.propTypes = {
-  columns: PropTypes.array.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.string).isRequired,
+  type: PropTypes.string.isRequired,
 }
 
 export default TableHeaderComponent
