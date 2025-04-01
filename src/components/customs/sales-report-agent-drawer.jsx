@@ -30,7 +30,7 @@ export function SalesReportAgentDrawer({ saleReport, onClose, tableRef }) {
         {/* Drawer Content */}
         <Drawer.Content
           ref={drawerRef}
-          className="fixed inset-0 z-50 ml-auto flex sm:w-[500px] items-center p-3"
+          className="fixed inset-0 z-50 ml-auto flex items-center p-3 sm:w-[500px]"
         >
           <div className="flex h-full w-full grow flex-col rounded-xl border-2 bg-white p-5">
             <Drawer.Title className="mb-4 flex items-center gap-3">
@@ -57,8 +57,8 @@ export function SalesReportAgentDrawer({ saleReport, onClose, tableRef }) {
                 data={saleReport["sells"]}
                 tableType={"salesReportDetailTableBody"}
               />
-              <div className="flex grow flex-col justify-end mb-4">
-                <Button onClick={onClose} >Cerrar</Button>
+              <div className="mb-4 flex grow flex-col justify-end">
+                <Button onClick={onClose}>Cerrar</Button>
               </div>
             </Drawer.Description>
           </div>

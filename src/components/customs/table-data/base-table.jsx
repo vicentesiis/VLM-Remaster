@@ -38,10 +38,13 @@ export function BaseTable({ data, tableType, onRowClick }) {
             onRowClick={onRowClick} // Pass the onRowClick prop here
           />
         )
-        case "salesReportDetailTableBody":
-          return (
-            <SalesReportDetailTableBody data={data} filteredColumns={filteredColumns} />
-          )
+      case "salesReportDetailTableBody":
+        return (
+          <SalesReportDetailTableBody
+            data={data}
+            filteredColumns={filteredColumns}
+          />
+        )
       default:
         return null
     }
@@ -53,7 +56,9 @@ export function BaseTable({ data, tableType, onRowClick }) {
         <TableHeaderComponent columns={filteredColumns} type={tableType} />
         <TableBody />
       </Table>
-      {/* <TableFooter label={"Total"} value={"23030"} /> */}
+      {/* {tableType === "SalesReportTableBody" ?? (
+        <TableFooter label={"Total"} value={"23030"} />
+      )} */}
     </div>
   )
 }
