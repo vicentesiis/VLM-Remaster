@@ -1,31 +1,23 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { Navigate } from "react-router-dom"
 import logo from "@/assets/logo.png"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { H2, Lead } from "@/components/ui/typography"
+import { useAuth } from "@/hooks/useAuth"
 
 export const Login = () => {
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      ;<Navigate to="/" replace />
-    }
-  }, [isLoggedIn]) // This effect will run whenever `isLoggedIn` changes
+  const { token, loginMutation } = useAuth()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    setIsLoggedIn(true)
+    loginMutation.mutate({ username: userName, password })
   }
 
-  if (isLoggedIn) {
-    return <Navigate to="/" replace />
-  }
+  if (token) return <Navigate to="/" replace />
 
   return (
     <section className="bg-gray-200 px-8">
@@ -62,9 +54,21 @@ export const Login = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full">
-                Iniciar Sesión
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={loginMutation.isLoading}
+              >
+                {loginMutation.isLoading
+                  ? "Iniciando sesión..."
+                  : "Iniciar Sesión"}
               </Button>
+
+              {loginMutation.isError && (
+                <p className="text-center text-red-500">
+                  {loginMutation.error.message}
+                </p>
+              )}
             </form>
           </CardContent>
         </Card>

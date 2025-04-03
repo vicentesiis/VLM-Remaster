@@ -4,8 +4,11 @@ import { NavigationSheet } from "./navigation-sheet"
 import logo from "@/assets/logo.png"
 import { Button } from "@/components/ui/button"
 import { Lead } from "@/components/ui/typography"
+import { useAuth } from "@/hooks/useAuth"
 
 const Navbar = () => {
+  const { user, logoutMutation } = useAuth()
+
   return (
     <nav className="h-16 border-b bg-background">
       <div className="mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -20,7 +23,7 @@ const Navbar = () => {
           </div>
 
           <div className="hidden items-center justify-end gap-3 lg:block">
-            <Button>Logout</Button>
+            <Button onClick={(() => logoutMutation.mutate())} >Logout</Button>
 
             {/* Mobile Menu */}
           </div>
