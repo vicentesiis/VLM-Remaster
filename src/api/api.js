@@ -8,6 +8,7 @@ const apiRequest = async (endpoint, method, headers, body) => {
     headers["Content-Type"] === "application/x-www-form-urlencoded"
   ) {
     body = new URLSearchParams(body).toString()
+    console.log(body)
   }
 
   const response = await fetch(`${API_URL}${endpoint}`, {
@@ -41,4 +42,9 @@ export const getUserData = async (token) => {
     Authorization: `Bearer ${token}`,
   }
   return await apiRequest("/users/me", "GET", headers, null)
+}
+
+export const fetchUserCatalogData = async (token) => {
+  const headers = { Authorization: `Bearer ${token}` }
+  return await apiRequest("/users/catalog", "GET", headers, null)
 }

@@ -1,10 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import React from "react"
-import { createContext, useState, useEffect } from "react"
+import React, { createContext, useState, useEffect } from "react"
 import {
   loginUser,
   getUser,
   logout as logoutUser,
+  fetchUserCatalog, // ✅ Include fetchUserCatalog
 } from "@/services/authService"
 
 export const AuthContext = createContext(null)
@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("access_token"))
   const queryClient = useQueryClient()
 
+  // Fetch user data
   const {
     data: user,
     isLoading,
@@ -23,7 +24,13 @@ export const AuthProvider = ({ children }) => {
     enabled: !!token,
   })
 
-  // Login mutation to handle login
+  // Fetch user roles & permissions
+  const { data: userCatalog, isLoading: isCatalogLoading } = useQuery({
+    queryKey: ["userCatalog"],
+    queryFn: fetchUserCatalog,
+    enabled: !!token,
+  })
+
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
@@ -31,13 +38,10 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("refresh_token", data.refresh_token)
       setToken(data.access_token)
       queryClient.invalidateQueries(["user"])
-    },
-    onError: (error) => {
-      console.error("Login failed:", error)
+      queryClient.invalidateQueries(["userCatalog"]) // ✅ Also refetch catalog
     },
   })
 
-  // Logout mutation to handle logout
   const logoutMutation = useMutation({
     mutationFn: logoutUser,
     onSuccess: () => {
@@ -45,9 +49,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("refresh_token")
       setToken(null)
       queryClient.clear()
-    },
-    onError: (error) => {
-      console.error("Logout failed:", error)
     },
   })
 
@@ -60,7 +61,16 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, isLoading, isError, loginMutation, logoutMutation }}
+      value={{
+        user,
+        userCatalog, // ✅ Provide to child components
+        token,
+        isLoading,
+        isCatalogLoading,
+        isError,
+        loginMutation,
+        logoutMutation,
+      }}
     >
       {children}
     </AuthContext.Provider>
