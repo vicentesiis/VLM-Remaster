@@ -10,8 +10,8 @@ const Navbar = () => {
   const { logoutMutation } = useAuth()
 
   return (
-    <nav className="h-16 border-b bg-background">
-      <div className="mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
+    <nav className="h-16 border-b">
+      <div className="mx-auto flex h-full items-center justify-between px-4 sm:px-16">
         <div className="flex lg:pl-6">
           <img src={logo} width={50} height={40} alt="Logo" />
           <Lead>Proyecto VLM</Lead>
@@ -22,14 +22,13 @@ const Navbar = () => {
             <NavMenu className="hidden lg:block" />
           </div>
 
-          <div className="hidden items-center justify-end gap-3 lg:block">
-            <Button onClick={() => logoutMutation.mutate()}>Logout</Button>
-
-            {/* Mobile Menu */}
-          </div>
+          {/* Mobile Menu */}
           <div className="lg:hidden">
             <NavigationSheet />
           </div>
+        </div>
+        <div className="mr-12 hidden items-center justify-end gap-3 lg:block">
+          <Button onClick={() => logoutMutation.mutate()}>Logout</Button>
         </div>
       </div>
     </nav>

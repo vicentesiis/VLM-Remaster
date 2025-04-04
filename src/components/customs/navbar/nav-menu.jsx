@@ -43,7 +43,7 @@ export const NavMenu = (props) => {
     <NavigationMenu {...props}>
       <NavigationMenuList>
         {filteredMenuItems.map((item) => (
-          <NavigationMenuItem key={item.title}>
+          <NavigationMenuItem key={item.title} className="ml-[-60px]">
             <Button
               variant="ghost"
               className={cn("text-[15px] font-normal", {
@@ -68,12 +68,15 @@ export const NavMenu = (props) => {
             <NavigationMenuContent>
               <ul
                 className={cn(
-                  "w-[400px] gap-3 p-4 md:w-[500px] lg:w-[600px]",
-                  menu.items.length === 1 && "flex flex-col lg:w-[400px]",
-                  menu.items.length === 3 && "flex flex-col lg:w-[400px]",
+                  "gap-3 p-4",
+                  (menu.items.length === 1 ||
+                    menu.items.length === 3 ||
+                    menu.items.length === 5) &&
+                    "flex flex-col lg:w-[400px]",
                   menu.items.length !== 1 &&
                     menu.items.length !== 3 &&
-                    "grid md:grid-cols-2"
+                    menu.items.length !== 5 &&
+                    "grid w-[600px] sm:grid-cols-2"
                 )}
               >
                 {menu.items.map((subItem) => (
