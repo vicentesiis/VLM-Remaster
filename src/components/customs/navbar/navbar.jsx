@@ -5,6 +5,7 @@ import logo from "@/assets/logo.png"
 import { Button } from "@/components/ui/button"
 import { Lead } from "@/components/ui/typography"
 import { useAuth } from "@/hooks/useAuth"
+import UserAvatarDropdown from "../user-avatar-dropwdown"
 
 const Navbar = () => {
   const { logoutMutation } = useAuth()
@@ -27,9 +28,7 @@ const Navbar = () => {
             <NavigationSheet />
           </div>
         </div>
-        <div className="mr-12 hidden items-center justify-end gap-3 lg:block">
-          <Button onClick={() => logoutMutation.mutate()}>Logout</Button>
-        </div>
+        <UserAvatarDropdown />
       </div>
     </nav>
   )
