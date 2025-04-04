@@ -7,7 +7,7 @@ import { Lead } from "@/components/ui/typography"
 import { useAuth } from "@/hooks/useAuth"
 
 const Navbar = () => {
-  const { user, logoutMutation } = useAuth()
+  const { logoutMutation } = useAuth()
 
   return (
     <nav className="h-16 border-b bg-background">
@@ -23,7 +23,7 @@ const Navbar = () => {
           </div>
 
           <div className="hidden items-center justify-end gap-3 lg:block">
-            <Button onClick={(() => logoutMutation.mutate())} >Logout</Button>
+            <Button onClick={() => logoutMutation.mutate()}>Logout</Button>
 
             {/* Mobile Menu */}
           </div>

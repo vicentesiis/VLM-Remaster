@@ -11,15 +11,29 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
+import { useAuth } from "@/hooks/useAuth"
 import { cn } from "@/lib/utils"
 
 export const NavMenu = (props) => {
   const location = useLocation()
+  const { currentRole } = useAuth()
+
+  // Filter menuItems and dropdownMenus based on role
+  const filteredMenuItems = menuItems.filter((item) =>
+    item.allowedRoutes.includes(currentRole)
+  )
+
+  const filteredDropdownMenus = dropdownMenus
+    .filter((menu) => menu.allowedRoutes.includes(currentRole))
+    .map((menu) => ({
+      ...menu,
+      items: menu.items.filter((item) => item.allowedRoutes.includes(currentRole)),
+    }))
 
   return (
     <NavigationMenu {...props}>
       <NavigationMenuList>
-        {menuItems.map((item) => (
+        {filteredMenuItems.map((item) => (
           <NavigationMenuItem key={item.title}>
             <Button
               variant="ghost"
@@ -33,7 +47,7 @@ export const NavMenu = (props) => {
             </Button>
           </NavigationMenuItem>
         ))}
-        {dropdownMenus.map((menu) => (
+        {filteredDropdownMenus.map((menu) => (
           <NavigationMenuItem key={menu.title}>
             <NavigationMenuTrigger className="text-[15px] font-normal">
               {menu.title}

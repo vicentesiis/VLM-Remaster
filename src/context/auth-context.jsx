@@ -59,11 +59,17 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token, queryClient])
 
+  // Deriving the roles array from the userCatalog
+  const listOfRoles = userCatalog?.data?.roles || [] // Default to an empty array if roles are not present
+  const currentRole = user?.data?.role || null // Default to null if rol is not present
+
   return (
     <AuthContext.Provider
       value={{
         user,
-        userCatalog, // ✅ Provide to child components
+        currentRole,
+        userCatalog,
+        listOfRoles,
         token,
         isLoading,
         isCatalogLoading,
@@ -76,3 +82,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
+
+export default AuthProvider

@@ -16,10 +16,12 @@ import {
 } from "@/components/ui/sheet"
 import { H2, H4, P } from "@/components/ui/typography"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
+import { useAuth } from "@/hooks/useAuth"
 import { cn } from "@/lib/utils"
 
 export const NavigationSheet = () => {
   const location = useLocation()
+  const { currentRole } = useAuth()
   const [openMenu, setOpenMenu] = useState(null)
   const [open, setOpen] = useState(false) // control Sheet state
   const isDropdownActive = (menu) => {
@@ -27,6 +29,17 @@ export const NavigationSheet = () => {
       location.pathname.startsWith(subItem.to)
     )
   }
+
+  const filteredMenuItems = menuItems.filter((item) =>
+    item.allowedRoutes.includes(currentRole)
+  )
+
+  const filteredDropdownMenus = dropdownMenus
+    .filter((menu) => menu.allowedRoutes.includes(currentRole))
+    .map((menu) => ({
+      ...menu,
+      items: menu.items.filter((item) => item.allowedRoutes.includes(currentRole)),
+    }))
 
   const handleLinkClick = () => {
     setOpen(false) // dismiss sheet
@@ -48,7 +61,7 @@ export const NavigationSheet = () => {
         {/* Scrollable */}
         <div className="space-y-3 overflow-y-auto text-base">
           {/* Plain Items */}
-          {menuItems.map((item) => (
+          {filteredMenuItems.map((item) => (
             <Link
               key={item.title}
               to={item.to}
@@ -64,7 +77,7 @@ export const NavigationSheet = () => {
           ))}
 
           {/* Dropdowns */}
-          {dropdownMenus.map((menu) => {
+          {filteredDropdownMenus.map((menu) => {
             const isActive = isDropdownActive(menu)
             return (
               <Collapsible
