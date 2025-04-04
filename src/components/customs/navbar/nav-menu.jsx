@@ -25,10 +25,19 @@ export const NavMenu = (props) => {
 
   const filteredDropdownMenus = dropdownMenus
     .filter((menu) => menu.allowedRoutes.includes(currentRole))
-    .map((menu) => ({
-      ...menu,
-      items: menu.items.filter((item) => item.allowedRoutes.includes(currentRole)),
-    }))
+    .map((menu) => {
+      const filteredItems = menu.items.filter((item) =>
+        item.allowedRoutes.includes(currentRole)
+      )
+      const isActive = filteredItems.some((item) =>
+        location.pathname.startsWith(item.to)
+      )
+      return {
+        ...menu,
+        items: filteredItems,
+        isActive,
+      }
+    })
 
   return (
     <NavigationMenu {...props}>
@@ -49,11 +58,24 @@ export const NavMenu = (props) => {
         ))}
         {filteredDropdownMenus.map((menu) => (
           <NavigationMenuItem key={menu.title}>
-            <NavigationMenuTrigger className="text-[15px] font-normal">
+            <NavigationMenuTrigger
+              className={cn("text-[15px] font-normal", {
+                "bg-accent text-accent-foreground": menu.isActive,
+              })}
+            >
               {menu.title}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+              <ul
+                className={cn(
+                  "w-[400px] gap-3 p-4 md:w-[500px] lg:w-[600px]",
+                  menu.items.length === 1 && "flex flex-col lg:w-[400px]",
+                  menu.items.length === 3 && "flex flex-col lg:w-[400px]",
+                  menu.items.length !== 1 &&
+                    menu.items.length !== 3 &&
+                    "grid md:grid-cols-2"
+                )}
+              >
                 {menu.items.map((subItem) => (
                   <ListItem
                     key={subItem.title}
