@@ -4,6 +4,7 @@ import { Clients } from "@/pages/main/clients/clients"
 import { Info } from "@/pages/main/info/info"
 import { Orders } from "@/pages/main/orders/orders"
 import { LogAgentReport } from "@/pages/main/reports/log-agent-report/log-agent-report"
+import { MonthlySalesReport } from "@/pages/main/reports/monthly-sales-report/monthly-sales-report"
 import { Reports } from "@/pages/main/reports/reports"
 import { SalesAgentReport } from "@/pages/main/reports/sales-agent-report/sales-agent-report"
 import { Tasks } from "@/pages/main/tasks/tasks"
@@ -11,7 +12,7 @@ import { Tasks } from "@/pages/main/tasks/tasks"
 export const routes = [
   {
     path: "/",
-    element: <>Home-Page</>,
+    element: <>Home</>,
   },
   {
     path: "/tareas",
@@ -57,7 +58,7 @@ export const routes = [
       },
       {
         path: "ventas-mensuales",
-        element: <>Ventas Mensuales</>,
+        element: <MonthlySalesReport />,
         allowedRoles: ["super_admin"],
       },
       {
