@@ -5,67 +5,57 @@ import {
   fetchUserCatalogData,
 } from "@/api/api"
 
+const ACCESS_TOKEN_KEY = "access_token"
+const REFRESH_TOKEN_KEY = "refresh_token"
+
 export const loginUser = async (credentials) => {
   const data = await login(credentials)
+  localStorage.setItem(ACCESS_TOKEN_KEY, data.access_token)
+  localStorage.setItem(REFRESH_TOKEN_KEY, data.refresh_token)
   return data
 }
 
 export const refreshAuthToken = async () => {
-  const refreshTokenFromStorage = localStorage.getItem("refresh_token")
-  if (!refreshTokenFromStorage) throw new Error("No refresh token found")
+  const refreshTokenStored = localStorage.getItem(REFRESH_TOKEN_KEY)
+  if (!refreshTokenStored) throw new Error("No refresh token found")
 
-  const data = await refreshToken(refreshTokenFromStorage)
-
-  localStorage.setItem("access_token", data.access_token)
-  localStorage.setItem("refresh_token", data.refresh_token)
-
+  const data = await refreshToken(refreshTokenStored)
+  localStorage.setItem(ACCESS_TOKEN_KEY, data.access_token)
+  localStorage.setItem(REFRESH_TOKEN_KEY, data.refresh_token)
   return data.access_token
 }
 
-export const getUser = async () => {
-  let token = localStorage.getItem("access_token")
+const getValidAccessToken = async () => {
+  let token = localStorage.getItem(ACCESS_TOKEN_KEY)
+  if (!token) throw new Error("No access token found")
 
-  if (!token) throw new Error("No token found")
-
-  if (checkTokenExpiration(token)) {
-    try {
-      token = await refreshAuthToken()
-    } catch (error) {
-      throw new Error("Unable to refresh token. Please login again.")
-    }
+  if (isTokenExpired(token)) {
+    token = await refreshAuthToken()
   }
 
+  return token
+}
+
+export const getUser = async () => {
+  const token = await getValidAccessToken()
   return await getUserData(token)
 }
 
 export const fetchUserCatalog = async () => {
-  let token = localStorage.getItem("access_token")
-
-  if (!token) throw new Error("No token found")
-
-  if (checkTokenExpiration(token)) {
-    try {
-      token = await refreshAuthToken()
-    } catch (error) {
-      throw new Error("Unable to refresh token. Please login again.")
-    }
-  }
-
+  const token = await getValidAccessToken()
   return await fetchUserCatalogData(token)
 }
 
 export const logout = () => {
-  localStorage.removeItem("access_token")
-  localStorage.removeItem("refresh_token")
+  localStorage.removeItem(ACCESS_TOKEN_KEY)
+  localStorage.removeItem(REFRESH_TOKEN_KEY)
 }
 
-const checkTokenExpiration = (token) => {
+const isTokenExpired = (token) => {
   try {
-    const decodedToken = JSON.parse(atob(token.split(".")[1]))
-    const expirationTime = decodedToken.exp * 1000
-
-    return Date.now() > expirationTime
-  } catch (error) {
+    const decoded = JSON.parse(atob(token.split(".")[1]))
+    return Date.now() > decoded.exp * 1000
+  } catch (err) {
     return true
   }
 }

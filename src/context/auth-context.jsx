@@ -4,7 +4,7 @@ import {
   loginUser,
   getUser,
   logout as logoutUser,
-  fetchUserCatalog, // ✅ Include fetchUserCatalog
+  fetchUserCatalog,
 } from "@/services/authService"
 
 export const AuthContext = createContext(null)
@@ -13,69 +13,68 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("access_token"))
   const queryClient = useQueryClient()
 
-  // Fetch user data
+  /** @type {import("@tanstack/react-query").UseQueryResult<UserResponse>} */
   const {
     data: user,
-    isLoading,
+    isLoading: isUserLoading,
     isError,
   } = useQuery({
     queryKey: ["user"],
     queryFn: getUser,
     enabled: !!token,
+    retry: false,
   })
 
-  // Fetch user roles & permissions
+  // Get catalog (roles & permissions)
   const { data: userCatalog, isLoading: isCatalogLoading } = useQuery({
     queryKey: ["userCatalog"],
     queryFn: fetchUserCatalog,
     enabled: !!token,
+    retry: false,
   })
 
+  // Login mutation
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      localStorage.setItem("access_token", data.access_token)
-      localStorage.setItem("refresh_token", data.refresh_token)
       setToken(data.access_token)
       queryClient.invalidateQueries(["user"])
-      queryClient.invalidateQueries(["userCatalog"]) // ✅ Also refetch catalog
+      queryClient.invalidateQueries(["userCatalog"])
     },
   })
 
+  // Logout mutation
   const logoutMutation = useMutation({
     mutationFn: logoutUser,
     onSuccess: () => {
-      localStorage.removeItem("access_token")
-      localStorage.removeItem("refresh_token")
       setToken(null)
       queryClient.clear()
     },
   })
 
+  // Sync token removal
   useEffect(() => {
     if (!token) {
-      setToken(null)
       queryClient.clear()
     }
   }, [token, queryClient])
 
-  // Deriving the roles array from the userCatalog
-  const listOfRoles = userCatalog?.data?.roles || [] // Default to an empty array if roles are not present
-  const currentRole = user?.data?.role || null // Default to null if rol is not present
+  const currentRole = user?.data?.role || null
+  const listOfRoles = userCatalog?.data?.roles || []
+  const loading = isUserLoading || isCatalogLoading
 
   return (
     <AuthContext.Provider
       value={{
         user,
         currentRole,
-        userCatalog,
         listOfRoles,
-        token,
-        isLoading,
-        isCatalogLoading,
-        isError,
+        userCatalog,
         loginMutation,
         logoutMutation,
+        isError,
+        loading,
+        token,
       }}
     >
       {children}
