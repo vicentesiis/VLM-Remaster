@@ -1,6 +1,5 @@
 import { Menu, ChevronDown } from "lucide-react"
-import React from "react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import {
@@ -21,9 +20,10 @@ import { cn } from "@/lib/utils"
 
 export const NavigationSheet = () => {
   const location = useLocation()
-  const { currentRole } = useAuth()
+  const { currentRole, logoutMutation } = useAuth() // Assuming logout function from useAuth hook
   const [openMenu, setOpenMenu] = useState(null)
   const [open, setOpen] = useState(false) // control Sheet state
+
   const isDropdownActive = (menu) => {
     return menu.items.some((subItem) =>
       location.pathname.startsWith(subItem.to)
@@ -38,7 +38,9 @@ export const NavigationSheet = () => {
     .filter((menu) => menu.allowedRoutes.includes(currentRole))
     .map((menu) => ({
       ...menu,
-      items: menu.items.filter((item) => item.allowedRoutes.includes(currentRole)),
+      items: menu.items.filter((item) =>
+        item.allowedRoutes.includes(currentRole)
+      ),
     }))
 
   const handleLinkClick = () => {
@@ -58,8 +60,8 @@ export const NavigationSheet = () => {
           <H2>Modulos</H2>
         </SheetHeader>
 
-        {/* Scrollable */}
-        <div className="space-y-3 overflow-y-auto text-base">
+        {/* Scrollable Content */}
+        <div className="flex-1 space-y-3 overflow-y-auto text-base">
           {/* Plain Items */}
           {filteredMenuItems.map((item) => (
             <Link
@@ -121,6 +123,15 @@ export const NavigationSheet = () => {
               </Collapsible>
             )
           })}
+        </div>
+
+        <div className="mt-auto p-2">
+          <Button
+            onClick={() => logoutMutation.mutate()}
+            className="w-full"
+          >
+            Cerrar sesión
+          </Button>
         </div>
       </SheetContent>
     </Sheet>

@@ -18,7 +18,6 @@ export const NavMenu = (props) => {
   const location = useLocation()
   const { currentRole } = useAuth()
 
-  // Filter menuItems and dropdownMenus based on role
   const filteredMenuItems = menuItems.filter((item) =>
     item.allowedRoutes.includes(currentRole)
   )

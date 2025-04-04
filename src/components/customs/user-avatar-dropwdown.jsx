@@ -42,13 +42,13 @@ export default function UserAvatarDropdown() {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem>
-            <Settings className="h-4 w-4" /> Settings
+            <Settings className="h-4 w-4" /> Ajustes
           </DropdownMenuItem>
           <DropdownMenuItem
             className="text-destructive"
             onClick={() => logoutMutation.mutate()}
           >
-            <LogOut className="h-4 w-4" /> Logout
+            <LogOut className="h-4 w-4" /> Cerrar sesión
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -2,7 +2,6 @@ import React from "react"
 import { Routes, Route } from "react-router-dom"
 import ProtectedRoute from "./protected-route"
 import { Login } from "@/pages"
-// import Login from "@/pages/login"
 import { Main } from "@/pages/main/main-page"
 
 const AppRouter = () => {

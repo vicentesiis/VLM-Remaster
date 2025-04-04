@@ -12,7 +12,6 @@ export const routes = [
   {
     path: "/",
     element: <>Home-Page</>,
-    allowedRoles: ["super_admin", "agent"],
   },
   {
     path: "/tareas",
