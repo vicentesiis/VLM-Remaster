@@ -3,6 +3,7 @@ import { ClientDetail } from "@/pages/main/clients/client-detail/client-detail"
 import { Clients } from "@/pages/main/clients/clients"
 import { Info } from "@/pages/main/info/info"
 import { Orders } from "@/pages/main/orders/orders"
+import { GlobalSalesReport } from "@/pages/main/reports/modules/global-sales-report"
 import { LogAgentReport } from "@/pages/main/reports/modules/log-agent-report"
 import { MonthlySalesReport } from "@/pages/main/reports/modules/monthly-sales-report"
 import { SalesAgentReport } from "@/pages/main/reports/modules/sales-agent-report"
@@ -73,7 +74,7 @@ export const routes = [
       },
       {
         path: "ventas-globales",
-        element: <>Ventas Globales</>,
+        element: <GlobalSalesReport />,
         allowedRoles: ["super_admin"],
       },
       {
