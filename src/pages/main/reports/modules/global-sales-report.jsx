@@ -89,7 +89,7 @@ export const GlobalSalesReport = () => {
                 <>
                   Reporte de Ventas del {filters.displayedYear}
                   {filters.displayedGroup !== "Todos" && (
-                    <CardSubTitle>del {filters.displayedGroup}</CardSubTitle>
+                    <CardSubTitle>(del {filters.displayedGroup})</CardSubTitle>
                   )}
                 </>
               ) : (

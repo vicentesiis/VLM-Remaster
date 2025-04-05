@@ -75,11 +75,11 @@ export const MonthlySalesReport = () => {
               filters.displayedMonth &&
               filters.selectedGroup ? (
                 <>
-                  {months[parseInt(filters.displayedMonth)]}
+                  {months[parseInt(filters.displayedMonth)]}{" - "}
                   {filters.displayedYear}
                   {/* Conditionally render displayedGroup */}
                   {filters.displayedGroup !== "Todos" && (
-                    <CardSubTitle>del {filters.displayedGroup}</CardSubTitle>
+                    <CardSubTitle>(del {filters.displayedGroup})</CardSubTitle>
                   )}
                 </>
               ) : (
