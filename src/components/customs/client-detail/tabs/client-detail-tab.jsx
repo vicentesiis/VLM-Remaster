@@ -3,13 +3,32 @@ import React from "react"
 import { CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { H3, PLead, Lead } from "@/components/ui/typography"
+import { cn } from "@/lib/utils"
 
 export const ClientDetailTab = ({ sections }) => {
-  const groupIntoPairs = (content) => {
-    return content.reduce((acc, _, i) => {
-      if (i % 2 === 0) acc.push(content.slice(i, i + 2))
-      return acc
-    }, [])
+  // Divide los datos en pares, pero si un campo tiene fullWidth, lo mete solo
+  const groupWithFullWidth = (content) => {
+    const grouped = []
+    let i = 0
+
+    while (i < content.length) {
+      const current = content[i]
+      if (current.fullWidth) {
+        grouped.push([current])
+        i += 1
+      } else {
+        const next = content[i + 1]
+        if (next && !next.fullWidth) {
+          grouped.push([current, next])
+          i += 2
+        } else {
+          grouped.push([current])
+          i += 1
+        }
+      }
+    }
+
+    return grouped
   }
 
   return (
@@ -20,22 +39,37 @@ export const ClientDetailTab = ({ sections }) => {
           <Separator />
 
           <CardContent className="space-y-6 px-0 sm:px-5">
-            {groupIntoPairs(section.content).map((row, rowIndex) => (
+            {groupWithFullWidth(section.content).map((row, rowIndex) => (
               <div
                 key={rowIndex}
-                className="flex flex-col sm:flex-row sm:items-center"
+                className="flex flex-col sm:flex-row sm:items-start"
               >
-                {row.map((detail, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-row justify-between py-2 sm:w-1/2 sm:items-center sm:py-0 sm:pr-16"
-                  >
-                    <PLead className="">{detail.label}:</PLead>
-                    <Lead className="text-right font-semibold sm:text-lg">
-                      {detail.value || "—"}
-                    </Lead>
-                  </div>
-                ))}
+                {row.map((detail, index) => {
+                  const isFull = detail.fullWidth
+                  return (
+                    <div
+                      key={index}
+                      className={cn(
+                        "flex flex-col sm:w-1/2 sm:flex-row sm:items-start sm:py-0 sm:pr-16",
+                        detail.fullWidth && "sm:w-full"
+                      )}
+                    >
+                      <PLead className="whitespace-nowrap sm:mr-2">
+                        {detail.label}:
+                      </PLead>
+                      <Lead
+                        className={cn(
+                          "text-left font-semibold sm:text-lg",
+                          detail.fullWidth
+                            ? "inline-block w-full break-words align-middle leading-snug"
+                            : ""
+                        )}
+                      >
+                        {detail.value || "—"}
+                      </Lead>
+                    </div>
+                  )
+                })}
               </div>
             ))}
           </CardContent>
@@ -53,6 +87,7 @@ ClientDetailTab.propTypes = {
         PropTypes.shape({
           label: PropTypes.string.isRequired,
           value: PropTypes.string,
+          fullWidth: PropTypes.bool,
         })
       ).isRequired,
     })
