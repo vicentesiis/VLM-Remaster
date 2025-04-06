@@ -258,7 +258,24 @@ export const ClientForm = () => {
             />
 
             {/* Nacionalidad Field */}
-
+            <FormField
+              control={form.control}
+              name="nacionalidad"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nacionalidad</FormLabel>
+                  <FormControl>
+                    <ComboBox
+                      {...field} // value, onChange, ref
+                      options={nacionalidad}
+                      placeholder="Nacionalidad"
+                      variant="form" // Cambia a "form" para usar el estilo del formulario
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             {/* Estado Field */}
             <FormField
               control={form.control}

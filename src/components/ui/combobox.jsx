@@ -1,6 +1,6 @@
-import { Check, ChevronsUpDown } from "lucide-react";
-import React, { useState, useRef, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { Check, ChevronsUpDown } from "lucide-react"
+import React, { useState, useRef, useEffect } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -8,9 +8,13 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
 
 const ComboBox = ({
   options,
@@ -20,17 +24,17 @@ const ComboBox = ({
   className,
   variant = "button", // 'button' o 'form'
 }) => {
-  const [open, setOpen] = useState(false);
-  const [width, setWidth] = useState(0);
-  const buttonRef = useRef(null); // Ref para el Button
-  const selectedLabel = options.find((option) => option.value === value)?.label;
+  const [open, setOpen] = useState(false)
+  const [width, setWidth] = useState(0)
+  const buttonRef = useRef(null) // Ref para el Button
+  const selectedLabel = options.find((option) => option.value === value)?.label
 
   // Usamos useEffect para establecer el ancho del botón cuando se renderiza
   useEffect(() => {
     if (buttonRef.current) {
-      setWidth(buttonRef.current.offsetWidth); // Establecer el ancho del Button
+      setWidth(buttonRef.current.offsetWidth) // Establecer el ancho del Button
     }
-  }, [open]); // Se ejecuta cada vez que el popover se abre
+  }, [open]) // Se ejecuta cada vez que el popover se abre
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -66,8 +70,8 @@ const ComboBox = ({
                   key={option.value}
                   value={option.value}
                   onSelect={(currentValue) => {
-                    onChange(currentValue === value ? "" : currentValue);
-                    setOpen(false);
+                    onChange(currentValue === value ? "" : currentValue)
+                    setOpen(false)
                   }}
                 >
                   <Check
@@ -84,7 +88,7 @@ const ComboBox = ({
         </Command>
       </PopoverContent>
     </Popover>
-  );
-};
+  )
+}
 
-export default ComboBox;
+export default ComboBox
