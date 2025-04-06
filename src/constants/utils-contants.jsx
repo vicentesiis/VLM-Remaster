@@ -203,3 +203,66 @@ export const logChartData = [
     agenteC: Math.floor(Math.random() * 6),
   },
 ]
+
+export const tasksOptions = [
+  {
+    name: "Creado",
+    label: "Creado",
+  },
+  {
+    name: "Información Pendiente",
+    label: "Información Pendiente",
+  },
+  {
+    name: "Importado",
+    label: "Importado",
+  },
+  {
+    name: "Generar Contrato",
+    label: "Generar Contrato",
+  },
+  {
+    name: "Generar Referencia",
+    label: "Generar Referencia",
+  },
+  {
+    name: "Corregir Contrato",
+    label: "Corregir Contrato",
+  },
+  {
+    name: "Contrato Generado",
+    label: "Contrato Generado",
+  },
+  {
+    name: "Pendiente de Aprobación",
+    label: "Pendiente de Aprobación",
+  },
+  {
+    name: "Primer Aviso",
+    label: "Primer Aviso",
+  },
+  {
+    name: "Eligiendo Fecha de Salida",
+    label: "Eligiendo Fecha de Salida",
+  },
+  {
+    name: "Aprobado",
+    label: "Aprobado",
+  },
+  {
+    name: "Fecha de Salida Confirmada",
+    label: "Fecha de Salida Confirmada",
+  },
+  {
+    name: "Con Fecha de Salida",
+    label: "Con Fecha de Salida",
+  },
+  {
+    name: "Temporalmente Inactivo",
+    label: "Temporalmente Inactivo",
+  },
+  {
+    name: "Finalizó",
+    label: "Finalizó",
+  },
+]

@@ -9,75 +9,13 @@ import SplitPane from "@/components/customs/split-pane"
 import BaseTable from "@/components/customs/table-data/base-table"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { tasksOptions } from "@/constants/utils-contants"
 import tasksTableData from "@/data/tasks-table-data"
 
 export const Tasks = () => {
-  const options = [
-    {
-      name: "Creado",
-      label: "Creado",
-    },
-    {
-      name: "Información Pendiente",
-      label: "Información Pendiente",
-    },
-    {
-      name: "Importado",
-      label: "Importado",
-    },
-    {
-      name: "Generar Contrato",
-      label: "Generar Contrato",
-    },
-    {
-      name: "Generar Referencia",
-      label: "Generar Referencia",
-    },
-    {
-      name: "Corregir Contrato",
-      label: "Corregir Contrato",
-    },
-    {
-      name: "Contrato Generado",
-      label: "Contrato Generado",
-    },
-    {
-      name: "Pendiente de Aprobación",
-      label: "Pendiente de Aprobación",
-    },
-    {
-      name: "Primer Aviso",
-      label: "Primer Aviso",
-    },
-    {
-      name: "Eligiendo Fecha de Salida",
-      label: "Eligiendo Fecha de Salida",
-    },
-    {
-      name: "Aprobado",
-      label: "Aprobado",
-    },
-    {
-      name: "Fecha de Salida Confirmada",
-      label: "Fecha de Salida Confirmada",
-    },
-    {
-      name: "Con Fecha de Salida",
-      label: "Con Fecha de Salida",
-    },
-    {
-      name: "Temporalmente Inactivo",
-      label: "Temporalmente Inactivo",
-    },
-    {
-      name: "Finalizó",
-      label: "Finalizó",
-    },
-  ]
-
   function TaskFilter() {
     return (
-      <div >
+      <div>
         <CollapsibleComponentGroup title={"Filtro"}>
           <InputIcon
             title="Buscar"
@@ -90,7 +28,7 @@ export const Tasks = () => {
             locale="es-MX"
             showCompare={false}
           />
-          <CheckboxList title="Estatus" options={options} />
+          <CheckboxList title="Estatus" options={tasksOptions} />
         </CollapsibleComponentGroup>
         <div className="flex justify-end sm:mt-8">
           <Button>Aplicar</Button>
@@ -100,7 +38,11 @@ export const Tasks = () => {
   }
 
   function TaskTable() {
-    return <BaseTable data={tasksTableData} tableType={"tasks"} />
+    return (
+      <div className="max-h-[500px] overflow-auto">
+        <BaseTable data={tasksTableData} tableType={"tasks"} />
+      </div>
+    )
   }
 
   return (
