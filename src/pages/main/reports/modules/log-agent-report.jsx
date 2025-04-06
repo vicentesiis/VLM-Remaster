@@ -1,229 +1,86 @@
 import React from "react"
+import { useState } from "react"
+import CardHeaderSection from "@/components/customs/card-header-section"
 import { GenericBarChart } from "@/components/customs/chart/generic-bar-chart"
-import { CollapsibleComponentGroup } from "@/components/customs/collapsible/collapsible-component-group"
-import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
+import GenericSelect from "@/components/customs/generic-select"
 import PageLayout from "@/components/customs/page-layout"
-import SplitPane from "@/components/customs/split-pane"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import {
+  currentYear,
+  years,
+  months,
+  logChartData,
+  currentMonth,
+} from "@/constants/utils-contants"
 
 export const LogAgentReport = () => {
-  const chartData = [
-    {
-      day: 1,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 2,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 3,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 4,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 5,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 6,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 7,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 8,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 9,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 10,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 11,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 12,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 13,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 14,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 15,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 16,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 17,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 18,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 19,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 20,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 21,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 22,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 23,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 24,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 25,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 26,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 27,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 28,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 29,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-    {
-      day: 30,
-      agenteA: Math.floor(Math.random() * 6),
-      agenteB: Math.floor(Math.random() * 6),
-      agenteC: Math.floor(Math.random() * 6),
-    },
-  ]
+  const [filters, setFilters] = useState({
+    selectedYear: currentYear.toString(),
+    selectedMonth: currentMonth.toString(),
+    displayedYear: null,
+    displayedMonth: null,
+  })
 
-  function LogAgentReportFilter() {
+  const handleSearch = () => {
+    setFilters((prev) => ({
+      ...prev,
+      displayedYear: filters.selectedYear,
+      displayedMonth: filters.selectedMonth,
+    }))
+  }
+
+  const Actions = () => {
     return (
-      <div>
-        {" "}
-        <CollapsibleComponentGroup title={"Filtro"}>
-          <DateRangePicker
-            title="Rango de Fechas"
-            locale="es-MX"
-            showCompare={false}
-          />
-        </CollapsibleComponentGroup>
-        <div className="flex justify-end sm:mt-8">
-          <Button>Aplicar</Button>
-        </div>{" "}
-      </div>
+      <>
+        <GenericSelect
+          value={filters.selectedYear}
+          onValueChange={(value) =>
+            setFilters((prev) => ({ ...prev, selectedYear: value }))
+          }
+          options={years.map((year) => ({
+            value: year.toString(),
+            label: year,
+          }))}
+          placeholder="Año"
+          className="w-[100px]"
+        />
+
+        <GenericSelect
+          value={filters.selectedMonth}
+          onValueChange={(value) =>
+            setFilters((prev) => ({ ...prev, selectedMonth: value }))
+          }
+          options={months.map((month, index) => ({
+            value: index.toString(),
+            label: month,
+          }))}
+          placeholder="Mes"
+          className="w-[120px]"
+        />
+
+        <Button onClick={handleSearch} className="ml-auto">
+          Buscar
+        </Button>
+      </>
     )
   }
 
-  function LogAgentReportChart() {
-    return <GenericBarChart data={chartData} />
-  }
-
   return (
-    <PageLayout title="Reporte de Ventas">
+    <PageLayout title="Reporte de Registros">
       {" "}
       <Card>
+        <CardHeaderSection
+          title={"Reporte de Registros por Agente"}
+          subTitle={
+            filters.displayedYear && filters.displayedMonth
+              ? `${months[parseInt(filters.displayedMonth)]} - ${filters.displayedYear}`
+              : undefined
+          }
+          actions={<Actions />}
+        />
         <CardContent>
-          <SplitPane
-            title={"Reporte de Registros por Agente"}
-            subTitle={"Febrero - Marzo 2024"}
-            LeftSideComponent={LogAgentReportFilter}
-            RightSideComponent={LogAgentReportChart}
-          />
+          <GenericBarChart data={logChartData} />
         </CardContent>
       </Card>{" "}
     </PageLayout>

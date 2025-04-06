@@ -1,15 +1,11 @@
 import React, { useState } from "react"
+import CardHeaderSection from "@/components/customs/card-header-section"
 import { GenericSelect } from "@/components/customs/generic-select"
 import { GenericTimeline } from "@/components/customs/generic-timeline"
 import PageLayout from "@/components/customs/page-layout"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardSubTitle,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
+import { years, currentYear, groups } from "@/constants/utils-contants"
 
 export const GlobalSalesReport = () => {
   const [data, setData] = useState([
@@ -26,10 +22,6 @@ export const GlobalSalesReport = () => {
     { title: "Noviembre", description: "$5,400" },
     { title: "Diciembre", description: "$6,100" },
   ])
-
-  const currentYear = new Date().getFullYear()
-  const years = Array.from({ length: 4 }, (_, i) => currentYear - i)
-  const groups = ["Todos", "Grupo A", "Grupo B", "Grupo C"]
 
   const [filters, setFilters] = useState({
     selectedGroup: "Todos",
@@ -78,59 +70,53 @@ export const GlobalSalesReport = () => {
     setData(updatedData)
   }
 
+  const Actions = () => {
+    return (
+      <>
+        <GenericSelect
+          value={filters.selectedGroup}
+          onValueChange={(value) =>
+            setFilters((prev) => ({ ...prev, selectedGroup: value }))
+          }
+          options={groups.map((group) => ({
+            value: group,
+            label: group,
+          }))}
+          placeholder="Filtrar por Grupo"
+          className="w-[150px]"
+        />
+        <GenericSelect
+          value={filters.selectedYear}
+          onValueChange={(value) =>
+            setFilters((prev) => ({ ...prev, selectedYear: value }))
+          }
+          options={years.map((year) => ({
+            value: year.toString(),
+            label: year,
+          }))}
+          placeholder="Filtrar por Año"
+          className="w-[100px]"
+        />
+        <Button onClick={handleSearch}>Buscar</Button>
+      </>
+    )
+  }
+
   return (
     <PageLayout title="Reporte de Ventas Globales">
       <Card>
-        <CardHeader>
-          <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-            <CardTitle className="flex flex-row items-center gap-2">
-              {/* Display the title and subtitle only after search */}
-              {filters.displayedYear && filters.displayedGroup ? (
-                <>
-                  Reporte de Ventas del {filters.displayedYear}
-                  {filters.displayedGroup !== "Todos" && (
-                    <CardSubTitle>(del {filters.displayedGroup})</CardSubTitle>
-                  )}
-                </>
-              ) : (
-                "Reporte de Ventas"
-              )}
-            </CardTitle>
-
-            <div className="flex gap-4">
-              {/* Group Select */}
-              <GenericSelect
-                value={filters.selectedGroup}
-                onValueChange={(value) =>
-                  setFilters((prev) => ({ ...prev, selectedGroup: value }))
-                }
-                options={groups.map((group) => ({
-                  value: group,
-                  label: group,
-                }))}
-                placeholder="Filtrar por Grupo"
-                className="w-[150px]"
-              />
-
-              {/* Year Select */}
-              <GenericSelect
-                value={filters.selectedYear}
-                onValueChange={(value) =>
-                  setFilters((prev) => ({ ...prev, selectedYear: value }))
-                }
-                options={years.map((year) => ({
-                  value: year.toString(),
-                  label: year,
-                }))}
-                placeholder="Filtrar por Año"
-                className="w-[100px]"
-              />
-
-              {/* Search Button */}
-              <Button onClick={handleSearch}>Buscar</Button>
-            </div>
-          </div>
-        </CardHeader>
+        <CardHeaderSection
+          title={"Reporte de Ventas Globales"}
+          titleHelper={
+            filters.displayedYear &&
+            filters.displayedGroup &&
+            filters.displayedGroup !== "Todos"
+              ? `(del ${filters.displayedGroup})`
+              : undefined
+          }
+          subTitle={filters.displayedYear}
+          actions={<Actions />}
+        />
         <CardContent>
           {filters.displayedYear && filters.displayedGroup ? (
             <div className="ml-8 py-32">

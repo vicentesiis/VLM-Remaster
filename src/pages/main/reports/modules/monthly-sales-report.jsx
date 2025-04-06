@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { BigCalendar } from "@/components/customs/big-calendar"
+import { CardHeaderSection } from "@/components/customs/card-header-section"
 import { GenericSelect } from "@/components/customs/generic-select"
 import PageLayout from "@/components/customs/page-layout"
 import { Button } from "@/components/ui/button"
@@ -10,26 +11,13 @@ import {
   CardSubTitle,
   CardTitle,
 } from "@/components/ui/card"
-
-const currentYear = new Date().getFullYear()
-const currentMonth = new Date().getMonth()
-
-const years = Array.from({ length: 4 }, (_, i) => currentYear - i)
-const months = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
-]
-const groups = ["Todos", "Grupo A", "Grupo B", "Grupo C"]
+import {
+  months,
+  years,
+  currentYear,
+  currentMonth,
+  groups,
+} from "@/constants/utils-contants"
 
 export const MonthlySalesReport = () => {
   const [filters, setFilters] = useState({
@@ -64,77 +52,75 @@ export const MonthlySalesReport = () => {
     setError(false)
   }
 
+  const Actions = () => {
+    return (
+      <div className="flex flex-wrap items-center gap-2">
+        <GenericSelect
+          value={filters.selectedGroup}
+          onValueChange={(value) =>
+            setFilters((prev) => ({ ...prev, selectedGroup: value }))
+          }
+          options={groups.map((group) => ({
+            value: group,
+            label: group,
+          }))}
+          placeholder="Filtrar por Grupo"
+          className="w-[150px]"
+          required={true}
+          error={error && !filters.selectedGroup}
+        />
+
+        <GenericSelect
+          value={filters.selectedYear}
+          onValueChange={(value) =>
+            setFilters((prev) => ({ ...prev, selectedYear: value }))
+          }
+          options={years.map((year) => ({
+            value: year.toString(),
+            label: year,
+          }))}
+          placeholder="Año"
+          className="w-[100px]"
+        />
+
+        <GenericSelect
+          value={filters.selectedMonth}
+          onValueChange={(value) =>
+            setFilters((prev) => ({ ...prev, selectedMonth: value }))
+          }
+          options={months.map((month, index) => ({
+            value: index.toString(),
+            label: month,
+          }))}
+          placeholder="Mes"
+          className="w-[120px]"
+        />
+
+        <Button onClick={handleSearch}>Buscar</Button>
+      </div>
+    )
+  }
+
   return (
     <PageLayout title="Reporte Mensual">
       <Card>
-        <CardHeader>
-          <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-            <CardTitle className="flex items-center gap-2">
-              {/* Display title and subtitle only after search */}
-              {filters.displayedYear &&
-              filters.displayedMonth &&
-              filters.selectedGroup ? (
-                <>
-                  {months[parseInt(filters.displayedMonth)]}{" - "}
-                  {filters.displayedYear}
-                  {/* Conditionally render displayedGroup */}
-                  {filters.displayedGroup !== "Todos" && (
-                    <CardSubTitle>(del {filters.displayedGroup})</CardSubTitle>
-                  )}
-                </>
-              ) : (
-                "Reporte Mensual"
-              )}
-            </CardTitle>
-
-            <div className="flex flex-wrap items-center gap-2">
-              <GenericSelect
-                value={filters.selectedGroup}
-                onValueChange={(value) =>
-                  setFilters((prev) => ({ ...prev, selectedGroup: value }))
-                }
-                options={groups.map((group) => ({
-                  value: group,
-                  label: group,
-                }))}
-                placeholder="Filtrar por Grupo"
-                className="w-[150px]"
-                required={true}
-                error={error && !filters.selectedGroup}
-              />
-
-              <GenericSelect
-                value={filters.selectedYear}
-                onValueChange={(value) =>
-                  setFilters((prev) => ({ ...prev, selectedYear: value }))
-                }
-                options={years.map((year) => ({
-                  value: year.toString(),
-                  label: year,
-                }))}
-                placeholder="Año"
-                className="w-[100px]"
-              />
-
-              <GenericSelect
-                value={filters.selectedMonth}
-                onValueChange={(value) =>
-                  setFilters((prev) => ({ ...prev, selectedMonth: value }))
-                }
-                options={months.map((month, index) => ({
-                  value: index.toString(),
-                  label: month,
-                }))}
-                placeholder="Mes"
-                className="w-[120px]"
-              />
-
-              <Button onClick={handleSearch} className="ml-auto">
-                Buscar
-              </Button>
-            </div>
-          </div>
-
+        <CardHeaderSection
+          title={"Reporte Mensual"}
+          titleHelper={
+            filters.displayedYear &&
+            filters.displayedGroup &&
+            filters.displayedGroup !== "Todos"
+              ? `(del ${filters.displayedGroup})`
+              : undefined
+          }
+          subTitle={
+            filters.displayedYear && filters.displayedMonth
+              ? `${months[parseInt(filters.displayedMonth)]} - ${filters.displayedYear}`
+              : undefined
+          }
+          actions={<Actions />}
+        />
+        <CardContent>
           <div className="mt-2 flex items-center gap-2">
             {filters.displayedYear && filters.displayedMonth && (
               <>
@@ -143,9 +129,6 @@ export const MonthlySalesReport = () => {
               </>
             )}
           </div>
-        </CardHeader>
-
-        <CardContent>
           {/* Show the calendar only after the user clicks "Buscar" */}
           {filters.displayedYear &&
             filters.displayedMonth &&
