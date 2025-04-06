@@ -1,7 +1,6 @@
-// src/hooks/useIsSmallScreen.js
 import { useState, useEffect } from "react"
 
-const useIsSmallScreen = () => {
+export const useIsSmallScreen = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false)
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import React from "react"
 import { useState } from "react"
+import { BarChartStacked } from "@/components/customs/bar-chart/bar-chart-stacked"
 import CardHeaderSection from "@/components/customs/card-header-section"
 import { GenericBarChart } from "@/components/customs/chart/generic-bar-chart"
 import GenericSelect from "@/components/customs/generic-select"
@@ -80,7 +81,9 @@ export const LogAgentReport = () => {
           actions={<Actions />}
         />
         <CardContent>
-          <GenericBarChart data={logChartData} />
+          <div className="overflow-auto">
+            <BarChartStacked />
+          </div>
         </CardContent>
       </Card>{" "}
     </PageLayout>
