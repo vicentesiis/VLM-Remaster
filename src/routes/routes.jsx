@@ -28,7 +28,7 @@ export const routes = [
       {
         path: ":clientId",
         element: <ClientDetail />,
-        allowedRoles: ["super_admin"],
+        allowedRoles: ["super_admin", "agent"],
       },
     ],
   },
