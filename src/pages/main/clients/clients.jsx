@@ -1,14 +1,55 @@
+import { SearchIcon } from "lucide-react"
 import React from "react"
+import { CheckboxList, InputIcon } from "@/components/customs"
+import { CollapsibleComponentGroup } from "@/components/customs/collapsible/collapsible-component-group"
+import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
 import PageLayout from "@/components/customs/page-layout"
-import { Card, CardHeader, CardTitle } from "@/components/ui/card"
+import { SplitPane } from "@/components/customs/split-pane"
+import { Button } from "@/components/ui"
+import { Card, CardContent } from "@/components/ui/card"
+import { tasksOptions } from "@/constants/utils-contants"
+import { BaseTable } from "@/components/customs/table-data"
+import { tasksTableData } from "@/data"
 
 export const Clients = () => {
+  
+  const ClientsFilter = () => {
+    return (
+      <CollapsibleComponentGroup
+        title={"Filtro"}
+        footer={<Button>Aplicar</Button>}
+      >
+        <InputIcon
+          title="Buscar"
+          alwaysOpen={true}
+          placeholder={"Buscar"}
+          icon={SearchIcon}
+        />
+        <DateRangePicker
+          title="Rango de Fechas"
+          locale="es-MX"
+          showCompare={false}
+        />
+        <CheckboxList title="Estatus" options={tasksOptions} />
+      </CollapsibleComponentGroup>
+    )
+  }
+
+  const ClientsTable = () => {
+    return <BaseTable data={tasksTableData} tableType={"tasks"} />
+  }
+
   return (
     <PageLayout title="Clientes">
-      <Card className="mx-auto max-w-screen-xl px-4">
-        <CardHeader>
-          <CardTitle>Cliente</CardTitle>
-        </CardHeader>
+      <Card>
+        <CardContent>
+          <SplitPane
+            title={"Mis Clientes"}
+            subTitle={"23 de 40 clientes"}
+            LeftSideComponent={ClientsFilter}
+            RightSideComponent={ClientsTable}
+          />
+        </CardContent>
       </Card>
     </PageLayout>
   )

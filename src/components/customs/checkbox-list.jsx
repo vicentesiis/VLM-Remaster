@@ -1,23 +1,25 @@
 import PropTypes from "prop-types"
 import React from "react"
+import { ScrollArea } from "../ui"
 import { Checkbox } from "@/components/ui/checkbox"
-import { LabelStyle } from "@/components/ui/typography"
+import { PLeadOption } from "@/components/ui/typography"
 
 export function CheckboxList({ options }) {
   return (
-    <div className="mt-2 flex flex-col items-start gap-4">
-      {options.map(({ name, label }) => (
-        <div key={name} className="flex items-center gap-3">
-          <Checkbox id={`${name}-vertical`} />
-          <LabelStyle
+    <ScrollArea className="h-[250px] rounded-md border">
+      <div className="flex flex-col divide-y divide-border">
+        {options.map(({ name, label }) => (
+          <label
+            key={name}
             htmlFor={`${name}-vertical`}
-            className="flex items-center gap-2 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="flex cursor-pointer items-center space-x-2 px-4 py-3 transition-colors hover:bg-muted"
           >
-            {label}
-          </LabelStyle>
-        </div>
-      ))}
-    </div>
+            <Checkbox id={`${name}-vertical`} />
+            <PLeadOption className="leading-none">{label}</PLeadOption>
+          </label>
+        ))}
+      </div>
+    </ScrollArea>
   )
 }
 

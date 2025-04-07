@@ -28,24 +28,22 @@ export const SalesAgentReport = () => {
 
   function SalesAgentFilter() {
     return (
-      <div>
-        <CollapsibleComponentGroup title={"Filtro"}>
-          <InputIcon
-            title="Buscar"
-            alwaysOpen={true}
-            placeholder={"Buscar"}
-            icon={SearchIcon}
-          />
-          <DateRangePicker
-            title="Rango de Fechas"
-            locale="es-MX"
-            showCompare={false}
-          />
-        </CollapsibleComponentGroup>
-        <div className="flex justify-end sm:mt-8">
-          <Button>Aplicar</Button>
-        </div>
-      </div>
+      <CollapsibleComponentGroup
+        title={"Filtro"}
+        footer={<Button>Aplicar</Button>}
+      >
+        <InputIcon
+          title="Buscar"
+          alwaysOpen={true}
+          placeholder={"Buscar"}
+          icon={SearchIcon}
+        />
+        <DateRangePicker
+          title="Rango de Fechas"
+          locale="es-MX"
+          showCompare={false}
+        />
+      </CollapsibleComponentGroup>
     )
   }
 

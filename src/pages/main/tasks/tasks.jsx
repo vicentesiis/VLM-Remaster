@@ -11,40 +11,32 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { tasksOptions } from "@/constants/utils-contants"
 import tasksTableData from "@/data/tasks-table-data"
-import { ScrollArea } from "@/components/ui"
 
 export const Tasks = () => {
   function TaskFilter() {
     return (
-      <div>
-        <CollapsibleComponentGroup title={"Filtro"}>
-          <InputIcon
-            title="Buscar"
-            alwaysOpen={true}
-            placeholder={"Buscar"}
-            icon={SearchIcon}
-          />
-          <DateRangePicker
-            title="Rango de Fechas"
-            locale="es-MX"
-            showCompare={false}
-          />
-          <CheckboxList title="Estatus" options={tasksOptions} />
-        </CollapsibleComponentGroup>
-        <div className="flex justify-end sm:mt-8">
-          <Button>Aplicar</Button>
-        </div>
-      </div>
+      <CollapsibleComponentGroup
+        title={"Filtro"}
+        footer={<Button>Aplicar</Button>}
+      >
+        <InputIcon
+          title="Buscar"
+          alwaysOpen={true}
+          placeholder={"Buscar"}
+          icon={SearchIcon}
+        />
+        <DateRangePicker
+          title="Rango de Fechas"
+          locale="es-MX"
+          showCompare={false}
+        />
+        <CheckboxList title="Estatus" options={tasksOptions} />
+      </CollapsibleComponentGroup>
     )
   }
 
   function TaskTable() {
-    return (
-      <BaseTable data={tasksTableData} tableType={"tasks"} />
-      // <ScrollArea className="max-h-[500px] overflow-auto">
-        
-      // </ScrollArea>
-    )
+    return <BaseTable data={tasksTableData} tableType={"tasks"} />
   }
 
   return (
