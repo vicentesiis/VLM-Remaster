@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { tasksOptions } from "@/constants/utils-contants"
 import tasksTableData from "@/data/tasks-table-data"
+import { ScrollArea } from "@/components/ui"
 
 export const Tasks = () => {
   function TaskFilter() {
@@ -39,9 +40,10 @@ export const Tasks = () => {
 
   function TaskTable() {
     return (
-      <div className="max-h-[500px] overflow-auto">
-        <BaseTable data={tasksTableData} tableType={"tasks"} />
-      </div>
+      <BaseTable data={tasksTableData} tableType={"tasks"} />
+      // <ScrollArea className="max-h-[500px] overflow-auto">
+        
+      // </ScrollArea>
     )
   }
 

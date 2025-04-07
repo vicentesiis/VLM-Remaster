@@ -4,7 +4,7 @@ import SalesReportDetailTableBody from "./table-body/sales-report-table-body/sal
 import SalesReportTableBody from "@/components/customs/table-data/table-body/sales-report-table-body/sales-report-table-body"
 import TaskTableBody from "@/components/customs/table-data/table-body/task-table-body"
 import { TableHeaderComponent } from "@/components/customs/table-data/table-header"
-import { H4 } from "@/components/ui"
+import { H4, ScrollArea } from "@/components/ui"
 import { Table } from "@/components/ui/table"
 import useFilteredColumns from "@/hooks/useFilteredColumns"
 
@@ -51,7 +51,7 @@ export function BaseTable({ data, tableType, onRowClick }) {
   }
 
   return (
-    <div className="grow overflow-auto">
+    <ScrollArea className="overflow-y-visible h-[600px] sm:h-[540px] 2xl:h-[700px]">
       <Table>
         <TableHeaderComponent columns={filteredColumns} type={tableType} />
         <TableBody />
@@ -59,7 +59,7 @@ export function BaseTable({ data, tableType, onRowClick }) {
       {/* {tableType === "SalesReportTableBody" ?? (
         <TableFooter label={"Total"} value={"23030"} />
       )} */}
-    </div>
+    </ScrollArea>
   )
 }
 
