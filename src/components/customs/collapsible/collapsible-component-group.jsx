@@ -15,15 +15,13 @@ export function CollapsibleComponentGroup({ title, children, footer }) {
             key={index}
             title={child.props.title || `Sin nombre ${index + 1}`}
             open={child.props.alwaysOpen}
-            tagCount={child.props.tagCount}
-            onReset={child.props.onReset}
           >
             {child}
           </CollapsibleComponent>
         )
       })}
 
-      {footer && <div className="flex justify-end sm:mt-8">{footer}</div>}
+      {footer && <div className="flex justify-end sm:mt-4">{footer}</div>}
     </div>
   )
 }

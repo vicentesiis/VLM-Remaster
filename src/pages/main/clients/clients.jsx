@@ -1,19 +1,24 @@
 import { SearchIcon } from "lucide-react"
-import React from "react"
+import React, { useState } from "react"
 import { CheckboxList, InputIcon } from "@/components/customs"
 import { CollapsibleComponentGroup } from "@/components/customs/collapsible/collapsible-component-group"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
 import PageLayout from "@/components/customs/page-layout"
 import { SplitPane } from "@/components/customs/split-pane"
+import { BaseTable } from "@/components/customs/table-data"
 import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
 import { tasksOptions } from "@/constants/utils-contants"
-import { BaseTable } from "@/components/customs/table-data"
 import { tasksTableData } from "@/data"
 
 export const Clients = () => {
-  
   const ClientsFilter = () => {
+    const [selectedCount, setSelectedCount] = useState(0)
+
+    const handleSelectionChange = (count) => {
+      setSelectedCount(count)
+    }
+
     return (
       <CollapsibleComponentGroup
         title={"Filtro"}
@@ -30,7 +35,12 @@ export const Clients = () => {
           locale="es-MX"
           showCompare={false}
         />
-        <CheckboxList title="Estatus" options={tasksOptions} />
+        <CheckboxList
+          title="Estatus"
+          tagCount={selectedCount}
+          options={tasksOptions}
+          onSelectionChange={handleSelectionChange}
+        />
       </CollapsibleComponentGroup>
     )
   }
