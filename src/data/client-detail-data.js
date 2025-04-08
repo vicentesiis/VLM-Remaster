@@ -36,8 +36,8 @@ export const clientDetailData = [
       { label: "Fecha de Salida", value: "No Aplica" },
       {
         label: "Comentarios",
-        value: "Aute exercitation dolor Lorem nostrud consecteturdwadhj kjdfksjdfkjsdfkj sdkfjsefkj",
-        fullWidth: true, // 👈 le dices que debe ocupar toda la fila
+        value: "Aute exercitation dolor Lorem Aute  ",
+        fullWidth: true,
       },
     ],
   },
