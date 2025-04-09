@@ -13,12 +13,6 @@ import { tasksTableData } from "@/data"
 
 export const Clients = () => {
   const ClientsFilter = () => {
-    const [selectedCount, setSelectedCount] = useState(0)
-
-    const handleSelectionChange = (count) => {
-      setSelectedCount(count)
-    }
-
     return (
       <CollapsibleComponentGroup
         title={"Filtro"}
@@ -35,12 +29,7 @@ export const Clients = () => {
           locale="es-MX"
           showCompare={false}
         />
-        <CheckboxList
-          title="Estatus"
-          tagCount={selectedCount}
-          options={tasksOptions}
-          onSelectionChange={handleSelectionChange}
-        />
+        <CheckboxList title="Estatus" options={tasksOptions} />
       </CollapsibleComponentGroup>
     )
   }
