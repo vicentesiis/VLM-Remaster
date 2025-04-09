@@ -37,7 +37,7 @@ export function SplitPane({
             </div>
           </div>
         </div>
-        <RightSideComponent />
+        {RightSideComponent}
       </div>
     )
   }
@@ -49,7 +49,7 @@ export function SplitPane({
         onOpenChange={(open) => setIsCollapsed(!open)}
       >
         <CollapsibleContent className="sm:w-[250px]">
-          <LeftSideComponent />
+          {LeftSideComponent}
           <Separator className="my-4 sm:m-0 sm:h-0" />
         </CollapsibleContent>
       </Collapsible>

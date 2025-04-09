@@ -1,19 +1,16 @@
 import PropTypes from "prop-types"
 import React from "react"
 import { ScrollArea } from "../ui"
-import { Checkbox } from "@/components/ui/checkbox" // Import the custom Checkbox component
+import { Checkbox } from "@/components/ui/checkbox"
 import { PLeadOption } from "@/components/ui/typography"
-import { useCheckboxStore } from "@/store/useCheckboxStore" // Import Zustand store
 
-export function CheckboxList({ options }) {
-  const { selectedValues, setSelectedValues } = useCheckboxStore() // Use Zustand store
-
+export function CheckboxList({ options, selectedValues, onCheckedChange }) {
   const handleCheckboxChange = (name, checked) => {
     const newSelectedValues = checked
-      ? [...selectedValues, name] // Add to selectedValues when checked
-      : selectedValues.filter((value) => value !== name) // Remove from selectedValues when unchecked
+      ? [...selectedValues, name]
+      : selectedValues.filter((value) => value !== name)
 
-    setSelectedValues(newSelectedValues) // Update Zustand store
+    onCheckedChange(newSelectedValues)
   }
 
   return (
@@ -27,8 +24,8 @@ export function CheckboxList({ options }) {
           >
             <Checkbox
               id={`${name}-vertical`}
-              checked={selectedValues.includes(name)} // Bind `checked` to Zustand state
-              onCheckedChange={(checked) => handleCheckboxChange(name, checked)} // Handle checkbox change
+              checked={selectedValues.includes(name)}
+              onCheckedChange={(checked) => handleCheckboxChange(name, checked)}
             />
             <PLeadOption className="leading-none">{label}</PLeadOption>
           </label>
@@ -45,6 +42,8 @@ CheckboxList.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ).isRequired,
+  selectedValues: PropTypes.array.isRequired,
+  onCheckedChange: PropTypes.func.isRequired,
 }
 
 export default CheckboxList

@@ -1,5 +1,5 @@
 import { SearchIcon } from "lucide-react"
-import React from "react"
+import React, { useEffect } from "react"
 import CheckboxList from "@/components/customs/checkbox-list"
 import CollapsibleComponentGroup from "@/components/customs/collapsible/collapsible-component-group"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
@@ -11,9 +11,18 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { tasksOptions } from "@/constants/utils-contants"
 import tasksTableData from "@/data/tasks-table-data"
+import {
+  useSearchStore,
+  useDateRangeStore,
+  useCheckboxStore,
+} from "@/store/filterInputsStore"
 
 export const Tasks = () => {
+
   function TaskFilter() {
+    const { searchQuery, setSearchQuery } = useSearchStore()
+    const { dateRange, setDateRange } = useDateRangeStore()
+    const { selectedValues, setSelectedValues } = useCheckboxStore()
     return (
       <CollapsibleComponentGroup
         title={"Filtro"}
@@ -24,19 +33,25 @@ export const Tasks = () => {
           alwaysOpen={true}
           placeholder={"Buscar"}
           icon={SearchIcon}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <DateRangePicker
           title="Rango de Fechas"
           locale="es-MX"
           showCompare={false}
+          initialDateFrom={dateRange.from}
+          initialDateTo={dateRange.to}
+          onUpdate={(range) => setDateRange(range)}
         />
-        <CheckboxList title="Estatus" options={tasksOptions} />
+        <CheckboxList
+          title="Estatus"
+          options={tasksOptions}
+          selectedValues={selectedValues}
+          onCheckedChange={setSelectedValues}
+        />
       </CollapsibleComponentGroup>
     )
-  }
-
-  function TaskTable() {
-    return <BaseTable data={tasksTableData} tableType={"tasks"} />
   }
 
   return (
@@ -46,8 +61,10 @@ export const Tasks = () => {
           <SplitPane
             title={"Lista de Tareas"}
             subTitle={"12 de 23 Tareas"}
-            LeftSideComponent={TaskFilter}
-            RightSideComponent={TaskTable}
+            LeftSideComponent={<TaskFilter />}
+            RightSideComponent={
+              <BaseTable data={tasksTableData} tableType={"tasks"} />
+            }
           />
         </CardContent>
       </Card>

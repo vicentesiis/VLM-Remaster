@@ -10,9 +10,18 @@ import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
 import { tasksOptions } from "@/constants/utils-contants"
 import { tasksTableData } from "@/data"
+import {
+  useSearchStore,
+  useDateRangeStore,
+  useCheckboxStore,
+} from "@/store/filterInputsStore"
 
 export const Clients = () => {
   const ClientsFilter = () => {
+    const { searchQuery, setSearchQuery } = useSearchStore()
+    const { dateRange, setDateRange } = useDateRangeStore()
+    const { selectedValues, setSelectedValues } = useCheckboxStore()
+
     return (
       <CollapsibleComponentGroup
         title={"Filtro"}
@@ -23,19 +32,25 @@ export const Clients = () => {
           alwaysOpen={true}
           placeholder={"Buscar"}
           icon={SearchIcon}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <DateRangePicker
           title="Rango de Fechas"
           locale="es-MX"
           showCompare={false}
+          initialDateFrom={dateRange.from}
+          initialDateTo={dateRange.to}
+          onUpdate={(range) => setDateRange(range)}
         />
-        <CheckboxList title="Estatus" options={tasksOptions} />
+        <CheckboxList
+          title="Estatus"
+          options={tasksOptions}
+          selectedValues={selectedValues}
+          onCheckedChange={setSelectedValues}
+        />
       </CollapsibleComponentGroup>
     )
-  }
-
-  const ClientsTable = () => {
-    return <BaseTable data={tasksTableData} tableType={"tasks"} />
   }
 
   return (
@@ -45,8 +60,10 @@ export const Clients = () => {
           <SplitPane
             title={"Mis Clientes"}
             subTitle={"23 de 40 clientes"}
-            LeftSideComponent={ClientsFilter}
-            RightSideComponent={ClientsTable}
+            LeftSideComponent={<ClientsFilter />}
+            RightSideComponent={
+              <BaseTable data={tasksTableData} tableType={"tasks"} />
+            }
           />
         </CardContent>
       </Card>
