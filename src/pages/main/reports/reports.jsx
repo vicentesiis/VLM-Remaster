@@ -1,5 +1,5 @@
 import React from "react"
-import PageLayout from "@/components/customs/page-layout"
+import PageLayout from "@/components/customs/layout/page-layout"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 
 export const Reports = () => {

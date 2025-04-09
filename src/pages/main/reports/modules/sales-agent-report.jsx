@@ -3,9 +3,9 @@ import React, { useRef, useState } from "react"
 import CollapsibleComponentGroup from "@/components/customs/collapsible/collapsible-component-group"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
 import InputIcon from "@/components/customs/input-icon"
-import PageLayout from "@/components/customs/page-layout"
+import PageLayout from "@/components/customs/layout/page-layout"
 import { SalesReportAgentDrawer } from "@/components/customs/sales-report-agent-drawer"
-import SplitPane from "@/components/customs/split-pane"
+import SplitPane from "@/components/customs/layout/split-pane/split-pane"
 import BaseTable from "@/components/customs/table-data/base-table"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -28,10 +28,7 @@ export const SalesAgentReport = () => {
 
   function SalesAgentFilter() {
     return (
-      <CollapsibleComponentGroup
-        title={"Filtro"}
-        footer={<Button>Aplicar</Button>}
-      >
+      <CollapsibleComponentGroup title={"Filtro"}>
         <InputIcon
           title="Buscar"
           alwaysOpen={true}

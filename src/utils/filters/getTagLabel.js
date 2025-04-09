@@ -6,7 +6,7 @@ export const getTagLabel = (child) => {
   const { dateRange } = useDateRangeStore.getState()
 
   if (child.props.title === "Estatus" && selectedValues.length > 0) {
-    return `${selectedValues.length} seleccionados`
+    return `${selectedValues.length} `
   }
 
   if (

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { BigCalendar } from "@/components/customs/big-calendar"
 import { CardHeaderSection } from "@/components/customs/card-header-section"
 import { GenericSelect } from "@/components/customs/generic-select"
-import PageLayout from "@/components/customs/page-layout"
+import PageLayout from "@/components/customs/layout/page-layout"
 import { Button } from "@/components/ui/button"
 import {
   Card,

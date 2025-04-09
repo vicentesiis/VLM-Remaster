@@ -5,39 +5,39 @@ import { H3Border } from "@/components/ui/typography"
 import { useFilterSummary } from "@/hooks/useFilterSummary"
 import { getTagLabel } from "@/utils/filters/getTagLabel"
 
-export function CollapsibleComponentGroup({ title, children, footer }) {
+export function CollapsibleComponentGroup({ title, children }) {
   const { hasFilters, resetFilters } = useFilterSummary()
 
   return (
-    <div >
-      <div className="flex items-center justify-between">
-        <H3Border>{title}</H3Border>
-
-        {hasFilters && (
-          <Button variant="ghost" size="sm" onClick={resetFilters}>
-            Limpiar filtros
-          </Button>
-        )}
-      </div>
+    <div>
+      <H3Border>{title}</H3Border>
 
       {React.Children.map(children, (child, index) => {
         if (!React.isValidElement(child)) return null
 
         const tagLabel = getTagLabel(child)
+        const isAlwaysOpen = child.props.title === "Buscar"
 
         return (
           <CollapsibleComponent
             key={index}
             title={child.props.title || `Sin nombre ${index + 1}`}
-            open={child.props.alwaysOpen}
             tagLabel={tagLabel}
+            isAlwaysOpen={isAlwaysOpen}
           >
             {child}
           </CollapsibleComponent>
         )
       })}
 
-      {footer && <div className="flex justify-end sm:mt-4">{footer}</div>}
+      <div className="mt-2 flex grow justify-between sm:mt-4">
+        {hasFilters && (
+          <Button variant="secondary" size="sm" onClick={resetFilters}>
+            Limpiar
+          </Button>
+        )}
+        <Button className="ml-auto">Aplicar</Button>
+      </div>
     </div>
   )
 }

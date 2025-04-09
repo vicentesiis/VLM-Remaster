@@ -4,13 +4,14 @@ import CheckboxList from "@/components/customs/checkbox-list"
 import CollapsibleComponentGroup from "@/components/customs/collapsible/collapsible-component-group"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
 import InputIcon from "@/components/customs/input-icon"
-import PageLayout from "@/components/customs/page-layout"
-import SplitPane from "@/components/customs/split-pane"
+import PageLayout from "@/components/customs/layout/page-layout"
+import SplitPane from "@/components/customs/layout/split-pane/split-pane"
 import BaseTable from "@/components/customs/table-data/base-table"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { tasksOptions } from "@/constants/utils-contants"
 import tasksTableData from "@/data/tasks-table-data"
+import useResetStoresOnRouteChange from "@/hooks/useResetStoresOnRouteChange"
 import {
   useSearchStore,
   useDateRangeStore,
@@ -18,16 +19,13 @@ import {
 } from "@/store/filterInputsStore"
 
 export const Tasks = () => {
-
+  useResetStoresOnRouteChange()
   function TaskFilter() {
     const { searchQuery, setSearchQuery } = useSearchStore()
     const { dateRange, setDateRange } = useDateRangeStore()
     const { selectedValues, setSelectedValues } = useCheckboxStore()
     return (
-      <CollapsibleComponentGroup
-        title={"Filtro"}
-        footer={<Button>Aplicar</Button>}
-      >
+      <CollapsibleComponentGroup title={"Filtro"}>
         <InputIcon
           title="Buscar"
           alwaysOpen={true}

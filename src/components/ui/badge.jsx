@@ -10,6 +10,8 @@ const badgeVariants = cva("rounded-md border px-2.5 py-0.5 ", {
         "border-transparent border-green-500 text-green-500 shadow hover:bg-green-50",
       secondary:
         "border-transparent border-blue-500 text-blue-500 hover:bg-secondary/80",
+      default:
+        "hover:bg-secondary/80",
     },
   },
   defaultVariants: {

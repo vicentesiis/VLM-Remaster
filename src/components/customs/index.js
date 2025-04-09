@@ -5,4 +5,4 @@ export * from "./collapsible/collapsible-component";
 export * from "./download-dropdown";
 export * from "./fancy-multi-select";
 export * from "./input-icon";
-export * from "./page-layout";
+export * from "./layout/page-layout";

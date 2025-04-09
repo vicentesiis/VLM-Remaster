@@ -1,15 +1,21 @@
 import { ChevronDown, X } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
+import { Badge } from "@/components/ui/badge"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { PLead } from "@/components/ui/typography"
+import { PLead, ListStyle } from "@/components/ui/typography"
 import { useCheckboxStore, useDateRangeStore } from "@/store/filterInputsStore"
 
-export const CollapsibleComponent = ({ title, open, tagLabel, children }) => {
+export const CollapsibleComponent = ({
+  title,
+  tagLabel,
+  children,
+  isAlwaysOpen,
+}) => {
   const { setSelectedValues } = useCheckboxStore()
   const { setDateRange } = useDateRangeStore()
 
@@ -24,25 +30,28 @@ export const CollapsibleComponent = ({ title, open, tagLabel, children }) => {
   }
 
   return (
-    <Collapsible open={open}>
+    <Collapsible defaultOpen={isAlwaysOpen} disabled={isAlwaysOpen}>
       <CollapsibleTrigger className="group flex w-full items-center justify-between py-3">
-        <div className="flex items-center gap-2">
-          <PLead className="flex items-center gap-1">{title}</PLead>
+        <div className="flex w-full justify-between pr-4">
+          <PLead>{title}</PLead>
 
           {tagLabel && (
-            <button
+            <Badge
               onClick={(e) => {
                 e.stopPropagation()
                 handleClearTag()
               }}
-              className="flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground transition hover:bg-muted/70"
+              className="flex cursor-pointer items-center rounded-full"
             >
-              {tagLabel}
+              <ListStyle className={"text-[12px]"}>{tagLabel}</ListStyle>
               <X className="h-3 w-3" />
-            </button>
+            </Badge>
           )}
         </div>
-        <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
+
+        {!isAlwaysOpen && (
+          <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
+        )}
       </CollapsibleTrigger>
 
       <CollapsibleContent className="flex flex-col">
@@ -54,9 +63,9 @@ export const CollapsibleComponent = ({ title, open, tagLabel, children }) => {
 
 CollapsibleComponent.propTypes = {
   title: PropTypes.string.isRequired,
-  open: PropTypes.bool,
   tagLabel: PropTypes.string,
   children: PropTypes.node.isRequired,
+  isAlwaysOpen: PropTypes.bool.isRequired,
 }
 
 export default CollapsibleComponent
