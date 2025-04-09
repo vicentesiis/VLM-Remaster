@@ -66,8 +66,8 @@ export const SalesAgentReport = () => {
             <SplitPane
               title={"Lista de Ventas"}
               subTitle={""}
-              LeftSideComponent={SalesAgentFilter}
-              RightSideComponent={SalesAgentTable}
+              LeftSideComponent={<SalesAgentFilter />}
+              RightSideComponent={<SalesAgentTable />}
             />
           </CardContent>
         </Card>

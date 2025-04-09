@@ -57,7 +57,7 @@ export function SalesReportAgentDrawer({ saleReport, onClose, tableRef }) {
                 data={saleReport["sells"]}
                 tableType={"salesReportDetailTableBody"}
               />
-              <div className="mb-4 flex grow flex-col justify-end">
+              <div className="mb-16 flex grow flex-col justify-end">
                 <Button onClick={onClose}>Cerrar</Button>
               </div>
             </Drawer.Description>
