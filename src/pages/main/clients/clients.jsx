@@ -1,5 +1,5 @@
 import { SearchIcon } from "lucide-react"
-import React, { useState } from "react"
+import React from "react"
 import { CheckboxList, InputIcon } from "@/components/customs"
 import { CollapsibleComponentGroup } from "@/components/customs/collapsible/collapsible-component-group"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
