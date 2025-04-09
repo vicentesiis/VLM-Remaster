@@ -12,6 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import ComboBox from "@/components/ui/combobox"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { H3 } from "@/components/ui/typography"
@@ -21,9 +22,11 @@ const formSchema = z.object({
     .string()
     .email({ message: "Dirección de correo electrónico inválida" }),
   nombre: z.string().min(1, { message: "El nombre es obligatorio" }),
-  fechaNacimiento: z.date({
-    required_error: "La fecha de nacimiento es obligatoria",
-  }),
+  fechaNacimiento: z
+  .preprocess(
+    (val) => val === "" || val === null ? undefined : val,
+    z.date({ required_error: "La fecha de nacimiento es obligatoria" })
+  ),
   telefono: z
     .string()
     .min(1, { message: "El número de teléfono es obligatorio" }),
@@ -31,22 +34,28 @@ const formSchema = z.object({
     .string()
     .min(1, { message: "La nacionalidad es obligatoria" }),
   estado: z.string().min(1, { message: "El estado es obligatorio" }),
-  curp: z.string().min(1, { message: "La CURP es obligatoria" }),
-  documentoDelCliente: z
+  curp: z
     .string()
-    .min(1, { message: "El documento es obligatorio" }),
-  fechadeDeportacion: z
-    .string()
-    .min(1, { message: "La fecha de deportación es obligatoria" }),
+    .min(1, { message: "El CURP es obligatoria" })
+    .regex(
+      /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
+      "CURP inválida"
+    ),
+    fechadeDeportacion: z
+    .preprocess(
+      (val) => val === "" || val === null ? undefined : val,
+      z.date({ required_error: "La fecha de deportación es obligatoria" })
+    ),
+    salida: z
+    .preprocess(
+      (val) => val === "" || val === null ? undefined : val,
+      z.date({ required_error: "La fecha de salida es obligatoria" })
+    ),
   tramite: z.string().min(1, { message: "El trámite es obligatorio" }),
   vacante: z.string().min(1, { message: "La vacante es obligatoria" }),
   destino: z.string().min(1, { message: "El destino es obligatorio" }),
   periodo: z.string().min(1, { message: "El periodo es obligatorio" }),
   estatus: z.string().min(1, { message: "El estatus es obligatorio" }),
-  salida: z.string().min(1, { message: "La salida es obligatoria" }),
-  comentarios: z
-    .string()
-    .min(1, { message: "Los comentarios son obligatorios" }),
   servicio: z.string().min(1, { message: "El servicio es obligatorio" }),
 })
 
@@ -62,7 +71,7 @@ export const ClientForm = () => {
       estado: "",
       curp: "",
       documentoDelCliente: "",
-      fechadeDeportacion: "",
+      fechadeDeportacion: null,
       tramite: "",
       vacante: "",
       destino: "",
@@ -77,6 +86,99 @@ export const ClientForm = () => {
   const onSubmit = (data) => {
     console.log(data)
   }
+
+  const comboBoxStatus = [
+    { value: "Creado", label: "Creado" },
+    { value: "Importado", label: "Importado" },
+    { value: "Aprovado", label: "Aprovado" },
+    { value: "Pendiente", label: "Pendiente" },
+  ]
+  const servicio = [
+    {value : "al cliente" , label: "al cliente"},
+    {value : "al hogar" , label: "al hogar"},
+    {value : "cerrado" , label: "cerrado"},
+  ]
+  const nacionalidad = [
+    { value: "Mèxicano", label: "Mèxicano" },
+    { value: "Estado unidense", label: "Estado unidense" },
+    { value: "Canadiense", label: "Canadiense" },
+  ]
+  const tramite = [
+    { value: "Visa Laboral", label: "Visa Laboral" },
+    { value: "Visa Laboral + Pasaporte", label: "Visa Laboral + Pasaporte" },
+    { value: "Pèrdon Migratorio", label: "Pèrdon Migratorio" },
+  ]
+  const opcionesVacante = [
+    { value: "no_aplica", label: "No aplica" },
+    { value: "b_usa", label: "B-USA" },
+    { value: "p_usa", label: "P-USA" },
+    { value: "d_canada", label: "D-CANADA" },
+    { value: "q_canada", label: "Q-CANADA" },
+  ]
+  const destino = [
+    { value: "USA", label: "USA" },
+    { value: "CANADA", label: "CANADA" },
+  ]
+  const opcionesPeriodo = [
+    { value: "3", label: "3 Meses" },
+    { value: "4", label: "4 Meses" },
+    { value: "6", label: "6 Meses" },
+    { value: "8", label: "8 Meses" },
+    { value: "12", label: "12 Meses" },
+    { value: "18", label: "18 Meses" },
+    { value: "24", label: "24 Meses" },
+    { value: "30", label: "30 Meses" },
+    { value: "36", label: "36 Meses" },
+  ]
+  const status = [
+    { value: "creado", label: "Creado" },
+    { value: "importado", label: "Importado" },
+    { value: "informacion_pendiente", label: "Información Pendiente" },
+    { value: "generar_referencia", label: "Generar Referencia" },
+    { value: "generar_contrato", label: "Generar Contrato" },
+    { value: "contrato_generado", label: "Contrato Generado" },
+    { value: "corregir_contrato", label: "Corregir Contrato" },
+    { value: "primer_aviso", label: "Primer Aviso" },
+    { value: "pendiente_aprobacion", label: "Pendiente de Aprobación" },
+    { value: "aprobado", label: "Aprobado" },
+    { value: "eligiendo_fecha", label: "Eligiendo Fecha de Salida" },
+    { value: "con_fecha", label: "Con Fecha de Salida" },
+    { value: "fecha_confirmada", label: "Fecha de Salida Confirmada" },
+    { value: "finalizo", label: "Finalizó" },
+    { value: "inactivo_temporal", label: "Temporalmente Inactivo" },
+  ]
+  const estadosMexico = [
+    { value: "Aguascalientes", label: "Aguascalientes" },
+    { value: "Baja California", label: "Baja California" },
+    { value: "Baja California Sur", label: "Baja California Sur" },
+    { value: "Campeche", label: "Campeche" },
+    { value: "Chihuahua", label: "Chihuahua" },
+    { value: "Coahuila", label: "Coahuila" },
+    { value: "Colima", label: "Colima" },
+    { value: "Durango", label: "Durango" },
+    { value: "Guanajuato", label: "Guanajuato" },
+    { value: "Guerrero", label: "Guerrero" },
+    { value: "Hidalgo", label: "Hidalgo" },
+    { value: "Jalisco", label: "Jalisco" },
+    { value: "Mexico", label: "México" },
+    { value: "Michoacán", label: "Michoacán" },
+    { value: "Morelos", label: "Morelos" },
+    { value: "Nayarit", label: "Nayarit" },
+    { value: "Nuevo León", label: "Nuevo León" },
+    { value: "Oaxaca", label: "Oaxaca" },
+    { value: "Puebla", label: "Puebla" },
+    { value: "Querétaro", label: "Querétaro" },
+    { value: "Quintana Roo", label: "Quintana Roo" },
+    { value: "San Luis Potosí", label: "San Luis Potosí" },
+    { value: "Sinaloa", label: "Sinaloa" },
+    { value: "Sonora", label: "Sonora" },
+    { value: "Tabasco", label: "Tabasco" },
+    { value: "Tamaulipas", label: "Tamaulipas" },
+    { value: "Tlaxcala", label: "Tlaxcala" },
+    { value: "Veracruz", label: "Veracruz" },
+    { value: "Yucatán", label: "Yucatán" },
+    { value: "Zacatecas", label: "Zacatecas" },
+  ]
 
   return (
     <FormProvider {...form}>
@@ -95,7 +197,7 @@ export const ClientForm = () => {
               name="nombre"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nombre Completo</FormLabel>
+                  <FormLabel> Nombre</FormLabel>
                   <FormControl>
                     <Input placeholder="Nombre" {...field} />
                   </FormControl>
@@ -115,6 +217,9 @@ export const ClientForm = () => {
                     <DatePickerField
                       value={field.value}
                       onChange={field.onChange}
+                      showYearDropdown
+                      scrollableYearDropdown
+                      dateFormat="dd/MM/yyyy"
                     />
                   </FormControl>
                   <FormMessage />
@@ -160,13 +265,17 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Nacionalidad</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nacionalidad" {...field} />
+                    <ComboBox
+                      {...field} // value, onChange, ref
+                      options={nacionalidad}
+                      placeholder="Nacionalidad"
+                      variant="form" // Cambia a "form" para usar el estilo del formulario
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* Estado Field */}
             <FormField
               control={form.control}
@@ -175,7 +284,12 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Estado</FormLabel>
                   <FormControl>
-                    <Input placeholder="State" {...field} />
+                    <ComboBox
+                      {...field} // value, onChange, ref
+                      options={estadosMexico}
+                      placeholder="Selecciona un estado"
+                      variant="form" // Cambia a "form" para usar el estilo del formulario
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -205,29 +319,34 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Fecha de Deportacion</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} />
+                    <DatePickerField
+                      value={field.value}
+                      onChange={field.onChange}
+                      showYearDropdown
+                      scrollableYearDropdown
+                      dateFormat="dd/MM/yyyy"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* CURP Field */}
+            <FormField
+              control={form.control}
+              name="curp"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>CURP</FormLabel>
+                  <FormControl>
+                    <Input placeholder="CURP" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-
-          {/* CURP Field */}
-          <FormField
-            control={form.control}
-            name="curp"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>CURP</FormLabel>
-                <FormControl>
-                  <Input placeholder="CURP" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
           {/* Process Status Section */}
           <div className="mt-8 space-y-4">
             <H3>Información del Proceso</H3>
@@ -243,7 +362,12 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Tramite</FormLabel>
                   <FormControl>
-                    <Input placeholder="Tramite" {...field} />
+                    <ComboBox
+                      {...field} // value, onChange, ref
+                      options={tramite}
+                      placeholder="Tramite"
+                      variant="form" // Cambia a "form" para usar el estilo del formulario
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -258,7 +382,12 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Vacante</FormLabel>
                   <FormControl>
-                    <Input placeholder="Vacante" {...field} />
+                    <ComboBox
+                      {...field} // value, onChange, ref
+                      options={opcionesVacante}
+                      placeholder="Selecciona una vacante"
+                      variant="form" // Cambia a "form" para usar el estilo de formulario
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -273,7 +402,12 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Destino</FormLabel>
                   <FormControl>
-                    <Input placeholder="Destino" {...field} />
+                    <ComboBox
+                      {...field} // value, onChange, ref
+                      options={destino}
+                      placeholder="Destino"
+                      variant="form" // Cambia a "form" para usar el estilo de formulario
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -288,7 +422,12 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Periodo</FormLabel>
                   <FormControl>
-                    <Input placeholder="Periodo" {...field} />
+                    <ComboBox
+                      {...field} // value, onChange, ref
+                      options={opcionesPeriodo}
+                      placeholder="Periodo"
+                      variant="form" // Cambia a "form" para usar el estilo de formulario
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -303,7 +442,12 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Estatus</FormLabel>
                   <FormControl>
-                    <Input placeholder="Estatus" {...field} />
+                    <ComboBox
+                      {...field}
+                      options={status}
+                      placeholder="Selecciona un Estatus"
+                      variant="form"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -318,7 +462,13 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Salida</FormLabel>
                   <FormControl>
-                    <Input placeholder="Salida" {...field} />
+                    <DatePickerField
+                      value={field.value}
+                      onChange={field.onChange}
+                      showYearDropdown
+                      scrollableYearDropdown
+                      dateFormat="dd/MM/yyyy"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -326,19 +476,6 @@ export const ClientForm = () => {
             />
 
             {/* Comentarios Field */}
-            <FormField
-              control={form.control}
-              name="comentarios"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Comentarios</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Comentarios" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             {/* Servicio Field */}
             <FormField
@@ -348,13 +485,36 @@ export const ClientForm = () => {
                 <FormItem>
                   <FormLabel>Servicio</FormLabel>
                   <FormControl>
-                    <Input placeholder="Servicio" {...field} />
+                    <ComboBox
+                      {...field}
+                      options={servicio}
+                      placeholder="Servicio"
+                      variant="form"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
+          <FormField
+            control={form.control}
+            name="comentarios"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Comentarios</FormLabel>
+                <FormControl>
+                  <textarea
+                    placeholder="Comentarios"
+                    {...field}
+                    rows={4} // Puedes ajustar el número de filas
+                    className="w-full rounded-md border border-gray-300 p-2" // Puedes añadir clases de estilo según necesites
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Submit Button */}
           <div className="flex justify-end">

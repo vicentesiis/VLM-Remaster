@@ -34,7 +34,9 @@ const DatePickerField = ({
           mode="single"
           selected={value}
           onSelect={onChange}
-          captionLayout="dropdown-buttons"
+          captionLayout="dropdown"
+          fromYear={1900} // Años desde 1900
+          toYear={new Date().getFullYear()} // Hasta el año actual
           disabled={(date) =>
             date > new Date() || date < new Date("1900-01-01")
           }
