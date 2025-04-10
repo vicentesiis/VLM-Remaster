@@ -17,6 +17,7 @@ import { H2, H4, P } from "@/components/ui/typography"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
 import { useAuth } from "@/hooks/useAuth"
 import { cn } from "@/lib/utils"
+import SearchWithSelect from "../search-with-select"
 
 export const NavigationSheet = () => {
   const location = useLocation()
@@ -51,7 +52,7 @@ export const NavigationSheet = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" className="flex">
           <Menu />
         </Button>
       </SheetTrigger>
@@ -59,6 +60,7 @@ export const NavigationSheet = () => {
         <SheetHeader>
           <H2>Modulos</H2>
         </SheetHeader>
+        <SearchWithSelect />
 
         {/* Scrollable Content */}
         <div className="flex-1 space-y-3 overflow-y-auto text-base">
@@ -126,10 +128,7 @@ export const NavigationSheet = () => {
         </div>
 
         <div className="mt-auto p-2">
-          <Button
-            onClick={() => logoutMutation.mutate()}
-            className="w-full"
-          >
+          <Button onClick={() => logoutMutation.mutate()} className="w-full">
             Cerrar sesión
           </Button>
         </div>

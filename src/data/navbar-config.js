@@ -17,7 +17,7 @@ export const menuItems = [
     to: "/clientes",
     allowedRoutes: ["super_admin", "agent"],
   },
-  { title: "Órdenes", to: "/ordenes", allowedRoutes: ["super_admin", "agent"] },
+  { title: "Vacantes", to: "/vacantes", allowedRoutes: ["super_admin", "agent"] },
 ]
 
 export const dropdownMenus = [
