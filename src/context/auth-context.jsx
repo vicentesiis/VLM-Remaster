@@ -25,10 +25,7 @@ export const AuthProvider = ({ children }) => {
     retry: false,
   })
 
-  const {
-    data: userCatalog,
-    isLoading: isCatalogLoading,
-  } = useQuery({
+  const { data: userCatalog, isLoading: isCatalogLoading } = useQuery({
     queryKey: ["userCatalog"],
     queryFn: fetchUserCatalog,
     enabled: !!token,
@@ -64,12 +61,11 @@ export const AuthProvider = ({ children }) => {
   const loading = isUserLoading || isCatalogLoading
 
   if (loading) {
-    // Full-screen loading UI
+    // Full-screen loading UI with spinner
     return (
-      <div className="flex h-screen items-center justify-center bg-background">
-        <H3>
-          Cargando información base...
-        </H3>
+      <div className="flex h-screen flex-col items-center justify-center gap-4 bg-background">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        <H3 className="text-muted-foreground">Cargando información base...</H3>
       </div>
     )
   }
