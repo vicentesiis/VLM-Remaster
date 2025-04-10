@@ -1,21 +1,30 @@
-import { SearchIcon } from "lucide-react"
 import React, { useRef, useState } from "react"
-import CollapsibleComponentGroup from "@/components/customs/collapsible/collapsible-component-group"
+import { CardHeaderSection } from "@/components/customs/card-header-section"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
-import InputIcon from "@/components/customs/input-icon"
+import GenericSelect from "@/components/customs/generic-select"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { SalesReportAgentDrawer } from "@/components/customs/sales-report-agent-drawer"
-import SplitPane from "@/components/customs/layout/split-pane/split-pane"
 import BaseTable from "@/components/customs/table-data/base-table"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { currentYear, currentMonth } from "@/constants/utils-contants"
 import salesAgentReportDetail from "@/data/sales-report-agent-table-data"
+import { useAuth } from "@/hooks/useAuth"
 
 export const SalesAgentReport = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [selectedSaleReport, setSelectedSaleReport] = useState(null)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const tableRef = useRef(null)
+  const { currentRole } = useAuth()
 
-  const tableRef = useRef(null) // Add ref to table
+  const listOfAgents = [
+    "Todos",
+    "agent",
+    "agent2",
+    "agent3",
+    "agent4",
+    "agent5",
+  ]
 
   const handleRowClick = (saleReport) => {
     setSelectedSaleReport(saleReport)
@@ -26,35 +35,50 @@ export const SalesAgentReport = () => {
     setIsDrawerOpen(false)
   }
 
-  function SalesAgentFilter() {
+  const [filters, setFilters] = useState({
+    selectedYear: currentYear.toString(),
+    selectedMonth: currentMonth.toString(),
+    displayedYear: null,
+    displayedMonth: null,
+  })
+
+  const handleSearch = () => {
+    setFilters((prev) => ({
+      ...prev,
+      displayedYear: filters.selectedYear,
+      displayedMonth: filters.selectedMonth,
+    }))
+  }
+
+  const Actions = () => {
+    const [selectedAgent, setSelectedAgent] = useState(listOfAgents[0])
+
     return (
-      <CollapsibleComponentGroup title={"Filtro"}>
-        <InputIcon
-          title="Buscar"
-          alwaysOpen={true}
-          placeholder={"Buscar"}
-          icon={SearchIcon}
-        />
+      <>
+        {(currentRole === "super_admin" || currentRole === "admin") && (
+          <GenericSelect
+            value={selectedAgent}
+            onChange={setSelectedAgent}
+            options={listOfAgents.map((agent) => ({
+              value: agent,
+              label: agent,
+            }))}
+            placeholder="Agente"
+            className="w-[100px]"
+          />
+        )}
+
         <DateRangePicker
           title="Rango de Fechas"
           locale="es-MX"
           showCompare={false}
+          onUpdate={(range) => setDateRange(range)}
         />
-      </CollapsibleComponentGroup>
-    )
-  }
 
-  function SalesAgentTable() {
-    return (
-      <div ref={tableRef}>
-        {" "}
-        {/* Wrap table with ref */}
-        <BaseTable
-          data={salesAgentReportDetail}
-          tableType="salesAgentReport"
-          onRowClick={handleRowClick}
-        />
-      </div>
+        <Button onClick={handleSearch} className="ml-auto">
+          Buscar
+        </Button>
+      </>
     )
   }
 
@@ -62,13 +86,18 @@ export const SalesAgentReport = () => {
     <div>
       <PageLayout title="Ventas Por Agente">
         <Card>
+          <CardHeaderSection
+            title={"Reporte de Ventas Por Agente"}
+            actions={<Actions />}
+          />
           <CardContent>
-            <SplitPane
-              title={"Lista de Ventas"}
-              subTitle={""}
-              LeftSideComponent={<SalesAgentFilter />}
-              RightSideComponent={<SalesAgentTable />}
-            />
+            <div ref={tableRef}>
+              <BaseTable
+                data={salesAgentReportDetail}
+                tableType="salesAgentReport"
+                onRowClick={handleRowClick}
+              />
+            </div>
           </CardContent>
         </Card>
       </PageLayout>
@@ -78,7 +107,7 @@ export const SalesAgentReport = () => {
         <SalesReportAgentDrawer
           saleReport={selectedSaleReport}
           onClose={handleCloseDrawer}
-          tableRef={tableRef} // Pass tableRef to drawer
+          tableRef={tableRef}
         />
       )}
     </div>

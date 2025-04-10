@@ -1,6 +1,7 @@
 import { Menu, ChevronDown } from "lucide-react"
 import React, { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
+import SearchWithSelect from "../search-with-select"
 import { Button } from "@/components/ui/button"
 import {
   Collapsible,
@@ -17,13 +18,12 @@ import { H2, H4, P } from "@/components/ui/typography"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
 import { useAuth } from "@/hooks/useAuth"
 import { cn } from "@/lib/utils"
-import SearchWithSelect from "../search-with-select"
 
 export const NavigationSheet = () => {
   const location = useLocation()
-  const { currentRole, logoutMutation } = useAuth() // Assuming logout function from useAuth hook
+  const { currentRole, logoutMutation } = useAuth()
   const [openMenu, setOpenMenu] = useState(null)
-  const [open, setOpen] = useState(false) // control Sheet state
+  const [open, setOpen] = useState(false)
 
   const isDropdownActive = (menu) => {
     return menu.items.some((subItem) =>
@@ -45,8 +45,8 @@ export const NavigationSheet = () => {
     }))
 
   const handleLinkClick = () => {
-    setOpen(false) // dismiss sheet
-    setOpenMenu(null) // collapse dropdowns
+    setOpen(false)
+    setOpenMenu(null)
   }
 
   return (
