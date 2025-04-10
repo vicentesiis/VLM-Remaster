@@ -36,7 +36,7 @@ const AmmountRadioGroup = ({ className }) => {
         <RadioGroup.Item
           key={option.value}
           value={option.value}
-          className="rounded px-3 py-1 ring-[1px] ring-border data-[state=checked]:bg-black data-[state=checked]:font-bold data-[state=checked]:text-white"
+          className="rounded px-3 py-1 ring-[1px] ring-border data-[state=checked]:bg-primary data-[state=checked]:font-bold data-[state=checked]:text-white"
         >
           <P>{option.label}</P>
         </RadioGroup.Item>

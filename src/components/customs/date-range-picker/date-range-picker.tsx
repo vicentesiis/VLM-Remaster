@@ -348,7 +348,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
         <Button
           size={"xl"}
           variant="outline"
-          className={`h-10 ${isOpen ? "bg-black text-white" : ""}`}
+          className={`h-10 ${isOpen ? "bg-secondary text-secondary-foreground" : ""}`}
           onClick={() => setIsOpen((prev) => !prev)} // Toggle isOpen on click
         >
           <div className="text-right">
