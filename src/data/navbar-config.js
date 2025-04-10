@@ -36,7 +36,7 @@ export const dropdownMenus = [
         title: "Ventas por agente",
         to: "/reportes/ventas-por-agente",
         description: "Lista detallada de registros generados.",
-        icon: FileText,
+        icon: BarChart,
         allowedRoutes: ["super_admin"],
       },
       {

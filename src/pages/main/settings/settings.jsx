@@ -5,27 +5,27 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { dropdownMenus } from "@/data/navbar-config"
 import { useAuth } from "@/hooks/useAuth"
 
-export const Reports = () => {
+export const Settings = () => {
   const { currentRole } = useAuth()
 
-  const reportMenu = dropdownMenus.find((menu) => menu.title === "Reportes")
+  const settingsMenu = dropdownMenus.find((menu) => menu.title === "Ajustes")
 
-  if (!reportMenu) return null
+  if (!settingsMenu) return null
 
-  const allowedItems = reportMenu.items.filter((item) =>
+  const allowedItems = settingsMenu.items.filter((item) =>
     item.allowedRoutes.includes(currentRole)
   )
 
   return (
-    <PageLayout title="Reportes">
-      <div className="grid gap-4 md:grid-cols-2">
+    <PageLayout title="Ajustes del Sistema">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {allowedItems.map((item) => {
           const Icon = item.icon
           return (
             <Link key={item.to} to={item.to}>
               <Card className="transition-shadow duration-200 hover:shadow-lg">
                 <CardHeader className="flex flex-row items-center gap-3">
-                  <Icon className="h-8 w-8 text-primary" />
+                  <Icon className="h-5 w-5 text-primary" />
                   <CardTitle>{item.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -42,4 +42,4 @@ export const Reports = () => {
   )
 }
 
-export default Reports
+export default Settings
