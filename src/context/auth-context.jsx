@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import React, { createContext, useState, useEffect } from "react"
+import { H3 } from "@/components/ui"
 import {
   loginUser,
   getUser,
@@ -13,11 +14,10 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("access_token"))
   const queryClient = useQueryClient()
 
-  /** @type {import("@tanstack/react-query").UseQueryResult<UserResponse>} */
   const {
     data: user,
-    isLoading: isUserLoading,
     isError,
+    isLoading: isUserLoading,
   } = useQuery({
     queryKey: ["user"],
     queryFn: getUser,
@@ -25,15 +25,16 @@ export const AuthProvider = ({ children }) => {
     retry: false,
   })
 
-  // Get catalog (roles & permissions)
-  const { data: userCatalog, isLoading: isCatalogLoading } = useQuery({
+  const {
+    data: userCatalog,
+    isLoading: isCatalogLoading,
+  } = useQuery({
     queryKey: ["userCatalog"],
     queryFn: fetchUserCatalog,
     enabled: !!token,
     retry: false,
   })
 
-  // Login mutation
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
@@ -43,7 +44,6 @@ export const AuthProvider = ({ children }) => {
     },
   })
 
-  // Logout mutation
   const logoutMutation = useMutation({
     mutationFn: logoutUser,
     onSuccess: () => {
@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }) => {
     },
   })
 
-  // Sync token removal
   useEffect(() => {
     if (!token) {
       queryClient.clear()
@@ -61,7 +60,19 @@ export const AuthProvider = ({ children }) => {
 
   const currentRole = user?.data?.role || null
   const listOfRoles = userCatalog?.data?.roles || []
+
   const loading = isUserLoading || isCatalogLoading
+
+  if (loading) {
+    // Full-screen loading UI
+    return (
+      <div className="flex h-screen items-center justify-center bg-background">
+        <H3>
+          Cargando información base...
+        </H3>
+      </div>
+    )
+  }
 
   return (
     <AuthContext.Provider
