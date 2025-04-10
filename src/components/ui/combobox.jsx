@@ -24,6 +24,7 @@ const ComboBox = ({
   className,
   variant = "button", // 'button' o 'form'
 }) => {
+  // FIXME: Do not set the width with a hook, instead use a prop
   const [open, setOpen] = useState(false)
   const [width, setWidth] = useState(0)
   const buttonRef = useRef(null) // Ref para el Button
@@ -47,7 +48,8 @@ const ComboBox = ({
           className={cn(
             "justify-between",
             variant === "form"
-              ? "w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-muted-foreground shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              ? // HERE: (?)
+                "w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-muted-foreground shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               : "w-[200px]", // Estilo por defecto para el combo en el header
             className
           )}

@@ -19,7 +19,7 @@ export const ClientDetailTab = ({ sections }) => {
     }, [])
 
     if (commentField) {
-      grouped.push([commentField]) // al final
+      grouped.push([commentField])
     }
 
     return grouped
@@ -46,9 +46,9 @@ export const ClientDetailTab = ({ sections }) => {
                 >
            {row.map((detail, index) => {
   const isComment = detail.label === "Comentarios" || detail.fullWidth
-  // Limpia los espacios extra y saltos de línea del campo de comentarios
+
   const cleanedValue = isComment 
-    ? detail.value.replace(/\s+/g, " ").trim() // Reemplaza múltiplos espacios y limpia los saltos de línea
+    ? detail.value.replace(/\s+/g, " ").trim()
     : detail.value
 
   return (
@@ -56,7 +56,7 @@ export const ClientDetailTab = ({ sections }) => {
       key={index}
       className={`flex sm:flex-row justify-between py-2 ${
         isComment
-          ? "sm:w-auto sm:items-center sm:pr-0"  // Ajustamos para que el comentario no ocupe todo el ancho
+          ? "sm:w-auto sm:items-center sm:pr-0" 
           : "sm:w-1/2 sm:items-center sm:py-0 sm:pr-16"
       }`}
     >
@@ -66,7 +66,7 @@ export const ClientDetailTab = ({ sections }) => {
       <Lead
         className={`${
           isComment
-            ? "text-left font-semibold sm:text-base sm:ml-2"  // Alineamos a la izquierda y agregamos un pequeño margen
+            ? "text-left font-semibold sm:text-base sm:ml-2" 
             : "text-right font-semibold sm:text-lg"
         }`}
       >

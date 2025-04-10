@@ -22,9 +22,8 @@ const formSchema = z.object({
     .string()
     .email({ message: "Dirección de correo electrónico inválida" }),
   nombre: z.string().min(1, { message: "El nombre es obligatorio" }),
-  fechaNacimiento: z
-  .preprocess(
-    (val) => val === "" || val === null ? undefined : val,
+  fechaNacimiento: z.preprocess(
+    (val) => (val === "" || val === null ? undefined : val),
     z.date({ required_error: "La fecha de nacimiento es obligatoria" })
   ),
   telefono: z
@@ -41,16 +40,14 @@ const formSchema = z.object({
       /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
       "CURP inválida"
     ),
-    fechadeDeportacion: z
-    .preprocess(
-      (val) => val === "" || val === null ? undefined : val,
-      z.date({ required_error: "La fecha de deportación es obligatoria" })
-    ),
-    salida: z
-    .preprocess(
-      (val) => val === "" || val === null ? undefined : val,
-      z.date({ required_error: "La fecha de salida es obligatoria" })
-    ),
+  fechadeDeportacion: z.preprocess(
+    (val) => (val === "" || val === null ? undefined : val),
+    z.date({ required_error: "La fecha de deportación es obligatoria" })
+  ),
+  salida: z.preprocess(
+    (val) => (val === "" || val === null ? undefined : val),
+    z.date({ required_error: "La fecha de salida es obligatoria" })
+  ),
   tramite: z.string().min(1, { message: "El trámite es obligatorio" }),
   vacante: z.string().min(1, { message: "La vacante es obligatoria" }),
   destino: z.string().min(1, { message: "El destino es obligatorio" }),
@@ -94,9 +91,9 @@ export const ClientForm = () => {
     { value: "Pendiente", label: "Pendiente" },
   ]
   const servicio = [
-    {value : "al cliente" , label: "al cliente"},
-    {value : "al hogar" , label: "al hogar"},
-    {value : "cerrado" , label: "cerrado"},
+    { value: "al cliente", label: "al cliente" },
+    { value: "al hogar", label: "al hogar" },
+    { value: "cerrado", label: "cerrado" },
   ]
   const nacionalidad = [
     { value: "Mèxicano", label: "Mèxicano" },
@@ -266,10 +263,10 @@ export const ClientForm = () => {
                   <FormLabel>Nacionalidad</FormLabel>
                   <FormControl>
                     <ComboBox
-                      {...field} // value, onChange, ref
+                      {...field}
                       options={nacionalidad}
                       placeholder="Nacionalidad"
-                      variant="form" // Cambia a "form" para usar el estilo del formulario
+                      variant="form"
                     />
                   </FormControl>
                   <FormMessage />
@@ -285,10 +282,10 @@ export const ClientForm = () => {
                   <FormLabel>Estado</FormLabel>
                   <FormControl>
                     <ComboBox
-                      {...field} // value, onChange, ref
+                      {...field}
                       options={estadosMexico}
                       placeholder="Selecciona un estado"
-                      variant="form" // Cambia a "form" para usar el estilo del formulario
+                      variant="form"
                     />
                   </FormControl>
                   <FormMessage />
@@ -363,10 +360,10 @@ export const ClientForm = () => {
                   <FormLabel>Tramite</FormLabel>
                   <FormControl>
                     <ComboBox
-                      {...field} // value, onChange, ref
+                      {...field}
                       options={tramite}
                       placeholder="Tramite"
-                      variant="form" // Cambia a "form" para usar el estilo del formulario
+                      variant="form"
                     />
                   </FormControl>
                   <FormMessage />
@@ -383,10 +380,10 @@ export const ClientForm = () => {
                   <FormLabel>Vacante</FormLabel>
                   <FormControl>
                     <ComboBox
-                      {...field} // value, onChange, ref
+                      {...field}
                       options={opcionesVacante}
                       placeholder="Selecciona una vacante"
-                      variant="form" // Cambia a "form" para usar el estilo de formulario
+                      variant="form"
                     />
                   </FormControl>
                   <FormMessage />
@@ -403,10 +400,10 @@ export const ClientForm = () => {
                   <FormLabel>Destino</FormLabel>
                   <FormControl>
                     <ComboBox
-                      {...field} // value, onChange, ref
+                      {...field}
                       options={destino}
                       placeholder="Destino"
-                      variant="form" // Cambia a "form" para usar el estilo de formulario
+                      variant="form"
                     />
                   </FormControl>
                   <FormMessage />
@@ -423,10 +420,10 @@ export const ClientForm = () => {
                   <FormLabel>Periodo</FormLabel>
                   <FormControl>
                     <ComboBox
-                      {...field} // value, onChange, ref
+                      {...field}
                       options={opcionesPeriodo}
                       placeholder="Periodo"
-                      variant="form" // Cambia a "form" para usar el estilo de formulario
+                      variant="form"
                     />
                   </FormControl>
                   <FormMessage />
@@ -507,8 +504,8 @@ export const ClientForm = () => {
                   <textarea
                     placeholder="Comentarios"
                     {...field}
-                    rows={4} // Puedes ajustar el número de filas
-                    className="w-full rounded-md border border-gray-300 p-2" // Puedes añadir clases de estilo según necesites
+                    rows={4}
+                    className="w-full rounded-md border border-gray-300 p-2"
                   />
                 </FormControl>
                 <FormMessage />
