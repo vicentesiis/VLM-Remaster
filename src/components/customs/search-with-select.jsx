@@ -54,9 +54,9 @@ export function SearchWithSelect() {
   }
 
   return (
-    <div className="w-full max-w-sm">
+    <div className="w-full sm:w-[350px]">
       <div
-        className={`flex flex-col gap-2 sm:gap-0 rounded-md border border-input p-2 sm:flex-row sm:items-center sm:p-0`}
+        className={`flex flex-col gap-2 rounded-md border border-input p-2 sm:flex-row sm:items-center sm:gap-0 sm:p-0`}
       >
         <Select defaultValue="Registros" onValueChange={handleSelectChange}>
           <SelectTrigger className="w-full border focus:ring-0 sm:w-[160px] sm:rounded-r-none sm:border-none">
@@ -76,10 +76,10 @@ export function SearchWithSelect() {
 
         <Input
           ref={inputRef}
-          placeholder={`Buscar por ${selectedOption}`}
+          placeholder={`Buscar por ID`}
           value={searchQuery}
           onChange={handleSearchChange}
-          className="w-full font-bold focus:ring-2 focus:ring-ring sm:rounded-none sm:border-x sm:border-x-transparent"
+          className="w-full font-bold focus:ring-2 focus:ring-ring sm:rounded "
         />
 
         <Button
