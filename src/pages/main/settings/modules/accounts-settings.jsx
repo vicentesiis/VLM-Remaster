@@ -3,13 +3,7 @@ import React from "react"
 import AccountsSettingsCard from "@/components/customs/account-settings-card"
 import CardHeaderSection from "@/components/customs/card-header-section"
 import PageLayout from "@/components/customs/layout/page-layout"
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui"
+import { Button, Card, CardContent } from "@/components/ui"
 import accontSettingsData from "@/data/account-settings-data"
 
 export const AccountsSettings = () => {

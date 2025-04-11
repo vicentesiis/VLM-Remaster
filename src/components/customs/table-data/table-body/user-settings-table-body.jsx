@@ -1,11 +1,10 @@
 import PropTypes from "prop-types"
 import React from "react"
+import ActiveCell from "./table-cell/active-cell"
+import ButtonCell from "./table-cell/button-cell"
 import DefaultCell from "@/components/customs/table-data/table-body/table-cell/default-cell"
 import UserTypeBadgeCell from "@/components/customs/table-data/table-body/table-cell/user-type-badge-cell"
-import { TableBody, TableCell, TableRow } from "@/components/ui/table"
-import ActiveCell from "./table-cell/active-cell"
-import { DropdownCell } from "./table-cell"
-import ButtonCell from "./table-cell/button-cell"
+import { TableBody, TableRow } from "@/components/ui/table"
 
 export function UserSettingsTableBody({ data, filteredColumns }) {
   const RenderCell = (column, user, columnIndex) => {
@@ -39,9 +38,7 @@ export function UserSettingsTableBody({ data, filteredColumns }) {
           />
         )
       case "actions":
-        return (
-          <ButtonCell title={"Editar"} />
-        )
+        return <ButtonCell title={"Editar"} />
       default:
         return (
           <DefaultCell
