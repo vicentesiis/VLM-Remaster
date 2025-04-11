@@ -1,12 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import React, { createContext, useState, useEffect } from "react"
 import { H3 } from "@/components/ui"
-import {
-  loginUser,
-  getUser,
-  logout as logoutUser,
-  fetchUserCatalog,
-} from "@/services/authService"
+import { loginUser, logout as logoutUser } from "@/services/authService"
+import { fetchUserCatalog } from "@/services/roleService"
+import { getUser } from "@/services/userService"
 
 export const AuthContext = createContext(null)
 

@@ -1,9 +1,4 @@
-import {
-  login,
-  refreshToken,
-  getUserData,
-  fetchUserCatalogData,
-} from "@/api/api"
+import { login, refreshToken } from "@/api/api"
 
 const ACCESS_TOKEN_KEY = "access_token"
 const REFRESH_TOKEN_KEY = "refresh_token"
@@ -16,16 +11,16 @@ export const loginUser = async (credentials) => {
 }
 
 export const refreshAuthToken = async () => {
-  const refreshTokenStored = localStorage.getItem(REFRESH_TOKEN_KEY)
-  if (!refreshTokenStored) throw new Error("No refresh token found")
+  const storedRefreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)
+  if (!storedRefreshToken) throw new Error("No refresh token found")
 
-  const data = await refreshToken(refreshTokenStored)
+  const data = await refreshToken(storedRefreshToken)
   localStorage.setItem(ACCESS_TOKEN_KEY, data.access_token)
   localStorage.setItem(REFRESH_TOKEN_KEY, data.refresh_token)
   return data.access_token
 }
 
-const getValidAccessToken = async () => {
+export const getValidAccessToken = async () => {
   let token = localStorage.getItem(ACCESS_TOKEN_KEY)
   if (!token) throw new Error("No access token found")
 
@@ -34,16 +29,6 @@ const getValidAccessToken = async () => {
   }
 
   return token
-}
-
-export const getUser = async () => {
-  const token = await getValidAccessToken()
-  return await getUserData(token)
-}
-
-export const fetchUserCatalog = async () => {
-  const token = await getValidAccessToken()
-  return await fetchUserCatalogData(token)
 }
 
 export const logout = () => {
@@ -55,7 +40,7 @@ const isTokenExpired = (token) => {
   try {
     const decoded = JSON.parse(atob(token.split(".")[1]))
     return Date.now() > decoded.exp * 1000
-  } catch (err) {
+  } catch {
     return true
   }
 }

@@ -71,7 +71,7 @@ export const NavMenu = (props) => {
                   (menu.items.length === 1 ||
                     menu.items.length === 3 ||
                     menu.items.length === 5) &&
-                    "flex flex-col lg:w-[400px]",
+                    "flex flex-col lg:w-[450px]",
                   menu.items.length !== 1 &&
                     menu.items.length !== 3 &&
                     menu.items.length !== 5 &&

@@ -25,7 +25,7 @@ export const Settings = () => {
             <Link key={item.to} to={item.to}>
               <Card className="transition-shadow duration-200 hover:shadow-lg">
                 <CardHeader className="flex flex-row items-center gap-3">
-                  <Icon className="h-5 w-5 text-primary" />
+                  <Icon className="h-8 w-8 text-primary" />
                   <CardTitle>{item.title}</CardTitle>
                 </CardHeader>
                 <CardContent>

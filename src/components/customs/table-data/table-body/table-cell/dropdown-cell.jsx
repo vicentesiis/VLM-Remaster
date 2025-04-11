@@ -3,16 +3,16 @@ import React from "react"
 import ActionDropdown from "@/components/customs/action-dropdown"
 import { TableCell } from "@/components/ui/table"
 
-export const DropdownCell = ({ items }) => {
+export const DropdownCell = ({ sections }) => {
   return (
     <TableCell>
-      <ActionDropdown items={items} />
+      <ActionDropdown sections={sections} />
     </TableCell>
   )
 }
 
 DropdownCell.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  sections: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default DropdownCell

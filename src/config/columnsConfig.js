@@ -9,6 +9,7 @@ export const columnsConfig = {
     columnsMobile: ["sells"],
   },
   salesReportDetailTableBody: { columns: [] },
+  userSettingsTableBody: { columns: [] },
 }
 
 export default columnsConfig

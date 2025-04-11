@@ -1,15 +1,15 @@
 import PropTypes from "prop-types"
 import React, { useState } from "react"
-import DefaultCell from "../table-cell/default-cell"
-import StatusBadgeCell from "../table-cell/status-badge-cell"
+import DefaultCell from "@/components/customs/table-data/table-body/table-cell/default-cell"
+import StatusBadgeCell from "@/components/customs/table-data/table-body/table-cell/status-badge-cell"
 import { TableBody, TableRow } from "@/components/ui/table"
 
 export function SalesReportTableBody({ data, filteredColumns, onRowClick }) {
-  const [selectedRow, setSelectedRow] = useState(null) // Track selected row
+  const [selectedRow, setSelectedRow] = useState(null)
 
   const handleRowSelect = (saleReport) => {
-    setSelectedRow(saleReport.date) // Set selected row by its date or unique identifier
-    onRowClick(saleReport) // Trigger the callback passed from BaseTable
+    setSelectedRow(saleReport.date)
+    onRowClick(saleReport)
   }
 
   const RenderCell = (column, saleReport, columnIndex) => {

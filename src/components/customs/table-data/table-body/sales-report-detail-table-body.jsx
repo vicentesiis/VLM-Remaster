@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import React, { useState } from "react"
-import DefaultCell from "../table-cell/default-cell"
-import StatusBadgeCell from "../table-cell/status-badge-cell"
+import DefaultCell from "@/components/customs/table-data/table-body/table-cell/default-cell"
+import StatusBadgeCell from "@/components/customs/table-data/table-body/table-cell/status-badge-cell"
 import { TableBody, TableRow } from "@/components/ui/table"
 
 export function SalesReportDetailTableBody({
@@ -9,11 +9,11 @@ export function SalesReportDetailTableBody({
   filteredColumns,
   onRowClick,
 }) {
-  const [selectedRow, setSelectedRow] = useState(null) // Track selected row
+  const [selectedRow, setSelectedRow] = useState(null)
 
   const handleRowSelect = (daySaleReport) => {
-    setSelectedRow(daySaleReport.id) // Set selected row by its id or unique identifier
-    onRowClick(daySaleReport) // Trigger the callback passed from BaseTable
+    setSelectedRow(daySaleReport.id)
+    onRowClick(daySaleReport)
   }
 
   const RenderCell = (column, daySaleReport, columnIndex) => {
@@ -62,9 +62,14 @@ export function SalesReportDetailTableBody({
 }
 
 SalesReportDetailTableBody.propTypes = {
-  data: PropTypes.array.isRequired,
-  filteredColumns: PropTypes.array.isRequired,
-  onRowClick: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    map: PropTypes.func
+  }),
+  filteredColumns: PropTypes.shape({
+    map: PropTypes.func
+  }),
+  onRowClick: PropTypes.func
 }
+
 
 export default SalesReportDetailTableBody

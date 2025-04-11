@@ -95,15 +95,8 @@ export const dropdownMenus = [
     allowedRoutes: ["super_admin"],
     items: [
       {
-        title: "Ajustes de sistema",
-        to: "/ajustes/sistema",
-        description: "Configuraciones generales del sistema.",
-        icon: Settings,
-        allowedRoutes: ["super_admin"],
-      },
-      {
-        title: "Usuario",
-        to: "/ajustes/usuario",
+        title: "Usuarios",
+        to: "/ajustes/usuarios",
         description: "Gestión y configuración de perfiles de usuario.",
         icon: Users,
         allowedRoutes: ["super_admin"],

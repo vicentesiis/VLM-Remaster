@@ -8,6 +8,7 @@ import { LogAgentReport } from "@/pages/main/reports/modules/log-agent-report"
 import { MonthlySalesReport } from "@/pages/main/reports/modules/monthly-sales-report"
 import { SalesAgentReport } from "@/pages/main/reports/modules/sales-agent-report"
 import { Reports } from "@/pages/main/reports/reports"
+import { UserSettings } from "@/pages/main/settings/modules/users-settings"
 import { Settings } from "@/pages/main/settings/settings"
 import { Tasks } from "@/pages/main/tasks/tasks"
 
@@ -118,13 +119,8 @@ export const routes = [
     allowedRoles: ["super_admin"],
     children: [
       {
-        path: "ajustes-de-sistema",
-        element: <>Ajustes de Sistema</>,
-        allowedRoles: ["super_admin"],
-      },
-      {
         path: "usuarios",
-        element: <>Usuarios</>,
+        element: <UserSettings />,
         allowedRoles: ["super_admin"],
       },
       {

@@ -1,9 +1,9 @@
 import PropTypes from "prop-types"
 import React from "react"
-import DefaultCell from "./table-cell/default-cell"
-import DropdownCell from "./table-cell/dropdown-cell"
-import StatusBadgeCell from "./table-cell/status-badge-cell"
+import DefaultCell from "@/components/customs/table-data/table-body/table-cell/default-cell"
+import DropdownCell from "@/components/customs/table-data/table-body/table-cell/dropdown-cell"
 import MainCell from "@/components/customs/table-data/table-body/table-cell/main-cell"
+import StatusBadgeCell from "@/components/customs/table-data/table-body/table-cell/status-badge-cell"
 import { TableBody, TableRow } from "@/components/ui/table"
 
 export function TaskTableBody({ data, filteredColumns }) {
@@ -22,13 +22,28 @@ export function TaskTableBody({ data, filteredColumns }) {
         return (
           <DropdownCell
             key={`${task["id"]}-${column}-${columnIndex}`}
-            items={[
-              { title: "View Details", onSelect: () => alert("View") },
-              { title: "Edit", onSelect: () => alert("Edit") },
+            sections={[
               {
-                title: "Delete",
-                onSelect: () => alert("Delete"),
-                danger: true,
+                title: "Cliente",
+                options: [
+                  {
+                    title: "Detalle del Cliente",
+                    onSelect: () => alert("Detalle del Cliente"),
+                  },
+                  {
+                    title: "Ordenes del Cliente",
+                    onSelect: () => alert("Ordenes del Cliente"),
+                  },
+                ],
+              },
+              {
+                title: "Extras",
+                options: [
+                  {
+                    title: "Generar Contrato",
+                    onSelect: () => alert("Generar Contrato"),
+                  },
+                ],
               },
             ]}
           />

@@ -21,6 +21,17 @@ export const titles = {
     quantity: "Monto",
     status: "Estatus del Pago",
   },
+  userSettingsTableBody: {
+    username: "Nombre de Usuario",
+    name: "Nombre",
+    role: "Rol",
+    type: "Tipo",
+    supervisor: "Supervisor",
+    compensation: "Compensación",
+    phone: "Teléfono",
+    active: "Activo",
+    actions: "Acciones",
+  }
 }
 
 export const generateColumnTitle = (type, key) => {
@@ -50,6 +61,17 @@ export const columnAlignments = {
     quantity: "left",
     status: "left",
   },
+  userSettingsTableBody: {
+    username: "left",
+    name: "left",
+    role: "center",
+    type: "center",
+    supervisor: "left",
+    compensation: "left",
+    phone: "left",
+    active: "center",
+    actions: "center",
+  }
 }
 
 export const generateColumnAlign = (type, key) => {

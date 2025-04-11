@@ -3,15 +3,14 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 // Define the badge variants with specific styles
-const badgeVariants = cva("rounded-md border px-2.5 py-0.5 ", {
+const badgeVariants = cva("rounded-md border", {
   variants: {
     variant: {
-      primary:
-        "border-transparent border-green-500 text-green-500 shadow hover:bg-green-50",
-      secondary:
-        "border-transparent border-blue-500 text-blue-500 hover:bg-secondary/80",
-      default:
-        "hover:bg-secondary/80",
+      iconBadgePrimary:
+        "px-2 py-0.5 border-transparent border-green-500 text-green-500 shadow ",
+      iconBadgeSecondary:
+        "px-2 py-0.5 border-transparent border-blue-500 text-blue-500 ",
+      default: "p-0",
     },
   },
   defaultVariants: {

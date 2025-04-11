@@ -52,13 +52,13 @@ export const ClientDetail = () => {
             </div>
           </div>
           <div className="flex space-x-2">
-            <IconBadge title={clientId} icon={<Hash />} variant={"primary"} />
+            <IconBadge title={clientId} icon={<Hash />} variant={"iconBadgePrimary"} />
             <IconBadge
               title="agentev"
               icon={<Headset />}
-              variant={"secondary"}
+              variant={"iconBadgeSecondary"}
             />
-            <IconBadge title="B" icon={<Briefcase />} variant={"secondary"} />
+            <IconBadge title="B" icon={<Briefcase />} variant={"iconBadgeSecondary"} />
           </div>
         </CardHeader>
       </Card>

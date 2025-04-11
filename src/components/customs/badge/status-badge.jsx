@@ -48,7 +48,7 @@ const getStatusStyles = (status) => {
     "Corregir Contrato": "Warning",
     "Primer Aviso": "Warning",
     "Temporalmente Inactivo": "Warning",
-    "Por Pagar": "Warning"
+    "Por Pagar": "Warning",
   }
 
   const category = statusCategory[status] || "Pending"
@@ -60,7 +60,7 @@ const StatusBadge = ({ status }) => {
 
   return (
     <Badge
-      className={`inline-flex items-center rounded-2xl py-2 ${bgColor} ${textColor} ${borderColor} shadow-none hover:${bgColor} dark:${bgColor}`}
+      className={`inline-flex items-center rounded-2xl p-2 py-2 ${bgColor} ${textColor} ${borderColor} shadow-none hover:${bgColor} dark:${bgColor}`}
     >
       <div className={`mr-2 h-1.5 w-1.5 rounded-full ${dotColor}`} />
       <LabelStyle className={"font-extrabold"}>{status}</LabelStyle>
