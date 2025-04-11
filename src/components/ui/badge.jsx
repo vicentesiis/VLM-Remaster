@@ -6,11 +6,20 @@ import { cn } from "@/lib/utils"
 const badgeVariants = cva("rounded-md border", {
   variants: {
     variant: {
+      // Icon badge variants
       iconBadgePrimary:
         "px-2 py-0.5 border-transparent border-green-500 text-green-500 shadow ",
       iconBadgeSecondary:
         "px-2 py-0.5 border-transparent border-blue-500 text-blue-500 ",
-      default: "p-0",
+
+      // Account status badge variants
+      Respaldo:
+        "px-2 py-0 rounded-full border-transparent border-blue-500 text-blue-500 ",
+      Inactiva:
+        "px-2 py-0 rounded-full border-transparent border-red-500 text-red-500 ",
+      Activa:
+        "px-2 py-0 rounded-full border-transparent border-green-500 text-green-500 ",
+      default: "",
     },
   },
   defaultVariants: {

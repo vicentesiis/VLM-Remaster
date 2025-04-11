@@ -17,7 +17,11 @@ export const menuItems = [
     to: "/clientes",
     allowedRoutes: ["super_admin", "agent"],
   },
-  { title: "Vacantes", to: "/vacantes", allowedRoutes: ["super_admin", "agent"] },
+  {
+    title: "Vacantes",
+    to: "/vacantes",
+    allowedRoutes: ["super_admin", "agent"],
+  },
 ]
 
 export const dropdownMenus = [
@@ -108,13 +112,6 @@ export const dropdownMenus = [
         icon: FileText,
         allowedRoutes: ["super_admin"],
       },
-      {
-        title: "Vacantes",
-        to: "/ajustes/vacantes",
-        description: "Gestión y publicación de nuevas vacantes.",
-        icon: ClipboardCheck,
-        allowedRoutes: ["super_admin"],
-      },
     ],
   },
   {
@@ -133,13 +130,6 @@ export const dropdownMenus = [
         to: "/info/usuarios",
         description: "Gestión y configuración de usuarios.",
         icon: Users,
-        allowedRoutes: ["agent"],
-      },
-      {
-        title: "Vacantes",
-        to: "/info/vacantes",
-        description: "Información sobre vacantes disponibles.",
-        icon: ClipboardCheck,
         allowedRoutes: ["agent"],
       },
     ],

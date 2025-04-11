@@ -8,6 +8,7 @@ import { LogAgentReport } from "@/pages/main/reports/modules/log-agent-report"
 import { MonthlySalesReport } from "@/pages/main/reports/modules/monthly-sales-report"
 import { SalesAgentReport } from "@/pages/main/reports/modules/sales-agent-report"
 import { Reports } from "@/pages/main/reports/reports"
+import { AccountsSettings } from "@/pages/main/settings/modules/accounts-settings"
 import { UserSettings } from "@/pages/main/settings/modules/users-settings"
 import { Settings } from "@/pages/main/settings/settings"
 import { Tasks } from "@/pages/main/tasks/tasks"
@@ -125,12 +126,7 @@ export const routes = [
       },
       {
         path: "cuentas",
-        element: <>Cuentas</>,
-        allowedRoles: ["super_admin"],
-      },
-      {
-        path: "vacantes",
-        element: <>Vacantes</>,
+        element: <AccountsSettings />,
         allowedRoles: ["super_admin"],
       },
     ],
