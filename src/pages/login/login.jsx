@@ -21,9 +21,11 @@ export const Login = () => {
 
   return (
     <section className="bg-gray-200 px-8">
-      <div className="absolute -ml-4 mt-24 flex items-center lg:ml-16 lg:mt-16">
+      <div className="absolute -ml-4 mt-8 flex items-center sm:ml-16 sm:mt-16">
         <img src={logo} alt="Proyecto VLM" width={70} height={60} />
-        <H2>Sistema de Administración de Proyecto VLM</H2>
+        <H2 className={"text-lg sm:text-4xl sm:font-normal"}>
+          Sistema de Administración de Proyecto VLM
+        </H2>
       </div>
 
       <div className="grid h-screen place-items-center">
