@@ -1,4 +1,4 @@
-const API_URL = "/api"
+const API_URL = "https://vl-api-v6.onrender.com/api"
 
 const apiRequest = async (endpoint, method, headers, body) => {
   if (body && headers["Content-Type"] === "application/json") {

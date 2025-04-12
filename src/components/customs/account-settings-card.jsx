@@ -30,8 +30,8 @@ export const AccountsSettingsCard = ({ accounts }) => {
 
   const DetailItem = ({ label, value }) => (
     <div className="flex items-center justify-between gap-2">
-      <LabelStyle>{label}</LabelStyle>
-      <ListStyle className="text-sm font-bold">{value}</ListStyle>
+      <LabelStyle className={"font-extralight"}>{label}</LabelStyle>
+      <ListStyle className="text-sm font-normal">{value}</ListStyle>
     </div>
   )
 
