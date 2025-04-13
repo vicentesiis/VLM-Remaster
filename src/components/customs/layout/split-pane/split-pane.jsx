@@ -45,7 +45,7 @@ export function SplitPane({
                 <PanelLeftClose style={{ width: "24px", height: "24px" }} />
               )}
             </Button>
-            <div className="sm:gap-3  sm:flex sm:items-end">
+            <div className="sm:gap-3 sm:flex sm:items-end">
               <H3>{title}</H3>
               <PLead>{subTitle}</PLead>
             </div>
@@ -58,7 +58,7 @@ export function SplitPane({
   }
 
   return (
-    <div className="py-4 sm:flex sm:gap-3">
+    <div className="pt-4 sm:flex sm:gap-3">
       <Collapsible
         open={!isCollapsed}
         onOpenChange={(open) => setIsCollapsed(!open)}

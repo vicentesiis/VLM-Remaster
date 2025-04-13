@@ -6,7 +6,7 @@ import routes from "@/routes/routes"
 
 export const Main = () => {
   return (
-    <div className="flex h-screen flex-col pb-[70px] sm:pb-0">
+    <div className="flex h-screen flex-col sm:pb-0">
       {" "}
       {/* Prevent scrolling on body */}
       <div className="sticky top-0 z-50 border-b bg-background">
