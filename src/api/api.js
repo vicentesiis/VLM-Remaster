@@ -3,6 +3,7 @@ const API_URL = "https://vl-api-v6.onrender.com/api"
 const apiRequest = async (endpoint, method, headers, body) => {
   if (body && headers["Content-Type"] === "application/json") {
     body = JSON.stringify(body)
+    console.log(body)
   } else if (
     body &&
     headers["Content-Type"] === "application/x-www-form-urlencoded"

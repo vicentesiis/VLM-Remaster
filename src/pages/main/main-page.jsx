@@ -6,13 +6,13 @@ import routes from "@/routes/routes"
 
 export const Main = () => {
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="flex h-screen flex-col pb-[70px] sm:pb-0">
       {" "}
       {/* Prevent scrolling on body */}
       <div className="sticky top-0 z-50 border-b bg-background">
         <Navbar />
       </div>
-      <div className="flex-grow overflow-auto py-4">
+      <div className="flex-grow overflow-auto sm:py-4">
         {/* Routes and content */}
         <Routes>
           {routes.map(({ path, element, children, allowedRoles }) => (
