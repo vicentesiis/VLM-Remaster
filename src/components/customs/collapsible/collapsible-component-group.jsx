@@ -9,7 +9,7 @@ export function CollapsibleComponentGroup({ title, children }) {
   const { hasFilters, resetFilters } = useFilterSummary()
 
   return (
-    <div>
+    <div className="sm:w-[250px]">
       <H3Border>{title}</H3Border>
 
       {React.Children.map(children, (child, index) => {
