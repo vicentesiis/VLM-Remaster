@@ -36,8 +36,8 @@ export const clientDetailData = [
       { label: "Fecha de Salida", value: "No Aplica" },
       {
         label: "Comentarios",
-        value: "Aute exercitation dolor Lorem Aute  ",
-        fullWidth: true,
+        value:
+          "Velit aliqua cillum deserunt consequat occaecat magna duis ullamco officia. Id amet tempor duis culpa eu aliqua in sint adipisicing. ",
       },
     ],
   },

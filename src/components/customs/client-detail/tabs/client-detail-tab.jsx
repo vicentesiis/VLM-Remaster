@@ -2,85 +2,66 @@ import PropTypes from "prop-types"
 import React from "react"
 import { CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { H3, PLead, Lead } from "@/components/ui/typography"
+import { H3, PLead, ListStyle } from "@/components/ui/typography"
 
 export const ClientDetailTab = ({ sections }) => {
-  const groupIntoPairsWithCommentsLast = (content) => {
-    const normalFields = content.filter(
-      (item) => !(item.fullWidth || item.label === "Comentarios")
-    )
-    const commentField = content.find(
-      (item) => item.fullWidth || item.label === "Comentarios"
-    )
-
-    const grouped = normalFields.reduce((acc, _, i) => {
-      if (i % 2 === 0) acc.push(normalFields.slice(i, i + 2))
+  const groupIntoPairs = (content) => {
+    return content.reduce((acc, _, i) => {
+      if (i % 2 === 0) acc.push(content.slice(i, i + 2))
       return acc
     }, [])
-
-    if (commentField) {
-      grouped.push([commentField])
-    }
-
-    return grouped
   }
 
   return (
     <div>
-      {sections.map((section, sectionIndex) => (
-        <div key={sectionIndex} className="space-y-4">
-          <H3>{section.title}</H3>
-          <Separator />
+      {sections.map((section, sectionIndex) => {
+        const content = [...section.content]
+        const commentsIndex = content.findIndex(
+          (item) => item.label.toLowerCase() === "comentarios"
+        )
+        const comments =
+          commentsIndex !== -1 ? content.splice(commentsIndex, 1)[0] : null
 
-          <CardContent className="space-y-6 px-0 sm:px-5">
-            {groupIntoPairsWithCommentsLast(section.content).map(
-              (row, rowIndex) => (
+        return (
+          <div key={sectionIndex} className="space-y-2">
+            <H3 className={"text-lg"}>{section.title}</H3>
+            <Separator />
+
+            <CardContent className="space-y-3 px-0 sm:px-4">
+              {groupIntoPairs(content).map((row, rowIndex) => (
                 <div
                   key={rowIndex}
-                  className={`flex flex-col sm:flex-row ${
-                    row.length === 1 &&
-                    (row[0].fullWidth || row[0].label === "Comentarios")
-                      ? "w-full"
-                      : ""
-                  }`}
+                  className="flex flex-col sm:flex-row sm:items-center"
                 >
-           {row.map((detail, index) => {
-  const isComment = detail.label === "Comentarios" || detail.fullWidth
-
-  const cleanedValue = isComment 
-    ? detail.value.replace(/\s+/g, " ").trim()
-    : detail.value
-
-  return (
-    <div
-      key={index}
-      className={`flex sm:flex-row justify-between py-2 ${
-        isComment
-          ? "sm:w-auto sm:items-center sm:pr-0" 
-          : "sm:w-1/2 sm:items-center sm:py-0 sm:pr-16"
-      }`}
-    >
-      <PLead className="mb-1 whitespace-nowrap sm:mb-0 sm:mr-2">
-        {detail.label}:
-      </PLead>
-      <Lead
-        className={`${
-          isComment
-            ? "text-left font-semibold sm:text-base sm:ml-2" 
-            : "text-right font-semibold sm:text-lg"
-        }`}
-      >
-        {cleanedValue || "—"}
-      </Lead>
-    </div>
-  )
-})}
+                  {row.map((detail, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-row justify-between py-2 sm:w-1/2 sm:items-center sm:py-0 sm:pr-16"
+                    >
+                      <PLead className={"text-sm"}>{detail.label}:</PLead>
+                      <ListStyle className="text-sm font-bold">
+                        {detail.value || "—"}
+                      </ListStyle>
+                    </div>
+                  ))}
                 </div>
-              )
-            )}
-          </CardContent>
-        </div>
-      ))}
+              ))}
+
+              {/* Comentarios */}
+              {comments && (
+                <div className="pt-4">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:gap-16">
+                    <PLead className={"text-sm"}>{comments.label}:</PLead>
+                    <ListStyle className="text-sm font-bold">
+                      {comments.value || "—"}
+                    </ListStyle>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -93,7 +74,6 @@ ClientDetailTab.propTypes = {
         PropTypes.shape({
           label: PropTypes.string.isRequired,
           value: PropTypes.string,
-          fullWidth: PropTypes.bool,
         })
       ).isRequired,
     })

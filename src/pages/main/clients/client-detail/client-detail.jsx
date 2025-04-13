@@ -34,31 +34,42 @@ export const ClientDetail = () => {
 
   return (
     <PageLayout title={`Detalle del Cliente: ${clientId}`}>
-      <Card className="mx-auto max-w-screen-xl px-4">
-        <CardHeader className="mb-8">
-          <div className="flex flex-col justify-between sm:flex-row">
-            <div className="mb-2 flex items-center justify-center space-x-2">
+      <Card>
+        <CardHeader className="-mb-16 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between">
+            {/* Title + Status */}
+            <div className="mb-2 items-center sm:flex sm:justify-center sm:space-x-2">
               <CardTitle>Lawrence Cannon</CardTitle>
               <StatusBadge status="Corregir Contrato" />
             </div>
-            <div className="mb-4 flex justify-end space-x-2 sm:mb-0">
+            {/* ComboBox + Download Dropdown */}
+            <div className="mb-4 flex justify-between space-x-2 sm:mb-0 sm:justify-end">
               <ComboBox
                 options={comboBoxStatus}
                 value={selectedStatus}
                 onChange={setSelectedStatus}
-                placeholder="Selecciona un Estatus"
+                placeholder="Actualizar Estatus"
               />
               <DownloadDropdown label="Open Menu" items={menuItems} />
             </div>
           </div>
-          <div className="flex space-x-2">
-            <IconBadge title={clientId} icon={<Hash />} variant={"iconBadgePrimary"} />
+          {/* Icon Badges */}
+          <div className="flex flex-wrap gap-2">
+            <IconBadge
+              title={clientId}
+              icon={<Hash />}
+              variant={"iconBadgePrimary"}
+            />
             <IconBadge
               title="agentev"
               icon={<Headset />}
               variant={"iconBadgeSecondary"}
             />
-            <IconBadge title="B" icon={<Briefcase />} variant={"iconBadgeSecondary"} />
+            <IconBadge
+              title="B"
+              icon={<Briefcase />}
+              variant={"iconBadgeSecondary"}
+            />
           </div>
         </CardHeader>
       </Card>

@@ -60,10 +60,10 @@ const StatusBadge = ({ status }) => {
 
   return (
     <Badge
-      className={`inline-flex items-center rounded-2xl p-2 py-2 ${bgColor} ${textColor} ${borderColor} shadow-none hover:${bgColor} dark:${bgColor}`}
+      className={`inline-flex items-center rounded-full p-2 ${bgColor} ${textColor} ${borderColor} shadow-none hover:${bgColor} dark:${bgColor}`}
     >
       <div className={`mr-2 h-1.5 w-1.5 rounded-full ${dotColor}`} />
-      <LabelStyle className={"font-extrabold"}>{status}</LabelStyle>
+      <LabelStyle className={"font-extrabold sm:text-start text-center "}>{status}</LabelStyle>
     </Badge>
   )
 }

@@ -180,14 +180,14 @@ export const ClientForm = () => {
   return (
     <FormProvider {...form}>
       {/* Client Information Section */}
-      <div className="mb-4 space-y-4">
-        <H3>Datos del Cliente</H3>
+      <div className="mb-4">
+        <H3 className={"text-lg"}>Datos del Cliente</H3>
         <Separator />
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <div className="grid grid-cols-1 gap-2 gap-x-16 lg:grid-cols-2">
             {/* Nombre Field */}
             <FormField
               control={form.control}
@@ -345,12 +345,12 @@ export const ClientForm = () => {
             />
           </div>
           {/* Process Status Section */}
-          <div className="mt-8 space-y-4">
-            <H3>Información del Proceso</H3>
+          <div>
+            <H3 className={"text-lg"}>Información del Proceso</H3>
             <Separator />
           </div>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2 gap-x-16 lg:grid-cols-2">
             {/* Tramite Field */}
             <FormField
               control={form.control}
@@ -504,7 +504,7 @@ export const ClientForm = () => {
                   <textarea
                     placeholder="Comentarios"
                     {...field}
-                    rows={4}
+                    rows={2}
                     className="w-full rounded-md border border-gray-300 p-2"
                   />
                 </FormControl>

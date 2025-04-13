@@ -19,7 +19,7 @@ import { P, Lead, H3 } from "@/components/ui/typography"
 export const ClientOrderDialog = ({ open, handleOpen }) => {
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
-      <DialogContent className="flex h-[60%] w-full max-w-2xl flex-col sm:h-auto sm:p-10">
+      <DialogContent className="flex w-full max-w-2xl flex-col sm:h-auto sm:p-10">
         <DialogHeader>
           <DialogTitle>
             <H3>Nueva Órden</H3>

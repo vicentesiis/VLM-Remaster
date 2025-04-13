@@ -33,21 +33,21 @@ export function ClientTabs() {
 
       {/* Tab Content 1: Detalle */}
       <TabsContent value="detalle">
-        <Card className="p-8">
+        <Card className="p-8 pb-28 sm:p-8">
           <ClientDetailTab sections={clientDetailData} />
         </Card>
       </TabsContent>
 
       {/* Tab Content 2: Editar */}
       <TabsContent value="edit">
-        <Card className="p-8">
+        <Card className="p-8 pb-28 sm:p-8">
           <ClientForm />
         </Card>
       </TabsContent>
 
       {/* Tab Content 3: Órdenes */}
       <TabsContent value="orders">
-        <Card className="p-8">
+        <Card className="p-8 pb-24 sm:p-8">
           <ClientOrdersTab />
         </Card>
       </TabsContent>
