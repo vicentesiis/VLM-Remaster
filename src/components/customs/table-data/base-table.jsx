@@ -21,7 +21,7 @@ export function BaseTable({ data, tableType, onRowClick }) {
   }
 
   return (
-    <ScrollArea className="overflow-y-visible sm:h-[550px] 2xl:h-[700px] border rounded-md">
+    <ScrollArea className="rounded-md border sm:h-[550px] sm:rounded-none sm:rounded-t-lg sm:border-none 2xl:h-[700px]">
       <Table>
         <TableHeaderComponent columns={filteredColumns} type={tableType} />
         <TableBodyComponent

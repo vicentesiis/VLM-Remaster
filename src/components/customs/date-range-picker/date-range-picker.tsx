@@ -346,9 +346,9 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
     >
       <PopoverTrigger asChild>
         <Button
-          size={"xl"}
-          variant="outline"
-          className={`h-10 ${isOpen ? "bg-secondary text-secondary-foreground" : ""}`}
+          size={"lg"}
+          variant={`${range.from && range.to ? "default" : "outline"}`}
+          className={`h-9 sm:w-[200px] ${isOpen ? "bg-secondary text-secondary-foreground" : ""}`}
           onClick={() => setIsOpen((prev) => !prev)} // Toggle isOpen on click
         >
           <div className="text-right">

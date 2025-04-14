@@ -1,45 +1,45 @@
 import React, { useEffect, useRef } from "react"
 import { Drawer } from "vaul"
-import { Button, H3Border, PLead } from "../ui"
+import { Button, H3, PLead } from "../ui"
 import { BaseTable } from "./table-data"
 import StatusBadge from "./badge/status-badge"
+import { X } from "lucide-react"
 
-export function SalesReportAgentDrawer({ saleReport, onClose, tableRef }) {
-  if (!saleReport) return null // Ensure the drawer isn't shown when there's no sale report data
-
+export function SalesReportAgentDrawer({
+  open,
+  onOpenChange,
+  saleReport,
+  tableRef,
+}) {
   const drawerRef = useRef(null)
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        drawerRef.current &&
-        !drawerRef.current.contains(event.target) &&
-        !(tableRef?.current && tableRef.current.contains(event.target)) // Ignore clicks inside table
-      ) {
-        onClose() // Close drawer when clicking outside
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [onClose, tableRef])
+  if (!saleReport) return null
 
   return (
-    <Drawer.Root open={true} onClose={onClose} modal={false} direction="bottom">
+    <Drawer.Root
+      open={open}
+      onOpenChange={onOpenChange}
+      modal={false}
+      direction="bottom"
+    >
       <Drawer.Portal>
-        {/* Drawer Content */}
-        <Drawer.Content
-          ref={drawerRef}
-          className="fixed inset-0 z-50 ml-auto flex items-center p-3 sm:w-[500px]"
-        >
-          <div className="flex h-full w-full grow flex-col rounded-xl border-2 bg-white p-5">
-            <Drawer.Title className="mb-4 flex items-center gap-3">
-              <H3Border>Detalle del {saleReport.date} </H3Border>
-              <div className="mb-1">
-                <StatusBadge status={saleReport.status} />
+        {/* <Drawer.Overlay className="bg-black/40 backdrop-blur-sm transition-all" /> */}
+        <Drawer.Content className="fixed inset-0 z-30 items-center pt-8 transition-all duration-300 sm:ml-auto sm:flex sm:w-[500px] sm:p-8 sm:py-24">
+          <div className="flex h-full w-full flex-col rounded-xl border-2 bg-white p-5">
+            <Drawer.Title className="mb-4 items-center gap-3">
+              <div className="flex items-center justify-between">
+                <H3>Detalle del {saleReport.date} </H3>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => onOpenChange(false)}
+                >
+                  <X style={{ width: "24px", height: "24px" }} />
+                </Button>
               </div>
+              <StatusBadge status={saleReport.status} />
             </Drawer.Title>
-            {/* Content */}
+
             <Drawer.Description className="flex h-full flex-col">
               <div className="mb-4 flex flex-col gap-3">
                 <PLead>
@@ -57,9 +57,6 @@ export function SalesReportAgentDrawer({ saleReport, onClose, tableRef }) {
                 data={saleReport["sells"]}
                 tableType={"salesReportDetailTableBody"}
               />
-              <div className="mb-16 flex grow flex-col justify-end">
-                <Button onClick={onClose}>Cerrar</Button>
-              </div>
             </Drawer.Description>
           </div>
         </Drawer.Content>

@@ -17,6 +17,7 @@ export function SalesReportTableBody({ data, filteredColumns, onRowClick }) {
       case "status":
         return (
           <StatusBadgeCell
+            align={"center"}
             key={`${saleReport["date"]}-${column}-${columnIndex}`}
             title={saleReport["status"] || "N/A"}
           />

@@ -15,9 +15,11 @@ export const CardHeaderSection = ({
             {title}
             {titleHelper && <CardSubTitle>{titleHelper}</CardSubTitle>}
           </CardTitle>
-          <CardTitle className="font-semibold leading-none tracking-tight">{subTitle}</CardTitle>
+          <CardTitle className="font-semibold leading-none tracking-tight">
+            {subTitle}
+          </CardTitle>
         </div>
-        {actions && <div className="flex flex-wrap gap-4">{actions}</div>}
+        {actions && <div className="flex items-center flex-wrap gap-4">{actions}</div>}
       </div>
     </CardHeader>
   )

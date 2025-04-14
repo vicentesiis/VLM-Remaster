@@ -1,3 +1,4 @@
+import { Search } from "lucide-react"
 import React, { useRef, useState } from "react"
 import { CardHeaderSection } from "@/components/customs/card-header-section"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
@@ -76,6 +77,7 @@ export const SalesAgentReport = () => {
         />
 
         <Button onClick={handleSearch} className="ml-auto">
+          <Search className="h-2 w-2" />
           Buscar
         </Button>
       </>
@@ -103,13 +105,18 @@ export const SalesAgentReport = () => {
       </PageLayout>
 
       {/* Conditionally render the Drawer with selectedSaleReport data */}
-      {isDrawerOpen && selectedSaleReport && (
-        <SalesReportAgentDrawer
-          saleReport={selectedSaleReport}
-          onClose={handleCloseDrawer}
-          tableRef={tableRef}
-        />
-      )}
+      <SalesReportAgentDrawer
+        open={isDrawerOpen}
+        onOpenChange={(val) => {
+          if (!val) {
+            // Delay deselecting until animation completes
+            setTimeout(() => setSelectedSaleReport(null), 300)
+          }
+          setIsDrawerOpen(val)
+        }}
+        saleReport={selectedSaleReport}
+        tableRef={tableRef}
+      />
     </div>
   )
 }

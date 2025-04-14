@@ -3,9 +3,9 @@ import React from "react"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import { TableCell } from "@/components/ui/table"
 
-export const StatusBadgeCell = ({ title }) => {
+export const StatusBadgeCell = ({ title, align }) => {
   return (
-    <TableCell>
+    <TableCell className={`text-${align}`}>
       <StatusBadge status={title} />
     </TableCell>
   )

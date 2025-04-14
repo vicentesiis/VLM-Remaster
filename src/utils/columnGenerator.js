@@ -51,7 +51,7 @@ export const columnAlignments = {
   },
   salesAgentReport: {
     date: "left",
-    status: "left",
+    status: "center",
     quantity: "center",
     total: "center",
   },
