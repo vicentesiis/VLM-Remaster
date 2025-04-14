@@ -27,7 +27,7 @@ export const ClientDetailTab = ({ sections }) => {
             <H3 className={"text-lg"}>{section.title}</H3>
             <Separator />
 
-            <CardContent className="space-y-3 px-0 sm:px-4">
+            <CardContent className="space-y-4 px-0 sm:px-4">
               {groupIntoPairs(content).map((row, rowIndex) => (
                 <div
                   key={rowIndex}

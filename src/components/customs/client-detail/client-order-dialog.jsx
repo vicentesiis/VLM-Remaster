@@ -14,20 +14,17 @@ import {
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
-import { P, Lead, H3 } from "@/components/ui/typography"
+import { P, Lead, H3Border } from "@/components/ui/typography"
 
 export const ClientOrderDialog = ({ open, handleOpen }) => {
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
       <DialogContent className="flex w-full max-w-2xl flex-col sm:h-auto sm:p-10">
         <DialogHeader>
-          <DialogTitle>
-            <H3>Nueva Órden</H3>
-            <Separator />
-          </DialogTitle>
+          <DialogTitle>Nueva Órden</DialogTitle>
         </DialogHeader>
         <DialogDescription>
-          <Lead className="mb-2 font-bold">Método de Pago</Lead>
+          <Lead className="text-lg my-4 font-bold">Método de Pago</Lead>
           <RadioGroup>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="default" id="r1" />
@@ -36,7 +33,7 @@ export const ClientOrderDialog = ({ open, handleOpen }) => {
                 Efectivo
               </Label>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 mb-4">
               <RadioGroupItem id="r2" />
               <CreditCard />
               <Label className="font-bold" htmlFor="r2">
