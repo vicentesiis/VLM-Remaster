@@ -18,6 +18,7 @@ import { H2, H4, P } from "@/components/ui/typography"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
 import { useAuth } from "@/hooks/useAuth"
 import { cn } from "@/lib/utils"
+import UserAvatarDropdown from "@/components/customs/user-avatar-dropwdown"
 
 export const NavigationSheet = () => {
   const location = useLocation()
@@ -57,14 +58,18 @@ export const NavigationSheet = () => {
         </Button>
       </SheetTrigger>
       <SheetContent className="flex flex-col">
+        <div className="absolute right-4 top-4">
+          <UserAvatarDropdown />
+        </div>
+
         <SheetHeader>
           <H2>Modulos</H2>
         </SheetHeader>
-        <SearchWithSelect />
 
         {/* Scrollable Content */}
         <div className="flex-1 space-y-3 overflow-y-auto text-base">
           {/* Plain Items */}
+          <SearchWithSelect />
           {filteredMenuItems.map((item) => (
             <Link
               key={item.title}
@@ -125,12 +130,6 @@ export const NavigationSheet = () => {
               </Collapsible>
             )
           })}
-        </div>
-
-        <div className="mt-auto p-2">
-          <Button onClick={() => logoutMutation.mutate()} className="w-full">
-            Cerrar sesión
-          </Button>
         </div>
       </SheetContent>
     </Sheet>

@@ -119,7 +119,7 @@ export const GlobalSalesReport = () => {
         />
         <CardContent>
           {filters.displayedYear && filters.displayedGroup ? (
-            <div className="ml-8 py-32">
+            <div className="py-8 sm:ml-8 sm:py-32">
               <GenericTimeline data={data} />
             </div>
           ) : null}

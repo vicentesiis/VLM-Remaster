@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useAuth } from "@/hooks/useAuth" // Assuming you have useAuth for getting user info or handle logout
+import { P } from "../ui"
 
 export default function UserAvatarDropdown() {
   const { logoutMutation, user } = useAuth() // Assuming logout function from useAuth hook
@@ -30,28 +31,25 @@ export default function UserAvatarDropdown() {
   }
 
   return (
-    <div className="mr-12 hidden items-center justify-end gap-3 lg:block">
-      <DropdownMenu>
-        <DropdownMenuTrigger className="rounded-full focus:outline-none focus:ring-[2px] focus:ring-primary focus:ring-offset-2">
-          <Avatar>
-            {/* Use the initials derived from the user's name */}
-            <AvatarFallback>
-              {getAvatarInitials(user?.data?.name)}
-            </AvatarFallback>
-          </Avatar>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem>
-            <Settings className="h-4 w-4" /> Ajustes
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            className="text-destructive"
-            onClick={() => logoutMutation.mutate()}
-          >
-            <LogOut className="h-4 w-4" /> Cerrar sesión
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger className="rounded-full focus:outline-none focus:ring-[2px] focus:ring-primary focus:ring-offset-2">
+        <Avatar>
+          {/* Use the initials derived from the user's name */}
+          <AvatarFallback>{getAvatarInitials(user?.data?.name)}</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Hola!, {user?.data.name}</DropdownMenuLabel>
+        <DropdownMenuItem>
+          <Settings className="h-4 w-4" /> Ajustes
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="text-destructive"
+          onClick={() => logoutMutation.mutate()}
+        >
+          <LogOut className="h-4 w-4" /> Cerrar sesión
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

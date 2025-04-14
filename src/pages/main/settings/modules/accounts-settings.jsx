@@ -10,7 +10,7 @@ export const AccountsSettings = () => {
   const Actions = () => {
     return (
       <>
-        <Button>
+        <Button className="ml-auto">
           <PlusIcon />
           Agregar Cuenta
         </Button>

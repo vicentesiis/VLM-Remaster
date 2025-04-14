@@ -27,7 +27,7 @@ export const GenericTimeline = ({ data = [] }) => {
       {data.map((item, index) => (
         <TimelineItem
           key={index}
-          className="w-[100px] min-w-[40px]"
+          className="sm:w-[100px] sm:min-w-[40px]"
           onClick={() => handleClick(item)}
         >
           <TimelineSeparator>
