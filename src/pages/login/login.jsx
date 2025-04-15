@@ -10,11 +10,39 @@ import { useAuth } from "@/hooks/useAuth"
 export const Login = () => {
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
+  const [usernameError, setUsernameError] = useState("")
+  const [passwordError, setPasswordError] = useState("")
   const { token, loginMutation } = useAuth()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    loginMutation.mutate({ username: userName, password })
+
+    // Limpiar errores anteriores
+    setUsernameError("")
+    setPasswordError("")
+
+    loginMutation.mutate(
+      { username: userName, password },
+      {
+        onError: () => {
+          const errorMsg = "Usuario o contraseña incorrectos"
+          setUsernameError(errorMsg)
+          setPasswordError(errorMsg)
+        },
+      }
+    )
+  }
+
+  const handleChangeUserName = (e) => {
+    setUserName(e.target.value)
+    // Limpiar error de usuario cuando se empiece a escribir
+    if (usernameError) setUsernameError("")
+  }
+
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value)
+    // Limpiar error de contraseña cuando se empiece a escribir
+    if (passwordError) setPasswordError("")
   }
 
   if (token) return <Navigate to="/" replace />
@@ -23,7 +51,7 @@ export const Login = () => {
     <section className="bg-gray-200 px-8">
       <div className="absolute -ml-4 mt-8 flex items-center sm:ml-16 sm:mt-16">
         <img src={logo} alt="Proyecto VLM" width={70} height={60} />
-        <H2 className={"text-lg sm:text-4xl sm:font-normal"}>
+        <H2 className="text-lg sm:text-4xl sm:font-normal">
           Sistema de Administración de Proyecto VLM
         </H2>
       </div>
@@ -41,19 +69,36 @@ export const Login = () => {
               className="mt-4 flex flex-col gap-4 space-y-6"
             >
               <div className="space-y-4">
-                <Input
-                  id="username"
-                  placeholder="Usuario"
-                  size="lg"
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-                <Input
-                  id="password"
-                  placeholder="Contraseña"
-                  size="lg"
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <div>
+                  <Input
+                    id="username"
+                    placeholder="Usuario"
+                    size="lg"
+                    value={userName}
+                    onChange={handleChangeUserName}
+                  />
+                  {usernameError && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {usernameError}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <Input
+                    id="password"
+                    placeholder="Contraseña"
+                    size="lg"
+                    type="password"
+                    value={password}
+                    onChange={handleChangePassword}
+                  />
+                  {passwordError && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {passwordError}
+                    </p>
+                  )}
+                </div>
               </div>
 
               <Button
@@ -67,7 +112,7 @@ export const Login = () => {
               </Button>
 
               {loginMutation.isError && (
-                <p className="text-center text-red-500">
+                <p className="text-center text-red-500 mt-2">
                   {loginMutation.error.message}
                 </p>
               )}

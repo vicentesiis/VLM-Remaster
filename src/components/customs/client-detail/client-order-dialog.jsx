@@ -16,7 +16,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 import { P, Lead, H3Border } from "@/components/ui/typography"
 
-export const ClientOrderDialog = ({ open, handleOpen }) => {
+export const  ClientOrderDialog = ({ open, handleOpen }) => {
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
       <DialogContent className="flex w-full max-w-2xl flex-col sm:h-auto sm:p-10">
