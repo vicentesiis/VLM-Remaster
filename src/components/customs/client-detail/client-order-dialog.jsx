@@ -16,7 +16,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 import { P, Lead, H3 } from "@/components/ui/typography"
 
-export const ClientOrderDialog = ({ open, handleOpen }) => {
+export const  ClientOrderDialog = ({ open, handleOpen }) => {
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
       <DialogContent className="flex w-full max-w-2xl flex-col sm:h-auto sm:p-10">
@@ -28,7 +28,7 @@ export const ClientOrderDialog = ({ open, handleOpen }) => {
         </DialogHeader>
         <DialogDescription>
           <Lead className="mb-2 font-bold">Método de Pago</Lead>
-          <RadioGroup>
+          <RadioGroup >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="default" id="r1" />
               <CircleDollarSign />

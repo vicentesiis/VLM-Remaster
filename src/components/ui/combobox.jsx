@@ -1,5 +1,6 @@
 import { Check, ChevronsUpDown } from "lucide-react"
-import React, { useState, useRef, useEffect } from "react"
+import React from "react"
+
 import { Button } from "@/components/ui/button"
 import {
   Command,
@@ -16,56 +17,34 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-const ComboBox = ({
+export const ComboBox = ({
   options,
   value,
   onChange,
   placeholder = "Select an option",
-  className,
-  variant = "button", // 'button' o 'form'
 }) => {
-  // FIXME: Do not set the width with a hook, instead use a prop
-  const [open, setOpen] = useState(false)
-  const [width, setWidth] = useState(0)
-  const buttonRef = useRef(null) // Ref para el Button
-  const selectedLabel = options.find((option) => option.value === value)?.label
+  const [open, setOpen] = React.useState(false)
 
-  // Usamos useEffect para establecer el ancho del botón cuando se renderiza
-  useEffect(() => {
-    if (buttonRef.current) {
-      setWidth(buttonRef.current.offsetWidth) // Establecer el ancho del Button
-    }
-  }, [open]) // Se ejecuta cada vez que el popover se abre
+  const selectedLabel = options.find((option) => option.value === value)?.label
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          ref={buttonRef} // Usamos el ref aquí
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn(
-            "justify-between",
-            variant === "form"
-              ? // HERE: (?)
-                "w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-muted-foreground shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              : "w-[200px]", // Estilo por defecto para el combo en el header
-            className
-          )}
+          className="font-minbold justify-between opacity-90"
         >
           {selectedLabel || placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        className={cn(variant === "form" ? "p-0" : "p-0")}
-        style={{ width: `${width}px` }} // Aquí aplicamos el ancho del Button
-      >
+      <PopoverContent className="min-w-[var(--radix-popover-trigger-width)] p-0">
         <Command>
-          <CommandInput placeholder="Buscar..." />
+          <CommandInput placeholder="Search..." />
           <CommandList>
-            <CommandEmpty>No se encontraron resultados.</CommandEmpty>
+            <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
                 <CommandItem

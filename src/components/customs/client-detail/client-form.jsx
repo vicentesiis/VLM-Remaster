@@ -16,6 +16,7 @@ import ComboBox from "@/components/ui/combobox"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { H3 } from "@/components/ui/typography"
+import FormFieldTooltip from "../form-field-tooltip"
 
 const formSchema = z.object({
   email: z
@@ -26,12 +27,11 @@ const formSchema = z.object({
     (val) => (val === "" || val === null ? undefined : val),
     z.date({ required_error: "La fecha de nacimiento es obligatoria" })
   ),
-  telefono: z
-    .string()
-    .min(1, { message: "El número de teléfono es obligatorio" }),
+  telefono: z.string().min(1, { message: "El teléfono es obligatorio" }),
   nacionalidad: z
     .string()
     .min(1, { message: "La nacionalidad es obligatoria" }),
+
   estado: z.string().min(1, { message: "El estado es obligatorio" }),
   curp: z
     .string()
@@ -180,24 +180,26 @@ export const ClientForm = () => {
   return (
     <FormProvider {...form}>
       {/* Client Information Section */}
-      <div className="mb-4">
-        <H3 className={"text-lg"}>Datos del Cliente</H3>
+      <div className="mb-4 space-y-4">
+        <H3>Datos del Cliente</H3>
         <Separator />
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid grid-cols-1 gap-2 gap-x-16 lg:grid-cols-2">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {/* Nombre Field */}
             <FormField
               control={form.control}
               name="nombre"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
-                  <FormLabel> Nombre</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Nombre" {...field} />
-                  </FormControl>
+                  <FormLabel>Nombre</FormLabel>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <FormControl>
+                      <Input placeholder="Nombre" {...field} />
+                    </FormControl>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -206,69 +208,94 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="fechaNacimiento"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Fecha de Nacimiento</FormLabel>
-                  {/* TODO: - (1) In the PickerDate add a year picker */}
-                  <FormControl>
-                    <DatePickerField
-                      value={field.value}
-                      onChange={field.onChange}
-                      showYearDropdown
-                      scrollableYearDropdown
-                      dateFormat="dd/MM/yyyy"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl>
+                        <DatePickerField
+                          value={field.value}
+                          onChange={field.onChange}
+                          showYearDropdown
+                          scrollableYearDropdown
+                          dateFormat="dd/MM/yyyy"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* Email Field */}
             <FormField
               control={form.control}
               name="email"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Email" {...field} />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <FormControl>
+                      <Input placeholder="Ingrese su Email" {...field} />
+                    </FormControl>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* Telefono Field */}
             <FormField
               control={form.control}
               name="telefono"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Telefono</FormLabel>
-                  <FormControl>
-                    <Input type="tel" placeholder="Telefono" {...field} />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Telefono"
+                        maxLength={10}
+                        {...field}
+                        onKeyDown={(e) => {
+                          const isNumber = /^[0-9]$/.test(e.key)
+                          const allowed = [
+                            "Backspace",
+                            "Tab",
+                            "ArrowLeft",
+                            "ArrowRight",
+                            "Delete",
+                          ]
+                          if (!isNumber && !allowed.includes(e.key)) {
+                            e.preventDefault()
+                          }
+                        }}
+                      />
+                    </FormControl>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* Nacionalidad Field */}
             <FormField
               control={form.control}
               name="nacionalidad"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Nacionalidad</FormLabel>
-                  <FormControl>
-                    <ComboBox
-                      {...field}
-                      options={nacionalidad}
-                      placeholder="Nacionalidad"
-                      variant="form"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={nacionalidad}
+                          placeholder="Nacionalidad"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -277,135 +304,155 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="estado"
-              render={({ field }) => (
-                <FormItem>
+              render={({ field, fieldState }) => (
+                <FormItem className="flex flex-col">
                   <FormLabel>Estado</FormLabel>
-                  <FormControl>
-                    <ComboBox
-                      {...field}
-                      options={estadosMexico}
-                      placeholder="Selecciona un estado"
-                      variant="form"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={estadosMexico}
+                          placeholder="Selecciona un estado"
+                          variant="form"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* Documento del Cliente Field */}
             <FormField
               control={form.control}
               name="documentoDelCliente"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Documento del Cliente</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Documento" {...field} />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <FormControl>
+                      <Input placeholder="Documento" {...field} />
+                    </FormControl>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* Fecha de Deportacion Field */}
             <FormField
               control={form.control}
               name="fechadeDeportacion"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Fecha de Deportacion</FormLabel>
-                  <FormControl>
-                    <DatePickerField
-                      value={field.value}
-                      onChange={field.onChange}
-                      showYearDropdown
-                      scrollableYearDropdown
-                      dateFormat="dd/MM/yyyy"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl>
+                        <DatePickerField
+                          value={field.value}
+                          onChange={field.onChange}
+                          showYearDropdown
+                          scrollableYearDropdown
+                          dateFormat="dd/MM/yyyy"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* CURP Field */}
             <FormField
               control={form.control}
               name="curp"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>CURP</FormLabel>
-                  <FormControl>
-                    <Input placeholder="CURP" {...field} />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <FormControl>
+                      <Input placeholder="CURP" {...field} />
+                    </FormControl>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
           {/* Process Status Section */}
-          <div>
-            <H3 className={"text-lg"}>Información del Proceso</H3>
+          <div className="mt-8 space-y-4">
+            <H3>Información del Proceso</H3>
             <Separator />
           </div>
 
-          <div className="grid grid-cols-1 gap-2 gap-x-16 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {/* Tramite Field */}
             <FormField
               control={form.control}
               name="tramite"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Tramite</FormLabel>
-                  <FormControl>
-                    <ComboBox
-                      {...field}
-                      options={tramite}
-                      placeholder="Tramite"
-                      variant="form"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={tramite}
+                          placeholder="Tramite"
+                          variant="form"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
+
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* Vacante Field */}
             <FormField
               control={form.control}
               name="vacante"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Vacante</FormLabel>
-                  <FormControl>
-                    <ComboBox
-                      {...field}
-                      options={opcionesVacante}
-                      placeholder="Selecciona una vacante"
-                      variant="form"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={opcionesVacante}
+                          placeholder="Selecciona una vacante"
+                          variant="form"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             {/* Destino Field */}
             <FormField
               control={form.control}
               name="destino"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Destino</FormLabel>
-                  <FormControl>
-                    <ComboBox
-                      {...field}
-                      options={destino}
-                      placeholder="Destino"
-                      variant="form"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={destino}
+                          placeholder="Destino"
+                          variant="form"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -415,17 +462,21 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="periodo"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Periodo</FormLabel>
-                  <FormControl>
-                    <ComboBox
-                      {...field}
-                      options={opcionesPeriodo}
-                      placeholder="Periodo"
-                      variant="form"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={opcionesPeriodo}
+                          placeholder="Periodo"
+                          variant="form"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -435,17 +486,21 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="estatus"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Estatus</FormLabel>
-                  <FormControl>
-                    <ComboBox
-                      {...field}
-                      options={status}
-                      placeholder="Selecciona un Estatus"
-                      variant="form"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={status}
+                          placeholder="Selecciona un Estatus"
+                          variant="form"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -455,45 +510,53 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="salida"
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Salida</FormLabel>
-                  <FormControl>
-                    <DatePickerField
-                      value={field.value}
-                      onChange={field.onChange}
-                      showYearDropdown
-                      scrollableYearDropdown
-                      dateFormat="dd/MM/yyyy"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="w-full">
+                      <FormControl>
+                        <DatePickerField
+                          value={field.value}
+                          onChange={(date) => {
+                            field.onChange(date)
+                          }}
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
-            {/* Comentarios Field */}
 
             {/* Servicio Field */}
             <FormField
               control={form.control}
               name="servicio"
-              render={({ field }) => (
-                <FormItem>
+              render={({ field, fieldState }) => (
+                <FormItem className="flex flex-col">
                   <FormLabel>Servicio</FormLabel>
-                  <FormControl>
-                    <ComboBox
-                      {...field}
-                      options={servicio}
-                      placeholder="Servicio"
-                      variant="form"
-                    />
-                  </FormControl>
+                  <FormFieldTooltip fieldState={fieldState} position="bottom">
+                    <div className="flex w-full flex-col">
+                      <FormControl></FormControl>
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={servicio}
+                          placeholder="Servicio"
+                          variant="form"
+                        />
+                      </FormControl>
+                    </div>
+                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
+
+          {/* Comentarios Field */}
           <FormField
             control={form.control}
             name="comentarios"
@@ -504,7 +567,7 @@ export const ClientForm = () => {
                   <textarea
                     placeholder="Comentarios"
                     {...field}
-                    rows={2}
+                    rows={4}
                     className="w-full rounded-md border border-gray-300 p-2"
                   />
                 </FormControl>
