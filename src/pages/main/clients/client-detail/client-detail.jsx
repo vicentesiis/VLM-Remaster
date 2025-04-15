@@ -34,8 +34,8 @@ export const ClientDetail = () => {
 
   return (
     <PageLayout title={`Detalle del Cliente: ${clientId}`}>
-      <Card>
-        <CardHeader className="-mb-16 sm:mb-8">
+      <Card className="pb-6">
+        <CardHeader >
           <div className="flex flex-col sm:flex-row sm:justify-between">
             {/* Title + Status */}
             <div className="mb-2 items-center sm:flex sm:justify-center sm:space-x-2">

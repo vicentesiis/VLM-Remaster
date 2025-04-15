@@ -1,6 +1,7 @@
 import React from "react"
 import { ClientDetail } from "@/pages/main/clients/client-detail/client-detail"
 import { Clients } from "@/pages/main/clients/clients"
+import { Home } from "@/pages/main/home"
 import { Info } from "@/pages/main/info/info"
 import { Orders } from "@/pages/main/orders/orders"
 import { GlobalSalesReport } from "@/pages/main/reports/modules/global-sales-report"
@@ -12,11 +13,12 @@ import { AccountsSettings } from "@/pages/main/settings/modules/accounts-setting
 import { UserSettings } from "@/pages/main/settings/modules/users-settings"
 import { Settings } from "@/pages/main/settings/settings"
 import { Tasks } from "@/pages/main/tasks/tasks"
+import { Vacants } from "@/pages/main/vacants/vacants"
 
 export const routes = [
   {
     path: "/",
-    element: <>Home</>,
+    element: <Home />,
   },
   {
     path: "/tareas",
@@ -36,8 +38,8 @@ export const routes = [
     ],
   },
   {
-    path: "/ordenes",
-    element: <Orders />,
+    path: "/vacantes",
+    element: <Vacants />,
     allowedRoles: ["super_admin", "agent"],
   },
   {
@@ -105,11 +107,6 @@ export const routes = [
       {
         path: "usuarios",
         element: <>Usuarios</>,
-        allowedRoles: ["agent"],
-      },
-      {
-        path: "vacantes",
-        element: <>Vacantes</>,
         allowedRoles: ["agent"],
       },
     ],

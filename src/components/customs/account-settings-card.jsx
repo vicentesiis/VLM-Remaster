@@ -36,9 +36,9 @@ export const AccountsSettingsCard = ({ accounts }) => {
   )
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {accounts.map((account, index) => (
-        <Card key={index} type="single" collapsible>
+        <Card key={index}>
           <CardHeader className="px-4 py-3">
             <HeaderContent
               title={account.title}
