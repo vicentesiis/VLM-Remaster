@@ -79,7 +79,7 @@ export const UserForm = ({ open, onClose }) => {
   ]
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w2xl max-h-[100h] overflow-y-auto">
+      <DialogContent className="max-h-[calc(100vh-100px)] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Formulario de Usuario</DialogTitle>
         </DialogHeader>
@@ -135,7 +135,6 @@ export const UserForm = ({ open, onClose }) => {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="role"
@@ -149,33 +148,25 @@ export const UserForm = ({ open, onClose }) => {
                           onValueChange={field.onChange}
                           className="space-y-4"
                         >
-                          <div className="flex items-center space-x-3">
-                            <RadioGroupItem value="administrador" id="r1" />
-                            <Label
-                              htmlFor="r1"
-                              className="font-bold text-black/60"
-                            >
-                              Administrador
-                            </Label>
-                          </div>
-                          <div className="flex items-center space-x-3">
-                            <RadioGroupItem value="agente" id="r2" />
-                            <Label
-                              htmlFor="r2"
-                              className="font-bold text-black/60"
-                            >
-                              Agente
-                            </Label>
-                          </div>
-                          <div className="flex items-center space-x-3">
-                            <RadioGroupItem value="sistema" id="r3" />
-                            <Label
-                              htmlFor="r3"
-                              className="font-bold text-black/60"
-                            >
-                              Sistema
-                            </Label>
-                          </div>
+                          {["administrador", "agente", "sistema"].map(
+                            (role, index) => (
+                              <div
+                                key={role}
+                                className="flex items-center space-x-3"
+                              >
+                                <RadioGroupItem
+                                  value={role}
+                                  id={`r${index + 1}`}
+                                />
+                                <Label
+                                  htmlFor={`r${index + 1}`}
+                                  className="font-bold text-black/60"
+                                >
+                                  {role.charAt(0).toUpperCase() + role.slice(1)}
+                                </Label>
+                              </div>
+                            )
+                          )}
                         </RadioGroup>
                       </FormControl>
                     </FormFieldTooltip>
@@ -187,19 +178,18 @@ export const UserForm = ({ open, onClose }) => {
                 control={form.control}
                 name="tipo"
                 render={({ field, fieldState }) => (
-                  <FormItem >
-                    <FormLabel>Tipo</FormLabel>
+                  <FormItem>
+                    <FormLabel htmlFor={field.name}>Tipo</FormLabel>
                     <FormFieldTooltip fieldState={fieldState}>
-                    <div className="relative w-full flex flex-col">
-
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={tipos}
-                          placeholder="Trámite"
-                          variant="form"
-                        />
-                      </FormControl>
+                      <div className="relative flex w-full flex-col">
+                        <FormControl>
+                          <ComboBox
+                            {...field}
+                            options={tipos}
+                            placeholder="Trámite"
+                            id={field.name}
+                          />
+                        </FormControl>
                       </div>
                     </FormFieldTooltip>
                   </FormItem>
@@ -211,17 +201,17 @@ export const UserForm = ({ open, onClose }) => {
                 name="grupo"
                 render={({ field, fieldState }) => (
                   <FormItem className>
-                    <FormLabel>Grupo</FormLabel>
+                    <FormLabel htmlFor={field.name}>Grupo</FormLabel>
                     <FormFieldTooltip fieldState={fieldState}>
-                    <div className="relative w-full flex flex-col">
-
-                      <FormControl>
-                        <ComboBox
-                          options={grupo}
-                          {...field}
-                          placeholder="Selecciona un grupo"
-                        />
-                      </FormControl>
+                      <div className="relative flex w-full flex-col">
+                        <FormControl>
+                          <ComboBox
+                            options={grupo}
+                            {...field}
+                            placeholder="Selecciona un grupo"
+                            id={field.name}
+                          />
+                        </FormControl>
                       </div>
                     </FormFieldTooltip>
                   </FormItem>
@@ -233,17 +223,17 @@ export const UserForm = ({ open, onClose }) => {
                 name="supervisor"
                 render={({ field, fieldState }) => (
                   <FormItem className="relative flex flex-col">
-                    <FormLabel>Supervisor</FormLabel>
+                    <FormLabel htmlFor={field.name}>Supervisor</FormLabel>
                     <FormFieldTooltip fieldState={fieldState}>
-                    <div className="relative w-full flex flex-col">
-
-                      <FormControl>
-                        <ComboBox
-                          options={supervisores}
-                          {...field}
-                          placeholder="Selecciona un supervisor"
-                        />
-                      </FormControl>
+                      <div className="relative flex w-full flex-col">
+                        <FormControl>
+                          <ComboBox
+                            options={supervisores}
+                            {...field}
+                            placeholder="Selecciona un supervisor"
+                            id={field.name}
+                          />
+                        </FormControl>
                       </div>
                     </FormFieldTooltip>
                   </FormItem>

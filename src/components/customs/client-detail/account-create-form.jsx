@@ -57,14 +57,14 @@ export const AccountForm = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-2xl">
+      <DialogContent className=" overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Formulario de Cuenta</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-1">
+            <div className="  grid-cols-1 gap-4 md:grid-cols-1">
               <FormField
                 control={form.control}
                 name="alias"
@@ -87,11 +87,7 @@ export const AccountForm = ({ open, onClose }) => {
                     <FormLabel>Identificador Único</FormLabel>
                     <FormFieldTooltip fieldState={fieldState}>
                       <FormControl>
-                        <Input
-                          type="int"
-                          placeholder="Ej. 1234"
-                          {...field}
-                        />
+                        <Input type="int" placeholder="Ej. 1234" {...field} />
                       </FormControl>
                     </FormFieldTooltip>
                   </FormItem>
@@ -132,18 +128,18 @@ export const AccountForm = ({ open, onClose }) => {
                 control={form.control}
                 name="proveedor"
                 render={({ field, fieldState }) => (
-                  <FormItem >
-                    <FormLabel>Proveedor</FormLabel>
+                  <FormItem>
+                    <FormLabel htmlFor={field.name}>Proveedor</FormLabel>
                     <FormFieldTooltip fieldState={fieldState}>
-                    <div className="relative w-full flex flex-col">
-
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={proveedores}
-                          placeholder="Selecciona un proveedor"
-                        />
-                      </FormControl>
+                      <div className="relative flex w-full flex-col">
+                        <FormControl>
+                          <ComboBox
+                            {...field}
+                            id={field.name}
+                            options={proveedores}
+                            placeholder="Selecciona un proveedor"
+                          />
+                        </FormControl>
                       </div>
                     </FormFieldTooltip>
                   </FormItem>
