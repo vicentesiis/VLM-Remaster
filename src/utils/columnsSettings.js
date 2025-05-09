@@ -16,19 +16,19 @@ export const titles = {
     created_at: "Fecha de Creación",
     record_type: "Tipo de Registro",
   },
-  reportesReporteVentasPorAgente: {
+  ReportesVentasPorAgente: {
     date: "Fecha",
     status: "Estatus",
     quantity: "Cantidad de Ordenes",
     total: "Monto Total Diario",
   },
-  salesReportDetailTableBody: {
+  ReportesVentasPorAgenteDetalle: {
     id: "# de Referencia",
     name: "Nombre del Cliente",
     quantity: "Monto",
     status: "Estatus del Pago",
   },
-  userSettingsTableBody: {
+  AjustesUsuarios: {
     username: "Nombre de Usuario",
     name: "Nombre",
     role: "Rol",
@@ -38,7 +38,7 @@ export const titles = {
     phone: "Teléfono",
     active: "Activo",
     actions: "Acciones",
-  }
+  },
 }
 
 export const generateColumnTitle = (type, key) => {
@@ -65,19 +65,19 @@ export const columnAlignments = {
     created_at: "left",
     record_type: "center",
   },
-  reportesReporteVentasPorAgente: {
+  ReportesVentasPorAgente: {
     date: "left",
     status: "center",
     quantity: "center",
     total: "center",
   },
-  salesReportDetailTableBody: {
+  ReportesVentasPorAgenteDetalle: {
     id: "left",
     name: "left",
     quantity: "left",
     status: "left",
   },
-  userSettingsTableBody: {
+  AjustesUsuarios: {
     username: "left",
     name: "left",
     role: "center",
@@ -87,7 +87,7 @@ export const columnAlignments = {
     phone: "left",
     active: "center",
     actions: "center",
-  }
+  },
 }
 
 export const generateColumnAlign = (type, key) => {
@@ -96,16 +96,38 @@ export const generateColumnAlign = (type, key) => {
 
 export const columnsToHide = {
   Registros: {
-    columns: ["name", "public_id", "date_of_birth", "contacted", "amount_owed", "active", "end_date", "previous_status", "exit_date", "updated_at", "desired_jobs", "job", "comments", "program"],
-    columnsMobile: ["name", "country", "type", "comments", "phone", "actions", "comments"],
+    columns: [
+      "name",
+      "public_id",
+      "date_of_birth",
+      "contacted",
+      "amount_owed",
+      "active",
+      "end_date",
+      "previous_status",
+      "exit_date",
+      "updated_at",
+      "desired_jobs",
+      "job",
+      "comments",
+      "program",
+    ],
+    columnsMobile: [
+      "name",
+      "country",
+      "type",
+      "comments",
+      "phone",
+      "actions",
+      "comments",
+    ],
   },
-  reportesReporteVentasPorAgente: {
+  ReportesVentasPorAgente: {
     columns: ["sells"],
     columnsMobile: ["sells"],
   },
-  salesReportDetailTableBody: { columns: [] },
-  userSettingsTableBody: { columns: [] },
+  ReportesVentasPorAgenteDetalle: { columns: [] },
+  AjustesUsuarios: { columns: [] },
 }
-
 
 export default { generateColumnTitle, generateColumnAlign, columnsToHide }

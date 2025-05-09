@@ -5,7 +5,7 @@ import { DateRangePicker } from "@/components/customs/date-range-picker/date-ran
 import GenericSelect from "@/components/customs/generic-select"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { SalesReportAgentDrawer } from "@/components/customs/sales-report-agent-drawer"
-import BaseTable, { TABLE_TYPES } from "@/components/customs/table-data/base-table"
+import BaseTable from "@/components/customs/table-data/base-table"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { currentYear, currentMonth } from "@/constants/utils-contants"
@@ -96,7 +96,7 @@ export const ReportesReporteVentasPorAgente = () => {
             <div ref={tableRef}>
               <BaseTable
                 data={reportesReporteVentasPorAgenteDetail}
-                tableType={TABLE_TYPES[3]}
+                tableType={"ReportesVentasPorAgente"}
                 onRowClick={handleRowClick}
               />
             </div>

@@ -7,7 +7,7 @@ import { DateRangePicker } from "@/components/customs/date-range-picker/date-ran
 import InputIcon from "@/components/customs/input-icon"
 import PageLayout from "@/components/customs/layout/page-layout"
 import SplitPane from "@/components/customs/layout/split-pane/split-pane"
-import BaseTable, { TABLE_TYPES } from "@/components/customs/table-data/base-table"
+import BaseTable from "@/components/customs/table-data/base-table"
 import { Card, CardContent } from "@/components/ui/card"
 import { RegistrosOptions } from "@/constants/utils-contants"
 import useResetStoresOnRouteChange from "@/hooks/useResetStoresOnRouteChange"
@@ -80,7 +80,7 @@ export const Registros = () => {
               subTitle={`${records?.data?.length || 0} registros`}
               LeftSideComponent={<TaskFilter />}
               RightSideComponent={
-                <BaseTable data={records.data} tableType={TABLE_TYPES[0]} />
+                <BaseTable data={records.data} tableType={"Registros"} />
               }
             />
           )}

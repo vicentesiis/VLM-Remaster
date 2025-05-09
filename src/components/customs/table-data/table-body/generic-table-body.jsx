@@ -10,18 +10,18 @@ export function GenericTableBody({ data, columns, renderers, getRowKey }) {
         <TableRow key={getRowKey(item)}>
           {columns.map((column, colIndex) => {
             const CellRenderer = renderers[column]
+            const cellKey = `cell-${getRowKey(item)}-${column}-${colIndex}`
 
-            return CellRenderer ? (
-              <CellRenderer
-                key={`cell-${getRowKey(item)}-${column}-${colIndex}`}
-                item={item}
-              />
-            ) : (
-              <DefaultCell
-                key={`cell-${getRowKey(item)}-${column}-${colIndex}`}
-                title={item[column] || "N/A"}
-              />
-            )
+            if (CellRenderer) {
+              return <CellRenderer key={cellKey} item={item} />
+            }
+
+            const value = item[column]
+            const isObject = typeof value === "object" && value !== null
+
+            if (isObject) return null // Skip rendering if the value is a non-null object
+
+            return <DefaultCell key={cellKey} title={value || "N/A"} />
           })}
         </TableRow>
       ))}

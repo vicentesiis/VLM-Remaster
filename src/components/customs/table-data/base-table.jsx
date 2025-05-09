@@ -32,16 +32,14 @@ export function BaseTable({ data, tableType, onRowClick }) {
   )
 }
 
-export const TABLE_TYPES = [
-  "Registros",
-  "ReportesVentasPorAgente",
-  "ReportesVentasPorAgenteDetalle",
-  "AjustesUsuarios",
-]
-
 BaseTable.propTypes = {
   data: PropTypes.array.isRequired,
-  tableType: PropTypes.oneOf(TABLE_TYPES).isRequired,
+  tableType: PropTypes.oneOf([
+    "Registros",
+    "ReportesVentasPorAgente",
+    "ReportesVentasPorAgenteDetalle",
+    "AjustesUsuarios",
+  ]).isRequired,
   onRowClick: PropTypes.func,
 }
 

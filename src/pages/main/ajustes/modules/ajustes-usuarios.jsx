@@ -33,7 +33,7 @@ export const AjustesUsuarios = () => {
         <CardContent>
           <BaseTable
             data={userSettingsTableBody}
-            tableType="userSettingsTableBody"
+            tableType="AjustesUsuarios"
           />
         </CardContent>
       </Card>

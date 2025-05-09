@@ -55,7 +55,7 @@ export function SalesReportAgentDrawer({
 
               <BaseTable
                 data={saleReport["sells"]}
-                tableType={"salesReportDetailTableBody"}
+                tableType={"ReportesVentasPorAgenteDetalle"}
               />
             </Drawer.Description>
           </div>

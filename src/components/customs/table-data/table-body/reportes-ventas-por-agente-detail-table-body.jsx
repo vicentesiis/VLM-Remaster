@@ -1,21 +1,22 @@
+// @/components/customs/table-data/table-body/reportes/reportes-ventas-por-agente-detail-table-body.js
 import PropTypes from "prop-types"
 import React, { useState } from "react"
-import { ventasPorAgenteRender } from "@/components/customs/table-data/renders/ventas-por-agente-render"
+import { ventasPorAgenteDetailRender } from "@/components/customs/table-data/renders/ventas-por-agente-detail-render"
 import GenericTableBody from "@/components/customs/table-data/table-body/generic-table-body"
 
-function VentasPorAgenteTableBody({ data, filteredColumns, onRowClick }) {
+function ReportesVentasPorAgenteDetailTableBody({ data, filteredColumns, onRowClick }) {
   const [selectedRow, setSelectedRow] = useState(null)
 
   return (
     <GenericTableBody
       data={data}
       columns={filteredColumns}
-      renderers={ventasPorAgenteRender}
-      getRowKey={(item) => item.id}
+      renderers={ventasPorAgenteDetailRender}
+      getRowKey={(item) => item.date}
       renderRow={(row, isSelected) => ({
         className: isSelected ? "bg-gray-200" : "",
         onClick: () => {
-          setSelectedRow(row.id)
+          setSelectedRow(row.date)
           onRowClick(row)
         },
       })}
@@ -24,10 +25,10 @@ function VentasPorAgenteTableBody({ data, filteredColumns, onRowClick }) {
   )
 }
 
-VentasPorAgenteTableBody.propTypes = {
+ReportesVentasPorAgenteDetailTableBody.propTypes = {
   data: PropTypes.array.isRequired,
   filteredColumns: PropTypes.array.isRequired,
   onRowClick: PropTypes.func.isRequired,
 }
 
-export default VentasPorAgenteTableBody
+export default ReportesVentasPorAgenteDetailTableBody
