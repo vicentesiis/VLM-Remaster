@@ -1,1 +1,1 @@
-export * from "./columnGenerator";
+export * from "./columnsSettings";

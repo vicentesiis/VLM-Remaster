@@ -2,7 +2,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import React, { createContext, useState, useEffect } from "react"
 import { H3 } from "@/components/ui"
 import { loginUser, logout as logoutUser } from "@/services/authService"
-import { fetchUserCatalog } from "@/services/roleService"
 import { getUser } from "@/services/userService"
 
 export const AuthContext = createContext(null)
@@ -22,19 +21,11 @@ export const AuthProvider = ({ children }) => {
     retry: false,
   })
 
-  const { data: userCatalog, isLoading: isCatalogLoading } = useQuery({
-    queryKey: ["userCatalog"],
-    queryFn: fetchUserCatalog,
-    enabled: !!token,
-    retry: false,
-  })
-
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       setToken(data.access_token)
       queryClient.invalidateQueries(["user"])
-      queryClient.invalidateQueries(["userCatalog"])
     },
   })
 
@@ -53,9 +44,8 @@ export const AuthProvider = ({ children }) => {
   }, [token, queryClient])
 
   const currentRole = user?.data?.role || null
-  const listOfRoles = userCatalog?.data?.roles || []
 
-  const loading = isUserLoading || isCatalogLoading
+  const loading = isUserLoading
 
   if (loading) {
     // Full-screen loading UI with spinner
@@ -72,8 +62,6 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         currentRole,
-        listOfRoles,
-        userCatalog,
         loginMutation,
         logoutMutation,
         isError,

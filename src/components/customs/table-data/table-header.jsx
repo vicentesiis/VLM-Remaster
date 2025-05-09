@@ -4,7 +4,7 @@ import { TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import {
   generateColumnTitle,
   generateColumnAlign,
-} from "@/utils/columnGenerator"
+} from "@/utils/columnsSettings"
 
 export const TableHeaderComponent = ({ columns, type }) => (
   <TableHeader>

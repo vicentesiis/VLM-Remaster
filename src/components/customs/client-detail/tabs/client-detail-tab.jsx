@@ -4,7 +4,7 @@ import { CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { H3, PLead, ListStyle } from "@/components/ui/typography"
 
-export const ClientDetailTab = ({ sections }) => {
+export const ClientesDetailTab = ({ sections }) => {
   const groupIntoPairs = (content) => {
     return content.reduce((acc, _, i) => {
       if (i % 2 === 0) acc.push(content.slice(i, i + 2))
@@ -66,7 +66,7 @@ export const ClientDetailTab = ({ sections }) => {
   )
 }
 
-ClientDetailTab.propTypes = {
+ClientesDetailTab.propTypes = {
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -80,4 +80,4 @@ ClientDetailTab.propTypes = {
   ).isRequired,
 }
 
-export default ClientDetailTab
+export default ClientesDetailTab

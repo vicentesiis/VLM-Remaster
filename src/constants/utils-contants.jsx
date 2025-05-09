@@ -204,7 +204,7 @@ export const logChartData = [
   },
 ]
 
-export const tasksOptions = [
+export const RegistrosOptions = [
   {
     name: "Creado",
     label: "Creado",

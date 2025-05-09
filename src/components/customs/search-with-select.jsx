@@ -22,8 +22,8 @@ const options = [
     icon: <UserIcon className="mr-1 h-4 w-4" />,
   },
   {
-    label: "Tareas",
-    value: "Tareas",
+    label: "Vacantes",
+    value: "Vacantes",
     icon: <CheckSquareIcon className="mr-1 h-4 w-4" />,
   },
   {

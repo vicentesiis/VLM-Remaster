@@ -24,9 +24,9 @@ export function SplitPane({
 
   function RightSideComponentContainer() {
     return (
-      <div>
-        <div className="flex justify-between items-center sm:items-start">
-          <div className="flex gap-0 items-center mb-2 sm:mb-4">
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center justify-between sm:items-start">
+          <div className="mb-2 flex items-center gap-0 sm:mb-4">
             <Button
               variant="ghost"
               size="smCustom"
@@ -45,7 +45,7 @@ export function SplitPane({
                 <PanelLeftClose style={{ width: "24px", height: "24px" }} />
               )}
             </Button>
-            <div className="sm:gap-3 sm:flex sm:items-end">
+            <div className="sm:flex sm:items-end sm:gap-3">
               <H3>{title}</H3>
               <PLead>{subTitle}</PLead>
             </div>
@@ -68,9 +68,7 @@ export function SplitPane({
           <Separator className="my-4 sm:m-0 sm:h-0" />
         </CollapsibleContent>
       </Collapsible>
-      <div className="grow">
-        <RightSideComponentContainer />
-      </div>
+      <RightSideComponentContainer />
     </div>
   )
 }

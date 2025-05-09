@@ -1,19 +1,17 @@
 import React from "react"
-import { ClientDetail } from "@/pages/main/clients/client-detail/client-detail"
-import { Clients } from "@/pages/main/clients/clients"
+import { Ajustes } from "@/pages/main/ajustes/ajustes"
+import { AjustesUsuarios } from "@/pages/main/ajustes/modules/ajustes-usuarios"
+import { Clientes } from "@/pages/main/clientes/clientes"
+import { ClientesDetail } from "@/pages/main/clientes/clientes-detail/clientes-detail"
 import { Home } from "@/pages/main/home"
 import { Info } from "@/pages/main/info/info"
-import { Orders } from "@/pages/main/orders/orders"
-import { GlobalSalesReport } from "@/pages/main/reports/modules/global-sales-report"
-import { LogAgentReport } from "@/pages/main/reports/modules/log-agent-report"
-import { MonthlySalesReport } from "@/pages/main/reports/modules/monthly-sales-report"
-import { SalesAgentReport } from "@/pages/main/reports/modules/sales-agent-report"
-import { Reports } from "@/pages/main/reports/reports"
-import { AccountsSettings } from "@/pages/main/settings/modules/accounts-settings"
-import { UserSettings } from "@/pages/main/settings/modules/users-settings"
-import { Settings } from "@/pages/main/settings/settings"
-import { Tasks } from "@/pages/main/tasks/tasks"
-import { Vacants } from "@/pages/main/vacants/vacants"
+import { Registros } from "@/pages/main/registros/registros"
+import { ReportesReporteDeRegistros } from "@/pages/main/reportes/modules/reportes-reporte-de-registros"
+import { ReportesReporteVentasPorAgente } from "@/pages/main/reportes/modules/reportes-reporte-de-ventas-por-agente"
+import { ReportesReporteVentalMensual } from "@/pages/main/reportes/modules/reportes-reporte-venta-mensual"
+import { ReportesReporteVentasGlobales } from "@/pages/main/reportes/modules/reportes-reporte-ventas-globales"
+import { Reportes } from "@/pages/main/reportes/reportes"
+import { Vacantes } from "@/pages/main/vacantes/vacantes"
 
 export const routes = [
   {
@@ -21,31 +19,31 @@ export const routes = [
     element: <Home />,
   },
   {
-    path: "/tareas",
-    element: <Tasks />,
-    allowedRoles: ["super_admin", "agent"],
+    path: "/registros",
+    element: <Registros />,
+    allowedRoles: ["super_admin", "admin", "agent"],
   },
   {
     path: "/clientes",
-    element: <Clients />,
-    allowedRoles: ["super_admin", "agent"],
+    element: <Clientes />,
+    allowedRoles: ["super_admin", "admin", "agent"],
     children: [
       {
         path: ":clientId",
-        element: <ClientDetail />,
-        allowedRoles: ["super_admin", "agent"],
+        element: <ClientesDetail />,
+        allowedRoles: ["super_admin", "admin", "agent"],
       },
     ],
   },
   {
     path: "/vacantes",
-    element: <Vacants />,
-    allowedRoles: ["super_admin", "agent"],
+    element: <Vacantes />,
+    allowedRoles: ["super_admin", "admin", "agent"],
   },
   {
     path: "/reportes",
-    element: <Reports />,
-    allowedRoles: ["super_admin", "agent"],
+    element: <Reportes />,
+    allowedRoles: ["super_admin", "admin", "agent"],
     children: [
       {
         path: "reporte-personal",
@@ -54,43 +52,43 @@ export const routes = [
       },
       {
         path: "ventas-por-agente",
-        element: <SalesAgentReport />,
-        allowedRoles: ["super_admin"],
+        element: <ReportesReporteVentasPorAgente />,
+        allowedRoles: ["super_admin", "admin"],
       },
       {
         path: "registros",
-        element: <LogAgentReport />,
-        allowedRoles: ["super_admin"],
+        element: <ReportesReporteDeRegistros />,
+        allowedRoles: ["super_admin", "admin"],
       },
       {
         path: "ventas-mensuales",
-        element: <MonthlySalesReport />,
-        allowedRoles: ["super_admin"],
+        element: <ReportesReporteVentalMensual />,
+        allowedRoles: ["super_admin", "admin"],
       },
       {
         path: "auditoria-registros",
         element: <>Auditoria de Registros</>,
-        allowedRoles: ["super_admin"],
+        allowedRoles: ["super_admin", "admin"],
       },
       {
         path: "control-finalizados",
         element: <>Control de Finalizados</>,
-        allowedRoles: ["super_admin"],
+        allowedRoles: ["super_admin", "admin"],
       },
       {
         path: "ventas-globales",
-        element: <GlobalSalesReport />,
-        allowedRoles: ["super_admin"],
+        element: <ReportesReporteVentasGlobales />,
+        allowedRoles: ["super_admin", "admin"],
       },
       {
         path: "ventas-canal",
         element: <>Ventas por Canal</>,
-        allowedRoles: ["super_admin"],
+        allowedRoles: ["super_admin", "admin"],
       },
       {
         path: "cortes-agente",
         element: <>Cortes por Agente</>,
-        allowedRoles: ["super_admin"],
+        allowedRoles: ["super_admin", "admin"],
       },
     ],
   },
@@ -113,18 +111,18 @@ export const routes = [
   },
   {
     path: "/ajustes",
-    element: <Settings />,
-    allowedRoles: ["super_admin"],
+    element: <Ajustes />,
+    allowedRoles: ["super_admin", "admin"],
     children: [
       {
         path: "usuarios",
-        element: <UserSettings />,
-        allowedRoles: ["super_admin"],
+        element: <AjustesUsuarios />,
+        allowedRoles: ["super_admin", "admin"],
       },
       {
         path: "cuentas",
-        element: <AccountsSettings />,
-        allowedRoles: ["super_admin"],
+        element: <AjustesUsuarios />,
+        allowedRoles: ["super_admin", "admin"],
       },
     ],
   },

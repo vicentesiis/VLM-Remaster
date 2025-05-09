@@ -15,7 +15,7 @@ export const GenericTimeline = ({ data = [] }) => {
   const navigate = useNavigate()
 
   const handleClick = (item) => {
-    // Navigate to the MonthlySalesReport route with the selected month and year
+    // Navigate to the ReportesReporteVentalMensual route with the selected month and year
     navigate({
       pathname: "/reportes/ventas-mensuales", // Updated to match the correct path
       state: { year: item.title, group: item.description }, // Pass data through state

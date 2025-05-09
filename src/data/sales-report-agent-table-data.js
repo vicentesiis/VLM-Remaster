@@ -1,4 +1,4 @@
-export const salesAgentReportDetail = [
+export const reportesReporteVentasPorAgenteDetail = [
   {
     date: "1 de Febrero",
     status: "En Proceso",
@@ -208,4 +208,4 @@ export const salesAgentReportDetail = [
   },
 ]
 
-export default salesAgentReportDetail
+export default reportesReporteVentasPorAgenteDetail

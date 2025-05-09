@@ -45,7 +45,10 @@ export const getUserData = async (token) => {
   return await apiRequest("/users/me", "GET", headers, null)
 }
 
-export const fetchUserCatalogData = async (token) => {
-  const headers = { Authorization: `Bearer ${token}` }
-  return await apiRequest("/users/catalog", "GET", headers, null)
+// Get all records function
+export const getRecordsData = async (token) => {
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  }
+  return await apiRequest("/records/all", "GET", headers, null)
 }

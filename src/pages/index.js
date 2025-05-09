@@ -1,17 +1,15 @@
 // Pages
 export * from "@/pages/main/main-page"
 
-// Tasks
-export * from "@/pages/main/tasks/tasks"
+// Registros
+export * from "@/pages/main/registros/registros"
 // Client
-export * from "@/pages/main/clients/clients"
+export * from "@/pages/main/clientes/clientes"
 // Client - Client Detail
-export * from "@/pages/main/clients/client-detail/client-detail"
+export * from "@/pages/main/clientes/clientes-detail/clientes-detail"
 
-// Orders
-export * from "@/pages/main/orders/orders"
-// Reports
-export * from "@/pages/main/reports/reports"
+// Reportes
+export * from "@/pages/main/reportes/reportes"
 // Info
 export * from "@/pages/main/info/info"
 

@@ -1,4 +1,4 @@
-export const clientDetailData = [
+export const ClientesDetailData = [
   {
     title: "Información General",
     content: [
@@ -43,4 +43,4 @@ export const clientDetailData = [
   },
 ]
 
-export default clientDetailData
+export default ClientesDetailData
