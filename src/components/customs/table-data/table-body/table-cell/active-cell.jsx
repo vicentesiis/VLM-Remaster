@@ -5,19 +5,18 @@ import { IconAvatar } from "@/components/ui/icon-avatar"
 import { TableCell } from "@/components/ui/table"
 
 export const ActiveCell = ({ isActive }) => {
+  const icon = isActive ? CheckIcon : XIcon
+  const bgColor = isActive ? "bg-green-500" : "bg-red-500"
+
   return (
-    <TableCell className={"mt-2 flex items-center justify-center"}>
-      <IconAvatar
-        icon={isActive ? CheckIcon : XIcon}
-        bgColor={isActive ? "bg-green-500" : "bg-red-500"}
-        size="sm"
-      />
+    <TableCell className="mt-2 flex items-center justify-center">
+      <IconAvatar icon={icon} bgColor={bgColor} size="sm" />
     </TableCell>
   )
 }
 
 ActiveCell.propTypes = {
-  isActive: PropTypes.any,
+  isActive: PropTypes.bool.isRequired,
 }
 
 export default ActiveCell

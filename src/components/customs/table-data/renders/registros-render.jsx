@@ -1,5 +1,5 @@
-// registrosRender.js
 import React from "react"
+import DateCell from "@/components/customs/table-data/table-body/table-cell/date-cell"
 import DefaultCell from "@/components/customs/table-data/table-body/table-cell/default-cell"
 import DropdownCell from "@/components/customs/table-data/table-body/table-cell/dropdown-cell"
 import MainCell from "@/components/customs/table-data/table-body/table-cell/main-cell"
@@ -67,4 +67,5 @@ export const registrosRender = {
       align="center"
     />
   ),
+  created_at: ({ item }) => <DateCell value={item.created_at} />,
 }

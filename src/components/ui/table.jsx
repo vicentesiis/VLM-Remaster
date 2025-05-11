@@ -59,7 +59,7 @@ const TableHead = React.forwardRef(
     <th
       ref={ref}
       className={cn(
-        "h-10 bg-gray-100 px-2 align-middle font-bold text-muted-foreground",
+        "h-10 bg-gray-100 px-2 min-w-32 align-middle font-bold text-muted-foreground",
         {
           "text-left": align === "left",
           "text-center": align === "center",

@@ -12,7 +12,7 @@ const getRoleColorClass = (role) => {
       return "bg-primary text-white"
     case "AGENTE":
       return "bg-primary-hover text-white"
-      case "NO APLICA":
+    case "NO APLICA":
       return "bg-gray-200 text-gray-800"
     default:
       return "bg-green-600 text-white"
@@ -24,7 +24,7 @@ export const UserTypeBadgeCell = ({ title }) => {
   return (
     <TableCell className="text-center">
       <Badge className={badgeClass}>
-        <P className={"font-semibold text-[12px]"}>{title}</P>
+        <P className="text-[12px] font-semibold">{title}</P>
       </Badge>
     </TableCell>
   )

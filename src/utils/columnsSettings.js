@@ -51,7 +51,7 @@ export const columnAlignments = {
     name: "left",
     country: "left",
     comments: "center",
-    phone: "center",
+    phone: "left",
     type: "center",
     status: "center",
     actions: "center",
@@ -62,7 +62,7 @@ export const columnAlignments = {
     passport: "left",
     channel: "center",
     program: "left",
-    created_at: "left",
+    created_at: "center",
     record_type: "center",
   },
   ReportesVentasPorAgente: {
