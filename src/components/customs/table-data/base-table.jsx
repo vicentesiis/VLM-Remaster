@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import React, { useMemo } from "react"
+import React from "react"
 import { tableBodyRegister } from "./table-body/tableBodyRegistry"
 import { TableHeaderComponent } from "@/components/customs/table-data/table-header"
 import { ScrollArea } from "@/components/ui"
@@ -10,8 +10,7 @@ export function BaseTable({ data, tableType, onRowClick }) {
   if (!tableType) return <div>Tipo de tabla no especificado</div>
   if (!data?.length) return <div>No hay datos disponibles</div>
 
-  const allColumns = useMemo(() => Object.keys(data[0] || {}), [data])
-  const filteredColumns = useFilteredColumns(tableType, allColumns)
+  const filteredColumns = useFilteredColumns(tableType)
 
   const TableBodyComponent = tableBodyRegister[tableType]
   if (!TableBodyComponent) {

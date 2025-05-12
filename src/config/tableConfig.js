@@ -38,37 +38,12 @@ const tableConfig = {
       created_at: "center",
       record_type: "center",
     },
-    columnsToHide: [
-      "name",
-      "public_id",
-      "date_of_birth",
-      "contacted",
-      "amount_owed",
-      "active",
-      "end_date",
-      "previous_status",
-      "exit_date",
-      "updated_at",
-      "desired_jobs",
-      "job",
-      "comments",
-      "program",
-      "curp",
-      "state",
-      "passport",
-    ],
-    columnsMobileToHide: [
-      "name",
-      "country",
-      "type",
-      "comments",
-      "phone",
-      "actions",
-      "comments",
-    ],
+    columnsToShow: ["id", "status", "phone", "email", "created_at"],
+    columnsMobileToShow: ["name", "status"],
     columnOrder: ["id", "status", "email"],
     columnsToAdd: ["actions"],
   },
+
   // ─────────────────────────────────────────
   ReportesVentasPorAgente: {
     titles: {
@@ -83,10 +58,11 @@ const tableConfig = {
       quantity: "center",
       total: "center",
     },
-    columnsToHide: ["sells"],
-    columnsMobileToHide: ["sells"],
+    columnsToShow: ["date", "status", "quantity", "total"],
+    columnsMobileToShow: ["date", "status"],
     columnOrder: [],
   },
+
   // ─────────────────────────────────────────
   ReportesVentasPorAgenteDetalle: {
     titles: {
@@ -101,10 +77,11 @@ const tableConfig = {
       quantity: "left",
       status: "left",
     },
-    columnsToHide: [],
-    columnsMobileToHide: [],
+    columnsToShow: ["id", "name", "quantity", "status"],
+    columnsMobileToShow: ["name", "status"],
     columnOrder: [],
   },
+
   // ─────────────────────────────────────────
   AjustesUsuarios: {
     titles: {
@@ -129,14 +106,13 @@ const tableConfig = {
       active: "center",
       actions: "center",
     },
-    columnsToHide: [],
-    columnsMobileToHide: [],
+    columnsToShow: ["username", "name", "role", "type", "phone", "active"],
+    columnsMobileToShow: ["name", "role"],
     columnOrder: [],
   },
 }
 
 // Utility Functions
-
 export const getTitle = (type, key) => {
   return tableConfig[type]?.titles?.[key] || key
 }
@@ -145,15 +121,10 @@ export const getAlignment = (type, key) => {
   return tableConfig[type]?.alignments?.[key] || "left"
 }
 
-export const getColumnsToHide = (type, isMobile = false) => {
+export const getColumnsToShow = (type, isMobile = false) => {
   const config = tableConfig[type]
-  if (!config) return new Set()
-
-  return new Set(
-    isMobile
-      ? config.columnsMobileToHide || config.columnsToHide || []
-      : config.columnsToHide || []
-  )
+  if (!config) return []
+  return isMobile ? config.columnsMobileToShow || [] : config.columnsToShow || []
 }
 
 export const getColumnOrder = (type) => {
@@ -168,7 +139,7 @@ export default {
   tableConfig,
   getTitle,
   getAlignment,
-  getColumnsToHide,
+  getColumnsToShow,
   getColumnOrder,
   getColumnsToAdd,
 }

@@ -1,31 +1,30 @@
 import { useMemo } from "react"
 import {
-  getColumnsToHide,
+  getColumnsToShow,
   getColumnOrder,
   getColumnsToAdd,
 } from "@/config/tableConfig"
 import useIsSmallScreen from "@/hooks/useIsSmallScreen"
 
-const useFilteredColumns = (tableType, apiColumns) => {
+const useFilteredColumns = (tableType) => {
   const isSmallScreen = useIsSmallScreen()
 
   return useMemo(() => {
-    const hidden = getColumnsToHide(tableType, isSmallScreen)
+    const baseColumns = getColumnsToShow(tableType, isSmallScreen)
     const additional = getColumnsToAdd(tableType)
 
-    const combinedColumns = [...new Set([...apiColumns, ...additional])]
-    let visible = combinedColumns.filter((col) => !hidden.has(col))
+    const combinedColumns = [...new Set([...baseColumns, ...additional])]
 
     const order = getColumnOrder(tableType)
     if (order.length > 0) {
-      visible = [
-        ...order.filter((col) => visible.includes(col)),
-        ...visible.filter((col) => !order.includes(col)),
+      return [
+        ...order.filter((col) => combinedColumns.includes(col)),
+        ...combinedColumns.filter((col) => !order.includes(col)),
       ]
     }
 
-    return visible
-  }, [tableType, apiColumns, isSmallScreen])
+    return combinedColumns
+  }, [tableType, isSmallScreen])
 }
 
 export default useFilteredColumns
