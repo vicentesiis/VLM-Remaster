@@ -2,68 +2,19 @@ import PropTypes from "prop-types"
 import React from "react"
 import { Badge } from "@/components/ui/badge"
 import { LabelStyle } from "@/components/ui/typography"
-
-const getStatusStyles = (status) => {
-  const statusColors = {
-    Good: {
-      bgColor: "bg-emerald-600/10",
-      textColor: "text-emerald-500",
-      borderColor: "border-emerald-600/60",
-      dotColor: "bg-emerald-500",
-    },
-
-    Pending: {
-      bgColor: "bg-amber-600/10",
-      textColor: "text-amber-500",
-      borderColor: "border-amber-600/60",
-      dotColor: "bg-amber-500",
-    },
-
-    Warning: {
-      bgColor: "bg-red-600/10",
-      textColor: "text-red-500",
-      borderColor: "border-red-600/60",
-      dotColor: "bg-red-500",
-    },
-  }
-
-  const statusCategory = {
-    Creado: "Good",
-    Importado: "Good",
-    "Contrato Generado": "Good",
-    Aprobado: "Good",
-    "Con Fecha de Salida": "Good",
-    "Fecha de Salida Confirmada": "Good",
-    Finalizó: "Good",
-    Pagado: "Good",
-    Pagada: "Good",
-
-    "Generar Referencia": "Pending",
-    "Generar Contrato": "Pending",
-    "Pendiente de Aprobación": "Pending",
-    "Eligiendo Fecha de Salida": "Pending",
-    "En Proceso": "Pending",
-
-    "Información Pendiente": "Warning",
-    "Corregir Contrato": "Warning",
-    "Primer Aviso": "Warning",
-    "Temporalmente Inactivo": "Warning",
-    "Por Pagar": "Warning",
-  }
-
-  const category = statusCategory[status] || "Pending"
-  return statusColors[category]
-}
+import { translateStatus, getStatusColor } from "@/config/statusConfig"
 
 const StatusBadge = ({ status }) => {
-  const { bgColor, textColor, borderColor, dotColor } = getStatusStyles(status)
+  const label = translateStatus(status)
+  const { bgColor, textColor, borderColor } = getStatusColor(status)
 
   return (
     <Badge
-      className={`inline-flex items-center rounded-full p-2 ${bgColor} ${textColor} ${borderColor} shadow-none hover:${bgColor} dark:${bgColor}`}
+      className={`inline-flex items-center rounded-full p-1.5 ${bgColor} ${textColor} ${borderColor} shadow-none hover:${bgColor} dark:${bgColor}`}
     >
-      <div className={`mr-2 h-1.5 w-1.5 rounded-full ${dotColor}`} />
-      <LabelStyle className={"font-extrabold sm:text-start text-center "}>{status}</LabelStyle>
+      <LabelStyle className="text-center font-extrabold sm:text-start">
+        {label}
+      </LabelStyle>
     </Badge>
   )
 }

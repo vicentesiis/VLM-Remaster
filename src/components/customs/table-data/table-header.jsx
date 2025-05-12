@@ -1,17 +1,14 @@
 import PropTypes from "prop-types"
 import React from "react"
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import {
-  generateColumnTitle,
-  generateColumnAlign,
-} from "@/utils/columnsSettings"
+import { getTitle, getAlignment } from "@/config/tableConfig"
 
 export const TableHeaderComponent = ({ columns, type }) => (
   <TableHeader>
     <TableRow>
       {columns.map((column) => {
-        const title = generateColumnTitle(type, column)
-        const align = generateColumnAlign(type, column)
+        const title = getTitle(type, column)
+        const align = getAlignment(type, column)
         return (
           <TableHead key={column} className={`text-${align}`}>
             {title}
