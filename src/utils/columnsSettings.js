@@ -1,3 +1,9 @@
+
+// Titles
+export const generateColumnTitle = (type, key) => {
+  return titles[type]?.[key] || key
+}
+
 export const titles = {
   Registros: {
     id: "Cliente",
@@ -41,8 +47,9 @@ export const titles = {
   },
 }
 
-export const generateColumnTitle = (type, key) => {
-  return titles[type]?.[key] || key
+// Alignments
+export const generateColumnAlign = (type, key) => {
+  return columnAlignments[type]?.[key] || "left"
 }
 
 export const columnAlignments = {
@@ -90,10 +97,7 @@ export const columnAlignments = {
   },
 }
 
-export const generateColumnAlign = (type, key) => {
-  return columnAlignments[type]?.[key] || "left"
-}
-
+// Hides columns in the table
 export const columnsToHide = {
   Registros: {
     columns: [
@@ -111,6 +115,9 @@ export const columnsToHide = {
       "job",
       "comments",
       "program",
+      "curp",
+      "state",
+      "passport",
     ],
     columnsMobile: [
       "name",
@@ -130,4 +137,12 @@ export const columnsToHide = {
   AjustesUsuarios: { columns: [] },
 }
 
-export default { generateColumnTitle, generateColumnAlign, columnsToHide }
+// Order of columns in the table
+export const columnsOrder = {
+  Registros: ["id", "curp", "status", "email"],
+}
+
+export default {
+  generateColumnTitle,
+  generateColumnAlign,
+}
