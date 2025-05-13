@@ -1,4 +1,4 @@
-export * from "./account-settings-card";
+export * from "./cuentas-card";
 export * from "./action-dropdown";
 export * from "./ammount-radio-group";
 export * from "./big-calendar";

@@ -1,8 +1,18 @@
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
-import { useFormField } from "@/components/ui/form"
+import React from "react"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip"
 import { useIsSmallScreen } from "@/hooks/useIsSmallScreen"
 
-const FormFieldTooltip = ({ children, fieldState, position = "auto", ...props }) => {
+const FormFieldTooltip = ({
+  children,
+  fieldState,
+  position = "auto",
+  ...props
+}) => {
   const isSmallScreen = useIsSmallScreen()
 
   let side = "right"
@@ -13,16 +23,14 @@ const FormFieldTooltip = ({ children, fieldState, position = "auto", ...props })
   return (
     <TooltipProvider>
       <Tooltip open={!!fieldState?.error}>
-        <TooltipTrigger asChild>
-          {children}
-        </TooltipTrigger>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
         {fieldState?.error && (
           <TooltipContent
             side={side}
             align="start"
             sideOffset={8}
             avoidCollisions={false}
-            className="bg-red-500 text-white text-sm px-3 py-1 rounded shadow z-50"
+            className="z-50 rounded bg-red-500 px-3 py-1 text-sm text-white shadow"
           >
             {fieldState?.error?.message}
           </TooltipContent>

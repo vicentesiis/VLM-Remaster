@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { H3, H4, P, ListStyle, LabelStyle } from "@/components/ui/typography"
 
-export const AccountsSettingsCard = ({ accounts }) => {
+export const CuentasCard = ({ accounts }) => {
   const HeaderContent = ({ title, description, status, onActionClick }) => (
     <div className="relative">
       <Button
@@ -62,8 +62,8 @@ export const AccountsSettingsCard = ({ accounts }) => {
   )
 }
 
-AccountsSettingsCard.propTypes = {
+CuentasCard.propTypes = {
   accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
-export default AccountsSettingsCard
+export default CuentasCard

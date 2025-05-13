@@ -1,13 +1,13 @@
-import React, { useState } from "react"
 import { SearchIcon, UserPlus } from "lucide-react"
+import React, { useState } from "react"
 import { InputIcon } from "@/components/customs"
 import { CardHeaderSection } from "@/components/customs/card-header-section"
+import { UsuarioForm } from "@/components/customs/client-detail/usuario-form"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { BaseTable } from "@/components/customs/table-data"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { userSettingsTableBody } from "@/data/user-settings-table-data"
-import { UserForm } from "@/components/customs/client-detail/user-create-form"
 
 export const AjustesUsuarios = () => {
   const [open, setOpen] = useState(false)
@@ -21,7 +21,7 @@ export const AjustesUsuarios = () => {
           <UserPlus className="mr-2 h-4 w-4" />
           Agregar Usuario
         </Button>
-        <UserForm open={open} onClose={handleOpen} />
+        <UsuarioForm open={open} onClose={handleOpen} />
       </>
     )
   }
@@ -31,10 +31,7 @@ export const AjustesUsuarios = () => {
       <Card>
         <CardHeaderSection title="Lista de Usuarios" actions={<Actions />} />
         <CardContent>
-          <BaseTable
-            data={userSettingsTableBody}
-            tableType="AjustesUsuarios"
-          />
+          <BaseTable data={userSettingsTableBody} tableType="AjustesUsuarios" />
         </CardContent>
       </Card>
     </PageLayout>

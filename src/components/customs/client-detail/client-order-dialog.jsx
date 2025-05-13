@@ -13,8 +13,7 @@ import {
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Separator } from "@/components/ui/separator"
-import { P, Lead, H3Border } from "@/components/ui/typography"
+import { P, Lead } from "@/components/ui/typography"
 
 export const  ClientOrderDialog = ({ open, handleOpen }) => {
   return (

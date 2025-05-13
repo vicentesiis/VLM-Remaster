@@ -1,3 +1,10 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import React from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import FormFieldTooltip from "../form-field-tooltip"
+import { Button } from "@/components/ui/button"
+import ComboBox from "@/components/ui/combobox"
 import {
   Dialog,
   DialogContent,
@@ -10,15 +17,8 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import ComboBox from "@/components/ui/combobox"
-import FormFieldTooltip from "../form-field-tooltip"
 
 const formSchema = z.object({
   alias: z.string().min(1, "El alias de la cuenta es obligatorio"),
@@ -37,7 +37,7 @@ const proveedores = [
   { value: "stripe", label: "Stripe" },
 ]
 
-export const AccountForm = ({ open, onClose }) => {
+export const CuentaForm = ({ open, onClose }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,14 +57,14 @@ export const AccountForm = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className=" overflow-y-auto sm:max-w-2xl">
+      <DialogContent className="overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Formulario de Cuenta</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="  grid-cols-1 gap-4 md:grid-cols-1">
+            <div className="grid-cols-1 gap-4 md:grid-cols-1">
               <FormField
                 control={form.control}
                 name="alias"
@@ -175,4 +175,4 @@ export const AccountForm = ({ open, onClose }) => {
   )
 }
 
-export default AccountForm
+export default CuentaForm

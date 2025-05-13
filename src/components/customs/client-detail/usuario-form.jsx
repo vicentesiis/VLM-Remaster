@@ -1,3 +1,10 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import React from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import FormFieldTooltip from "@/components/customs/form-field-tooltip"
+import { Button } from "@/components/ui/button"
+import ComboBox from "@/components/ui/combobox"
 import {
   Dialog,
   DialogContent,
@@ -10,17 +17,10 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import ComboBox from "@/components/ui/combobox"
 import { Label } from "@/components/ui/label"
-import FormFieldTooltip from "../form-field-tooltip"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 const formSchema = z.object({
   username: z.string().min(1, "El nombre de usuario es obligatorio"),
@@ -37,7 +37,7 @@ const formSchema = z.object({
   phone: z.string().min(10, "El teléfono debe tener al menos 10 dígitos"),
 })
 
-export const UserForm = ({ open, onClose }) => {
+export const UsuarioForm = ({ open, onClose }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -291,4 +291,4 @@ export const UserForm = ({ open, onClose }) => {
   )
 }
 
-export default UserForm
+export default UsuarioForm
