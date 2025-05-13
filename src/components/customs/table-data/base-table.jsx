@@ -18,7 +18,7 @@ export function BaseTable({ data, tableType, onRowClick }) {
   }
 
   return (
-    <ScrollArea className="rounded-md border sm:h-[calc(100vh-250px)] sm:rounded-none sm:rounded-t-lg sm:border-none">
+    <ScrollArea className="rounded-md border">
       <Table>
         <TableHeaderComponent columns={filteredColumns} type={tableType} />
         <TableBodyComponent
