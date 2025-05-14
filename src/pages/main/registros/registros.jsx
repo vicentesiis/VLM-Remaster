@@ -3,6 +3,7 @@ import { SearchIcon } from "lucide-react"
 import React from "react"
 import CheckboxList from "@/components/customs/checkbox-list"
 import CollapsibleComponentGroup from "@/components/customs/collapsible/collapsible-component-group"
+import DataLoader from "@/components/customs/data-loader"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
 import InputIcon from "@/components/customs/input-icon"
 import PageLayout from "@/components/customs/layout/page-layout"
@@ -10,6 +11,7 @@ import SplitPane from "@/components/customs/layout/split-pane/split-pane"
 import BaseTable from "@/components/customs/table-data/base-table"
 import { Card, CardContent } from "@/components/ui/card"
 import { RegistrosOptions } from "@/constants/utils-contants"
+import { useDisplayStatus } from "@/hooks/useDisplayStatus"
 import useResetStoresOnRouteChange from "@/hooks/useResetStoresOnRouteChange"
 import { getRecords } from "@/services/recordsService"
 import {
@@ -23,13 +25,22 @@ export const Registros = () => {
 
   const {
     data: records,
-    isLoading,
-    isError,
-    error,
+    status,
+    refetch,
   } = useQuery({
     queryKey: ["registros"],
     queryFn: getRecords,
+    enabled: false,
   })
+
+  const displayStatus = useDisplayStatus(status, records?.data)
+
+  const tableContent =
+    displayStatus === "success" ? (
+      <BaseTable data={records?.data} tableType="Registros" />
+    ) : (
+      <DataLoader status={displayStatus} />
+    )
 
   function TaskFilter() {
     const { searchQuery, setSearchQuery } = useSearchStore()
@@ -37,7 +48,7 @@ export const Registros = () => {
     const { selectedValues, setSelectedValues } = useCheckboxStore()
 
     return (
-      <CollapsibleComponentGroup title={"Filtro"}>
+      <CollapsibleComponentGroup title={"Filtro"} onApply={refetch}>
         <InputIcon
           title="Buscar"
           alwaysOpen={true}
@@ -68,22 +79,12 @@ export const Registros = () => {
     <PageLayout title="Registros">
       <Card>
         <CardContent>
-          {isLoading ? (
-            <div className="text-muted-foreground p-4">Cargando registros...</div>
-          ) : isError ? (
-            <div className="text-destructive p-4">
-              Error al cargar los datos: {error.message}
-            </div>
-          ) : (
-            <SplitPane
-              title={"Lista de Registros"}
-              subTitle={`${records?.data?.length || 0} registros`}
-              LeftSideComponent={<TaskFilter />}
-              RightSideComponent={
-                <BaseTable data={records.data} tableType={"Registros"} />
-              }
-            />
-          )}
+          <SplitPane
+            title="Lista de Registros"
+            subTitle={`${records?.data?.length || 0} registros`}
+            LeftSideComponent={<TaskFilter />}
+            RightSideComponent={tableContent}
+          />
         </CardContent>
       </Card>
     </PageLayout>

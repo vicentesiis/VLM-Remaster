@@ -5,7 +5,7 @@ import { H3Border } from "@/components/ui/typography"
 import { useFilterSummary } from "@/hooks/useFilterSummary"
 import { getTagLabel } from "@/utils/filters/getTagLabel"
 
-export function CollapsibleComponentGroup({ title, children }) {
+export function CollapsibleComponentGroup({ title, children, onApply }) {
   const { hasFilters, resetFilters } = useFilterSummary()
 
   return (
@@ -36,7 +36,9 @@ export function CollapsibleComponentGroup({ title, children }) {
             Limpiar
           </Button>
         )}
-        <Button className="ml-auto">Aplicar</Button>
+        <Button className="ml-auto" onClick={onApply}>
+          Aplicar
+        </Button>
       </div>
     </div>
   )
