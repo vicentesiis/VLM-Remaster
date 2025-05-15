@@ -4,8 +4,9 @@ import logo from "@/assets/logo.png"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { H2, Lead } from "@/components/ui/typography"
+import { H2, Lead, H3 } from "@/components/ui/typography"
 import { useAuth } from "@/hooks/useAuth"
+import "@/styles/LoginAnimationBackground.css"
 
 export const Login = () => {
   const [userName, setUserName] = useState("")
@@ -16,8 +17,6 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    // Limpiar errores anteriores
     setUsernameError("")
     setPasswordError("")
 
@@ -35,90 +34,95 @@ export const Login = () => {
 
   const handleChangeUserName = (e) => {
     setUserName(e.target.value)
-    // Limpiar error de usuario cuando se empiece a escribir
     if (usernameError) setUsernameError("")
   }
 
   const handleChangePassword = (e) => {
     setPassword(e.target.value)
-    // Limpiar error de contraseña cuando se empiece a escribir
     if (passwordError) setPasswordError("")
   }
 
   if (token) return <Navigate to="/" replace />
 
+  const renderLoginCard = () => (
+    <Card shadow="sm" className="backdrop rounded-lg p-8 shadow-lg md:p-16">
+      <CardHeader className="mt-0 flex-col sm:w-[400px]">
+        <H2 className="!text-3xl lg:text-4xl">Bienvenid@</H2>
+        <Lead>Por favor ingresa tus datos</Lead>
+      </CardHeader>
+
+      <CardContent>
+        <form
+          onSubmit={handleSubmit}
+          className="mt-4 flex flex-col gap-4 space-y-6"
+        >
+          <div className="space-y-4">
+            <div>
+              <Input
+                id="username"
+                placeholder="Usuario"
+                size="lg"
+                value={userName}
+                onChange={handleChangeUserName}
+              />
+              {usernameError && (
+                <p className="mt-1 text-sm text-red-500">{usernameError}</p>
+              )}
+            </div>
+
+            <div>
+              <Input
+                id="password"
+                placeholder="Contraseña"
+                size="lg"
+                type="password"
+                value={password}
+                onChange={handleChangePassword}
+              />
+              {passwordError && (
+                <p className="mt-1 text-sm text-red-500">{passwordError}</p>
+              )}
+            </div>
+          </div>
+
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={loginMutation.isLoading}
+          >
+            {loginMutation.isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
+          </Button>
+
+          {loginMutation.isError && (
+            <p className="mt-2 text-center text-red-500">
+              {loginMutation.error.message}
+            </p>
+          )}
+        </form>
+      </CardContent>
+    </Card>
+  )
+
   return (
-    <section className="bg-gray-200 px-8">
-      <div className="absolute -ml-4 mt-8 flex items-center sm:ml-16 sm:mt-16">
-        <img src={logo} alt="Proyecto VLM" width={70} height={60} />
-        <H2 className="text-lg sm:text-4xl sm:font-normal">
+    <section className="relative h-screen overflow-hidden text-white">
+      {/* Background Waves */}
+      <div className="wave" />
+      <div className="wave" />
+      <div className="wave" />
+
+      {/* Logo */}
+      <div className="absolute z-10 mt-8 flex items-center sm:ml-16 sm:mt-16">
+        <img src={logo} alt="Proyecto VLM" width={75} height={60} />
+        <H3 className="sm:text-4xl sm:font-normal">
           Sistema de Administración de Proyecto VLM
-        </H2>
+        </H3>
       </div>
 
-      <div className="grid h-screen place-items-center">
-        <Card shadow="sm" className="p-8 md:p-16">
-          <CardHeader className="mt-0 flex-col sm:w-[400px]">
-            <H2 className="!text-3xl lg:text-4xl">Bienvenid@</H2>
-            <Lead>Por favor ingresa tus datos</Lead>
-          </CardHeader>
+      {/* <div className="absolute left-1/2 top-1/2 z-0 h-[500px] w-[540px] -translate-x-1/2 -translate-y-1/2 transform bg-gradient-to-r from-primary to-gray-400 shadow-lg sm:-rotate-6 sm:rounded-3xl -mt-4"></div> */}
 
-          <CardContent>
-            <form
-              onSubmit={handleSubmit}
-              className="mt-4 flex flex-col gap-4 space-y-6"
-            >
-              <div className="space-y-4">
-                <div>
-                  <Input
-                    id="username"
-                    placeholder="Usuario"
-                    size="lg"
-                    value={userName}
-                    onChange={handleChangeUserName}
-                  />
-                  {usernameError && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {usernameError}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <Input
-                    id="password"
-                    placeholder="Contraseña"
-                    size="lg"
-                    type="password"
-                    value={password}
-                    onChange={handleChangePassword}
-                  />
-                  {passwordError && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {passwordError}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={loginMutation.isLoading}
-              >
-                {loginMutation.isLoading
-                  ? "Iniciando sesión..."
-                  : "Iniciar Sesión"}
-              </Button>
-
-              {loginMutation.isError && (
-                <p className="text-center text-red-500 mt-2">
-                  {loginMutation.error.message}
-                </p>
-              )}
-            </form>
-          </CardContent>
-        </Card>
+      {/* Centered Card */}
+      <div className="relative z-10 grid h-full place-items-center">
+        {renderLoginCard()}
       </div>
     </section>
   )
