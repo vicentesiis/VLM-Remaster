@@ -37,7 +37,7 @@ export function CollapsibleComponentGroup({ title, children, onApply }) {
           </Button>
         )}
         <Button className="ml-auto" onClick={onApply}>
-          Aplicar
+          Buscar
         </Button>
       </div>
     </div>

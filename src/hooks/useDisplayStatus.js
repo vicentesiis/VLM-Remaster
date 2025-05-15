@@ -1,8 +1,8 @@
-export function useDisplayStatus(status, data) {
-  if (data === undefined) return "inactive"
-  if (status === "pending") return "loading"
-  if (status === "error") return "error"
+export function useDisplayStatus(status, data, isFetching) {
   if (Array.isArray(data) && data.length === 0) return "empty"
+  if (isFetching) return "loading"
+  if (status === "error") return "error"
+  if (data === undefined) return "inactive"
   return "success"
 }
 

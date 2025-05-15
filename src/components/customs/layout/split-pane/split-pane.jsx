@@ -18,8 +18,9 @@ export function SplitPane({
   subTitle,
   LeftSideComponent,
   RightSideComponent,
+  isCollapsed,
+  setIsCollapsed,
 }) {
-  const [isCollapsed, setIsCollapsed] = useState(false)
   const isSmallScreen = useIsSmallScreen()
 
   function RightSideComponentContainer() {
@@ -78,6 +79,8 @@ SplitPane.propTypes = {
   RightSideComponent: PropTypes.elementType.isRequired,
   title: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
+  isCollapsed: PropTypes.bool.isRequired,
+  setIsCollapsed: PropTypes.func.isRequired,
 }
 
 export default SplitPane

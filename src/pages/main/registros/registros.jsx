@@ -23,17 +23,20 @@ import {
 export const Registros = () => {
   useResetStoresOnRouteChange()
 
+  const [isCollapsed, setIsCollapsed] = React.useState(false)
+
   const {
     data: records,
     status,
     refetch,
+    isFetching,
   } = useQuery({
     queryKey: ["registros"],
     queryFn: getRecords,
     enabled: false,
   })
 
-  const displayStatus = useDisplayStatus(status, records?.data)
+  const displayStatus = useDisplayStatus(status, records?.data, isFetching)
 
   const tableContent =
     displayStatus === "success" ? (
@@ -47,8 +50,13 @@ export const Registros = () => {
     const { dateRange, setDateRange } = useDateRangeStore()
     const { selectedValues, setSelectedValues } = useCheckboxStore()
 
+    const handleApply = async () => {
+      await refetch()
+      setIsCollapsed(true) // collapse after applying search
+    }
+
     return (
-      <CollapsibleComponentGroup title={"Filtro"} onApply={refetch}>
+      <CollapsibleComponentGroup title="Filtro" onApply={handleApply}>
         <InputIcon
           title="Buscar"
           alwaysOpen={true}
@@ -84,6 +92,8 @@ export const Registros = () => {
             subTitle={`${records?.data?.length || 0} registros`}
             LeftSideComponent={<TaskFilter />}
             RightSideComponent={tableContent}
+            isCollapsed={isCollapsed}
+            setIsCollapsed={setIsCollapsed}
           />
         </CardContent>
       </Card>
