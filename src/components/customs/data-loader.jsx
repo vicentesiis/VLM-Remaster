@@ -32,13 +32,16 @@ export function DataLoader({ status, className }) {
   return (
     <Card
       className={cn(
-        "flex h-[250px] flex-col justify-center bg-secondary",
+        "flex min-h-[250px] sm:min-h-[350px] flex-col justify-center bg-secondary",
         className
       )}
     >
       <CardContent className="flex flex-col items-center space-y-2 text-center">
         <Icon
-          className={cn("h-10 w-10 text-primary", status === "loading" && "animate-spin")}
+          className={cn(
+            "h-10 w-10 text-primary",
+            status === "loading" && "animate-spin"
+          )}
         />
         <H4>{titleMap[status]}</H4>
         <Blockquote>{messageMap[status]}</Blockquote>

@@ -5,7 +5,7 @@ import {
   PanelTopClose,
 } from "lucide-react"
 import PropTypes from "prop-types"
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { HeaderSplitPaneActions } from "@/components/customs/layout/split-pane/header-split-pane-actions"
 import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
@@ -25,7 +25,7 @@ export function SplitPane({
 
   function RightSideComponentContainer() {
     return (
-      <div className="min-w-0 flex-1">
+      <div className="min-w-0 flex flex-1 flex-col">
         <div className="flex items-center justify-between sm:items-start">
           <div className="mb-2 flex items-center gap-0 sm:mb-4">
             <Button

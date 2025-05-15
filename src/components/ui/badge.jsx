@@ -19,7 +19,7 @@ const badgeVariants = cva("rounded-full border", {
         "px-2 py-0 border-transparent border-red-500 text-red-500 ",
       Activa:
         "px-2 py-0 border-transparent border-green-500 text-green-500 ",
-      default: "",
+      default: "px-1.5",
     },
   },
   defaultVariants: {

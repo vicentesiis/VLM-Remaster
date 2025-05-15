@@ -52,7 +52,7 @@ export const Registros = () => {
 
     const handleApply = async () => {
       await refetch()
-      setIsCollapsed(true) // collapse after applying search
+      setIsCollapsed(true)
     }
 
     return (

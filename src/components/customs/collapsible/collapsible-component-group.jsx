@@ -21,7 +21,7 @@ export function CollapsibleComponentGroup({ title, children, onApply }) {
         return (
           <CollapsibleComponent
             key={index}
-            title={child.props.title || `Sin nombre ${index + 1}`}
+            title={child.props.title}
             tagLabel={tagLabel}
             isAlwaysOpen={isAlwaysOpen}
           >
