@@ -15,7 +15,7 @@ export const CardHeaderSection = ({
             {title}
             {titleHelper && <CardSubTitle>{titleHelper}</CardSubTitle>}
           </CardTitle>
-          <CardTitle className="font-semibold leading-none tracking-tight">
+          <CardTitle className="text-primary font-semibold leading-none tracking-tight">
             {subTitle}
           </CardTitle>
         </div>

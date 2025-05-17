@@ -24,7 +24,7 @@ export const ClientesDetailTab = ({ sections }) => {
 
         return (
           <div key={sectionIndex} className="space-y-2">
-            <H3 className={"text-lg"}>{section.title}</H3>
+            <H3 className={"text-primary text-lg"}>{section.title}</H3>
             <Separator />
 
             <CardContent className="space-y-4 px-0 sm:px-4">

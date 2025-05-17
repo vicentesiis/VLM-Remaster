@@ -1,13 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import React, { createContext, useState, useEffect } from "react"
-import { H3 } from "@/components/ui"
+import { FullScreenLoader } from "@/components/customs/full-screen-loader"
 import { loginUser, logout as logoutUser } from "@/services/authService"
 import { getUser } from "@/services/userService"
+import { localStorageService } from "@/utils/localStorageService"
 
 export const AuthContext = createContext(null)
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem("access_token"))
+  const [token, setToken] = useState(localStorageService.getToken())
   const queryClient = useQueryClient()
 
   const {
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
+      localStorageService.setToken(data.access_token)
       setToken(data.access_token)
       queryClient.invalidateQueries(["user"])
     },
@@ -33,6 +35,7 @@ export const AuthProvider = ({ children }) => {
     mutationFn: logoutUser,
     onSuccess: () => {
       setToken(null)
+      localStorageService.clearAll()
       queryClient.clear()
     },
   })
@@ -44,17 +47,10 @@ export const AuthProvider = ({ children }) => {
   }, [token, queryClient])
 
   const currentRole = user?.data?.role || null
-
   const loading = isUserLoading
 
   if (loading) {
-    // Full-screen loading UI with spinner
-    return (
-      <div className="flex h-screen flex-col items-center justify-center gap-4 bg-background">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-        <H3 className="text-muted-foreground">Cargando información base...</H3>
-      </div>
-    )
+    return <FullScreenLoader />
   }
 
   return (
@@ -73,5 +69,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-
-export default AuthProvider

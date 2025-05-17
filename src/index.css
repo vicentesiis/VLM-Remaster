@@ -21,7 +21,7 @@ body {
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 43% 45%;
+    --primary: 240 43% 40%;
     --primary-foreground: 0 0% 98%;
     --primary-hover: 240 43% 36%;
     --secondary: 240 4.8% 95.9%;
@@ -78,7 +78,7 @@ body {
     --popover: 240 4% 14%; /* e.g. dropdowns */
     --popover-foreground: 0 0% 98%;
 
-    --primary: 240 43% 45%;
+    --primary: 240 43% 60%;
     --primary-foreground: 0 0% 98%;
     --primary-hover: 240 43% 36%;
 

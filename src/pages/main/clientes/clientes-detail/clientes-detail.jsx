@@ -39,7 +39,7 @@ export const ClientesDetail = () => {
           <div className="flex flex-col sm:flex-row sm:justify-between">
             {/* Title + Status */}
             <div className="mb-2 items-center sm:flex sm:justify-center sm:space-x-2">
-              <CardTitle>Lawrence Cannon</CardTitle>
+              <CardTitle className="text-primary">Lawrence Cannon</CardTitle>
               <StatusBadge status="Corregir Contrato" />
             </div>
             {/* ComboBox + Download Dropdown */}

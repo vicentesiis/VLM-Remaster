@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 
 export const useTheme = () => {
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains("dark")
-  )
+  const [isDark, setIsDark] = useState(() => {
+    return localStorage.getItem("is_dark_mode") === "true"
+  })
 
   useEffect(() => {
     const root = document.documentElement
@@ -12,6 +12,7 @@ export const useTheme = () => {
     } else {
       root.classList.remove("dark")
     }
+    localStorage.setItem("is_dark_mode", isDark)
   }, [isDark])
 
   const toggleTheme = () => setIsDark((prev) => !prev)

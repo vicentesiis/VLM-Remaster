@@ -26,7 +26,7 @@ export const Reportes = () => {
               <Card className="transition-shadow duration-200 hover:shadow-lg">
                 <CardHeader className="flex flex-row items-center gap-3">
                   <Icon className="h-8 w-8 text-primary" />
-                  <CardTitle>{item.title}</CardTitle>
+                  <CardTitle className="text-primary">{item.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">

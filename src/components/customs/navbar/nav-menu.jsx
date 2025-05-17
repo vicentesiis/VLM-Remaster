@@ -66,7 +66,7 @@ export const NavMenu = (props) => {
             <NavigationMenuContent>
               <ul
                 className={cn(
-                  "gap-3 p-4",
+                  "gap-3 p-4 text-primary",
                   (menu.items.length === 1 ||
                     menu.items.length === 3 ||
                     menu.items.length === 5) &&
@@ -112,7 +112,7 @@ const ListItem = React.forwardRef(
             )}
             {...props}
           >
-            {Icon && <Icon className="h-5 w-5 text-muted-foreground" />}
+            {Icon && <Icon className="h-5 w-5 text-primary" />}
             <div>
               <div className="text-sm font-semibold">{title}</div>
               <p className="text-sm text-muted-foreground">{children}</p>
