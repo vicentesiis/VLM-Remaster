@@ -104,8 +104,7 @@ export const Login = () => {
   )
 
   return (
-    <section className="relative h-screen overflow-hidden text-white">
-      {/* Background Waves */}
+    <section className="login-background relative h-screen overflow-hidden text-white">
       <div className="wave" />
       <div className="wave" />
       <div className="wave" />
@@ -117,8 +116,6 @@ export const Login = () => {
           Sistema de Administración de Proyecto VLM
         </H3>
       </div>
-
-      {/* <div className="absolute left-1/2 top-1/2 z-0 h-[500px] w-[540px] -translate-x-1/2 -translate-y-1/2 transform bg-gradient-to-r from-primary to-gray-400 shadow-lg sm:-rotate-6 sm:rounded-3xl -mt-4"></div> */}
 
       {/* Centered Card */}
       <div className="relative z-10 grid h-full place-items-center">

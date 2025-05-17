@@ -1,70 +1,68 @@
-body {
+:root {
+  --primary-hue: 220;
+}
+
+.login-background {
   background: linear-gradient(
     315deg,
     hsl(var(--primary)) 20%,
-    #a0aec0 50%,
-    /* Tailwind gray-400 */ #718096 80%,
-    /* Tailwind gray-600 */ #4a5568 100% /* Tailwind gray-700 */
+    #4b5563 50%,
+    /* Tailwind gray-600 */ #374151 80%,
+    /* Tailwind gray-700 */ hsl(var(--primary-hue), 90%, 25%) 100%
+      /* darker primary */
   );
-  animation: gradient 15s ease infinite;
-  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  background-size: 300% 300%;
   background-attachment: fixed;
 }
 
-@keyframes gradient {
+@keyframes gradientShift {
   0% {
-    background-position: 0% 0%;
+    background-position: 0% 50%;
   }
   50% {
-    background-position: 100% 100%;
+    background-position: 100% 50%;
   }
   100% {
-    background-position: 0% 0%;
+    background-position: 0% 50%;
   }
 }
 
 .wave {
-  background: hsla(var(--primary), 0.25); /* use hsla for transparency */
+  background: hsla(var(--primary), 0.08);
   border-radius: 1000% 1000% 0 0;
   position: fixed;
   width: 200%;
-  height: 12em;
-  animation: wave 10s -3s linear infinite;
+  height: 8em;
+  animation: waveMotion 10s ease-in-out infinite;
   transform: translate3d(0, 0, 0);
-  opacity: 0.8;
   bottom: 0;
   left: 0;
   z-index: -1;
 }
 
 .wave:nth-of-type(2) {
-  bottom: -1.25em;
-  animation: wave 18s linear reverse infinite;
-  opacity: 0.8;
-  background: hsla(var(--primary), 0.18);
+  bottom: -1.5em;
+  background: #4b5563;
+  opacity: 0.05;
+  animation: waveMotion 14s ease-in-out reverse infinite;
 }
 
 .wave:nth-of-type(3) {
-  bottom: -2.5em;
-  animation: wave 20s -1s reverse infinite;
-  opacity: 0.9;
-  background: hsla(var(--primary), 0.2);
+  bottom: -3em;
+  background: #374151;
+  opacity: 0.04;
+  animation: waveMotion 16s ease-in-out alternate infinite;
 }
 
-@keyframes wave {
-  2% {
-    transform: translateX(1);
-  }
-  25% {
-    transform: translateX(-25%);
+@keyframes waveMotion {
+  0% {
+    transform: translateX(0);
   }
   50% {
-    transform: translateX(-50%);
-  }
-  75% {
-    transform: translateX(-25%);
+    transform: translateX(-20%);
   }
   100% {
-    transform: translateX(1);
+    transform: translateX(0);
   }
 }
