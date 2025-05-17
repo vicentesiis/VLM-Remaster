@@ -45,11 +45,11 @@ export const NavMenu = (props) => {
           <NavigationMenuItem key={item.title} className="ml-[-60px]">
             <Button
               variant="ghost"
-              className={cn("text-[15px] font-normal", {
-                "bg-accent text-accent-foreground":
-                  location.pathname.startsWith(item.to),
-              })}
+              className="text-[15px] font-normal"
               asChild
+              data-state={
+                location.pathname.startsWith(item.to) ? "open" : undefined
+              }
             >
               <Link to={item.to}>{item.title}</Link>
             </Button>
@@ -58,9 +58,8 @@ export const NavMenu = (props) => {
         {filteredDropdownMenus.map((menu) => (
           <NavigationMenuItem key={menu.title}>
             <NavigationMenuTrigger
-              className={cn("text-[15px] font-normal", {
-                "bg-accent text-accent-foreground": menu.isActive,
-              })}
+              className="text-[15px] font-normal"
+              data-state={menu.isActive ? "open" : undefined}
             >
               {menu.title}
             </NavigationMenuTrigger>
