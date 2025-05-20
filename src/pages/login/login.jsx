@@ -129,7 +129,7 @@ export const Login = () => {
 
             {loginMutation.isError && (
               <Alert variant="destructive">
-                <AlertTitle>Error</AlertTitle>
+                <AlertTitle>Error de inicio de sesión</AlertTitle>
                 <AlertDescription>
                   Usuario o contraseña incorrectos
                 </AlertDescription>
