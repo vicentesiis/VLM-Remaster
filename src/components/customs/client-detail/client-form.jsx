@@ -181,7 +181,7 @@ export const ClientForm = () => {
     <FormProvider {...form}>
       {/* Client Information Section */}
       <div className="mb-4 space-y-4">
-        <H3>Datos del Cliente</H3>
+        <H3 className="text-primary">Datos del Cliente</H3>
         <Separator />
       </div>
 
@@ -382,7 +382,7 @@ export const ClientForm = () => {
           </div>
           {/* Process Status Section */}
           <div className="mt-8 space-y-4">
-            <H3>Información del Proceso</H3>
+            <H3 className="text-primary">Información del Proceso</H3>
             <Separator />
           </div>
 

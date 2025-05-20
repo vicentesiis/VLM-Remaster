@@ -5,11 +5,10 @@
 .login-background {
   background: linear-gradient(
     315deg,
-    hsl(var(--primary)) 20%,
-    #4b5563 50%,
-    /* Tailwind gray-600 */ #374151 80%,
-    /* Tailwind gray-700 */ hsl(var(--primary-hue), 90%, 25%) 100%
-      /* darker primary */
+    hsl(var(--primary-hue), 50%, 25%) 30%,
+    #4b5563 40%,
+     #374151 50%,
+     hsl(var(--primary-hue), 50%, 25%) 80%
   );
   animation: gradientShift 15s ease infinite;
   background-size: 300% 300%;

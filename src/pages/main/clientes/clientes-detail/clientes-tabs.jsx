@@ -12,19 +12,19 @@ export function ClientesTab() {
     <Tabs defaultValue="detalle" className="-mt-9">
       <TabsList className="justify-start border-b bg-transparent p-0 pl-6">
         <TabsTrigger
-          className="h-full rounded-none border-b-2 border-transparent bg-background data-[state=active]:border-primary data-[state=active]:shadow-none"
+          className="h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary "
           value="detalle"
         >
           <User className="mr-2" /> Detalle
         </TabsTrigger>
         <TabsTrigger
-          className="h-full rounded-none border-b-2 border-transparent bg-background data-[state=active]:border-primary data-[state=active]:shadow-none"
+          className="h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary "
           value="edit"
         >
           <Edit className="mr-2" /> Editar
         </TabsTrigger>
         <TabsTrigger
-          className="h-full rounded-none border-b-2 border-transparent bg-background data-[state=active]:border-primary data-[state=active]:shadow-none"
+          className="h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary "
           value="orders"
         >
           <List className="mr-2" /> Órdenes

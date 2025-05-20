@@ -1,15 +1,19 @@
 // components/ui/FullScreenLoader.jsx
 import React from "react"
-import { H1 } from "@/components/ui"
+import { H3 } from "@/components/ui"
 
-export const FullScreenLoader = ({ message = "Cargando Información Base..." }) => {
+export const FullScreenLoader = ({
+  message = "Cargando Información Base...",
+}) => {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background text-center">
-      <div className="relative h-20 w-20 animate-in fade-in duration-500">
-        <div className="h-20 w-20 animate-spin rounded-full border-8 border-primary border-t-transparent" />
-        <div className="absolute inset-0 animate-ping rounded-full border-8 border-primary/30" />
+      <div className="relative h-12 w-12 duration-500 animate-in fade-in md:h-16 md:w-16">
+        <div className="h-12 w-12 animate-spin rounded-full border-8 border-primary border-t-transparent md:h-16 md:w-16" />
+        <div className="absolute inset-0 animate-ping rounded-full border-4 md:border-8 border-primary/30" />
       </div>
-      <H1 className="animate-fade-in mt-16 text-muted-foreground font-normal">{message}</H1>
+      <H3 className="animate-fade-in mt-8 text-muted-foreground md:text-3xl">
+        {message}
+      </H3>
     </div>
   )
 }
