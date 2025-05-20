@@ -10,7 +10,7 @@ import {
 } from "lucide-react"
 
 export const menuItems = [
-  { title: "Registros", to: "/registros", allowedRoutes: ["super_admin", "admin", "agent"] },
+  { title: "Registros", to: "/", allowedRoutes: ["super_admin", "admin", "agent"] },
   {
     title: "Clientes",
     to: "/clientes",

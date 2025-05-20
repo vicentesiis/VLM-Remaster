@@ -38,6 +38,11 @@ export const NavMenu = (props) => {
       }
     })
 
+  const isMenuItemActive = (path) =>
+    path === "/"
+      ? location.pathname === "/"
+      : location.pathname.startsWith(path)
+
   return (
     <NavigationMenu {...props}>
       <NavigationMenuList>
@@ -47,9 +52,7 @@ export const NavMenu = (props) => {
               variant="ghost"
               className="text-[15px] font-normal"
               asChild
-              data-state={
-                location.pathname.startsWith(item.to) ? "open" : undefined
-              }
+              data-state={isMenuItemActive(item.to) ? "open" : undefined}
             >
               <Link to={item.to}>{item.title}</Link>
             </Button>

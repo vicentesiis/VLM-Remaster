@@ -1,11 +1,17 @@
 import React from "react"
+import { ButtonLoading } from "@/components/customs/button-loading"
 import { CollapsibleComponent } from "@/components/customs/collapsible/collapsible-component"
 import { Button } from "@/components/ui/button"
 import { H3Border } from "@/components/ui/typography"
 import { useFilterSummary } from "@/hooks/useFilterSummary"
 import { getTagLabel } from "@/utils/filters/getTagLabel"
 
-export function CollapsibleComponentGroup({ title, children, onApply }) {
+export function CollapsibleComponentGroup({
+  title,
+  children,
+  onApply,
+  loading,
+}) {
   const { hasFilters, resetFilters } = useFilterSummary()
 
   return (
@@ -36,9 +42,9 @@ export function CollapsibleComponentGroup({ title, children, onApply }) {
             Limpiar
           </Button>
         )}
-        <Button className="ml-auto" onClick={onApply}>
+        <ButtonLoading className="ml-auto" message={"Cargando..."} onClick={onApply} isLoading={loading}>
           Buscar
-        </Button>
+        </ButtonLoading>
       </div>
     </div>
   )

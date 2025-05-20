@@ -56,7 +56,7 @@ export const Registros = () => {
     }
 
     return (
-      <CollapsibleComponentGroup title="Filtro" onApply={handleApply}>
+      <CollapsibleComponentGroup title="Filtro" onApply={handleApply} loading={isFetching}>
         <InputIcon
           title="Buscar"
           alwaysOpen={true}

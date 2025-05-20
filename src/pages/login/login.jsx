@@ -139,6 +139,7 @@ export const Login = () => {
             <ButtonLoading
               className="w-full"
               isLoading={loginMutation.isPending}
+              message={"Iniciando Sesión..."}
             >
               Iniciar Sesión
             </ButtonLoading>
@@ -157,7 +158,7 @@ export const Login = () => {
       {/* Logo */}
       <div className="absolute z-10 mt-8 flex items-center sm:ml-16 sm:mt-16">
         <img src={logo} alt="Proyecto VLM" width={60} />
-        <H3 className="text-xl md:text-3xl font-normal">
+        <H3 className="text-xl md:text-3xl 3xl:text-4xl font-normal">
           Sistema de Administración de Proyecto VLM
         </H3>
       </div>

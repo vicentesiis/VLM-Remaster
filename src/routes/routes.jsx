@@ -4,7 +4,6 @@ import { Cuentas } from "@/pages/main/ajustes/modules/cuentas"
 import { AjustesUsuarios } from "@/pages/main/ajustes/modules/usuarios"
 import { Clientes } from "@/pages/main/clientes/clientes"
 import { ClientesDetail } from "@/pages/main/clientes/clientes-detail/clientes-detail"
-import { Home } from "@/pages/main/home"
 import { Info } from "@/pages/main/info/info"
 import { Registros } from "@/pages/main/registros/registros"
 import { ReportesReporteDeRegistros } from "@/pages/main/reportes/modules/reportes-reporte-de-registros"
@@ -17,10 +16,6 @@ import { Vacantes } from "@/pages/main/vacantes/vacantes"
 export const routes = [
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/registros",
     element: <Registros />,
     allowedRoles: ["super_admin", "admin", "agent"],
   },
