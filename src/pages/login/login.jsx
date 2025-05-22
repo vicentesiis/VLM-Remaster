@@ -61,7 +61,7 @@ export const Login = () => {
     userInputRef.current?.focus()
   }, [])
 
-  if (token) return <Navigate to="/" replace />
+  if (token) return <Navigate to="/registros" replace />
 
   const renderLoginCard = () => (
     <Card

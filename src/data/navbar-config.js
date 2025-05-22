@@ -10,12 +10,6 @@ import {
 } from "lucide-react"
 
 export const menuItems = [
-  { title: "Registros", to: "/", allowedRoutes: ["super_admin", "admin", "agent"] },
-  {
-    title: "Clientes",
-    to: "/clientes",
-    allowedRoutes: ["super_admin", "admin", "agent"],
-  },
   {
     title: "Vacantes",
     to: "/vacantes",
@@ -24,6 +18,47 @@ export const menuItems = [
 ]
 
 export const dropdownMenus = [
+  {
+    title: "Registros",
+    allowedRoutes: ["super_admin", "admin", "agent"],
+    items: [
+      {
+        title: "Registros",
+        to: "/registros/registros",
+        description: "Consulta y gestiona los registros generados.",
+        icon: FileText,
+        allowedRoutes: ["super_admin", "admin", "agent"],
+      },
+      {
+        title: "Mis Registros",
+        to: "/registros/mis-registros",
+        description: "Consulta y gestiona tus registros generados.",
+        icon: BarChart,
+        allowedRoutes: ["super_admin", "admin", "agent"],
+      },
+      {
+        title: "Clientes",
+        to: "/registros/clientes",
+        description: "Consulta y gestiona los clientes registrados.",
+        icon: FileText,
+        allowedRoutes: ["super_admin", "admin", "agent"],
+      },
+      {
+        title: "Mis Clientes",
+        to: "/registros/mis-clientes",
+        description: "Consulta y gestiona tus clientes registrados.",
+        icon: ShoppingCart,
+        allowedRoutes: ["super_admin", "admin", "agent"],
+      },
+      {
+        title: "Mis Tareas",
+        to: "/registros/mis-tareas",
+        description: "Consulta y gestiona tus tareas pendientes.",
+        icon: ClipboardCheck,
+        allowedRoutes: ["super_admin", "admin", "agent"],
+      },
+    ],
+  },
   {
     title: "Reportes",
     allowedRoutes: ["super_admin", "admin", "agent"],

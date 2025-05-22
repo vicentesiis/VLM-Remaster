@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { H4 } from "@/components/ui/typography"
+import { H3 } from "@/components/ui/typography"
 
 const PageLayout = ({ title, buttons, children }) => {
   const location = useLocation()
@@ -18,17 +18,16 @@ const PageLayout = ({ title, buttons, children }) => {
   return (
     <div className="mx-auto max-w-screen-xl pb-24 sm:p-4 xl:p-0">
       {/* --- Header + Buttons --- */}
-      <div className="hidden items-center sm:block">
-        <H4 className="-mt-2 text-primary">{title}</H4>
-        <div className="flex sm:gap-2">{buttons}</div>
+      <div className="hidden items-center sm:block pb-2">
+        <H3 className="-mt-2 text-primary">{title}</H3>
       </div>
 
       {/* --- Breadcrumb --- */}
-      <Breadcrumb className="mb-3 hidden sm:block">
+      {/* <Breadcrumb className="mb-3 hidden sm:block">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/">Home</Link>
+              <Link to="/registros">Home</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           {paths.map((path, index) => {
@@ -56,7 +55,7 @@ const PageLayout = ({ title, buttons, children }) => {
             )
           })}
         </BreadcrumbList>
-      </Breadcrumb>
+      </Breadcrumb> */}
 
       {/* --- Content --- */}
       {children}

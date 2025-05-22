@@ -13,7 +13,7 @@ const RoleProtectedRoute = ({ allowedRoles, children }) => {
     return children
   }
 
-  return <Navigate to="/home" replace />
+  return <Navigate to="/registros" replace />
 }
 
 export default RoleProtectedRoute

@@ -15,18 +15,33 @@ import { Vacantes } from "@/pages/main/vacantes/vacantes"
 
 export const routes = [
   {
-    path: "/",
+    path: "/registros",
     element: <Registros />,
-    allowedRoles: ["super_admin", "admin", "agent"],
-  },
-  {
-    path: "/clientes",
-    element: <Clientes />,
     allowedRoles: ["super_admin", "admin", "agent"],
     children: [
       {
-        path: ":clientId",
-        element: <ClientesDetail />,
+        path: "registros",
+        element: <Registros />,
+        allowedRoles: ["super_admin", "admin", "agent"],
+      },
+      {
+        path: "mis-registros",
+        element: <>Mis Registros</>,
+        allowedRoles: ["super_admin", "admin", "agent"],
+      },
+      {
+        path: "clientes",
+        element: <Clientes />,
+        allowedRoles: ["super_admin", "admin", "agent"],
+      },
+      {
+        path: "mis-clientes",
+        element: <>Mis Clientes</>,
+        allowedRoles: ["super_admin", "admin", "agent"],
+      },
+      {
+        path: "mis-tareas",
+        element: <>Mis Tareas</>,
         allowedRoles: ["super_admin", "admin", "agent"],
       },
     ],

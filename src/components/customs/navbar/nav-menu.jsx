@@ -45,19 +45,7 @@ export const NavMenu = (props) => {
 
   return (
     <NavigationMenu {...props}>
-      <NavigationMenuList>
-        {filteredMenuItems.map((item) => (
-          <NavigationMenuItem key={item.title} className="ml-[-60px]">
-            <Button
-              variant="ghost"
-              className="text-[15px] font-normal"
-              asChild
-              data-state={isMenuItemActive(item.to) ? "open" : undefined}
-            >
-              <Link to={item.to}>{item.title}</Link>
-            </Button>
-          </NavigationMenuItem>
-        ))}
+      <NavigationMenuList className="">
         {filteredDropdownMenus.map((menu) => (
           <NavigationMenuItem key={menu.title}>
             <NavigationMenuTrigger
@@ -93,6 +81,18 @@ export const NavMenu = (props) => {
                 ))}
               </ul>
             </NavigationMenuContent>
+          </NavigationMenuItem>
+        ))}
+        {filteredMenuItems.map((item) => (
+          <NavigationMenuItem key={item.title} className="">
+            <Button
+              variant="ghost"
+              className="text-[15px] font-normal"
+              asChild
+              data-state={isMenuItemActive(item.to) ? "open" : undefined}
+            >
+              <Link to={item.to}>{item.title}</Link>
+            </Button>
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
