@@ -5,14 +5,16 @@ import { TableCell } from "@/components/ui/table"
 import { P } from "@/components/ui/typography"
 
 export const MainCell = ({ path, title, public_id }) => {
-  const fullPath = `${path}/${public_id}`
+  const fullPath = `/registros${path}/${public_id}`
   return (
-    <TableCell className="flex w-[220px] flex-col">
-      <Link to={fullPath} className="font-bold hover:text-blue-600">
+    <TableCell>
+      <Link
+        to={fullPath}
+        className="select-text flex-col font-bold hover:text-blue-600"
+        title={`Ver cliente ${title}`}
+      >
         <P className="truncate">{title}</P>
-      </Link>
-      <Link to={fullPath} className="hover:text-blue-600">
-        <P>{public_id}</P>
+        <P className="text-sm font-normal">{public_id}</P>
       </Link>
     </TableCell>
   )

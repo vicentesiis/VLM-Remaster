@@ -35,6 +35,11 @@ export const routes = [
         allowedRoles: ["super_admin", "admin", "agent"],
       },
       {
+        path: "clientes/:clientId",
+        element: <ClientesDetail />,
+        allowedRoles: ["super_admin", "admin", "agent"],
+      },
+      {
         path: "mis-clientes",
         element: <>Mis Clientes</>,
         allowedRoles: ["super_admin", "admin", "agent"],

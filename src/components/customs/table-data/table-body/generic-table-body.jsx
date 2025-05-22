@@ -19,7 +19,7 @@ export function GenericTableBody({ data, columns, renderers, getRowKey }) {
             const value = item[column]
             const isObject = typeof value === "object" && value !== null
 
-            if (isObject) return null // Skip rendering if the value is a non-null object
+            if (isObject) return null
 
             return <DefaultCell key={cellKey} title={value || "N/A"} />
           })}
