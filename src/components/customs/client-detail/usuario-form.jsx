@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import FormFieldTooltip from "@/components/customs/form-field-tooltip"
 import { Button } from "@/components/ui/button"
 import ComboBox from "@/components/ui/combobox"
 import {
@@ -90,14 +89,21 @@ export const UsuarioForm = ({ open, onClose }) => {
               <FormField
                 control={form.control}
                 name="username"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <FormItem className="relative">
                     <FormLabel>Nombre de usuario</FormLabel>
-                    <FormFieldTooltip fieldState={fieldState}>
-                      <FormControl>
-                        <Input placeholder="Tu nombre de usuario" {...field} />
-                      </FormControl>
-                    </FormFieldTooltip>
+                    <FormControl>
+                      <Input
+                        className="w-full rounded-lg bg-[#F0F1F5]"
+                        placeholder="Tu nombre de usuario"
+                        {...field}
+                      />
+                    </FormControl>
+                    {form.formState.errors.username && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.username.message}
+                      </p>
+                    )}
                   </FormItem>
                 )}
               />
@@ -108,11 +114,15 @@ export const UsuarioForm = ({ open, onClose }) => {
                 render={({ field, fieldState }) => (
                   <FormItem className="relative">
                     <FormLabel>Nombre completo</FormLabel>
-                    <FormFieldTooltip fieldState={fieldState}>
-                      <FormControl>
-                        <Input placeholder="Tu nombre completo" {...field} />
-                      </FormControl>
-                    </FormFieldTooltip>
+
+                    <FormControl>
+                      <Input placeholder="Tu nombre completo" {...field} />
+                    </FormControl>
+                    {form.formState.errors.fullName && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.fullName.message}
+                      </p>
+                    )}
                   </FormItem>
                 )}
               />
@@ -120,18 +130,22 @@ export const UsuarioForm = ({ open, onClose }) => {
               <FormField
                 control={form.control}
                 name="password"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <FormItem className="relative">
                     <FormLabel>Contraseña</FormLabel>
-                    <FormFieldTooltip fieldState={fieldState}>
-                      <FormControl>
-                        <Input
-                          type="password"
-                          placeholder="********"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormFieldTooltip>
+
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="********"
+                        {...field}
+                      />
+                    </FormControl>
+                    {form.formState.errors.password && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.password.message}
+                      </p>
+                    )}
                   </FormItem>
                 )}
               />
@@ -141,35 +155,39 @@ export const UsuarioForm = ({ open, onClose }) => {
                 render={({ field, fieldState }) => (
                   <FormItem className="relative">
                     <FormLabel>Rol</FormLabel>
-                    <FormFieldTooltip fieldState={fieldState}>
-                      <FormControl>
-                        <RadioGroup
-                          value={field.value}
-                          onValueChange={field.onChange}
-                          className="space-y-4"
-                        >
-                          {["administrador", "agente", "sistema"].map(
-                            (role, index) => (
-                              <div
-                                key={role}
-                                className="flex items-center space-x-3"
+
+                    <FormControl>
+                      <RadioGroup
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        className="space-y-4"
+                      >
+                        {["administrador", "agente", "sistema"].map(
+                          (role, index) => (
+                            <div
+                              key={role}
+                              className="flex items-center space-x-3"
+                            >
+                              <RadioGroupItem
+                                value={role}
+                                id={`r${index + 1}`}
+                              />
+                              <Label
+                                htmlFor={`r${index + 1}`}
+                                className="font-bold text-black/60"
                               >
-                                <RadioGroupItem
-                                  value={role}
-                                  id={`r${index + 1}`}
-                                />
-                                <Label
-                                  htmlFor={`r${index + 1}`}
-                                  className="font-bold text-black/60"
-                                >
-                                  {role.charAt(0).toUpperCase() + role.slice(1)}
-                                </Label>
-                              </div>
-                            )
-                          )}
-                        </RadioGroup>
-                      </FormControl>
-                    </FormFieldTooltip>
+                                {role.charAt(0).toUpperCase() + role.slice(1)}
+                              </Label>
+                            </div>
+                          )
+                        )}
+                      </RadioGroup>
+                    </FormControl>
+                    {form.formState.errors.role && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.role.message}
+                      </p>
+                    )}
                   </FormItem>
                 )}
               />
@@ -177,21 +195,25 @@ export const UsuarioForm = ({ open, onClose }) => {
               <FormField
                 control={form.control}
                 name="tipo"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel htmlFor={field.name}>Tipo</FormLabel>
-                    <FormFieldTooltip fieldState={fieldState}>
-                      <div className="relative flex w-full flex-col">
-                        <FormControl>
-                          <ComboBox
-                            {...field}
-                            options={tipos}
-                            placeholder="Trámite"
-                            id={field.name}
-                          />
-                        </FormControl>
-                      </div>
-                    </FormFieldTooltip>
+
+                    <div className="relative flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={tipos}
+                          placeholder="Trámite"
+                          id={field.name}
+                        />
+                      </FormControl>
+                    </div>
+                    {form.formState.errors.tipo && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.tipo.message}
+                      </p>
+                    )}
                   </FormItem>
                 )}
               />
@@ -199,21 +221,25 @@ export const UsuarioForm = ({ open, onClose }) => {
               <FormField
                 control={form.control}
                 name="grupo"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <FormItem className>
                     <FormLabel htmlFor={field.name}>Grupo</FormLabel>
-                    <FormFieldTooltip fieldState={fieldState}>
-                      <div className="relative flex w-full flex-col">
-                        <FormControl>
-                          <ComboBox
-                            options={grupo}
-                            {...field}
-                            placeholder="Selecciona un grupo"
-                            id={field.name}
-                          />
-                        </FormControl>
-                      </div>
-                    </FormFieldTooltip>
+
+                    <div className="relative flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          options={grupo}
+                          {...field}
+                          placeholder="Selecciona un grupo"
+                          id={field.name}
+                        />
+                      </FormControl>
+                    </div>
+                    {form.formState.errors.grupo && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.grupo.message}
+                      </p>
+                    )}
                   </FormItem>
                 )}
               />
@@ -221,21 +247,25 @@ export const UsuarioForm = ({ open, onClose }) => {
               <FormField
                 control={form.control}
                 name="supervisor"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <FormItem className="relative flex flex-col">
                     <FormLabel htmlFor={field.name}>Supervisor</FormLabel>
-                    <FormFieldTooltip fieldState={fieldState}>
-                      <div className="relative flex w-full flex-col">
-                        <FormControl>
-                          <ComboBox
-                            options={supervisores}
-                            {...field}
-                            placeholder="Selecciona un supervisor"
-                            id={field.name}
-                          />
-                        </FormControl>
-                      </div>
-                    </FormFieldTooltip>
+
+                    <div className="relative flex w-full flex-col">
+                      <FormControl>
+                        <ComboBox
+                          options={supervisores}
+                          {...field}
+                          placeholder="Selecciona un supervisor"
+                          id={field.name}
+                        />
+                      </FormControl>
+                    </div>
+                    {form.formState.errors.supervisor && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.supervisor.message}
+                      </p>
+                    )}
                   </FormItem>
                 )}
               />
@@ -246,14 +276,18 @@ export const UsuarioForm = ({ open, onClose }) => {
                 render={({ field, fieldState }) => (
                   <FormItem className="relative">
                     <FormLabel>Compensación</FormLabel>
-                    <FormFieldTooltip fieldState={fieldState}>
-                      <FormControl>
-                        <Input
-                          placeholder="Cantidad mensual SIN Centavos ni Símbolos"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormFieldTooltip>
+
+                    <FormControl>
+                      <Input
+                        placeholder="Cantidad mensual SIN Centavos ni Símbolos"
+                        {...field}
+                      />
+                    </FormControl>
+                    {form.formState.errors.compensacion && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.compensacion.message}
+                      </p>
+                    )}
                   </FormItem>
                 )}
               />
@@ -264,15 +298,15 @@ export const UsuarioForm = ({ open, onClose }) => {
                 render={({ field, fieldState }) => (
                   <FormItem className="relative">
                     <FormLabel>Teléfono</FormLabel>
-                    <FormFieldTooltip fieldState={fieldState}>
-                      <FormControl>
-                        <Input
-                          type="tel"
-                          placeholder="Tu teléfono"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormFieldTooltip>
+
+                    <FormControl>
+                      <Input type="tel" placeholder="Tu teléfono" {...field} />
+                    </FormControl>
+                    {form.formState.errors.phone && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.phone.message}
+                      </p>
+                    )}
                   </FormItem>
                 )}
               />

@@ -3,7 +3,6 @@ import React from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
 import DatePickerField from "../date-range-picker/date-picker-field"
-import FormFieldTooltip from "../form-field-tooltip"
 import { Button } from "@/components/ui/button"
 import ComboBox from "@/components/ui/combobox"
 import {
@@ -192,14 +191,12 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="nombre"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nombre</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <FormControl>
                       <Input placeholder="Nombre" {...field} />
                     </FormControl>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -208,10 +205,9 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="fechaNacimiento"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Fecha de Nacimiento</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl>
                         <DatePickerField
@@ -223,7 +219,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -235,11 +230,9 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <FormControl>
                       <Input placeholder="Ingrese su Email" {...field} />
                     </FormControl>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -248,10 +241,9 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="telefono"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Telefono</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <FormControl>
                       <Input
                         type="text"
@@ -273,7 +265,6 @@ export const ClientForm = () => {
                         }}
                       />
                     </FormControl>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -285,7 +276,6 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Nacionalidad</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl>
                         <ComboBox
@@ -295,7 +285,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -304,10 +293,9 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="estado"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Estado</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl>
                         <ComboBox
@@ -318,7 +306,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -330,11 +317,9 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Documento del Cliente</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <FormControl>
                       <Input placeholder="Documento" {...field} />
                     </FormControl>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -346,7 +331,6 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Fecha de Deportacion</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl>
                         <DatePickerField
@@ -358,7 +342,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -370,11 +353,9 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>CURP</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <FormControl>
                       <Input placeholder="CURP" {...field} />
                     </FormControl>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -394,7 +375,6 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Tramite</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl>
                         <ComboBox
@@ -405,7 +385,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
 
                   <FormMessage />
                 </FormItem>
@@ -418,7 +397,6 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Vacante</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl>
                         <ComboBox
@@ -429,7 +407,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -438,10 +415,9 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="destino"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Destino</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl>
                         <ComboBox
@@ -450,9 +426,8 @@ export const ClientForm = () => {
                           placeholder="Destino"
                           variant="form"
                         />
-                      </FormControl>
+                      </FormControl>    
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -465,7 +440,6 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Periodo</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl>
                         <ComboBox
@@ -476,7 +450,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -489,7 +462,6 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Estatus</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl>
                         <ComboBox
@@ -500,7 +472,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -513,7 +484,6 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Salida</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="w-full">
                       <FormControl>
                         <DatePickerField
@@ -524,7 +494,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}
@@ -537,7 +506,6 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Servicio</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <div className="flex w-full flex-col">
                       <FormControl></FormControl>
                       <FormControl>
@@ -549,7 +517,6 @@ export const ClientForm = () => {
                         />
                       </FormControl>
                     </div>
-                  </FormFieldTooltip>
                   <FormMessage />
                 </FormItem>
               )}

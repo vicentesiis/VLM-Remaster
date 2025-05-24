@@ -22,7 +22,6 @@ export const ComboBox = ({
   value,
   onChange,
   placeholder = "Select an option",
-  id,
 }) => {
   const [open, setOpen] = React.useState(false)
 
@@ -36,7 +35,6 @@ export const ComboBox = ({
           role="combobox"
           aria-expanded={open}
           className="font-minbold justify-between opacity-90"
-          id={id}
         >
           {selectedLabel || placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -44,7 +42,7 @@ export const ComboBox = ({
       </PopoverTrigger>
       <PopoverContent className="min-w-[var(--radix-popover-trigger-width)] p-0">
         <Command>
-          <CommandInput id={id} placeholder="Search..." />
+          <CommandInput placeholder="Search..." />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
