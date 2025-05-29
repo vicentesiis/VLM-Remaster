@@ -16,6 +16,7 @@ import {
   FormItem,
   FormLabel,
   FormControl,
+  FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -77,7 +78,7 @@ export const UsuarioForm = ({ open, onClose }) => {
     { value: "agentepr", label: "Agentepr - Agente DOS Modificado" },
   ]
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog modal={false} open={open} onOpenChange={onClose}>
       <DialogContent className="max-h-[calc(100vh-100px)] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Formulario de Usuario</DialogTitle>
@@ -99,11 +100,7 @@ export const UsuarioForm = ({ open, onClose }) => {
                         {...field}
                       />
                     </FormControl>
-                    {form.formState.errors.username && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.username.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -114,15 +111,10 @@ export const UsuarioForm = ({ open, onClose }) => {
                 render={({ field, fieldState }) => (
                   <FormItem className="relative">
                     <FormLabel>Nombre completo</FormLabel>
-
                     <FormControl>
                       <Input placeholder="Tu nombre completo" {...field} />
                     </FormControl>
-                    {form.formState.errors.fullName && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.fullName.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -141,11 +133,7 @@ export const UsuarioForm = ({ open, onClose }) => {
                         {...field}
                       />
                     </FormControl>
-                    {form.formState.errors.password && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.password.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -164,17 +152,14 @@ export const UsuarioForm = ({ open, onClose }) => {
                       >
                         {["administrador", "agente", "sistema"].map(
                           (role, index) => (
-                            <div
-                              key={role}
-                              className="flex items-center space-x-3"
-                            >
+                            <div key={role} className="flex items-center">
                               <RadioGroupItem
                                 value={role}
                                 id={`r${index + 1}`}
                               />
                               <Label
                                 htmlFor={`r${index + 1}`}
-                                className="font-bold text-black/60"
+                                className="px-3 text-base font-normal text-foreground opacity-90 md:text-sm"
                               >
                                 {role.charAt(0).toUpperCase() + role.slice(1)}
                               </Label>
@@ -183,11 +168,7 @@ export const UsuarioForm = ({ open, onClose }) => {
                         )}
                       </RadioGroup>
                     </FormControl>
-                    {form.formState.errors.role && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.role.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -209,11 +190,7 @@ export const UsuarioForm = ({ open, onClose }) => {
                         />
                       </FormControl>
                     </div>
-                    {form.formState.errors.tipo && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.tipo.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -235,11 +212,7 @@ export const UsuarioForm = ({ open, onClose }) => {
                         />
                       </FormControl>
                     </div>
-                    {form.formState.errors.grupo && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.grupo.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -261,11 +234,7 @@ export const UsuarioForm = ({ open, onClose }) => {
                         />
                       </FormControl>
                     </div>
-                    {form.formState.errors.supervisor && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.supervisor.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -283,11 +252,7 @@ export const UsuarioForm = ({ open, onClose }) => {
                         {...field}
                       />
                     </FormControl>
-                    {form.formState.errors.compensacion && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.compensacion.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -300,13 +265,27 @@ export const UsuarioForm = ({ open, onClose }) => {
                     <FormLabel>Teléfono</FormLabel>
 
                     <FormControl>
-                      <Input type="tel" placeholder="Tu teléfono" {...field} />
+                      <Input
+                        type="text"
+                        placeholder="Telefono"
+                        maxLength={10}
+                        {...field}
+                        onKeyDown={(e) => {
+                          const isNumber = /^[0-9]$/.test(e.key)
+                          const allowed = [
+                            "Backspace",
+                            "Tab",
+                            "ArrowLeft",
+                            "ArrowRight",
+                            "Delete",
+                          ]
+                          if (!isNumber && !allowed.includes(e.key)) {
+                            e.preventDefault()
+                          }
+                        }}
+                      />
                     </FormControl>
-                    {form.formState.errors.phone && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.phone.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />

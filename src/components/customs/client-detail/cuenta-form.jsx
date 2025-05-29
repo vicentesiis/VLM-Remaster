@@ -56,8 +56,8 @@ export const CuentaForm = ({ open, onClose }) => {
   }
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="overflow-y-auto sm:max-w-2xl bg-white">
+    <Dialog modal={false} open={open} onOpenChange={onClose}>
+      <DialogContent className="overflow-y-auto bg-white sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Formulario de Cuenta</DialogTitle>
         </DialogHeader>
@@ -71,31 +71,23 @@ export const CuentaForm = ({ open, onClose }) => {
                 render={({ field }) => (
                   <FormItem className="relative">
                     <FormLabel>Alias de cuenta</FormLabel>
-                      <FormControl>
-                        <Input placeholder="usuario123" {...field} />
-                      </FormControl>
-                      {form.formState.errors.alias && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.alias.message}
-                      </p>
-                    )}
+                    <FormControl>
+                      <Input placeholder="usuario123" className="border border-primary" {...field} />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="identificador"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <FormItem className="relative">
                     <FormLabel>Identificador Único</FormLabel>
-                      <FormControl>
-                        <Input type="int" placeholder="Ej. 1234" {...field} />
-                      </FormControl>
-                      {form.formState.errors.identificador && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.identificador.message}
-                      </p>
-                    )}
+                    <FormControl>
+                      <Input type="int" placeholder="Ej. 1234"className="border border-primary" {...field} />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -103,17 +95,13 @@ export const CuentaForm = ({ open, onClose }) => {
               <FormField
                 control={form.control}
                 name="cuentaFuente"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <FormItem className="relative">
                     <FormLabel>Cuenta Fuente</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Cuenta fuente" {...field} />
-                      </FormControl>
-                      {form.formState.errors.supervisor && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.identificador.message}
-                      </p>
-                    )}
+                    <FormControl>
+                      <Input placeholder="Cuenta fuente" {...field} />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -121,17 +109,13 @@ export const CuentaForm = ({ open, onClose }) => {
               <FormField
                 control={form.control}
                 name="cuentaDestino"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <FormItem className="relative">
                     <FormLabel>Cuenta Destino</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Cuenta destino" {...field} />
-                      </FormControl>
-                      {form.formState.errors.identificador && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.identificador.message}
-                      </p>
-                    )}
+                    <FormControl>
+                      <Input placeholder="Cuenta destino" {...field} />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -142,16 +126,17 @@ export const CuentaForm = ({ open, onClose }) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel htmlFor={field.name}>Proveedor</FormLabel>
-                      <div className="relative flex w-full flex-col">
-                        <FormControl>
-                          <ComboBox
-                            {...field}
-                            options={proveedores}
-                            placeholder="Selecciona un proveedor"
-                          />
-                        </FormControl>
-                      </div>
-                   
+                    <div className="relative flex w-full flex-col ">
+                      <FormControl>
+                        <ComboBox
+                          {...field}
+                          options={proveedores}
+                          placeholder="Selecciona un proveedor"
+                          disabled ={true}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </div>
                   </FormItem>
                 )}
               />
@@ -162,14 +147,10 @@ export const CuentaForm = ({ open, onClose }) => {
                 render={({ field }) => (
                   <FormItem className="relative">
                     <FormLabel>API Key de la Cuenta</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Tu API Key" {...field} />
-                      </FormControl>
-                      {form.formState.errors.apiKey && (
-                      <p className="mt-1 text-sm text-red-500">
-                        {form.formState.errors.apiKey.message}
-                      </p>
-                    )}
+                    <FormControl>
+                      <Input placeholder="Tu API Key" {...field} />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />

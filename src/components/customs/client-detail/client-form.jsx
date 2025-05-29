@@ -194,9 +194,9 @@ export const ClientForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nombre</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nombre" {...field} />
-                    </FormControl>
+                  <FormControl>
+                    <Input placeholder="Nombre" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -208,17 +208,17 @@ export const ClientForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Fecha de Nacimiento</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <DatePickerField
-                          value={field.value}
-                          onChange={field.onChange}
-                          showYearDropdown
-                          scrollableYearDropdown
-                          dateFormat="dd/MM/yyyy"
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <DatePickerField
+                        value={field.value}
+                        onChange={field.onChange}
+                        showYearDropdown
+                        scrollableYearDropdown
+                        dateFormat="dd/MM/yyyy"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -227,12 +227,12 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="email"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Ingrese su Email" {...field} />
-                    </FormControl>
+                  <FormControl>
+                    <Input placeholder="Ingrese su Email" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -244,27 +244,27 @@ export const ClientForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Telefono</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="Telefono"
-                        maxLength={10}
-                        {...field}
-                        onKeyDown={(e) => {
-                          const isNumber = /^[0-9]$/.test(e.key)
-                          const allowed = [
-                            "Backspace",
-                            "Tab",
-                            "ArrowLeft",
-                            "ArrowRight",
-                            "Delete",
-                          ]
-                          if (!isNumber && !allowed.includes(e.key)) {
-                            e.preventDefault()
-                          }
-                        }}
-                      />
-                    </FormControl>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Telefono"
+                      maxLength={10}
+                      {...field}
+                      onKeyDown={(e) => {
+                        const isNumber = /^[0-9]$/.test(e.key)
+                        const allowed = [
+                          "Backspace",
+                          "Tab",
+                          "ArrowLeft",
+                          "ArrowRight",
+                          "Delete",
+                        ]
+                        if (!isNumber && !allowed.includes(e.key)) {
+                          e.preventDefault()
+                        }
+                      }}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -276,15 +276,15 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Nacionalidad</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={nacionalidad}
-                          placeholder="Nacionalidad"
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <ComboBox
+                        {...field}
+                        options={nacionalidad}
+                        placeholder="Nacionalidad"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -296,16 +296,16 @@ export const ClientForm = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Estado</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={estadosMexico}
-                          placeholder="Selecciona un estado"
-                          variant="form"
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <ComboBox
+                        {...field}
+                        options={estadosMexico}
+                        placeholder="Selecciona un estado"
+                        variant="form"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -317,9 +317,9 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Documento del Cliente</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Documento" {...field} />
-                    </FormControl>
+                  <FormControl>
+                    <Input placeholder="Documento" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -331,17 +331,17 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Fecha de Deportacion</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <DatePickerField
-                          value={field.value}
-                          onChange={field.onChange}
-                          showYearDropdown
-                          scrollableYearDropdown
-                          dateFormat="dd/MM/yyyy"
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <DatePickerField
+                        value={field.value}
+                        onChange={field.onChange}
+                        showYearDropdown
+                        scrollableYearDropdown
+                        dateFormat="dd/MM/yyyy"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -353,9 +353,9 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>CURP</FormLabel>
-                    <FormControl>
-                      <Input placeholder="CURP" {...field} />
-                    </FormControl>
+                  <FormControl>
+                    <Input placeholder="CURP" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -375,16 +375,16 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Tramite</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={tramite}
-                          placeholder="Tramite"
-                          variant="form"
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <ComboBox
+                        {...field}
+                        options={tramite}
+                        placeholder="Tramite"
+                        variant="form"
+                      />
+                    </FormControl>
+                  </div>
 
                   <FormMessage />
                 </FormItem>
@@ -397,16 +397,16 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Vacante</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={opcionesVacante}
-                          placeholder="Selecciona una vacante"
-                          variant="form"
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <ComboBox
+                        {...field}
+                        options={opcionesVacante}
+                        placeholder="Selecciona una vacante"
+                        variant="form"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -418,16 +418,16 @@ export const ClientForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Destino</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={destino}
-                          placeholder="Destino"
-                          variant="form"
-                        />
-                      </FormControl>    
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <ComboBox
+                        {...field}
+                        options={destino}
+                        placeholder="Destino"
+                        variant="form"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -440,16 +440,16 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Periodo</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={opcionesPeriodo}
-                          placeholder="Periodo"
-                          variant="form"
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <ComboBox
+                        {...field}
+                        options={opcionesPeriodo}
+                        placeholder="Periodo"
+                        variant="form"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -462,16 +462,16 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Estatus</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={status}
-                          placeholder="Selecciona un Estatus"
-                          variant="form"
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <ComboBox
+                        {...field}
+                        options={status}
+                        placeholder="Selecciona un Estatus"
+                        variant="form"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -484,16 +484,16 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>Salida</FormLabel>
-                    <div className="w-full">
-                      <FormControl>
-                        <DatePickerField
-                          value={field.value}
-                          onChange={(date) => {
-                            field.onChange(date)
-                          }}
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="w-full">
+                    <FormControl>
+                      <DatePickerField
+                        value={field.value}
+                        onChange={(date) => {
+                          field.onChange(date)
+                        }}
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -506,17 +506,17 @@ export const ClientForm = () => {
               render={({ field, fieldState }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Servicio</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl></FormControl>
-                      <FormControl>
-                        <ComboBox
-                          {...field}
-                          options={servicio}
-                          placeholder="Servicio"
-                          variant="form"
-                        />
-                      </FormControl>
-                    </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl></FormControl>
+                    <FormControl>
+                      <ComboBox
+                        {...field}
+                        options={servicio}
+                        placeholder="Servicio"
+                        variant="form"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
