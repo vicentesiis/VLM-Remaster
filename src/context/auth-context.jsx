@@ -3,12 +3,11 @@ import React, { createContext, useState, useEffect } from "react"
 import { FullScreenLoader } from "@/components/customs/full-screen-loader"
 import { loginUser, logout as logoutUser } from "@/services/authService"
 import { getUser } from "@/services/userService"
-import { localStorageService } from "@/utils/localStorageService"
 
 export const AuthContext = createContext(null)
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorageService.getToken())
+  const [token, setToken] = useState(localStorage.getItem("access_token"))
   const queryClient = useQueryClient()
 
   const {
@@ -25,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      localStorageService.setToken(data.access_token)
+      localStorage.setItem("access_token", data.access_token)
       setToken(data.access_token)
       queryClient.invalidateQueries(["user"])
     },
@@ -35,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     mutationFn: logoutUser,
     onSuccess: () => {
       setToken(null)
-      localStorageService.clearAll()
+      localStorage.clear()
       queryClient.clear()
     },
   })
