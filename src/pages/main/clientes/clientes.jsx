@@ -8,7 +8,6 @@ import { SplitPane } from "@/components/customs/layout/split-pane/split-pane"
 import { BaseTable } from "@/components/customs/table-data"
 import { Card, CardContent } from "@/components/ui/card"
 import { RegistrosOptions } from "@/constants/utils-contants"
-import { useResetStoresOnRouteChange } from "@/hooks/useResetStoresOnRouteChange"
 import {
   useSearchStore,
   useDateRangeStore,
@@ -17,7 +16,6 @@ import {
 
 export const Clientes = () => {
 
-  useResetStoresOnRouteChange()
   const ClientesFilter = () => {
     const { searchQuery, setSearchQuery } = useSearchStore()
     const { dateRange, setDateRange } = useDateRangeStore()

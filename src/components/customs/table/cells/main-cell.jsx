@@ -10,7 +10,7 @@ export const MainCell = ({ path, title, public_id }) => {
     <TableCell>
       <Link
         to={fullPath}
-        className="select-text flex-col font-bold hover:text-blue-600"
+        className="select-text flex-col space-y-0 font-bold hover:text-blue-600"
         title={`Ver cliente ${title}`}
       >
         <P className="truncate">{title}</P>

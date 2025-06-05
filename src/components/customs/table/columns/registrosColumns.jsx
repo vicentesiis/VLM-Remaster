@@ -7,9 +7,6 @@ import { StatusBadgeCell } from "@/components/customs/table/cells/status-badge-c
 const columnHelper = createColumnHelper()
 
 export const registrosColumns = [
-  columnHelper.accessor("public_id", {
-    header: "ID",
-  }),
 
   columnHelper.accessor("name", {
     header: "Nombre",
@@ -28,14 +25,6 @@ export const registrosColumns = [
 
   columnHelper.accessor("phone", {
     header: "Teléfono",
-  }),
-
-  columnHelper.accessor("nationality", {
-    header: "Nacionalidad",
-  }),
-
-  columnHelper.accessor("state", {
-    header: "Estado",
   }),
 
   columnHelper.accessor("record_type", {

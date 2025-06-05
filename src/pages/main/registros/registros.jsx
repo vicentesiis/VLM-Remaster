@@ -1,11 +1,9 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
-import { SearchIcon } from "lucide-react"
 import React, { useState } from "react"
 import CheckboxList from "@/components/customs/checkbox-list"
 import CollapsibleComponentGroup from "@/components/customs/collapsible/collapsible-component-group"
 import DataLoader from "@/components/customs/data-loader"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
-import InputIcon from "@/components/customs/input-icon"
 import PageLayout from "@/components/customs/layout/page-layout"
 import SplitPane from "@/components/customs/layout/split-pane/split-pane"
 import { registrosColumns } from "@/components/customs/table/columns/registrosColumns"
@@ -15,17 +13,14 @@ import { RegistrosOptions } from "@/constants/utils-contants"
 import { useGetRecords } from "@/hooks/queries/useRecord"
 import { useDisplayStatus } from "@/hooks/useDisplayStatus"
 import { useRecordsParams } from "@/hooks/useRecordsParams"
-import useResetStoresOnRouteChange from "@/hooks/useResetStoresOnRouteChange"
 
 export const Registros = () => {
-  useResetStoresOnRouteChange()
 
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
   const [dateRange, setDateRange] = useState({ from: null, to: null })
   const [selectedValues, setSelectedValues] = useState([])
 
-  const filters = useRecordsParams({ searchQuery, dateRange, selectedValues })
+  const filters = useRecordsParams({ dateRange, selectedValues })
   const { data: records, status, isFetching, refetch } = useGetRecords(filters)
   const displayStatus = useDisplayStatus(status, records?.data, isFetching)
 
@@ -46,14 +41,14 @@ export const Registros = () => {
       onApply={handleApplyFilters}
       loading={isFetching}
     >
-      <InputIcon
+      {/* <InputIcon
         title="Buscar"
         alwaysOpen
         placeholder="Buscar"
         icon={SearchIcon}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-      />
+      /> */}
       <DateRangePicker
         title="Rango de Fechas"
         locale="es-MX"
