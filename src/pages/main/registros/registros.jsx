@@ -13,9 +13,9 @@ import { RegistrosOptions } from "@/constants/utils-contants"
 import { useGetRecords } from "@/hooks/queries/useRecord"
 import { useDisplayStatus } from "@/hooks/useDisplayStatus"
 import { useRecordsParams } from "@/hooks/useRecordsParams"
+import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 
 export const Registros = () => {
-
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [dateRange, setDateRange] = useState({ from: null, to: null })
   const [selectedValues, setSelectedValues] = useState([])
@@ -41,14 +41,6 @@ export const Registros = () => {
       onApply={handleApplyFilters}
       loading={isFetching}
     >
-      {/* <InputIcon
-        title="Buscar"
-        alwaysOpen
-        placeholder="Buscar"
-        icon={SearchIcon}
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      /> */}
       <DateRangePicker
         title="Rango de Fechas"
         locale="es-MX"
@@ -70,7 +62,14 @@ export const Registros = () => {
     <PageLayout title="Registros">
       <Card>
         <CardContent>
-          <SplitPane
+          {displayStatus === "success" ? (
+            <DataTable table={table}>
+              <DataTableToolbar table={table}></DataTableToolbar>
+            </DataTable>
+          ) : (
+            <DataLoader status={displayStatus} />
+          )}
+          {/* <SplitPane
             title="Lista de Registros"
             subTitle={`${records?.data?.length || 0} registros`}
             LeftSideComponent={<TaskFilter />}
@@ -83,7 +82,7 @@ export const Registros = () => {
             }
             isCollapsed={isCollapsed}
             setIsCollapsed={setIsCollapsed}
-          />
+          /> */}
         </CardContent>
       </Card>
     </PageLayout>
