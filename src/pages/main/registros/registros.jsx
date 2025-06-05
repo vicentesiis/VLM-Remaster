@@ -22,19 +22,29 @@ import {
   useCheckboxStore,
 } from "@/store/filterInputsStore"
 
+import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
+import { DataTable } from "@/components/data-table/data-table"
+import { registrosColumns } from "@/components/customs/table/cells/registrosColumns"
+
 export const Registros = () => {
   useResetStoresOnRouteChange()
 
   const [isCollapsed, setIsCollapsed] = React.useState(false)
 
   const filters = useRecordsParams()
-  const { data: records, status, isFetching } = useGetRecords(filters)
+  const { data: records, status, isFetching, refetch } = useGetRecords(filters)
 
   const displayStatus = useDisplayStatus(status, records?.data, isFetching)
 
+  const table = useReactTable({
+    data: records?.data,
+    columns: registrosColumns,
+    getCoreRowModel: getCoreRowModel(),
+  })
+
   const tableContent =
     displayStatus === "success" ? (
-      <BaseTable data={records?.data} tableType="Registros" />
+      <DataTable table={table}></DataTable>
     ) : (
       <DataLoader status={displayStatus} />
     )
