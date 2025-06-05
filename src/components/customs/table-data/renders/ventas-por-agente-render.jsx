@@ -1,6 +1,6 @@
 import React from "react"
-import DefaultCell from "@/components/customs/table-data/table-body/table-cell/default-cell"
-import StatusBadgeCell from "@/components/customs/table-data/table-body/table-cell/status-badge-cell"
+import { DefaultCell } from "../../table/cells"
+import { StatusBadgeCell } from "../../table/cells"
 
 export const ventasPorAgenteRender = {
   status: ({ item }) => <StatusBadgeCell title={item.status || "N/A"} />,

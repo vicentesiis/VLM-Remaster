@@ -1,9 +1,9 @@
 import React from "react"
-import DateCell from "@/components/customs/table-data/table-body/table-cell/date-cell"
-import DefaultCell from "@/components/customs/table-data/table-body/table-cell/default-cell"
-import DropdownCell from "@/components/customs/table-data/table-body/table-cell/dropdown-cell"
-import MainCell from "@/components/customs/table-data/table-body/table-cell/main-cell"
-import StatusBadgeCell from "@/components/customs/table-data/table-body/table-cell/status-badge-cell"
+import { DefaultCell } from "../../table/cells"
+import { DropdownCell } from "../../table/cells"
+import { MainCell } from "../../table/cells"
+import { StatusBadgeCell } from "../../table/cells"
+import DateCell from "../../table/cells/date-cell"
 
 function toTitleCase(str) {
   return str.replace(

@@ -1,9 +1,9 @@
 import PropTypes from "prop-types"
 import React from "react"
-import ActiveCell from "./table-cell/active-cell"
-import ButtonCell from "./table-cell/button-cell"
-import DefaultCell from "@/components/customs/table-data/table-body/table-cell/default-cell"
-import UserTypeBadgeCell from "@/components/customs/table-data/table-body/table-cell/user-type-badge-cell"
+import { ActiveCell } from "../../table/cells"
+import { ButtonCell } from "../../table/cells"
+import { DefaultCell } from "../../table/cells"
+import { UserTypeBadgeCell } from "../../table/cells"
 import { TableBody, TableRow } from "@/components/ui/table"
 
 export function AjustesUsuariosTableBody({ data, filteredColumns }) {

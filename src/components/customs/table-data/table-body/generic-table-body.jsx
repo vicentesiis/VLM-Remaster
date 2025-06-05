@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React from "react"
-import DefaultCell from "@/components/customs/table-data/table-body/table-cell/default-cell"
+import { DefaultCell } from "../../table/cells"
 import { TableBody, TableRow } from "@/components/ui/table"
 
 export function GenericTableBody({ data, columns, renderers, getRowKey }) {

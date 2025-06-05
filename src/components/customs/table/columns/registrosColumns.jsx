@@ -1,8 +1,8 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
-import DateCell from "../../table-data/table-body/table-cell/date-cell"
-import { MainCell } from "../../table-data/table-body/table-cell"
-import { StatusBadgeCell } from "../../table-data/table-body/table-cell"
+import { DateCell } from "@/components/customs/table/cells/date-cell"
+import { MainCell } from "@/components/customs/table/cells/main-cell"
+import { StatusBadgeCell } from "@/components/customs/table/cells/status-badge-cell"
 
 const columnHelper = createColumnHelper()
 
