@@ -11,7 +11,9 @@ import SplitPane from "@/components/customs/layout/split-pane/split-pane"
 import BaseTable from "@/components/customs/table-data/base-table"
 import { Card, CardContent } from "@/components/ui/card"
 import { RegistrosOptions } from "@/constants/utils-contants"
+import { useGetRecords } from "@/hooks/queries/useRecord"
 import { useDisplayStatus } from "@/hooks/useDisplayStatus"
+import { useRecordsParams } from "@/hooks/useRecordsParams"
 import useResetStoresOnRouteChange from "@/hooks/useResetStoresOnRouteChange"
 import { getRecords } from "@/services/recordsService"
 import {
@@ -25,16 +27,8 @@ export const Registros = () => {
 
   const [isCollapsed, setIsCollapsed] = React.useState(false)
 
-  const {
-    data: records,
-    status,
-    refetch,
-    isFetching,
-  } = useQuery({
-    queryKey: ["registros"],
-    queryFn: getRecords,
-    enabled: false,
-  })
+  const filters = useRecordsParams()
+  const { data: records, status, isFetching } = useGetRecords(filters)
 
   const displayStatus = useDisplayStatus(status, records?.data, isFetching)
 
@@ -56,7 +50,11 @@ export const Registros = () => {
     }
 
     return (
-      <CollapsibleComponentGroup title="Filtro" onApply={handleApply} loading={isFetching}>
+      <CollapsibleComponentGroup
+        title="Filtro"
+        onApply={handleApply}
+        loading={isFetching}
+      >
         <InputIcon
           title="Buscar"
           alwaysOpen={true}
