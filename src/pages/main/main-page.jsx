@@ -9,10 +9,10 @@ export const Main = () => {
     <div className="flex h-screen flex-col sm:pb-0">
       {" "}
       {/* Prevent scrolling on body */}
-      <div className="sticky top-0 z-50 border-b bg-accent">
+      <div className="sticky top-0 z-50 border-b">
         <Navbar />
       </div>
-      <div className="flex-grow overflow-auto sm:py-4 bg-accent dark:bg-background">
+      <div className="flex-grow overflow-auto sm:py-4">
         {/* Routes and content */}
         <Routes>
           {routes.map(({ path, element, children, allowedRoles }) => (
