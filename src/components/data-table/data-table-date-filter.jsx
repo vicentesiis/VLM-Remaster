@@ -175,6 +175,7 @@ export function DataTableDateFilter(
           <Calendar
             initialFocus
             mode="range"
+            numberOfMonths={2}
             selected={
               getIsDateRange(selectedDates)
                 ? selectedDates

@@ -1,22 +1,17 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import React, { useState } from "react"
-import CheckboxList from "@/components/customs/checkbox-list"
-import CollapsibleComponentGroup from "@/components/customs/collapsible/collapsible-component-group"
 import DataLoader from "@/components/customs/data-loader"
-import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
 import PageLayout from "@/components/customs/layout/page-layout"
-import SplitPane from "@/components/customs/layout/split-pane/split-pane"
 import { registrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { DataTable } from "@/components/data-table/data-table"
+import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
+import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
-import { RegistrosOptions } from "@/constants/utils-contants"
 import { useGetRecords } from "@/hooks/queries/useRecord"
 import { useDisplayStatus } from "@/hooks/useDisplayStatus"
 import { useRecordsParams } from "@/hooks/useRecordsParams"
-import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 
 export const Registros = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false)
   const [dateRange, setDateRange] = useState({ from: null, to: null })
   const [selectedValues, setSelectedValues] = useState([])
 
@@ -35,54 +30,25 @@ export const Registros = () => {
     setIsCollapsed(true)
   }
 
-  const TaskFilter = () => (
-    <CollapsibleComponentGroup
-      title="Filtro"
-      onApply={handleApplyFilters}
-      loading={isFetching}
-    >
-      <DateRangePicker
-        title="Rango de Fechas"
-        locale="es-MX"
-        showCompare={false}
-        initialDateFrom={dateRange.from}
-        initialDateTo={dateRange.to}
-        onUpdate={setDateRange}
-      />
-      <CheckboxList
-        title="Estatus"
-        options={RegistrosOptions}
-        selectedValues={selectedValues}
-        onCheckedChange={setSelectedValues}
-      />
-    </CollapsibleComponentGroup>
-  )
-
   return (
     <PageLayout title="Registros">
       <Card>
-        <CardContent>
+        <CardContent className="pt-4">
           {displayStatus === "success" ? (
             <DataTable table={table}>
-              <DataTableToolbar table={table}></DataTableToolbar>
+              <DataTableToolbar table={table}>
+                <Button
+                  size="sm"
+                  variant="default"
+                  onClick={handleApplyFilters}
+                >
+                  Buscar
+                </Button>
+              </DataTableToolbar>
             </DataTable>
           ) : (
             <DataLoader status={displayStatus} />
           )}
-          {/* <SplitPane
-            title="Lista de Registros"
-            subTitle={`${records?.data?.length || 0} registros`}
-            LeftSideComponent={<TaskFilter />}
-            RightSideComponent={
-              displayStatus === "success" ? (
-                <DataTable table={table} />
-              ) : (
-                <DataLoader status={displayStatus} />
-              )
-            }
-            isCollapsed={isCollapsed}
-            setIsCollapsed={setIsCollapsed}
-          /> */}
         </CardContent>
       </Card>
     </PageLayout>

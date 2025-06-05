@@ -68,5 +68,9 @@ export const registrosColumns = [
   columnHelper.accessor("created_at", {
     header: "Fecha de creación",
     cell: (info) => <DateCell value={info.getValue()} />,
+    meta: {
+      variant: "dateRange",
+      label: "Rango de fechas",
+    },
   }),
 ]
