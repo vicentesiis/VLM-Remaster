@@ -1,6 +1,5 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import React, { useState, useEffect } from "react"
-import DataLoader from "@/components/customs/data-loader"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { registrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { DataTable } from "@/components/data-table/data-table"
@@ -8,14 +7,13 @@ import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
 import { useGetRecords } from "@/hooks/queries/useRecord"
-import { useDisplayStatus } from "@/hooks/useDisplayStatus"
 
 export const Registros = () => {
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 10, // or default limit
+    pageSize: 10,
   })
 
   const parsedParams = React.useMemo(() => {
@@ -45,7 +43,7 @@ export const Registros = () => {
       columnFilters.length === 0 && appliedFilters.length > 0
 
     if (filtersWereCleared) {
-      setAppliedFilters([]) // Sync applied filters
+      setAppliedFilters([])
       setPagination((prev) => ({ ...prev, pageIndex: 0 }))
       refetch()
     }
@@ -58,8 +56,6 @@ export const Registros = () => {
     refetch,
   } = useGetRecords(parsedParams, { enabled: true })
 
-  // const displayStatus = useDisplayStatus(status, records?.data, isFetching)
-
   const table = useReactTable({
     data: records?.data || [],
     columns: registrosColumns,
@@ -71,20 +67,16 @@ export const Registros = () => {
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true, // important
-    pageCount: Math.ceil((records?.total || 0) / pagination.pageSize), // optional if you return total
+    pageCount: Math.ceil((records?.total || 0) / pagination.pageSize),
   })
 
   const handleApplyFilters = async () => {
-    // Reset to page 0
     setPagination((prev) => ({
       ...prev,
       pageIndex: 0,
     }))
-
-    // Set filters
     setAppliedFilters(columnFilters)
-
-    // Optional: wait until next render to ensure pagination is updated
+    // Wait until next render to ensure pagination is updated
     requestAnimationFrame(() => {
       refetch()
       setIsCollapsed(true)
