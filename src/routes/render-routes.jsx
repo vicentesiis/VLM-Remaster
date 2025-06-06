@@ -1,19 +1,20 @@
 import React from "react"
 import { Route } from "react-router-dom"
-import RoleProtectedRoute from "@/routes/role-protected-route"
+import { GenericRouteWrapper } from "./GenericRouteWrapper"
+import RoleProtectedRoute from "./RoleProtectedRoute" // your role check wrapper
 
-export const renderRoutes = (routesArray) =>
-  routesArray.map(({ path, element, children, allowedRoles }) => {
+const renderRoutes = (routes) =>
+  routes.map(({ path, routeKey, allowedRoles, children }, i) => {
+    const element = routeKey ? <GenericRouteWrapper routeKey={routeKey} /> : <>No Component</>
+
     const wrappedElement = allowedRoles ? (
-      <RoleProtectedRoute allowedRoles={allowedRoles}>
-        {element}
-      </RoleProtectedRoute>
+      <RoleProtectedRoute allowedRoles={allowedRoles}>{element}</RoleProtectedRoute>
     ) : (
       element
     )
 
     return (
-      <Route key={path} path={path} element={wrappedElement}>
+      <Route key={i} path={path} element={wrappedElement}>
         {children && renderRoutes(children)}
       </Route>
     )
