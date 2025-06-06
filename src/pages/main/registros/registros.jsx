@@ -47,7 +47,7 @@ export const Registros = () => {
     refetch,
   } = useGetRecords(parsedParams, { enabled: true })
 
-  const displayStatus = useDisplayStatus(status, records?.data, isFetching)
+  // const displayStatus = useDisplayStatus(status, records?.data, isFetching)
 
   const table = useReactTable({
     data: records?.data || [],
@@ -84,7 +84,11 @@ export const Registros = () => {
     <PageLayout title="Registros">
       <Card>
         <CardContent className="pt-4">
-          <DataTable table={table}>
+          <DataTable
+            table={table}
+            isLoading={status === "loading" || isFetching}
+            isError={status === "error"}
+          >
             <DataTableToolbar table={table}>
               <Button size="sm" variant="default" onClick={handleApplyFilters}>
                 Buscar
