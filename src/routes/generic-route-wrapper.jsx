@@ -13,7 +13,6 @@ import { ReportesReporteVentasGlobales } from "@/pages/main/reportes/modules/rep
 import { Reportes } from "@/pages/main/reportes/reportes"
 import { Vacantes } from "@/pages/main/vacantes/vacantes"
 
-// Inline simple components for routes with no component (replace <>Text</>)
 const MisRegistros = () => <>Mis Registros</>
 const MisClientes = () => <>Mis Clientes</>
 const MisTareas = () => <>Mis Tareas</>

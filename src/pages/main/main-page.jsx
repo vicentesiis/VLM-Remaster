@@ -16,7 +16,7 @@ export const MainPage = () => {
       <div className="flex-grow overflow-auto sm:py-4">
         <Routes>
           {routes.map(
-            ({ path, routeKey, title, props = {}, children, allowedRoles }) => (
+            ({ path, routeKey, props = {}, children, allowedRoles }) => (
               <Route key={path} path={path} element={<Outlet />}>
                 <Route
                   index
@@ -35,7 +35,6 @@ export const MainPage = () => {
                   ({
                     path: childPath,
                     routeKey: childRouteKey,
-                    title: childTitle,
                     allowedRoles: childRoles,
                   }) => (
                     <Route
