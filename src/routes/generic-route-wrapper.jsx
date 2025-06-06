@@ -25,22 +25,22 @@ const UsuariosInfo = () => <>Usuarios</>
 const UnauthorizedAccess = () => <>Unauthorized Access</>
 
 export const componentMap = {
+  registros: Registros,
+  misRegistros: Registros,
+  misClientes: Registros,
+  clientes: Registros,
+  misTareas: Clientes,
   ajustes: Ajustes,
   cuentas: Cuentas,
   ajustesUsuarios: AjustesUsuarios,
-  clientes: Clientes,
   clientesDetail: ClientesDetail,
   info: Info,
-  registros: Registros,
   reportesReporteDeRegistros: ReportesReporteDeRegistros,
   reportesReporteVentasPorAgente: ReportesReporteVentasPorAgente,
   reportesReporteVentalMensual: ReportesReporteVentalMensual,
   reportesReporteVentasGlobales: ReportesReporteVentasGlobales,
   reportes: Reportes,
   vacantes: Vacantes,
-  misRegistros: Registros,
-  misClientes: Registros,
-  misTareas: Registros,
   reportePersonal: ReportePersonal,
   auditoriaDeRegistros: AuditoriaDeRegistros,
   controlDeFinalizados: ControlDeFinalizados,
@@ -63,6 +63,9 @@ export const componentPropsMap = {
   misTareas: {
     title: "Mis Tareas",
   },
+  clientes: {
+    title: "Clientes"
+  }
 }
 
 export const GenericRouteWrapper = ({ routeKey, ...routeParams }) => {
