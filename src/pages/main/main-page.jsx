@@ -13,7 +13,7 @@ export const MainPage = () => {
         <Navbar />
       </div>
 
-      <div className="flex-grow overflow-auto sm:py-4">
+      <div className="flex-grow overflow-auto sm:py-4 bg-gray-100 dark:bg-gray-950">
         <Routes>
           {routes.map(
             ({ path, routeKey, props = {}, children, allowedRoles }) => (

@@ -47,7 +47,7 @@ export const NavMenu = (props) => {
     <NavigationMenu {...props}>
       <NavigationMenuList className="">
         {filteredDropdownMenus.map((menu) => (
-          <NavigationMenuItem key={menu.title}>
+          <NavigationMenuItem key={menu.title} className="dark:text-white">
             <NavigationMenuTrigger
               className="text-[15px] font-normal"
               data-state={menu.isActive ? "open" : undefined}
@@ -84,7 +84,7 @@ export const NavMenu = (props) => {
           </NavigationMenuItem>
         ))}
         {filteredMenuItems.map((item) => (
-          <NavigationMenuItem key={item.title} className="">
+          <NavigationMenuItem key={item.title} className="dark:text-white">
             <Button
               variant="ghost"
               className="text-[15px] font-normal"

@@ -8,8 +8,8 @@ import { Lead } from "@/components/ui/typography"
 
 const Navbar = () => {
   return (
-    <nav className="h-16 border-b">
-      <div className="mx-auto bg-white dark:bg-zinc-900 flex h-full items-center justify-between px-4 lg:px-0 xl:px-20">
+    <nav className="h-16">
+      <div className="mx-auto bg-background flex h-full items-center justify-between px-4 lg:px-0 xl:px-20">
         <div className="flex grow justify-between lg:justify-normal lg:gap-14 xl:gap-32">
           {/* Title + Logo */}
           <div className="flex w-[180px] items-center">

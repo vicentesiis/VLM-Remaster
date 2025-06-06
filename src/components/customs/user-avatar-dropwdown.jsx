@@ -31,7 +31,7 @@ export function UserAvatarDropdown() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full focus:outline-none focus:ring-[2px] focus:ring-primary focus:ring-offset-2">
+      <DropdownMenuTrigger className="rounded-full">
         <Avatar>
           <AvatarFallback>{getAvatarInitials(user?.data?.name)}</AvatarFallback>
         </Avatar>

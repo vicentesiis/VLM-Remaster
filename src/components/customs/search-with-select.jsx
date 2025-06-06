@@ -79,7 +79,7 @@ export function SearchWithSelect() {
           placeholder={`Buscar por ID`}
           value={searchQuery}
           onChange={handleSearchChange}
-          className="w-full font-bold focus:ring-2 focus:ring-ring sm:rounded "
+          className="w-full font-bold focus:ring-1 focus:ring-ring sm:rounded "
         />
 
         <Button
