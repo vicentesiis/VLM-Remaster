@@ -7,7 +7,7 @@ import { P } from "@/components/ui/typography"
 export const MainCell = ({ path, title, public_id }) => {
   const fullPath = `/registros${path}/${public_id}`
   return (
-    <TableCell>
+    <TableCell className="py-0">
       <Link
         to={fullPath}
         className="select-text flex-col space-y-0 font-bold hover:text-blue-600"

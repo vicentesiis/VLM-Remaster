@@ -18,7 +18,7 @@ export const Registros = () => {
 
   const parsedParams = React.useMemo(() => {
     const params = {
-      group_id: "7d57f432-f831-43cd-9fcc-bd85ce51a7c4",
+      // group_id: "7d57f432-f831-43cd-9fcc-bd85ce51a7c4",
       skip: pagination.pageIndex * pagination.pageSize,
       limit: pagination.pageSize,
     }

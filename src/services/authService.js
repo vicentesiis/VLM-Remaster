@@ -25,11 +25,11 @@ export const isTokenExpired = (token) => {
 
 export const loginUser = async (credentials) => {
   const data = new URLSearchParams(credentials)
-  const tokens = await apiClient.post("/auth/token", data, {
+  const response = await plainAxios.post("/auth/token", data, {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
   })
-  storeTokens(tokens)
-  return tokens
+  storeTokens(response.data)
+  return response.data
 }
 
 export const refreshAuthToken = async () => {
