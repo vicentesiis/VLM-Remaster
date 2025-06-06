@@ -39,9 +39,9 @@ export const componentMap = {
   reportesReporteVentasGlobales: ReportesReporteVentasGlobales,
   reportes: Reportes,
   vacantes: Vacantes,
-  misRegistros: MisRegistros,
-  misClientes: MisClientes,
-  misTareas: MisTareas,
+  misRegistros: Registros,
+  misClientes: Registros,
+  misTareas: Registros,
   reportePersonal: ReportePersonal,
   auditoriaDeRegistros: AuditoriaDeRegistros,
   controlDeFinalizados: ControlDeFinalizados,
@@ -51,9 +51,26 @@ export const componentMap = {
   unauthorizedAccess: UnauthorizedAccess,
 }
 
-export const GenericRouteWrapper = ({ routeKey, ...props }) => {
+export const componentPropsMap = {
+  registros: {
+    title: "Registros",
+  },
+  misRegistros: {
+    title: "Mis Registros",
+  },
+  misClientes: {
+    title: "Mis Clientes",
+  },
+  misTareas: {
+    title: "Mis Tareas",
+  },
+}
+
+export const GenericRouteWrapper = ({ routeKey, ...routeParams }) => {
   const Component = componentMap[routeKey]
+  const componentProps = componentPropsMap[routeKey] || {}
+
   if (!Component) return <>Unknown Component</>
 
-  return <Component {...props} />
+  return <Component {...componentProps} {...routeParams} />
 }

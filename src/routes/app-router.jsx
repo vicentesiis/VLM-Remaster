@@ -2,7 +2,7 @@ import React from "react"
 import { Routes, Route } from "react-router-dom"
 import ProtectedRoute from "./protected-route"
 import { Login } from "@/pages"
-import { Main } from "@/pages/main/main-page"
+import { MainPage } from "@/pages/main/main-page"
 
 const AppRouter = () => {
   return (
@@ -12,7 +12,7 @@ const AppRouter = () => {
         path="/*"
         element={
           <ProtectedRoute>
-            <Main />
+            <MainPage />
           </ProtectedRoute>
         }
       />

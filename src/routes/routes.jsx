@@ -7,9 +7,6 @@ export const routes = [
       {
         path: "registros",
         routeKey: "registros",
-        props: {
-          someCustomProp: true,
-        },
         allowedRoles: ["super_admin", "admin", "agent"],
       },
       {

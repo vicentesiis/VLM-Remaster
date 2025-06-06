@@ -5,7 +5,7 @@ import { GenericRouteWrapper } from "@/routes/generic-route-wrapper"
 import RoleProtectedRoute from "@/routes/role-protected-route"
 import routes from "@/routes/routes"
 
-export const Main = () => {
+export const MainPage = () => {
   return (
     <div className="flex h-screen flex-col sm:pb-0">
       {/* Sticky navbar */}
@@ -23,18 +23,10 @@ export const Main = () => {
                   element={
                     allowedRoles ? (
                       <RoleProtectedRoute allowedRoles={allowedRoles}>
-                        <GenericRouteWrapper
-                          routeKey={routeKey}
-                          title={title}
-                          {...props}
-                        />
+                        <GenericRouteWrapper routeKey={routeKey} {...props} />
                       </RoleProtectedRoute>
                     ) : (
-                      <GenericRouteWrapper
-                        routeKey={routeKey}
-                        title={title}
-                        {...props}
-                      />
+                      <GenericRouteWrapper routeKey={routeKey} {...props} />
                     )
                   }
                 />
@@ -54,14 +46,12 @@ export const Main = () => {
                           <RoleProtectedRoute allowedRoles={childRoles}>
                             <GenericRouteWrapper
                               routeKey={childRouteKey}
-                              title={childTitle}
                               {...props}
                             />
                           </RoleProtectedRoute>
                         ) : (
                           <GenericRouteWrapper
                             routeKey={childRouteKey}
-                            title={childTitle}
                             {...props}
                           />
                         )
@@ -78,4 +68,4 @@ export const Main = () => {
   )
 }
 
-export default Main
+export default MainPage

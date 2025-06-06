@@ -8,7 +8,7 @@ import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
 import { useGetRecords } from "@/hooks/queries/useRecord"
 
-export const Registros = () => {
+export const Registros = ({ title }) => {
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
   const [pagination, setPagination] = useState({
@@ -84,7 +84,7 @@ export const Registros = () => {
   }
 
   return (
-    <PageLayout title="Registros">
+    <PageLayout title={title}>
       <Card>
         <CardContent className="pt-4">
           <DataTable
