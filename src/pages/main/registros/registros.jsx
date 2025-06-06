@@ -1,9 +1,5 @@
-import {
-  useReactTable,
-  getCoreRowModel,
-  getFilteredRowModel,
-} from "@tanstack/react-table"
-import React, { useState, useEffect } from "react"
+import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
+import React, { useState } from "react"
 import DataLoader from "@/components/customs/data-loader"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { registrosColumns } from "@/components/customs/table/columns/registrosColumns"
@@ -13,19 +9,23 @@ import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
 import { useGetRecords } from "@/hooks/queries/useRecord"
 import { useDisplayStatus } from "@/hooks/useDisplayStatus"
-import { useRecordsParams } from "@/hooks/useRecordsParams"
 
 export const Registros = () => {
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10, // or default limit
+  })
 
   const parsedParams = React.useMemo(() => {
     const params = {
       group_id: "7d57f432-f831-43cd-9fcc-bd85ce51a7c4",
-      limit: 10, // or from elsewhere
+      skip: pagination.pageIndex * pagination.pageSize,
+      limit: pagination.pageSize,
     }
 
-    for (const filter of columnFilters) {
+    for (const filter of appliedFilters) {
       if (filter.id === "status") {
         params.status = filter.value[0]
       }
@@ -35,14 +35,10 @@ export const Registros = () => {
         if (from) params.from = new Date(from).toISOString()
         if (to) params.to = new Date(to).toISOString()
       }
-    console.log(filter)
-      // add more filters if needed...
     }
 
-
-
     return params
-  }, [appliedFilters])
+  }, [pagination, appliedFilters])
 
   const {
     data: records,
@@ -58,36 +54,43 @@ export const Registros = () => {
     columns: registrosColumns,
     state: {
       columnFilters,
+      pagination,
     },
+    onPaginationChange: setPagination,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
+    manualPagination: true, // important
+    pageCount: Math.ceil((records?.total || 0) / pagination.pageSize), // optional if you return total
   })
 
   const handleApplyFilters = async () => {
-    setAppliedFilters(columnFilters) // triggers new parsedParams
-    await refetch() // performs the fetch
-    setIsCollapsed(true)
+    // Reset to page 0
+    setPagination((prev) => ({
+      ...prev,
+      pageIndex: 0,
+    }))
+
+    // Set filters
+    setAppliedFilters(columnFilters)
+
+    // Optional: wait until next render to ensure pagination is updated
+    requestAnimationFrame(() => {
+      refetch()
+      setIsCollapsed(true)
+    })
   }
 
   return (
     <PageLayout title="Registros">
       <Card>
         <CardContent className="pt-4">
-          {displayStatus === "success" ? (
-            <DataTable table={table}>
-              <DataTableToolbar table={table}>
-                <Button
-                  size="sm"
-                  variant="default"
-                  onClick={handleApplyFilters}
-                >
-                  Buscar
-                </Button>
-              </DataTableToolbar>
-            </DataTable>
-          ) : (
-            <DataLoader status={displayStatus} />
-          )}
+          <DataTable table={table}>
+            <DataTableToolbar table={table}>
+              <Button size="sm" variant="default" onClick={handleApplyFilters}>
+                Buscar
+              </Button>
+            </DataTableToolbar>
+          </DataTable>
         </CardContent>
       </Card>
     </PageLayout>
