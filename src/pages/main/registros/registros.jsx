@@ -54,7 +54,10 @@ export const Registros = ({ title }) => {
     status,
     isFetching,
     refetch,
-  } = useGetRecords(parsedParams, { enabled: true })
+  } = useGetRecords(parsedParams, {
+    enabled: true,
+    refetchOnWindowFocus: false,
+  })
 
   const table = useReactTable({
     data: records?.data || [],
