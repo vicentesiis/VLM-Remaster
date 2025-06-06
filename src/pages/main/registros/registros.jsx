@@ -1,5 +1,5 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import DataLoader from "@/components/customs/data-loader"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { registrosColumns } from "@/components/customs/table/columns/registrosColumns"
@@ -39,6 +39,17 @@ export const Registros = () => {
 
     return params
   }, [pagination, appliedFilters])
+
+  useEffect(() => {
+    const filtersWereCleared =
+      columnFilters.length === 0 && appliedFilters.length > 0
+
+    if (filtersWereCleared) {
+      setAppliedFilters([]) // Sync applied filters
+      setPagination((prev) => ({ ...prev, pageIndex: 0 }))
+      refetch()
+    }
+  }, [columnFilters])
 
   const {
     data: records,
