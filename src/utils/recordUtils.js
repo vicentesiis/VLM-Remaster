@@ -6,7 +6,6 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
   }
 
   if (title === "Clientes" || title === "Mis Clientes") {
-    console.log(title)
     params.is_client = true
   }
 

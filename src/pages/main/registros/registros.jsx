@@ -1,7 +1,7 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import React, { useState, useEffect } from "react"
 import PageLayout from "@/components/customs/layout/page-layout"
-import { registrosColumns } from "@/components/customs/table/columns/registrosColumns"
+import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui"
@@ -57,9 +57,14 @@ export const Registros = ({ title }) => {
     }
   }, [columnFilters])
 
+  const columns = React.useMemo(
+    () => getRegistrosColumns(role, title),
+    [role, title]
+  )
+
   const table = useReactTable({
     data: records?.data || [],
-    columns: registrosColumns,
+    columns: columns,
     state: {
       columnFilters,
       pagination,

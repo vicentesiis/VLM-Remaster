@@ -3,7 +3,6 @@ import { DefaultCell } from "../../table/cells"
 import { DropdownCell } from "../../table/cells"
 import { MainCell } from "../../table/cells"
 import { StatusBadgeCell } from "../../table/cells"
-import DateCell from "../../table/cells/date-cell"
 
 function toTitleCase(str) {
   return str.replace(
@@ -67,5 +66,4 @@ export const registrosRender = {
       align="center"
     />
   ),
-  created_at: ({ item }) => <DateCell value={item.created_at} />,
 }
