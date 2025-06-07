@@ -1,8 +1,13 @@
-export const getParsedParams = (pagination, appliedFilters, role) => {
+export const getParsedParams = (pagination, appliedFilters, title, role) => {
   const params = {
     skip: pagination.pageIndex * pagination.pageSize,
     limit: pagination.pageSize,
-    record_type: "prospect"
+    record_type: "prospect",
+  }
+
+  if (title === "Clientes" || title === "Mis Clientes") {
+    console.log(title)
+    params.is_client = true
   }
 
   if (role === "super_admin" || role === "admin") {
@@ -20,6 +25,6 @@ export const getParsedParams = (pagination, appliedFilters, role) => {
       if (to) params.to = new Date(to).toISOString()
     }
   }
-
+  console.log(params)
   return params
 }

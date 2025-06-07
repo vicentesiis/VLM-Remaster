@@ -13,7 +13,7 @@ export const useGetRecords = (params, title, options = {}) => {
       let res
 
       if (role === "agent") {
-        if (title === "Mis Registros") {
+        if (title.startsWith("Mis")) {
           res = await recordApi.getRecordsByUser({
             ...params,
             user_id: userId,

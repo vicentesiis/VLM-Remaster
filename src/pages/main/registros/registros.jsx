@@ -22,8 +22,8 @@ export const Registros = ({ title }) => {
   })
 
   const parsedParams = React.useMemo(() => {
-    return getParsedParams(pagination, appliedFilters, role)
-  }, [pagination, appliedFilters, role])
+    return getParsedParams(pagination, appliedFilters, title, role)
+  }, [pagination, appliedFilters, title, role])
 
   useEffect(() => {
     const filtersWereCleared =
