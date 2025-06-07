@@ -15,7 +15,7 @@ import { Vacantes } from "@/pages/main/vacantes/vacantes"
 
 const MisRegistros = () => <>Mis Registros</>
 const MisClientes = () => <>Mis Clientes</>
-const MisTareas = () => <>Mis Tareas</>
+const Tareas = () => <>Mis Tareas</>
 const ReportePersonal = () => <>Reporte Personal</>
 const AuditoriaDeRegistros = () => <>Auditoria de Registros</>
 const ControlDeFinalizados = () => <>Control de Finalizados</>
@@ -29,7 +29,7 @@ export const componentMap = {
   misRegistros: Registros,
   misClientes: Registros,
   clientes: Registros,
-  misTareas: Clientes,
+  tareas: Clientes,
   ajustes: Ajustes,
   cuentas: Cuentas,
   ajustesUsuarios: AjustesUsuarios,
@@ -60,7 +60,7 @@ export const componentPropsMap = {
   misClientes: {
     title: "Mis Clientes",
   },
-  misTareas: {
+  tareas: {
     title: "Mis Tareas",
   },
   clientes: {

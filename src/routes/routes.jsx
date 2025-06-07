@@ -12,12 +12,12 @@ export const routes = [
       {
         path: "mis-registros",
         routeKey: "misRegistros",
-        allowedRoles: ["super_admin", "admin", "agent"],
+        allowedRoles: ["agent"],
       },
       {
         path: "clientes",
         routeKey: "clientes",
-        allowedRoles: ["super_admin", "admin", "agent"],
+        allowedRoles: ["super_admin", "admin"],
       },
       {
         path: "clientes/:clientId",
@@ -27,11 +27,11 @@ export const routes = [
       {
         path: "mis-clientes",
         routeKey: "misClientes",
-        allowedRoles: ["super_admin", "admin", "agent"],
+        allowedRoles: ["agent"],
       },
       {
-        path: "mis-tareas",
-        routeKey: "misTareas",
+        path: "tareas",
+        routeKey: "tareas",
         allowedRoles: ["super_admin", "admin", "agent"],
       },
     ],
@@ -42,14 +42,24 @@ export const routes = [
     allowedRoles: ["super_admin", "admin", "agent"],
   },
   {
+    path: "/ventas",
+    routeKey: "ventas",
+    allowedRoles: ["agent"],
+  },
+  {
+    path: "/usuarios",
+    routeKey: "usuariosInfo",
+    allowedRoles: ["agent"],
+  },
+  {
     path: "/reportes",
     routeKey: "reportes",
-    allowedRoles: ["super_admin", "admin", "agent"],
+    allowedRoles: ["super_admin", "admin"],
     children: [
       {
-        path: "reporte-personal",
+        path: "Ventas por Agente (Ventas)",
         routeKey: "reportePersonal",
-        allowedRoles: ["agent"],
+        allowedRoles: ["LEADERRRR"],
       },
       {
         path: "ventas-por-agente",
@@ -90,23 +100,6 @@ export const routes = [
         path: "cortes-agente",
         routeKey: "cortesPorAgente",
         allowedRoles: ["super_admin", "admin"],
-      },
-    ],
-  },
-  {
-    path: "/info",
-    routeKey: "info",
-    allowedRoles: ["agent"],
-    children: [
-      {
-        path: "datos-del-proyecto",
-        routeKey: "info",
-        allowedRoles: ["agent"],
-      },
-      {
-        path: "usuarios",
-        routeKey: "usuariosInfo",
-        allowedRoles: ["agent"],
       },
     ],
   },

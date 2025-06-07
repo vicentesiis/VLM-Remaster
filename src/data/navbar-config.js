@@ -10,20 +10,20 @@ import {
 } from "lucide-react"
 
 export const menuItems = [
-  // {
-  //   title: "Registros",
-  //   to: "/",
-  //   allowedRoutes: ["super_admin", "admin", "agent"],
-  // },
-  // {
-  //   title: "Clientes",
-  //   to: "/clientes",
-  //   allowedRoutes: ["super_admin", "admin", "agent"],
-  // },
   {
     title: "Vacantes",
     to: "/vacantes",
     allowedRoutes: ["super_admin", "admin", "agent"],
+  },
+  {
+    title: "Ventas",
+    to: "/ventas",
+    allowedRoutes: ["agent"],
+  },
+  {
+    title: "Usuarios",
+    to: "/usuarios",
+    allowedRoutes: ["agent"],
   },
 ]
 
@@ -44,34 +44,34 @@ export const dropdownMenus = [
         to: "/registros/mis-registros",
         description: "Consulta y gestiona tus registros generados.",
         icon: BarChart,
-        allowedRoutes: ["super_admin", "admin", "agent"],
+        allowedRoutes: ["agent"],
       },
       {
         title: "Clientes",
         to: "/registros/clientes",
         description: "Consulta y gestiona los clientes registrados.",
         icon: FileText,
-        allowedRoutes: ["super_admin", "admin", "agent"],
+        allowedRoutes: ["super_admin", "admin"],
       },
       {
         title: "Mis Clientes",
         to: "/registros/mis-clientes",
         description: "Consulta y gestiona tus clientes registrados.",
         icon: ShoppingCart,
-        allowedRoutes: ["super_admin", "admin", "agent"],
+        allowedRoutes: ["agent"],
       },
       {
-        title: "Mis Tareas",
-        to: "/registros/mis-tareas",
+        title: "Tareas",
+        to: "/registros/tareas",
         description: "Consulta y gestiona tus tareas pendientes.",
         icon: ClipboardCheck,
-        allowedRoutes: ["super_admin", "admin", "agent"],
+        allowedRoutes: ["admin", "agent"],
       },
     ],
   },
   {
     title: "Reportes",
-    allowedRoutes: ["super_admin", "admin", "agent"],
+    allowedRoutes: ["super_admin", "admin"],
     items: [
       {
         title: "Reporte Personal",
@@ -155,26 +155,6 @@ export const dropdownMenus = [
         description: "Administración de cuentas y permisos.",
         icon: FileText,
         allowedRoutes: ["super_admin", "admin"],
-      },
-    ],
-  },
-  {
-    title: "Info",
-    allowedRoutes: ["agent"],
-    items: [
-      {
-        title: "Datos del proyecto",
-        to: "/info/datos-del-proyecto",
-        description: "Información general sobre el proyecto.",
-        icon: Globe,
-        allowedRoutes: ["agent"],
-      },
-      {
-        title: "Usuarios",
-        to: "/info/usuarios",
-        description: "Gestión y configuración de usuarios.",
-        icon: Users,
-        allowedRoutes: ["agent"],
       },
     ],
   },
