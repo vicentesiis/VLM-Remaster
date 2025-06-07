@@ -109,8 +109,8 @@ const ListItem = React.forwardRef(
             ref={ref}
             to={to}
             className={cn(
-              "flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              isActive && "bg-accent text-accent-foreground",
+              "flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-accent focus:bg-accent focus:text-accent-foreground",
+              isActive && "bg-accent",
               className
             )}
             {...props}

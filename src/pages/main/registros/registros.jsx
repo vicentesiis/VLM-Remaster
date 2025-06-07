@@ -6,9 +6,14 @@ import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
+import { useAuth } from "@/hooks"
 import { useGetRecords } from "@/hooks/queries/useRecord"
+import { getParsedParams } from "@/utils/recordUtils"
 
 export const Registros = ({ title }) => {
+  const { user } = useAuth()
+  const role = user?.data?.role
+
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
   const [pagination, setPagination] = useState({
@@ -17,26 +22,8 @@ export const Registros = ({ title }) => {
   })
 
   const parsedParams = React.useMemo(() => {
-    const params = {
-      // group_id: "7d57f432-f831-43cd-9fcc-bd85ce51a7c4",
-      skip: pagination.pageIndex * pagination.pageSize,
-      limit: pagination.pageSize,
-    }
-
-    for (const filter of appliedFilters) {
-      if (filter.id === "status") {
-        params.status = filter.value[0]
-      }
-
-      if (filter.id === "created_at" && Array.isArray(filter.value)) {
-        const [from, to] = filter.value
-        if (from) params.from = new Date(from).toISOString()
-        if (to) params.to = new Date(to).toISOString()
-      }
-    }
-
-    return params
-  }, [pagination, appliedFilters])
+    return getParsedParams(pagination, appliedFilters, role)
+  }, [pagination, appliedFilters, role])
 
   useEffect(() => {
     const filtersWereCleared =
@@ -54,10 +41,21 @@ export const Registros = ({ title }) => {
     status,
     isFetching,
     refetch,
-  } = useGetRecords(parsedParams, {
+  } = useGetRecords(parsedParams, title, {
     enabled: true,
     refetchOnWindowFocus: false,
   })
+
+  useEffect(() => {
+    const filtersWereCleared =
+      columnFilters.length === 0 && appliedFilters.length > 0
+
+    if (filtersWereCleared) {
+      setAppliedFilters([])
+      setPagination((prev) => ({ ...prev, pageIndex: 0 }))
+      refetch()
+    }
+  }, [columnFilters])
 
   const table = useReactTable({
     data: records?.data || [],
@@ -69,7 +67,7 @@ export const Registros = ({ title }) => {
     onPaginationChange: setPagination,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, // important
+    manualPagination: true,
     pageCount: Math.ceil((records?.total || 0) / pagination.pageSize),
   })
 
@@ -79,10 +77,8 @@ export const Registros = ({ title }) => {
       pageIndex: 0,
     }))
     setAppliedFilters(columnFilters)
-    // Wait until next render to ensure pagination is updated
     requestAnimationFrame(() => {
       refetch()
-      setIsCollapsed(true)
     })
   }
 
@@ -106,5 +102,3 @@ export const Registros = ({ title }) => {
     </PageLayout>
   )
 }
-
-export default Registros

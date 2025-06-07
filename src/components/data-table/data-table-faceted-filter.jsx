@@ -83,7 +83,7 @@ export function DataTableFacetedFilter(
               <div className="hidden items-center gap-1 lg:flex">
                 {selectedValues.size > 2 ? (
                   <Badge variant="secondary" className="rounded-sm px-1 font-normal">
-                    {selectedValues.size} selected
+                    {selectedValues.size} Seleccionado
                   </Badge>
                 ) : (
                   options
@@ -106,7 +106,7 @@ export function DataTableFacetedFilter(
         <Command>
           <CommandInput placeholder={title} />
           <CommandList className="max-h-full">
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>Sin Resultados.</CommandEmpty>
             <CommandGroup className="max-h-[18.75rem] overflow-y-auto overflow-x-hidden">
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value);
@@ -115,7 +115,7 @@ export function DataTableFacetedFilter(
                   <CommandItem key={option.value} onSelect={() => onItemSelect(option, isSelected)}>
                     <div
                       className={cn(
-                        "flex size-4 items-center justify-center rounded-sm border border-primary",
+                        "text-white flex size-4 items-center justify-center rounded-sm border border-primary",
                         isSelected
                           ? "bg-primary"
                           : "opacity-50 [&_svg]:invisible"
@@ -138,7 +138,7 @@ export function DataTableFacetedFilter(
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem onSelect={() => onReset()} className="justify-center text-center">
-                    Clear filters
+                    Limpiar
                   </CommandItem>
                 </CommandGroup>
               </>
