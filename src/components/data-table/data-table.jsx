@@ -30,7 +30,7 @@ export function DataTable({
     >
       {children}
       <div className="overflow-hidden rounded-md border">
-        <Table>
+        <Table className>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>

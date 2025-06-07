@@ -15,7 +15,7 @@ const ActionDropdown = ({ sections = [] }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="flex items-start mx-auto">
+        <Button variant="ghost" className="flex items-center mx-auto">
           <MoreHorizontalIcon />
         </Button>
       </DropdownMenuTrigger>

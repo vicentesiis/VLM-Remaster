@@ -2,6 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { StatusBadgeCell } from "@/components/customs/table/cells/status-badge-cell"
+import ActionDropdown from "../../action-dropdown"
 
 const columnHelper = createColumnHelper()
 
@@ -92,28 +93,68 @@ export const getRegistrosColumns = (role, title) => {
     }),
   ]
 
-  const generalEndcolumns = [
+  const commentsColumn = [
     columnHelper.accessor("comments", {
       header: "Comentarios",
-      cell: (info) => info.getValue() ?? "...",
+      cell: (info) => info.getValue() ?? "---",
       meta: {
         align: "center",
+        className: "text-muted-foreground",
         // className: "text-red-600",
         // headerClassName: "text-center font-semibold text-red-600",
       },
     }),
   ]
 
+  const actionsColumn = columnHelper.display({
+    id: "actions",
+    header: "",
+    cell: ({ row }) => (
+      <ActionDropdown
+        sections={[
+          {
+            title: "Cliente",
+            options: [
+              {
+                title: "Detalle del Cliente",
+                onSelect: () =>
+                  alert(`Detalle del Cliente: ${row.original.name}`),
+              },
+              {
+                title: "Órdenes del Cliente",
+                onSelect: () =>
+                  alert(`Órdenes del Cliente: ${row.original.name}`),
+              },
+            ],
+          },
+          {
+            title: "Extras",
+            options: [
+              {
+                title: "Generar Contrato",
+                onSelect: () => alert("Generar Contrato"),
+              },
+            ],
+          },
+        ]}
+      />
+    ),
+    meta: {
+      align: "center",
+      maxWidth: "60px",
+    },
+  })
+
   const isAdmin = role === "admin" || role === "super_admin"
   // const isMyRecords = title.toLowerCase().startsWith("mis")
 
   if (isAdmin) {
-    return [...baseColumns, ...adminColumns, ...generalEndcolumns]
+    return [...baseColumns, ...adminColumns, ...commentsColumn, actionsColumn]
   }
 
   if (role === "agent") {
-    return [...baseColumns, ...agentColumns, ...generalEndcolumns]
+    return [...baseColumns, ...agentColumns, ...commentsColumn, actionsColumn]
   }
 
-  return [...baseColumns, ...adminColumns, ...generalEndcolumns]
+  return [...baseColumns, ...adminColumns, ...commentsColumn, actionsColumn]
 }

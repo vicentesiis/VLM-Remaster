@@ -1,6 +1,5 @@
 import React from "react"
 import { DefaultCell } from "../../table/cells"
-import { DropdownCell } from "../../table/cells"
 import { MainCell } from "../../table/cells"
 import { StatusBadgeCell } from "../../table/cells"
 
@@ -17,34 +16,6 @@ export const registrosRender = {
       path="/clientes"
       title={item.name || "N/A"}
       public_id={item.public_id?.toUpperCase()}
-    />
-  ),
-  actions: () => (
-    <DropdownCell
-      sections={[
-        {
-          title: "Cliente",
-          options: [
-            {
-              title: "Detalle del Cliente",
-              onSelect: () => alert("Detalle del Cliente"),
-            },
-            {
-              title: "Ordenes del Cliente",
-              onSelect: () => alert("Ordenes del Cliente"),
-            },
-          ],
-        },
-        {
-          title: "Extras",
-          options: [
-            {
-              title: "Generar Contrato",
-              onSelect: () => alert("Generar Contrato"),
-            },
-          ],
-        },
-      ]}
     />
   ),
   status: ({ item }) => <StatusBadgeCell title={item.status || "N/A"} />,
