@@ -25,7 +25,7 @@ export const useGetRecords = (params, title, options = {}) => {
         res = await recordApi.getRecordsByCriteria(params)
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise((resolve) => setTimeout(resolve, 300))
       return res
     },
     ...options,

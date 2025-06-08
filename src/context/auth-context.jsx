@@ -1,8 +1,8 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import React, { createContext, useState, useEffect } from "react"
 import { FullScreenLoader } from "@/components/customs/full-screen-loader"
+import { useCurrentUser } from "@/hooks/queries/useUser"
 import { loginUser, logout as logoutUser } from "@/services/authService"
-import { getUser } from "@/services/userService"
 
 export const AuthContext = createContext(null)
 
@@ -14,12 +14,7 @@ export const AuthProvider = ({ children }) => {
     data: user,
     isError,
     isLoading: isUserLoading,
-  } = useQuery({
-    queryKey: ["user"],
-    queryFn: getUser,
-    enabled: !!token,
-    retry: false,
-  })
+  } = useCurrentUser({ enabled: !!token })
 
   const loginMutation = useMutation({
     mutationFn: loginUser,

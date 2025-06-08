@@ -1,6 +1,7 @@
 import { apiClient } from "./apiClient"
 
-export const getCurrentUser = () => apiClient.get("/users/me")
+export const getCurrentUser = (params = { with_group: true }) =>
+  apiClient.get("/users/me", { params })
 export const getUserById = (id) => apiClient.get(`/users/user/${id}`)
 export const getUser = () => apiClient.get("/users/user")
 export const createUser = (data) => apiClient.post("/users/user", data)
