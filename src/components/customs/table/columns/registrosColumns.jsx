@@ -1,8 +1,8 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
+import ActionDropdown from "../../action-dropdown"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { StatusBadgeCell } from "@/components/customs/table/cells/status-badge-cell"
-import ActionDropdown from "../../action-dropdown"
 
 const columnHelper = createColumnHelper()
 
