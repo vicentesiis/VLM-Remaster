@@ -82,14 +82,23 @@ export const getRegistrosColumns = (role) => {
     }),
     columnHelper.accessor("channel", {
       header: "Canal",
+      // meta: {
+      //   align: "center",
+      // },
       meta: {
         align: "center",
+        variant: "multiSelect",
+        label: "Canal",
+        options: [],
       },
     }),
     columnHelper.accessor("program", {
       header: "Programa",
       meta: {
         align: "center",
+        variant: "multiSelect",
+        label: "Programa",
+        options: [],
       },
     }),
   ]

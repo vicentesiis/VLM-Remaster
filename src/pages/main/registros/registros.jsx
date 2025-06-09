@@ -12,6 +12,7 @@ import { useAuth } from "@/hooks"
 import { useGetGroups } from "@/hooks/queries/useGroup"
 import { useGetRecords } from "@/hooks/queries/useRecord"
 import { getParsedParams } from "@/utils/recordUtils"
+import { useGetChannels, useGetPrograms } from "@/hooks/queries/useCodex"
 
 export const Registros = ({ title }) => {
   const { user } = useAuth()
@@ -33,6 +34,8 @@ export const Registros = ({ title }) => {
   }, [pagination, appliedFilters, title, role, isSuperAdmin])
 
   const { data: groups } = useGetGroups({ enabled: isSuperAdmin })
+  const { data: channels } = useGetChannels({ enabled: isSuperAdmin })
+  const { data: programs } = useGetPrograms({ enabled: isSuperAdmin })
 
   const {
     data: records,
@@ -58,18 +61,41 @@ export const Registros = ({ title }) => {
   const columns = useMemo(() => {
     const cols = getRegistrosColumns(role, title)
 
-    if (isSuperAdmin && groups?.data?.length) {
-      const groupOptions = groups.data.map(({ id, name }) => ({
-        label: name,
-        value: id,
-      }))
+    if (isSuperAdmin) {
+      if (groups?.data?.length) {
+        const groupOptions = groups.data.map(({ id, name }) => ({
+          label: name,
+          value: id,
+        }))
+        const groupColumn = cols.find((col) => col.accessorKey === "group_id")
+        if (groupColumn?.meta) groupColumn.meta.options = groupOptions
+      }
 
-      const groupColumn = cols.find((col) => col.accessorKey === "group_id")
-      if (groupColumn?.meta) groupColumn.meta.options = groupOptions
+      if (channels?.data?.length) {
+        const channelOptions = channels.data.map((channel) => ({
+          label: channel,
+          value: channel,
+        }))
+
+        const channelColumn = cols.find((col) => col.accessorKey === "channel")
+        if (channelColumn?.meta) channelColumn.meta.options = channelOptions
+      }
+
+      if (programs?.data?.length) {
+        const programOptions = programs.data.map((program) => ({
+          label: program,
+          value: program,
+        }))
+
+        const programColumn = cols.find((col) => col.accessorKey === "program")
+        if (programColumn?.meta) {
+          programColumn.meta.options = programOptions
+        }
+      }
     }
 
     return cols
-  }, [role, title, groups, isSuperAdmin])
+  }, [role, title, groups, channels, programs, isSuperAdmin])
 
   const table = useReactTable({
     data: records?.data || [],
@@ -102,12 +128,18 @@ export const Registros = ({ title }) => {
     requestAnimationFrame(() => refetch())
   }, [columnFilters, refetch, isSuperAdmin])
 
+  const isCodexReady =
+    !isSuperAdmin ||
+    (!!groups?.data?.length &&
+      !!channels?.data?.length &&
+      !!programs?.data?.length)
+
   return (
     <PageLayout title={title}>
       <Card>
         <CardContent className="pt-4">
           <DataTable
-            key={groups?.data?.length}
+            key={isCodexReady ? "codex-ready" : "loading-codex"}
             table={table}
             isLoading={status === "loading" || isFetching}
             isError={status === "error"}

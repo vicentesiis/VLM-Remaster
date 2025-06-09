@@ -23,6 +23,18 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
       if (filter.id === "group_id") {
         params.append("group_id", filter.value)
       }
+
+      if (filter.id === "channel") {
+        for (const channel of filter.value) {
+          params.append("channels", channel)
+        }
+      }
+
+      if (filter.id === "program") {
+        for (const program of filter.value) {
+          params.append("programs", program)
+        }
+      }
     }
 
     if (filter.id === "updated_at" && Array.isArray(filter.value)) {
