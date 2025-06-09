@@ -2,7 +2,6 @@ import { useQuery, useMutation } from "@tanstack/react-query"
 import * as userApi from "@/api/userApi"
 
 export const useCurrentUser = ({
-  enabled = true,
   params = { with_group: true },
   ...rest
 } = {}) =>
@@ -10,7 +9,6 @@ export const useCurrentUser = ({
     queryKey: ["users", "me", params],
     queryFn: () => userApi.getCurrentUser(params),
     retry: false,
-    enabled,
     ...rest,
   })
 

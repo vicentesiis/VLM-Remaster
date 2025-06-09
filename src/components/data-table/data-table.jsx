@@ -3,6 +3,7 @@ import React from "react"
 
 import { DataTableBodySkeleton } from "@/components/data-table/data-table-body-skeleton"
 import { DataTablePagination } from "@/components/data-table/data-table-pagination"
+import { TableMessageCell } from "@/components/data-table/table-message-cell"
 import {
   Table,
   TableBody,
@@ -21,8 +22,14 @@ export function DataTable({
   className,
   isLoading = false,
   isError = false,
+  hasFetched = false,
   ...props
 }) {
+  const hasData =
+    Array.isArray(table.options.data) && table.options.data.length > 0
+
+  const isEmpty = hasFetched && !hasData
+
   return (
     <div
       className={cn("flex w-full flex-col gap-2.5 overflow-auto", className)}
@@ -68,16 +75,23 @@ export function DataTable({
                 columnCount={table.getAllLeafColumns().length}
                 rowCount={10}
               />
+            ) : !hasFetched ? (
+              <TableMessageCell
+                colSpan={table.getAllColumns().length}
+                message="Esperando búsqueda..."
+              />
             ) : isError ? (
-              <TableRow>
-                <TableCell
-                  colSpan={table.getAllColumns().length}
-                  className="h-24 text-center text-destructive"
-                >
-                  {"Error :("}
-                </TableCell>
-              </TableRow>
-            ) : table.getRowModel().rows?.length ? (
+              <TableMessageCell
+                colSpan={table.getAllColumns().length}
+                message="Ocurrió un error al cargar los datos."
+                className="text-destructive"
+              />
+            ) : isEmpty ? (
+              <TableMessageCell
+                colSpan={table.getAllColumns().length}
+                message="Sin resultados."
+              />
+            ) : (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -106,15 +120,6 @@ export function DataTable({
                   })}
                 </TableRow>
               ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={table.getAllColumns().length}
-                  className="h-24 text-center"
-                >
-                  {"Sin Resultados"}
-                </TableCell>
-              </TableRow>
             )}
           </TableBody>
         </Table>

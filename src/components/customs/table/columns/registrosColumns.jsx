@@ -148,8 +148,27 @@ export const getRegistrosColumns = (role, title) => {
   const isAdmin = role === "admin" || role === "super_admin"
   // const isMyRecords = title.toLowerCase().startsWith("mis")
 
+  const groupFilterColumn = columnHelper.accessor("group_id", {
+    header: "Grupo",
+    cell: () => null,
+    meta: {
+      align: "center",
+      variant: "select",
+      label: "Grupo",
+      options: [],
+      isVirtual: true,
+    },
+    enableColumnFilter: true,
+  })
+
   if (isAdmin) {
-    return [...baseColumns, ...adminColumns, ...commentsColumn, actionsColumn]
+    return [
+      groupFilterColumn,
+      ...baseColumns,
+      ...adminColumns,
+      ...commentsColumn,
+      actionsColumn,
+    ]
   }
 
   if (role === "agent") {

@@ -29,6 +29,5 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
     }
   }
 
-  console.log(params.toString()) // ✅ useful for debugging
   return Object.fromEntries(params.entries())
 }
