@@ -48,6 +48,7 @@ const formSchema = z.object({
     (val) => (val === "" || val === null ? undefined : val),
     z.date({ required_error: "La fecha de salida es obligatoria" })
   ),
+  documentoDelCliente: z.string().min(1, { message: "El Documento del Cliente es obligatorio" }),
   tramite: z.string().min(1, { message: "El trámite es obligatorio" }),
   vacante: z.string().min(1, { message: "La vacante es obligatoria" }),
   destino: z.string().min(1, { message: "El destino es obligatorio" }),
@@ -181,7 +182,7 @@ export const ClientForm = () => {
     <FormProvider {...form}>
       {/* Client Information Section */}
       <div className="mb-4 space-y-4">
-        <H3 className="text-primary">Datos del Cliente</H3>
+        <H3>Datos del Cliente</H3>
         <Separator />
       </div>
 
@@ -194,10 +195,10 @@ export const ClientForm = () => {
               name="nombre"
               render={({ field, fieldState }) => (
                 <FormItem>
-                  <FormLabel>Nombre</FormLabel>
+                  <FormLabel>Nombre Completo</FormLabel>
                   <FormFieldTooltip fieldState={fieldState} position="bottom">
                     <FormControl>
-                      <Input placeholder="Nombre" {...field} />
+                      <Input placeholder="Nombre Completo" {...field} />
                     </FormControl>
                   </FormFieldTooltip>
                   <FormMessage />
@@ -382,7 +383,7 @@ export const ClientForm = () => {
           </div>
           {/* Process Status Section */}
           <div className="mt-8 space-y-4">
-            <H3 className="text-primary">Información del Proceso</H3>
+            <H3>Información del Proceso</H3>
             <Separator />
           </div>
 

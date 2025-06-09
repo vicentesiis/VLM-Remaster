@@ -45,12 +45,12 @@ export const NavMenu = (props) => {
 
   return (
     <NavigationMenu {...props}>
-      <NavigationMenuList className="">
+      <NavigationMenuList>
         {filteredDropdownMenus.map((menu) => (
           <NavigationMenuItem key={menu.title} className="dark:text-white">
             <NavigationMenuTrigger
               className="text-[15px] font-normal"
-              data-state={menu.isActive ? "open" : undefined}
+              group-state={menu.isActive ? "open" : undefined}
             >
               {menu.title}
             </NavigationMenuTrigger>

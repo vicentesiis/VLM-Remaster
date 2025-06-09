@@ -33,7 +33,7 @@ export const componentMap = {
   ajustes: Ajustes,
   cuentas: Cuentas,
   ajustesUsuarios: AjustesUsuarios,
-  clientesDetail: ClientesDetail,
+  registroDetail: ClientesDetail,
   info: Info,
   reportesReporteDeRegistros: ReportesReporteDeRegistros,
   reportesReporteVentasPorAgente: ReportesReporteVentasPorAgente,

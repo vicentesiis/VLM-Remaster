@@ -1,5 +1,6 @@
 import { UserPlusIcon } from "lucide-react"
 import React from "react"
+import { ClientForm } from "../client-detail"
 import { Button } from "@/components/ui"
 import {
   Dialog,
@@ -17,20 +18,17 @@ const AddRegistroDialog = ({ trigger }) => {
       <DialogTrigger asChild>
         {trigger || (
           <Button variant="add">
-            <UserPlusIcon className="mr-2" />
+            <UserPlusIcon />
             Agregar Registro
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="h-full overflow-y-auto sm:max-h-[calc(100vh-20px)] sm:max-w-6xl">
         <DialogHeader>
-          <DialogTitle>Nuevo Registro</DialogTitle>
+          <DialogTitle className="text-center text-primary">Nuevo Registro</DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 py-4">
-          {/* 👉 Add your form or content here */}
-          <p className="text-muted-foreground">
-            Aquí va el formulario de registro.
-          </p>
+        <div>
+          <ClientForm />
         </div>
         <DialogFooter>
           <DialogClose asChild>
