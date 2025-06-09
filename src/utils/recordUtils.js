@@ -3,6 +3,7 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
 
   params.set("skip", pagination.pageIndex * pagination.pageSize)
   params.set("limit", pagination.pageSize)
+
   if (role !== "super_admin") {
     params.set("record_type", "prospect")
   }
@@ -11,14 +12,16 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
     params.set("is_client", "true")
   }
 
-  if (role === "super_admin" || role === "admin") {
-    params.set("group_id", "7d57f432-f831-43cd-9fcc-bd85ce51a7c4")
-  }
-
   for (const filter of appliedFilters) {
     if (filter.id === "status") {
       for (const status of filter.value) {
         params.append("statuses", status)
+      }
+    }
+
+    if (role === "super_admin") {
+      if (filter.id === "group_id") {
+        params.append("group_id", filter.value)
       }
     }
 

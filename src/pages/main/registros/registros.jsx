@@ -10,6 +10,7 @@ import { useAuth } from "@/hooks"
 import { useGetGroups } from "@/hooks/queries/useGroup"
 import { useGetRecords } from "@/hooks/queries/useRecord"
 import { getParsedParams } from "@/utils/recordUtils"
+import { toast } from "sonner"
 
 export const Registros = ({ title }) => {
   const { user } = useAuth()
@@ -23,7 +24,14 @@ export const Registros = ({ title }) => {
   })
 
   const parsedParams = React.useMemo(() => {
-    return getParsedParams(pagination, appliedFilters, title, role)
+    const baseParams = getParsedParams(pagination, appliedFilters, title, role)
+
+    const isSuperAdmin = role === "super_admin"
+    const missingGroupId =
+      isSuperAdmin &&
+      !appliedFilters.find((filter) => filter.id === "group_id")?.value
+
+    return missingGroupId ? null : baseParams
   }, [pagination, appliedFilters, title, role])
 
   const {
@@ -31,9 +39,13 @@ export const Registros = ({ title }) => {
     status,
     isFetching,
     refetch,
-  } = useGetRecords(parsedParams, title, {
-    enabled: role !== "super_admin",
+  } = useGetRecords(parsedParams ?? {}, title, {
+    enabled: role !== "super_admin" || parsedParams !== null,
     refetchOnWindowFocus: false,
+  })
+
+  const { data: groups } = useGetGroups({
+    enabled: role === "super_admin",
   })
 
   useEffect(() => {
@@ -46,10 +58,6 @@ export const Registros = ({ title }) => {
       refetch()
     }
   }, [columnFilters])
-
-  const { data: groups } = useGetGroups({
-    enabled: role === "super_admin",
-  })
 
   const columns = React.useMemo(() => {
     const cols = getRegistrosColumns(role, title)
@@ -86,26 +94,33 @@ export const Registros = ({ title }) => {
     },
   })
 
+  const hasFetched =
+    status !== "loading" && status !== "error" && records?.data !== undefined
+
   const handleApplyFilters = async () => {
+    if (
+      role === "super_admin" &&
+      !columnFilters.find((filter) => filter.id === "group_id")?.value
+    ) {
+      toast.error("Primero selecciona un grupo para buscar")
+      return
+    }
+
     setPagination((prev) => ({
       ...prev,
       pageIndex: 0,
     }))
+
     setAppliedFilters(columnFilters)
     requestAnimationFrame(() => {
       refetch()
     })
   }
 
-  const hasFetched =
-    status !== "loading" && status !== "error" && records?.data !== undefined
-
   return (
     <PageLayout title={title}>
       <Card>
         <CardContent className="pt-4">
-          {console.log(status === "error")}
-
           <DataTable
             key={groups?.data?.length}
             table={table}

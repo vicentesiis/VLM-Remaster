@@ -1,5 +1,6 @@
 import React from "react"
 import { Routes, Route, Outlet } from "react-router-dom"
+import { Toaster } from "sonner"
 import Navbar from "@/components/customs/navbar/navbar"
 import { GenericRouteWrapper } from "@/routes/generic-route-wrapper"
 import RoleProtectedRoute from "@/routes/role-protected-route"
@@ -63,6 +64,7 @@ export const MainPage = () => {
           )}
         </Routes>
       </div>
+      <Toaster position="top-right" richColors closeButton />
     </div>
   )
 }

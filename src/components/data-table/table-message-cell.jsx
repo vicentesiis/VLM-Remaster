@@ -23,10 +23,10 @@ export function TableMessageCell({
 
   return (
     <TableRow>
-      <TableCell colSpan={colSpan} className="h-60 p-0">
+      <TableCell colSpan={colSpan} className="h-48 p-0">
         <div
           className={cn(
-            "flex h-full flex-col items-center justify-center gap-1 text-lg",
+            "flex h-full flex-col items-center justify-center gap-1 text-xl font-semibold",
             variantClasses[variant],
             className
           )}
