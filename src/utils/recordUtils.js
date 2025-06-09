@@ -1,10 +1,12 @@
+import { Roles } from "@/constants/appConstants"
+
 export const getParsedParams = (pagination, appliedFilters, title, role) => {
   const params = new URLSearchParams()
 
   params.set("skip", pagination.pageIndex * pagination.pageSize)
   params.set("limit", pagination.pageSize)
 
-  if (role !== "super_admin") {
+  if (role !== Roles.SUPER_ADMIN) {
     params.set("record_type", "prospect")
   }
 
@@ -19,7 +21,7 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
       }
     }
 
-    if (role === "super_admin") {
+    if (role === Roles.SUPER_ADMIN) {
       if (filter.id === "group_id") {
         params.append("group_id", filter.value)
       }

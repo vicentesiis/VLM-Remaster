@@ -8,6 +8,7 @@ import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
+import { Roles } from "@/constants/appConstants"
 import { useAuth } from "@/hooks"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useGetRecords } from "@/hooks/queries/useRecord"
@@ -18,7 +19,7 @@ export const Registros = ({ title }) => {
   const { user } = useAuth()
   const role = user?.data?.role
 
-  const isSuperAdmin = role === "super_admin"
+  const isSuperAdmin = role === Roles.SUPER_ADMIN
 
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])

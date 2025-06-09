@@ -181,7 +181,7 @@ export const getRegistrosColumns = (role) => {
     ]
   }
 
-  if (role === "agent") {
+  if (role === Roles.AGENT) {
     return [...baseColumns, ...agentColumns, ...commentsColumn, actionsColumn]
   }
 

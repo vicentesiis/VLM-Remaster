@@ -1,60 +1,62 @@
+import { Roles } from "@/constants/appConstants"
+
 export const routes = [
   {
     path: "/registros",
     routeKey: "registros",
-    allowedRoles: ["super_admin", "admin", "agent"],
+    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
     children: [
       {
         path: "registros",
         routeKey: "registros",
-        allowedRoles: ["super_admin", "admin", "agent"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
       },
       {
         path: "mis-registros",
         routeKey: "misRegistros",
-        allowedRoles: ["agent"],
+        allowedRoles: [Roles.AGENT],
       },
       {
         path: "clientes",
         routeKey: "clientes",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "clientes/:clientId",
         routeKey: "clientesDetail",
-        allowedRoles: ["super_admin", "admin", "agent"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
       },
       {
         path: "mis-clientes",
         routeKey: "misClientes",
-        allowedRoles: ["agent"],
+        allowedRoles: [Roles.AGENT],
       },
       {
         path: "tareas",
         routeKey: "tareas",
-        allowedRoles: ["super_admin", "admin", "agent"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
       },
     ],
   },
   {
     path: "/vacantes",
     routeKey: "vacantes",
-    allowedRoles: ["super_admin", "admin", "agent"],
+    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
   },
   {
     path: "/ventas",
     routeKey: "ventas",
-    allowedRoles: ["agent"],
+    allowedRoles: [Roles.AGENT],
   },
   {
     path: "/usuarios",
     routeKey: "usuariosInfo",
-    allowedRoles: ["agent"],
+    allowedRoles: [Roles.AGENT],
   },
   {
     path: "/reportes",
     routeKey: "reportes",
-    allowedRoles: ["super_admin", "admin"],
+    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
     children: [
       {
         path: "Ventas por Agente (Ventas)",
@@ -64,59 +66,59 @@ export const routes = [
       {
         path: "ventas-por-agente",
         routeKey: "reportesReporteVentasPorAgente",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "registros",
         routeKey: "reportesReporteDeRegistros",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "ventas-mensuales",
         routeKey: "reportesReporteVentalMensual",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "auditoria-registros",
         routeKey: "auditoriaDeRegistros",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "control-finalizados",
         routeKey: "controlDeFinalizados",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "ventas-globales",
         routeKey: "reportesReporteVentasGlobales",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "ventas-canal",
         routeKey: "ventasPorCanal",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "cortes-agente",
         routeKey: "cortesPorAgente",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
     ],
   },
   {
     path: "/ajustes",
     routeKey: "ajustes",
-    allowedRoles: ["super_admin", "admin"],
+    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
     children: [
       {
         path: "usuarios",
         routeKey: "ajustesUsuarios",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "cuentas",
         routeKey: "cuentas",
-        allowedRoles: ["super_admin", "admin"],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
     ],
   },

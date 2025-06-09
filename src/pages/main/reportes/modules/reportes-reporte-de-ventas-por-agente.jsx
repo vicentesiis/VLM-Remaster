@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { currentYear, currentMonth } from "@/constants/utils-contants"
 import reportesReporteVentasPorAgenteDetail from "@/data/sales-report-agent-table-data"
 import { useAuth } from "@/hooks/useAuth"
+import { Roles } from "@/constants/appConstants"
 
 export const ReportesReporteVentasPorAgente = () => {
   const [selectedSaleReport, setSelectedSaleReport] = useState(null)
@@ -56,7 +57,7 @@ export const ReportesReporteVentasPorAgente = () => {
 
     return (
       <>
-        {(currentRole === "super_admin" || currentRole === "admin") && (
+        {(currentRole === Roles.SUPER_ADMIN || currentRole === Roles.ADMIN) && (
           <GenericSelect
             value={selectedAgent}
             onChange={setSelectedAgent}

@@ -5,7 +5,7 @@ import { TableCell } from "@/components/ui/table"
 import { P } from "@/components/ui/typography"
 
 export const MainCell = ({ path, title, public_id }) => {
-  const fullPath = `/registros${path}/${public_id}`
+  const fullPath = `/registros/registros${path}/${public_id}`
   return (
     <TableCell className="py-0">
       <Link
