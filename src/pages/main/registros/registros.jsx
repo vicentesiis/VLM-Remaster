@@ -9,10 +9,10 @@ import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
 import { useAuth } from "@/hooks"
-import { useGetGroups } from "@/hooks/queries/useGroup"
+import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useGetRecords } from "@/hooks/queries/useRecord"
+import { extractList } from "@/utils/extractList"
 import { getParsedParams } from "@/utils/recordUtils"
-import { useGetChannels, useGetPrograms } from "@/hooks/queries/useCodex"
 
 export const Registros = ({ title }) => {
   const { user } = useAuth()
@@ -33,9 +33,7 @@ export const Registros = ({ title }) => {
     return isMissingGroupId ? null : baseParams
   }, [pagination, appliedFilters, title, role, isSuperAdmin])
 
-  const { data: groups } = useGetGroups({ enabled: isSuperAdmin })
-  const { data: channels } = useGetChannels({ enabled: isSuperAdmin })
-  const { data: programs } = useGetPrograms({ enabled: isSuperAdmin })
+  const { groups, channels, programs } = useCodexData(role, { enabled: true })
 
   const {
     data: records,
@@ -62,8 +60,12 @@ export const Registros = ({ title }) => {
     const cols = getRegistrosColumns(role, title)
 
     if (isSuperAdmin) {
-      if (groups?.data?.length) {
-        const groupOptions = groups.data.map(({ id, name }) => ({
+      const groupList = extractList(groups)
+      const channelList = extractList(channels)
+      const programList = extractList(programs)
+
+      if (groupList.length) {
+        const groupOptions = groupList.map(({ id, name }) => ({
           label: name,
           value: id,
         }))
@@ -71,26 +73,22 @@ export const Registros = ({ title }) => {
         if (groupColumn?.meta) groupColumn.meta.options = groupOptions
       }
 
-      if (channels?.data?.length) {
-        const channelOptions = channels.data.map((channel) => ({
+      if (channelList.length) {
+        const channelOptions = channelList.map((channel) => ({
           label: channel,
           value: channel,
         }))
-
         const channelColumn = cols.find((col) => col.accessorKey === "channel")
         if (channelColumn?.meta) channelColumn.meta.options = channelOptions
       }
 
-      if (programs?.data?.length) {
-        const programOptions = programs.data.map((program) => ({
+      if (programList.length) {
+        const programOptions = programList.map((program) => ({
           label: program,
           value: program,
         }))
-
         const programColumn = cols.find((col) => col.accessorKey === "program")
-        if (programColumn?.meta) {
-          programColumn.meta.options = programOptions
-        }
+        if (programColumn?.meta) programColumn.meta.options = programOptions
       }
     }
 
@@ -128,18 +126,11 @@ export const Registros = ({ title }) => {
     requestAnimationFrame(() => refetch())
   }, [columnFilters, refetch, isSuperAdmin])
 
-  const isCodexReady =
-    !isSuperAdmin ||
-    (!!groups?.data?.length &&
-      !!channels?.data?.length &&
-      !!programs?.data?.length)
-
   return (
     <PageLayout title={title}>
       <Card>
         <CardContent className="pt-4">
           <DataTable
-            key={isCodexReady ? "codex-ready" : "loading-codex"}
             table={table}
             isLoading={status === "loading" || isFetching}
             isError={status === "error"}

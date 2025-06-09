@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import React, { createContext, useState, useEffect } from "react"
 import { FullScreenLoader } from "@/components/customs/full-screen-loader"
+import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useCurrentUser } from "@/hooks/queries/useUser"
 import { loginUser, logout as logoutUser } from "@/services/authService"
 
@@ -15,6 +16,12 @@ export const AuthProvider = ({ children }) => {
     isError,
     isLoading: isUserLoading,
   } = useCurrentUser({ enabled: !!token })
+
+  const currentRole = user?.data?.role || null
+
+  const codex = useCodexData(currentRole, { enabled: !!currentRole })
+
+  const loading = isUserLoading || codex.isLoading
 
   const loginMutation = useMutation({
     mutationFn: loginUser,
@@ -39,13 +46,6 @@ export const AuthProvider = ({ children }) => {
       queryClient.clear()
     }
   }, [token, queryClient])
-
-  const currentRole = user?.data?.role || null
-  const loading = isUserLoading
-
-  if (loading) {
-    return <FullScreenLoader />
-  }
 
   return (
     <AuthContext.Provider

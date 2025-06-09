@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/form"
 import { ButtonLoading } from "@/components/customs/button-loading"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import FullScreenLoader from "@/components/customs/full-screen-loader"
 
 const loginSchema = z.object({
   user: z.string().min(1, "El usuario es obligatorio"),
@@ -27,7 +28,7 @@ const loginSchema = z.object({
 })
 
 export const Login = () => {
-  const { token, loginMutation } = useAuth()
+  const { token, loading, loginMutation } = useAuth()
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -61,7 +62,15 @@ export const Login = () => {
     userInputRef.current?.focus()
   }, [])
 
-  if (token) return <Navigate to="/registros" replace />
+  if (token && loading) {
+    return <FullScreenLoader />
+  }
+
+  if (token && !loading) {
+    console.log(token)
+    console.log(loading)
+    return <Navigate to="/registros" replace />
+  }
 
   const renderLoginCard = () => (
     <Card
@@ -158,7 +167,7 @@ export const Login = () => {
       {/* Logo */}
       <div className="absolute z-10 mt-8 flex items-center sm:ml-16 sm:mt-16">
         <img src={logo} alt="Proyecto VLM" width={60} />
-        <H3 className="text-xl md:text-3xl 3xl:text-4xl font-normal">
+        <H3 className="3xl:text-4xl text-xl font-normal md:text-3xl">
           Sistema de Administración de Proyecto VLM
         </H3>
       </div>

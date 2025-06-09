@@ -53,11 +53,11 @@ export const NavigationSheet = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="flex">
+        <Button size="icon" variant="outline">
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col">
+      <SheetContent className="flex flex-col dark:text-white">
         <div className="absolute right-4 top-4">
           <UserAvatarDropdown />
         </div>
@@ -67,7 +67,7 @@ export const NavigationSheet = () => {
         </SheetHeader>
 
         {/* Scrollable Content */}
-        <div className="flex-1 space-y-3 overflow-y-auto text-base">
+        <div className="flex-1 space-y-3 overflow-y-auto">
           {/* Plain Items */}
           <SearchWithSelect />
           {filteredMenuItems.map((item) => (

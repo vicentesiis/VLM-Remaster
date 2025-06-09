@@ -8,13 +8,13 @@ import routes from "@/routes/routes"
 
 export const MainPage = () => {
   return (
-    <div className="flex h-screen flex-col sm:pb-0">
+    <div className="flex h-screen flex-col">
       {/* Sticky navbar */}
       <div className="sticky top-0 z-50 border-b">
         <Navbar />
       </div>
 
-      <div className="flex-grow overflow-auto bg-gray-100 dark:bg-gray-950 sm:py-4">
+      <div className="flex-grow overflow-auto bg-gray-100 dark:bg-gray-950">
         <Routes>
           <Route
             path="/"
