@@ -1,5 +1,5 @@
 import React from "react"
-import { Routes, Route, Outlet } from "react-router-dom"
+import { Routes, Route, Outlet, Navigate } from "react-router-dom"
 import { Toaster } from "sonner"
 import Navbar from "@/components/customs/navbar/navbar"
 import { GenericRouteWrapper } from "@/routes/generic-route-wrapper"
@@ -16,6 +16,10 @@ export const MainPage = () => {
 
       <div className="flex-grow overflow-auto bg-gray-100 dark:bg-gray-950 sm:py-4">
         <Routes>
+          <Route
+            path="/"
+            element={<Navigate to="/registros/registros" replace />}
+          />
           {routes.map(
             ({ path, routeKey, props = {}, children, allowedRoles }) => (
               <Route key={path} path={path} element={<Outlet />}>
