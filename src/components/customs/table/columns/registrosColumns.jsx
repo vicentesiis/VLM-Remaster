@@ -1,8 +1,9 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
-import ActionDropdown from "../../action-dropdown"
+import ActionDropdown from "@/components/customs/action-dropdown"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { StatusBadgeCell } from "@/components/customs/table/cells/status-badge-cell"
+import { Roles, Statuses } from "@/constants/appConstants"
 
 const columnHelper = createColumnHelper()
 
@@ -14,7 +15,7 @@ const formatDate = (isoString) => {
   return `${day}/${month}/${year}`
 }
 
-export const getRegistrosColumns = (role, title) => {
+export const getRegistrosColumns = (role) => {
   const baseColumns = [
     columnHelper.accessor("name", {
       header: "Nombre",
@@ -35,22 +36,22 @@ export const getRegistrosColumns = (role, title) => {
         variant: "multiSelect",
         label: "Estatus",
         options: [
-          { label: "Creado", value: "created" },
-          { label: "Asignado", value: "assigned" },
-          { label: "Pendiente Info", value: "pending_info" },
-          { label: "Generar Trabajos", value: "generate_jobs" },
-          { label: "Trabajos Generados", value: "jobs_generated" },
-          { label: "Regenerar Trabajos", value: "regenerate_jobs" },
-          { label: "Generar Contrato", value: "generate_contract" },
-          { label: "Contrato Generado", value: "contract_generated" },
-          { label: "Corregir Contrato", value: "fix_contract" },
-          { label: "Pendiente Aprobación", value: "pending_approval" },
-          { label: "Aprobado", value: "approved" },
-          { label: "Seleccionar Fecha", value: "selecting_leave_date" },
-          { label: "Fecha Seleccionada", value: "leave_date_selected" },
-          { label: "Fecha Confirmada", value: "leave_date_confirmed" },
-          { label: "Finalizado", value: "finalized" },
-          { label: "Inactivo", value: "inactive" },
+          { label: "Creado", value: Statuses.CREATED },
+          { label: "Asignado", value: Statuses.ASSIGNED },
+          { label: "Pendiente Info", value: Statuses.PENDING_INFO },
+          { label: "Generar Trabajos", value: Statuses.GENERATE_JOBS },
+          { label: "Trabajos Generados", value: Statuses.JOBS_GENERATED },
+          { label: "Regenerar Trabajos", value: Statuses.REGENERATE_JOBS },
+          { label: "Generar Contrato", value: Statuses.GENERATE_CONTRACT },
+          { label: "Contrato Generado", value: Statuses.CONTRACT_GENERATED },
+          { label: "Corregir Contrato", value: Statuses.FIX_CONTRACT },
+          { label: "Pendiente Aprobación", value: Statuses.PENDING_APPROVAL },
+          { label: "Aprobado", value: Statuses.APPROVED },
+          { label: "Seleccionar Fecha", value: Statuses.SELECTING_LEAVE_DATE },
+          { label: "Fecha Seleccionada", value: Statuses.LEAVE_DATE_SELECTED },
+          { label: "Fecha Confirmada", value: Statuses.LEAVE_DATE_CONFIRMED },
+          { label: "Finalizado", value: Statuses.FINALIZED },
+          { label: "Inactivo", value: Statuses.INACTIVE },
         ],
       },
     }),
@@ -145,7 +146,7 @@ export const getRegistrosColumns = (role, title) => {
     },
   })
 
-  const isAdmin = role === "admin" || role === "super_admin"
+  const isAdmin = role === Roles.ADMIN || role === Roles.SUPER_ADMIN
   // const isMyRecords = title.toLowerCase().startsWith("mis")
 
   const groupFilterColumn = columnHelper.accessor("group_id", {

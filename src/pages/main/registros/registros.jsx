@@ -1,5 +1,7 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo, useCallback } from "react"
+import { toast } from "sonner"
+
 import PageLayout from "@/components/customs/layout/page-layout"
 import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { DataTable } from "@/components/data-table/data-table"
@@ -10,29 +12,27 @@ import { useAuth } from "@/hooks"
 import { useGetGroups } from "@/hooks/queries/useGroup"
 import { useGetRecords } from "@/hooks/queries/useRecord"
 import { getParsedParams } from "@/utils/recordUtils"
-import { toast } from "sonner"
 
 export const Registros = ({ title }) => {
   const { user } = useAuth()
   const role = user?.data?.role
 
+  const isSuperAdmin = role === "super_admin"
+
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 10,
-  })
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
 
-  const parsedParams = React.useMemo(() => {
+  const parsedParams = useMemo(() => {
     const baseParams = getParsedParams(pagination, appliedFilters, title, role)
 
-    const isSuperAdmin = role === "super_admin"
-    const missingGroupId =
-      isSuperAdmin &&
-      !appliedFilters.find((filter) => filter.id === "group_id")?.value
+    const isMissingGroupId =
+      isSuperAdmin && !appliedFilters.find((f) => f.id === "group_id")?.value
 
-    return missingGroupId ? null : baseParams
-  }, [pagination, appliedFilters, title, role])
+    return isMissingGroupId ? null : baseParams
+  }, [pagination, appliedFilters, title, role, isSuperAdmin])
+
+  const { data: groups } = useGetGroups({ enabled: isSuperAdmin })
 
   const {
     data: records,
@@ -40,82 +40,67 @@ export const Registros = ({ title }) => {
     isFetching,
     refetch,
   } = useGetRecords(parsedParams ?? {}, title, {
-    enabled: role !== "super_admin" || parsedParams !== null,
+    enabled: !isSuperAdmin || parsedParams !== null,
     refetchOnWindowFocus: false,
   })
 
-  const { data: groups } = useGetGroups({
-    enabled: role === "super_admin",
-  })
-
+  // Reset applied filters when column filters are cleared
   useEffect(() => {
-    const filtersWereCleared =
-      columnFilters.length === 0 && appliedFilters.length > 0
-
-    if (filtersWereCleared) {
+    const cleared = columnFilters.length === 0 && appliedFilters.length > 0
+    if (cleared) {
       setAppliedFilters([])
       setPagination((prev) => ({ ...prev, pageIndex: 0 }))
       refetch()
     }
-  }, [columnFilters])
+  }, [columnFilters, appliedFilters, refetch])
 
-  const columns = React.useMemo(() => {
+  // Memoized table columns
+  const columns = useMemo(() => {
     const cols = getRegistrosColumns(role, title)
 
-    if (role === "super_admin" && groups?.data?.length) {
-      const groupOptions = groups.data?.map((group) => ({
-        label: group.name,
-        value: group.id,
+    if (isSuperAdmin && groups?.data?.length) {
+      const groupOptions = groups.data.map(({ id, name }) => ({
+        label: name,
+        value: id,
       }))
+
       const groupColumn = cols.find((col) => col.accessorKey === "group_id")
-      if (groupColumn?.meta) {
-        groupColumn.meta.options = groupOptions
-      }
+      if (groupColumn?.meta) groupColumn.meta.options = groupOptions
     }
+
     return cols
-  }, [role, title, groups])
+  }, [role, title, groups, isSuperAdmin])
 
   const table = useReactTable({
     data: records?.data || [],
-    columns: columns,
-    state: {
-      columnFilters,
-      pagination,
-    },
+    columns,
+    state: { columnFilters, pagination },
     onPaginationChange: setPagination,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
     pageCount: Math.ceil((records?.total || 0) / pagination.pageSize),
     initialState: {
-      columnVisibility: {
-        group_id: false,
-      },
+      columnVisibility: { group_id: false },
     },
   })
 
   const hasFetched =
-    status !== "loading" && status !== "error" && records?.data !== undefined
+    status !== "loading" && status !== "error" && !!records?.data
 
-  const handleApplyFilters = async () => {
+  const handleApplyFilters = useCallback(() => {
     if (
-      role === "super_admin" &&
-      !columnFilters.find((filter) => filter.id === "group_id")?.value
+      isSuperAdmin &&
+      !columnFilters.find((f) => f.id === "group_id")?.value
     ) {
       toast.error("Primero selecciona un grupo para buscar")
       return
     }
 
-    setPagination((prev) => ({
-      ...prev,
-      pageIndex: 0,
-    }))
-
+    setPagination((prev) => ({ ...prev, pageIndex: 0 }))
     setAppliedFilters(columnFilters)
-    requestAnimationFrame(() => {
-      refetch()
-    })
-  }
+    requestAnimationFrame(() => refetch())
+  }, [columnFilters, refetch, isSuperAdmin])
 
   return (
     <PageLayout title={title}>
@@ -129,7 +114,7 @@ export const Registros = ({ title }) => {
             hasFetched={hasFetched}
           >
             <DataTableToolbar table={table}>
-              <Button size="sm" variant="default" onClick={handleApplyFilters}>
+              <Button size="sm" onClick={handleApplyFilters}>
                 Buscar
               </Button>
             </DataTableToolbar>
