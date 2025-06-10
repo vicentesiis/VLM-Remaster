@@ -1,5 +1,6 @@
 import React from "react"
 import { Controller } from "react-hook-form"
+import { SimpleSelect } from "./simple-select"
 import { cn } from "@/lib/utils"
 import { Combobox } from "@/components/ui/combobox"
 import {
@@ -9,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { AutoComplete } from "../ui/auto-complete"
 
 export const ComboboxField = ({
   name,
@@ -28,13 +30,11 @@ export const ComboboxField = ({
         <FormItem className={cn("flex flex-col", className)}>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Combobox
+            <AutoComplete
               options={options}
               value={field.value}
               onChange={field.onChange}
               placeholder={placeholder}
-              disabled={disabled}
-              widthClass="w-full"
             />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
