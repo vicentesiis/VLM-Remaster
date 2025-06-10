@@ -1,15 +1,14 @@
-import React, { useEffect, useRef } from "react"
-import { Navigate } from "react-router-dom"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import React, { useEffect, useRef } from "react"
+import { useForm } from "react-hook-form"
+import { Navigate } from "react-router-dom"
 import { z } from "zod"
 
 import logo from "@/assets/logo.png"
+import { ButtonLoading } from "@/components/customs/button-loading"
+import FullScreenLoader from "@/components/customs/full-screen-loader"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { H2, Lead, H3 } from "@/components/ui/typography"
-import { useAuth } from "@/hooks/useAuth"
-import "@/styles/LoginAnimationBackground.css"
 import {
   Form,
   FormField,
@@ -18,9 +17,10 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form"
-import { ButtonLoading } from "@/components/customs/button-loading"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import FullScreenLoader from "@/components/customs/full-screen-loader"
+import { Input } from "@/components/ui/input"
+import { H2, Lead, H3 } from "@/components/ui/typography"
+import { useAuth } from "@/hooks/useAuth"
+import "@/styles/LoginAnimationBackground.css"
 
 const loginSchema = z.object({
   user: z.string().min(1, "El usuario es obligatorio"),
@@ -67,8 +67,6 @@ export const Login = () => {
   }
 
   if (token && !loading) {
-    console.log(token)
-    console.log(loading)
     return <Navigate to="/registros" replace />
   }
 

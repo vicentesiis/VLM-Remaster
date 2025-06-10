@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import React, { createContext, useState, useEffect } from "react"
+import FullScreenLoader from "@/components/customs/full-screen-loader"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useCurrentUser } from "@/hooks/queries/useUser"
 import { loginUser, logout as logoutUser } from "@/services/authService"
-import FullScreenLoader from "@/components/customs/full-screen-loader"
 
 export const AuthContext = createContext(null)
 

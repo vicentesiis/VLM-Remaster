@@ -5,6 +5,7 @@ import { X } from "lucide-react"
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { Button } from "."
 
 const Dialog = DialogPrimitive.Root
 
@@ -33,16 +34,16 @@ const DialogContent = React.forwardRef(
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+          "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 pt-0 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
           className
         )}
         {...props}
       >
         {children}
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+        {/* <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
           <X className="h-6 w-6" />
           <span className="sr-only">Close</span>
-        </DialogPrimitive.Close>
+        </DialogPrimitive.Close> */}
       </DialogPrimitive.Content>
     </DialogPortal>
   )
@@ -92,6 +93,40 @@ const DialogDescription = React.forwardRef(({ className, ...props }, ref) => (
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 
+const DialogHeaderCustom = ({ icon: Icon, title, className, ...props }) => {
+  return (
+    <div
+      className={cn(
+        "sticky top-0 z-10 -mx-6 flex h-16 items-center gap-2 border-b bg-white px-6",
+        className
+      )}
+      {...props}
+    >
+      {Icon && (
+        <div className="flex items-center gap-2 pr-1">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white">
+            <Icon className="h-5 w-5" />
+          </div>
+          <div className="h-6 w-0.5 bg-border" />
+        </div>
+      )}
+
+      <div className="flex-1">
+        <h3 className="text-xl font-semibold leading-tight tracking-tight">
+          {title}
+        </h3>
+      </div>
+
+      <DialogClose asChild>
+        <Button variant="ghost" size="bigIcon" className="rounded-full">
+          <X className="h-8 w-8" />
+        </Button>
+      </DialogClose>
+    </div>
+  )
+}
+DialogHeaderCustom.displayName = "DialogHeaderCustom"
+
 export {
   Dialog,
   DialogPortal,
@@ -103,4 +138,5 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
+  DialogHeaderCustom,
 }
