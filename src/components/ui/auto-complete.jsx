@@ -1,5 +1,5 @@
 import { Command as CommandPrimitive } from "cmdk"
-import { Check } from "lucide-react"
+import { Check, X } from "lucide-react"
 import React, { useState, useRef, useCallback } from "react"
 
 import { Skeleton } from "@/components/ui/skeleton"
@@ -56,7 +56,7 @@ export const AutoComplete = ({
 
   const handleBlur = useCallback(() => {
     setOpen(false)
-    setInputValue(selected?.label)
+    setInputValue(selected?.label || "")
   }, [selected])
 
   const handleSelectOption = useCallback(
@@ -72,9 +72,17 @@ export const AutoComplete = ({
     [onValueChange]
   )
 
+  // Clear selection handler
+  const handleClear = () => {
+    setSelected(undefined)
+    setInputValue("")
+    onValueChange?.(undefined)
+    inputRef.current?.focus()
+  }
+
   return (
     <CommandPrimitive onKeyDown={handleKeyDown}>
-      <div className="border border-input rounded-md">
+      <div className="relative rounded-md border border-input">
         <CommandInput
           ref={inputRef}
           value={inputValue}
@@ -83,7 +91,19 @@ export const AutoComplete = ({
           onFocus={() => setOpen(true)}
           placeholder={placeholder}
           disabled={disabled}
+          className="pr-8" // space for clear button
         />
+        {/* Clear button: show only if selected & not disabled */}
+        {selected && !disabled ? (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 hover:bg-gray-200"
+            aria-label="Clear selection"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        ) : null}
       </div>
       <div className="relative mt-1">
         <div

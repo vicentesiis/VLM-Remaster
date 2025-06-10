@@ -3,7 +3,7 @@ import React from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
 import DatePickerField from "../date-range-picker/date-picker-field"
-import FormFieldTooltip from "../form-field-tooltip"
+import { AutoCompleteField } from "@/components/customs/auto-complete-field"
 import SectionDivider from "@/components/customs/section-divider"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,11 +15,10 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useAuth } from "@/hooks"
+import { useCodexData } from "@/hooks/queries/useCodexData"
 import { extractList } from "@/utils/utils"
 import { toTitleCase } from "@/utils/utils"
-import { ComboboxField } from "../combobox-field"
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "El nombre es obligatorio" }),
@@ -56,7 +55,7 @@ export const ClientForm = () => {
       email: "",
       phone: "",
       date_of_birth: null,
-      nationality: "",
+      nationality: "méxico",
       state: "",
       curp: "",
       passport: "",
@@ -109,7 +108,7 @@ export const ClientForm = () => {
     <FormProvider {...form}>
       {/* Client Information Section */}
       <div className="mb-6">
-        <SectionDivider title="Datos del Cliente" />
+        <SectionDivider title="Datos del Registro" />
       </div>
 
       <Form {...form}>
@@ -119,14 +118,12 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="name"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nombre Completo</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
-                    <FormControl>
-                      <Input placeholder="Nombre Completo" {...field} />
-                    </FormControl>
-                  </FormFieldTooltip>
+                  <FormControl>
+                    <Input placeholder="Nombre Completo" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -136,22 +133,20 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="date_of_birth"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Fecha de Nacimiento</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <DatePickerField
-                          value={field.value}
-                          onChange={field.onChange}
-                          showYearDropdown
-                          scrollableYearDropdown
-                          dateFormat="dd/MM/yyyy"
-                        />
-                      </FormControl>
-                    </div>
-                  </FormFieldTooltip>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <DatePickerField
+                        value={field.value}
+                        onChange={field.onChange}
+                        showYearDropdown
+                        scrollableYearDropdown
+                        dateFormat="dd/MM/yyyy"
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -161,14 +156,12 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="email"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
-                    <FormControl>
-                      <Input placeholder="Ingrese su Email" {...field} />
-                    </FormControl>
-                  </FormFieldTooltip>
+                  <FormControl>
+                    <Input placeholder="Ingrese su Email" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -178,32 +171,30 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="phone"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Teléfono</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
-                    <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="Teléfono"
-                        maxLength={10}
-                        {...field}
-                        onKeyDown={(e) => {
-                          const isNumber = /^[0-9]$/.test(e.key)
-                          const allowed = [
-                            "Backspace",
-                            "Tab",
-                            "ArrowLeft",
-                            "ArrowRight",
-                            "Delete",
-                          ]
-                          if (!isNumber && !allowed.includes(e.key)) {
-                            e.preventDefault()
-                          }
-                        }}
-                      />
-                    </FormControl>
-                  </FormFieldTooltip>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Teléfono"
+                      maxLength={10}
+                      {...field}
+                      onKeyDown={(e) => {
+                        const isNumber = /^[0-9]$/.test(e.key)
+                        const allowed = [
+                          "Backspace",
+                          "Tab",
+                          "ArrowLeft",
+                          "ArrowRight",
+                          "Delete",
+                        ]
+                        if (!isNumber && !allowed.includes(e.key)) {
+                          e.preventDefault()
+                        }
+                      }}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -212,7 +203,7 @@ export const ClientForm = () => {
               control={form.control}
               name="nationality"
               render={() => (
-                <ComboboxField
+                <AutoCompleteField
                   name="nationality"
                   label="Nacionalidad"
                   control={form.control}
@@ -226,7 +217,7 @@ export const ClientForm = () => {
               control={form.control}
               name="state"
               render={() => (
-                <ComboboxField
+                <AutoCompleteField
                   name="state"
                   label="Estado"
                   control={form.control}
@@ -239,14 +230,12 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="passport"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Pasaporte</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
-                    <FormControl>
-                      <Input placeholder="Pasaporte" {...field} />
-                    </FormControl>
-                  </FormFieldTooltip>
+                  <FormControl>
+                    <Input placeholder="Pasaporte" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -256,14 +245,12 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="curp"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>CURP</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
-                    <FormControl>
-                      <Input placeholder="CURP" {...field} />
-                    </FormControl>
-                  </FormFieldTooltip>
+                  <FormControl>
+                    <Input placeholder="CURP" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -279,7 +266,7 @@ export const ClientForm = () => {
               control={form.control}
               name="program"
               render={() => (
-                <ComboboxField
+                <AutoCompleteField
                   name="program"
                   label="Programa"
                   control={form.control}
@@ -292,14 +279,12 @@ export const ClientForm = () => {
             <FormField
               control={form.control}
               name="job"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>ID de la Vacante</FormLabel>
-                  <FormFieldTooltip fieldState={fieldState} position="bottom">
-                    <FormControl>
-                      <Input placeholder="ID de la Vacante" {...field} />
-                    </FormControl>
-                  </FormFieldTooltip>
+                  <FormControl>
+                    <Input placeholder="ID de la Vacante" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -310,9 +295,9 @@ export const ClientForm = () => {
               control={form.control}
               name="channel"
               render={() => (
-                <ComboboxField
+                <AutoCompleteField
                   name="channel"
-                  label="Canal"
+                  label="Canal de Captación"
                   control={form.control}
                   options={channelOptions}
                 />
