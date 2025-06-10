@@ -1,7 +1,7 @@
 import { UserPlusIcon } from "lucide-react"
 import React from "react"
 import { ClientForm } from "../client-detail"
-import { Button } from "@/components/ui"
+import { Button, Separator } from "@/components/ui"
 import {
   Dialog,
   DialogTrigger,
@@ -24,8 +24,8 @@ const AddRegistroDialog = ({ trigger }) => {
         )}
       </DialogTrigger>
       <DialogContent className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-950 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl">
-        <DialogHeader>
-          <DialogTitle className="text-primary">Nuevo Registro</DialogTitle>
+        <DialogHeader className={"-my-2"}>
+          <DialogTitle>Nuevo Registro</DialogTitle>
         </DialogHeader>
         <div>
           <ClientForm />

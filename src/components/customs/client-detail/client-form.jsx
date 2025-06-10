@@ -4,9 +4,20 @@ import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
 import { SectionForm } from "../section-form"
 import { Form } from "@/components/ui/form"
-import { useCodexData } from "@/hooks/queries/useCodexData"
-import { extractAndMapToOptions } from "@/utils/utils"
-
+import {
+  nameField,
+  emailField,
+  phoneField,
+  dateOfBirthField,
+  nationalityField,
+  stateField,
+  passportField,
+  curpField,
+  jobField,
+  programField,
+  channelField,
+  commentsField,
+} from "@/forms/fields"
 import {
   nameSchema,
   emailSchema,
@@ -20,7 +31,9 @@ import {
   programSchema,
   channelSchema,
   commentsSchema,
-} from "@/validation/validators"
+} from "@/forms/validators"
+import { useCodexData } from "@/hooks/queries/useCodexData"
+import { extractAndMapToOptions } from "@/utils/utils"
 
 export const formSchema = z.object({
   name: nameSchema,
@@ -69,61 +82,21 @@ export const ClientForm = () => {
   const channelOptions = extractAndMapToOptions(channels)
 
   const recordDataFields = [
-    { name: "name", label: "Nombre Completo", type: "input" },
-    { name: "email", label: "Email", type: "input" },
-    {
-      name: "phone",
-      label: "Teléfono",
-      type: "input",
-      maxLength: 10,
-      numericOnly: true,
-    },
-    {
-      name: "date_of_birth",
-      label: "Fecha de Nacimiento",
-      type: "date",
-    },
-    {
-      name: "nationality",
-      label: "Nacionalidad",
-      type: "autocomplete",
-      options: nacionalidadOptions,
-    },
-    {
-      name: "state",
-      label: "Estado",
-      type: "autocomplete",
-      options: estadosOptions,
-    },
-    { name: "passport", label: "Pasaporte", type: "input" },
-    { name: "curp", label: "CURP", type: "input" },
+    nameField(),
+    emailField(),
+    phoneField(),
+    dateOfBirthField(),
+    nationalityField(nacionalidadOptions),
+    stateField(estadosOptions),
+    passportField(),
+    curpField(),
   ]
 
   const vacantInfoFields = [
-    {
-      name: "job",
-      label: "ID de la Vacante",
-      type: "input",
-      placeholder: "ID de la Vacante",
-    },
-    {
-      name: "program",
-      label: "Programa",
-      type: "autocomplete",
-      options: programaOptions,
-    },
-    {
-      name: "channel",
-      label: "Canal de Captación",
-      type: "autocomplete",
-      options: channelOptions,
-    },
-    {
-      name: "comments",
-      label: "Comentarios",
-      type: "textarea",
-      placeholder: "Escribe aquí tus observaciones...",
-    },
+    jobField(),
+    programField(programaOptions),
+    channelField(channelOptions),
+    commentsField(),
   ]
 
   return (
