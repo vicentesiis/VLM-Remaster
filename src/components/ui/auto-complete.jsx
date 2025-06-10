@@ -10,6 +10,7 @@ import {
   CommandList,
   CommandInput,
 } from "@/components/ui/command"
+import { Button } from "."
 
 export const AutoComplete = ({
   options,
@@ -82,7 +83,7 @@ export const AutoComplete = ({
 
   return (
     <CommandPrimitive onKeyDown={handleKeyDown}>
-      <div className="relative rounded-md border border-input">
+      <div className="relative h-9 rounded-md border border-input">
         <CommandInput
           ref={inputRef}
           value={inputValue}
@@ -91,18 +92,18 @@ export const AutoComplete = ({
           onFocus={() => setOpen(true)}
           placeholder={placeholder}
           disabled={disabled}
-          className="pr-8" // space for clear button
         />
         {/* Clear button: show only if selected & not disabled */}
         {selected && !disabled ? (
-          <button
-            type="button"
+          <Button
+            size="mini"
+            variant="ghost"
             onClick={handleClear}
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 hover:bg-gray-200"
+            className="absolute right-3 top-1/2 -translate-y-1/2"
             aria-label="Clear selection"
           >
-            <X className="h-4 w-4" />
-          </button>
+            <X />
+          </Button>
         ) : null}
       </div>
       <div className="relative mt-1">

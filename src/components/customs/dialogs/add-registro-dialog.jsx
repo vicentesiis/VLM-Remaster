@@ -17,7 +17,6 @@ const AddRegistroDialog = ({ trigger }) => {
 
   const handleSubmit = (data) => {
     console.log("Datos recibidos:", data)
-    // Aquí haces el POST o lógica con los datos
   }
 
   return (
