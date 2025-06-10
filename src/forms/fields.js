@@ -25,7 +25,7 @@ export const dateOfBirthField = () => ({
   name: "date_of_birth",
   label: "Fecha de Nacimiento",
   type: "date",
-  placeholder: "Selecciona tu fecha de nacimiento",
+  placeholder: "Selecciona la fecha de nacimiento",
 })
 
 export const nationalityField = (options) => ({
@@ -33,7 +33,7 @@ export const nationalityField = (options) => ({
   label: "Nacionalidad",
   type: "autocomplete",
   options,
-  placeholder: "Selecciona tu nacionalidad",
+  placeholder: "Selecciona una nacionalidad",
 })
 
 export const stateField = (options) => ({
@@ -41,21 +41,21 @@ export const stateField = (options) => ({
   label: "Estado",
   type: "autocomplete",
   options,
-  placeholder: "Selecciona tu estado",
+  placeholder: "Selecciona un estado",
 })
 
 export const passportField = () => ({
   name: "passport",
   label: "Pasaporte",
   type: "input",
-  placeholder: "Número de pasaporte",
+  placeholder: "Ej. G20693408",
 })
 
 export const curpField = () => ({
   name: "curp",
   label: "CURP",
   type: "input",
-  placeholder: "Clave Única de Registro de Población",
+  placeholder: "Ej. RASC050729MMCSHNA2",
 })
 
 export const jobField = () => ({
@@ -70,7 +70,7 @@ export const programField = (options) => ({
   label: "Programa",
   type: "autocomplete",
   options,
-  placeholder: "Selecciona un programa",
+  placeholder: "Selecciona el programa",
 })
 
 export const channelField = (options) => ({
