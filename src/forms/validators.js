@@ -12,7 +12,8 @@ export const phoneSchema = z
 
 export const dateOfBirthSchema = z.preprocess(
   (val) => (val === "" || val === null ? undefined : val),
-  z.date({ required_error: "La fecha de nacimiento es obligatoria" })
+  z.string().optional()
+  // z.date({ required_error: "La fecha de nacimiento es obligatoria" })
 )
 
 export const nationalitySchema = z

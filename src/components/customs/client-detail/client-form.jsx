@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import React from "react"
+import React, { forwardRef, useImperativeHandle } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
 import { SectionForm } from "../section-form"
@@ -50,7 +50,7 @@ export const formSchema = z.object({
   comments: commentsSchema,
 })
 
-export const ClientForm = () => {
+const ClientForm = forwardRef(({ onSubmit }, ref) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,11 +69,15 @@ export const ClientForm = () => {
     },
   })
 
-  const onSubmit = (data) => {
-    console.log(data)
-  }
+  const submitHandler = form.handleSubmit((data) => {
+    onSubmit?.(data)
+  })
 
-  // GET Codex Data
+  // Expose the submit method to parent
+  useImperativeHandle(ref, () => ({
+    submit: () => submitHandler(),
+  }))
+
   const { nationalities, mexicoStates, programs, channels } = useCodexData()
 
   const nacionalidadOptions = extractAndMapToOptions(nationalities)
@@ -102,7 +106,7 @@ export const ClientForm = () => {
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={submitHandler}>
           <div className="space-y-4">
             <SectionForm
               title="Datos del Registro"
@@ -119,6 +123,8 @@ export const ClientForm = () => {
       </Form>
     </FormProvider>
   )
-}
+})
+
+ClientForm.displayName = "ClientForm"
 
 export default ClientForm

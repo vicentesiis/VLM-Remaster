@@ -1,7 +1,7 @@
 import { UserPlusIcon } from "lucide-react"
-import React from "react"
-import { ClientForm } from "../client-detail"
-import { Button, Separator } from "@/components/ui"
+import React, { useRef } from "react"
+import ClientForm from "../client-detail/client-form"
+import { Button } from "@/components/ui"
 import {
   Dialog,
   DialogTrigger,
@@ -13,6 +13,13 @@ import {
 } from "@/components/ui/dialog"
 
 const AddRegistroDialog = ({ trigger }) => {
+  const formRef = useRef()
+
+  const handleSubmit = (data) => {
+    console.log("Datos recibidos:", data)
+    // Aquí haces el POST o lógica con los datos
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -24,17 +31,17 @@ const AddRegistroDialog = ({ trigger }) => {
         )}
       </DialogTrigger>
       <DialogContent className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-950 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl">
-        <DialogHeader className={"-my-2"}>
+        <DialogHeader className="-my-2">
           <DialogTitle>Nuevo Registro</DialogTitle>
         </DialogHeader>
-        <div>
-          <ClientForm />
-        </div>
+        <ClientForm ref={formRef} onSubmit={handleSubmit} />
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline">Cancelar</Button>
           </DialogClose>
-          <Button variant="add">Guardar</Button>
+          <Button variant="add" onClick={() => formRef.current?.submit()}>
+            Guardar
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
