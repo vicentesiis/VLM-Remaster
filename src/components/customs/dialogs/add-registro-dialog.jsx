@@ -23,7 +23,7 @@ const AddRegistroDialog = ({ trigger }) => {
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="h-full overflow-y-auto sm:max-h-[calc(100vh-20px)] sm:max-w-6xl">
+      <DialogContent className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-950 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl">
         <DialogHeader>
           <DialogTitle className="text-primary">Nuevo Registro</DialogTitle>
         </DialogHeader>
