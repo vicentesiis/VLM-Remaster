@@ -83,7 +83,7 @@ export const AutoComplete = ({
 
   return (
     <CommandPrimitive onKeyDown={handleKeyDown}>
-      <div className="relative h-9 rounded-md border border-input">
+      <div className="relative h-9 rounded-md border border-input focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
         <CommandInput
           ref={inputRef}
           value={inputValue}

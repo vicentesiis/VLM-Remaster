@@ -32,8 +32,7 @@ const CommandDialog = ({ children, ...props }) => {
 const CommandInput = React.forwardRef(({ className, ...props }, ref) => (
   <div
     className={cn(
-      "flex items-center rounded-md border-input px-3 transition-colors",
-      "focus-within:border-primary focus-within:ring-2 focus-within:ring-primary"
+      "flex items-center rounded-md border-input px-3 transition-colors"
     )}
     cmdk-input-wrapper=""
   >
