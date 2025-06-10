@@ -48,7 +48,6 @@ export const AuthProvider = ({ children }) => {
   }, [token, queryClient])
 
   if (loading) {
-    console.log(localStorage.getItem("access_token"))
     return <FullScreenLoader />
   }
 

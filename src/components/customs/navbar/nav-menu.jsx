@@ -49,8 +49,11 @@ export const NavMenu = (props) => {
         {filteredDropdownMenus.map((menu) => (
           <NavigationMenuItem key={menu.title} className="dark:text-white">
             <NavigationMenuTrigger
-              className="text-[15px] font-normal"
-              group-state={menu.isActive ? "open" : undefined}
+              className={cn(
+                "text-[15px] font-normal",
+                menu.isActive && "data-[active=true]:bg-accent/50"
+              )}
+              data-active={menu.isActive || undefined}
             >
               {menu.title}
             </NavigationMenuTrigger>
@@ -91,7 +94,13 @@ export const NavMenu = (props) => {
               asChild
               data-state={isMenuItemActive(item.to) ? "open" : undefined}
             >
-              <Link to={item.to}>{item.title}</Link>
+              <Link
+                to={item.to}
+                aria-current={isMenuItemActive(item.to) ? "page" : undefined}
+                className="aria-[current=page]:bg-accent/50"
+              >
+                {item.title}
+              </Link>
             </Button>
           </NavigationMenuItem>
         ))}
