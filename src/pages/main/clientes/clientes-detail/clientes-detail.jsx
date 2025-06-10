@@ -6,7 +6,7 @@ import StatusBadge from "@/components/customs/badge/status-badge"
 import DownloadDropdown from "@/components/customs/download-dropdown"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
-import ComboBox from "@/components/ui/combobox"
+import { Combobox } from "@/components/ui"
 import { ClientesTab } from "@/pages/main/clientes/clientes-detail/clientes-tabs"
 
 export const ClientesDetail = () => {
@@ -35,7 +35,7 @@ export const ClientesDetail = () => {
   return (
     <PageLayout title={`Detalle del Cliente: ${clientId}`}>
       <Card className="pb-6">
-        <CardHeader >
+        <CardHeader>
           <div className="flex flex-col sm:flex-row sm:justify-between">
             {/* Title + Status */}
             <div className="mb-2 items-center sm:flex sm:justify-center sm:space-x-2">

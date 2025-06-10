@@ -81,7 +81,7 @@ export const NavigationSheet = () => {
                   "bg-accent text-accent-foreground"
               )}
             >
-              <H4>{item.title}</H4>
+              <H4 className={"text-lg font-medium"}>{item.title}</H4>
             </Link>
           ))}
 

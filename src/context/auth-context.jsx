@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect } from "react"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useCurrentUser } from "@/hooks/queries/useUser"
 import { loginUser, logout as logoutUser } from "@/services/authService"
+import FullScreenLoader from "@/components/customs/full-screen-loader"
 
 export const AuthContext = createContext(null)
 
@@ -45,6 +46,11 @@ export const AuthProvider = ({ children }) => {
       queryClient.clear()
     }
   }, [token, queryClient])
+
+  if (loading) {
+    console.log(localStorage.getItem("access_token"))
+    return <FullScreenLoader />
+  }
 
   return (
     <AuthContext.Provider

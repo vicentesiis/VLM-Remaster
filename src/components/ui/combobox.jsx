@@ -1,6 +1,7 @@
+import React, { useState } from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
-import React from "react"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   Command,
@@ -15,18 +16,33 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
 
-export const ComboBox = ({
+export function Combobox({
   options,
-  value,
+  placeholder = "Select option...",
+  value: controlledValue,
   onChange,
-  placeholder = "Select an option",
-  id,
-}) => {
-  const [open, setOpen] = React.useState(false)
+  className,
+  widthClass = "w-[200px]",
+}) {
+  const [open, setOpen] = useState(false)
+  const isControlled = controlledValue !== undefined
+  const [internalValue, setInternalValue] = useState("")
 
-  const selectedLabel = options.find((option) => option.value === value)?.label
+  const value = isControlled ? controlledValue : internalValue
+
+  const handleSelect = (newValue) => {
+    const finalValue = newValue === value ? "" : newValue
+    if (!isControlled) {
+      setInternalValue(finalValue)
+    }
+    if (onChange) {
+      onChange(finalValue)
+    }
+    setOpen(false)
+  }
+
+  const selectedLabel = options.find((opt) => opt.value === value)?.label
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -35,16 +51,15 @@ export const ComboBox = ({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="font-minbold justify-between opacity-90"
-          id={id}
+          className={cn(widthClass, "justify-between", className)}
         >
           {selectedLabel || placeholder}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="min-w-[var(--radix-popover-trigger-width)] p-0">
+      <PopoverContent className={cn(widthClass, "p-0")}>
         <Command>
-          <CommandInput id={id} placeholder="Search..." />
+          <CommandInput placeholder={placeholder} className="h-9" />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
@@ -52,18 +67,15 @@ export const ComboBox = ({
                 <CommandItem
                   key={option.value}
                   value={option.value}
-                  onSelect={(currentValue) => {
-                    onChange(currentValue === value ? "" : currentValue)
-                    setOpen(false)
-                  }}
+                  onSelect={handleSelect}
                 >
+                  {option.label}
                   <Check
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "ml-auto",
                       value === option.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {option.label}
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -73,5 +85,3 @@ export const ComboBox = ({
     </Popover>
   )
 }
-
-export default ComboBox

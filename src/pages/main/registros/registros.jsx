@@ -12,8 +12,8 @@ import { Roles } from "@/constants/appConstants"
 import { useAuth } from "@/hooks"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useGetRecords } from "@/hooks/queries/useRecord"
-import { extractList } from "@/utils/extractList"
 import { getParsedParams } from "@/utils/recordUtils"
+import { extractList } from "@/utils/utils"
 
 export const Registros = ({ title }) => {
   const { user } = useAuth()

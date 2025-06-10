@@ -2,13 +2,7 @@ import React from "react"
 import { DefaultCell } from "../../table/cells"
 import { MainCell } from "../../table/cells"
 import { StatusBadgeCell } from "../../table/cells"
-
-function toTitleCase(str) {
-  return str.replace(
-    /\w\S*/g,
-    (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-  )
-}
+import { toTitleCase } from "@/utils/utils"
 
 export const registrosRender = {
   id: ({ item }) => (

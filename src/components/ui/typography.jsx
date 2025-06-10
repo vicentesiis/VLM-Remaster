@@ -44,7 +44,7 @@ const H3Border = ({ className, children }) => {
 const H4 = ({ className, children }) => {
   return (
     <h4
-      className={`scroll-m-20 text-xl font-semibold tracking-tight ${className}`}
+      className={`scroll-m-20 tracking-tight ${className}`}
     >
       {children}
     </h4>

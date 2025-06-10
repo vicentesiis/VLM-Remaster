@@ -25,7 +25,7 @@ const AddRegistroDialog = ({ trigger }) => {
       </DialogTrigger>
       <DialogContent className="h-full overflow-y-auto sm:max-h-[calc(100vh-20px)] sm:max-w-6xl">
         <DialogHeader>
-          <DialogTitle className="text-center text-primary">Nuevo Registro</DialogTitle>
+          <DialogTitle className="text-primary">Nuevo Registro</DialogTitle>
         </DialogHeader>
         <div>
           <ClientForm />
