@@ -8,8 +8,6 @@ export const useGetRecords = (params, title, options = {}) => {
   const userId = user?.data?.id
   const role = user?.data?.role
 
-  console.log(params)
-
   return useQuery({
     queryKey: ["records", title, userId, params],
     queryFn: async () => {
