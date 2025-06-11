@@ -92,7 +92,9 @@ export const Login = () => {
                 control={control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-primary">Usuario</FormLabel>
+                    <FormLabel className="text-md text-primary">
+                      Usuario
+                    </FormLabel>
                     <FormControl>
                       <Input
                         ref={userInputRef}
@@ -116,7 +118,9 @@ export const Login = () => {
                 control={control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-primary">Contraseña</FormLabel>
+                    <FormLabel className="text-md text-primary">
+                      Contraseña
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Ingresa tu Contraseña"

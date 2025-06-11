@@ -83,7 +83,7 @@ export function DataTableFacetedFilter(
               <div className="hidden items-center gap-1 lg:flex">
                 {selectedValues.size > 2 ? (
                   <Badge variant="secondary" className="rounded-sm px-1 font-normal">
-                    {selectedValues.size} Seleccionado
+                    {selectedValues.size} Seleccionados
                   </Badge>
                 ) : (
                   options
