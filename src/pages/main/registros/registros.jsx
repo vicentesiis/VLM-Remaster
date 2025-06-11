@@ -33,7 +33,7 @@ export const Registros = ({ title }) => {
 
   const {
     data: records,
-    status,
+    isFetched,
     isFetching,
     isError,
     refetch,
@@ -65,8 +65,7 @@ export const Registros = ({ title }) => {
     },
   })
 
-  const hasFetched =
-    status !== "loading" && status !== "error" && !!records?.data
+  const hasFetched = status !== "loading" && !isError && !!records?.data
 
   const handleApplyFilters = useCallback(() => {
     if (
@@ -88,9 +87,9 @@ export const Registros = ({ title }) => {
         <CardContent className="pt-4">
           <DataTable
             table={table}
-            isLoading={status === "loading" || isFetching}
+            isLoading={isFetching}
             isError={isError}
-            hasFetched={hasFetched}
+            hasFetched={isFetched}
           >
             <DataTableToolbar table={table}>
               <Button size="sm" onClick={handleApplyFilters}>
