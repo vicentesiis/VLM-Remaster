@@ -1,7 +1,4 @@
-import { useIsSuperAdmin } from "@/hooks"
-
-export const getParsedRecordParams = (pagination, appliedFilters, title) => {
-  const isSuperAdmin = useIsSuperAdmin()
+export const getParsedRecordParams = (pagination, appliedFilters, title, isSuperAdmin) => {
   const params = new URLSearchParams()
 
   params.set("skip", pagination.pageIndex * pagination.pageSize)

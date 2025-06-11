@@ -1,12 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
 import * as recordApi from "@/api/recordApi"
 import { Roles } from "@/constants/appConstants"
-import { useUserId, useUserRole } from "@/hooks"
 
-export const useGetRecords = (params, title, options = {}) => {
-  const userId = useUserId()
-  const currentRole = useUserRole()
-
+export const useGetRecords = (
+  params,
+  title,
+  currentRole,
+  userId,
+  options = {}
+) => {
   return useQuery({
     queryKey: ["records", title, userId, params],
     queryFn: async () => {

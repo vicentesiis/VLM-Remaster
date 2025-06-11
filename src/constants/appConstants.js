@@ -4,23 +4,23 @@ export const Roles = {
   AGENT: "agent",
 }
 
-export const Statuses = {
-  CREATED: "created",
-  ASSIGNED: "assigned",
-  PENDING_INFO: "pending_info",
-  GENERATE_JOBS: "generate_jobs",
-  JOBS_GENERATED: "jobs_generated",
-  REGENERATE_JOBS: "regenerate_jobs",
-  GENERATE_CONTRACT: "generate_contract",
-  CONTRACT_GENERATED: "contract_generated",
-  FIX_CONTRACT: "fix_contract",
-  PENDING_APPROVAL: "pending_approval",
-  APPROVED: "approved",
-  SELECTING_LEAVE_DATE: "selecting_leave_date",
-  LEAVE_DATE_SELECTED: "leave_date_selected",
-  LEAVE_DATE_CONFIRMED: "leave_date_confirmed",
-  FINALIZED: "finalized",
-  INACTIVE: "inactive",
+export const recordStatusesLabel = {
+  created: "Creado",
+  assigned: "Asignado",
+  pending_info: "Pendiente de información",
+  generate_jobs: "Generar trabajos",
+  jobs_generated: "Trabajos generados",
+  regenerate_jobs: "Regenerar trabajos",
+  generate_contract: "Generar contrato",
+  contract_generated: "Contrato generado",
+  fix_contract: "Corregir contrato",
+  pending_approval: "Pendiente de aprobación",
+  approved: "Aprobado",
+  selecting_leave_date: "Seleccionando fecha de salida",
+  leave_date_selected: "Fecha de salida seleccionada",
+  leave_date_confirmed: "Fecha de salida confirmada",
+  finalized: "Finalizado",
+  inactive: "Inactivo",
 }
 
 export const PaginationDefaults = {
