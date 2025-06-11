@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
+import { useMemo } from "react"
 import * as recordApi from "@/api/recordApi"
 import { Roles } from "@/constants/appConstants"
 
@@ -9,8 +10,16 @@ export const useGetRecords = (
   userId,
   options = {}
 ) => {
+  const serializedParams = useMemo(() => {
+    const obj = {}
+    params?.forEach((value, key) => {
+      obj[key] = value
+    })
+    return obj
+  }, [params])
+
   return useQuery({
-    queryKey: ["records", title, userId, params],
+    queryKey: ["records", title, userId, serializedParams],
     queryFn: async () => {
       let res
 

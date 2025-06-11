@@ -1,5 +1,5 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { getParsedRecordParams } from "../utils/getParsedRecordParams"
 import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { recordStatusesLabel } from "@/constants/appConstants"
@@ -22,7 +22,6 @@ export const useRegistrosTable = (title) => {
       pagination,
       appliedFilters,
       title,
-      currentRole,
       isSuperAdmin
     )
     if (
@@ -32,11 +31,11 @@ export const useRegistrosTable = (title) => {
       return null
     }
     return params
-  }, [appliedFilters, pagination, title, currentRole, isSuperAdmin])
+  }, [appliedFilters, pagination, title, isSuperAdmin])
 
   const codex = useCodexData(currentRole)
   const { data, isFetched, isFetching, isError, refetch } = useGetRecords(
-    parsedParams ?? {},
+    parsedParams,
     title,
     currentRole,
     userId,
@@ -75,6 +74,15 @@ export const useRegistrosTable = (title) => {
     pageCount: Math.ceil((data?.total || 0) / pagination.pageSize),
     initialState: { columnVisibility: { group_id: false } },
   })
+
+  useEffect(() => {
+    const cleared = columnFilters.length === 0 && appliedFilters.length > 0
+    if (cleared) {
+      setAppliedFilters([])
+      setPagination((prev) => ({ ...prev, pageIndex: 0 }))
+      refetch()
+    }
+  }, [columnFilters, appliedFilters, refetch])
 
   return {
     table,
