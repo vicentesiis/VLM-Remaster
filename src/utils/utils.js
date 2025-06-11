@@ -18,3 +18,12 @@ export function extractAndMapToOptions(response, labelFn = toTitleCase) {
       }))
     : []
 }
+
+export const formatDate = (isoString) => {
+  const date = new Date(isoString)
+  return date.toLocaleDateString("es-MX", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  })
+}

@@ -1,12 +1,13 @@
-import { Roles } from "@/constants/appConstants"
+import { useIsSuperAdmin } from "@/hooks"
 
-export const getParsedParams = (pagination, appliedFilters, title, role) => {
+export const getParsedRecordParams = (pagination, appliedFilters, title) => {
+  const isSuperAdmin = useIsSuperAdmin()
   const params = new URLSearchParams()
 
   params.set("skip", pagination.pageIndex * pagination.pageSize)
   params.set("limit", pagination.pageSize)
 
-  if (role !== Roles.SUPER_ADMIN) {
+  if (!isSuperAdmin) {
     params.set("record_type", "prospect")
   }
 
@@ -21,7 +22,7 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
       }
     }
 
-    if (role === Roles.SUPER_ADMIN) {
+    if (isSuperAdmin) {
       if (filter.id === "group_id") {
         params.append("group_id", filter.value)
       }
@@ -48,9 +49,6 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
       if (to) params.set("end_date", new Date(to).toISOString())
     }
   }
-
-  console.log("Parsed Params:", params.toString())
-  console.log("Params:", params)
 
   return params
 }

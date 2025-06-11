@@ -4,17 +4,9 @@ import ActionDropdown from "@/components/customs/action-dropdown"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { StatusBadgeCell } from "@/components/customs/table/cells/status-badge-cell"
 import { Roles } from "@/constants/appConstants"
+import { formatDate } from "@/lib/format"
 
 const columnHelper = createColumnHelper()
-
-const formatDate = (isoString) => {
-  const date = new Date(isoString)
-  return date.toLocaleDateString("es-MX", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  })
-}
 
 export const getRegistrosColumns = ({
   role,
