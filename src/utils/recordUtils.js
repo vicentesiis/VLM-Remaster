@@ -37,6 +37,9 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
           params.append("programs", program)
         }
       }
+      if (filter.id === "record_type") {
+        params.append("record_type", filter.value)
+      }
     }
 
     if (filter.id === "updated_at" && Array.isArray(filter.value)) {
@@ -45,6 +48,9 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
       if (to) params.set("end_date", new Date(to).toISOString())
     }
   }
+
+  console.log("Parsed Params:", params.toString())
+  console.log("Params:", params)
 
   return params
 }

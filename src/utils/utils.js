@@ -11,10 +11,10 @@ export function toTitleCase(str) {
 
 export function extractAndMapToOptions(response, labelFn = toTitleCase) {
   const list = extractList(response)
-  return (
-    list?.map((name) => ({
-      label: labelFn(name),
-      value: name,
-    })) ?? []
-  )
+  return Array.isArray(list)
+    ? list.map((item) => ({
+        label: labelFn(item.name || item), // handle both object.name and string
+        value: item.id ?? item, // fallback to item if no id
+      }))
+    : []
 }
