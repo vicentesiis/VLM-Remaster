@@ -65,8 +65,6 @@ export const Registros = ({ title }) => {
     },
   })
 
-  const hasFetched = status !== "loading" && !isError && !!records?.data
-
   const handleApplyFilters = useCallback(() => {
     if (
       isSuperAdmin &&

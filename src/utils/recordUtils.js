@@ -46,5 +46,5 @@ export const getParsedParams = (pagination, appliedFilters, title, role) => {
     }
   }
 
-  return Object.fromEntries(params.entries())
+  return params
 }
