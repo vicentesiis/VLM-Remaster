@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react"
 import { Drawer } from "vaul"
 import { Button, H3, PLead } from "../ui"
 import { BaseTable } from "./table-data"
-import StatusBadge from "./badge/status-badge"
 import { X } from "lucide-react"
 
 export function SalesReportAgentDrawer({

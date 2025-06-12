@@ -11,7 +11,7 @@ export const MainCell = ({ path, title, public_id }) => {
       <Link
         to={fullPath}
         className="select-text flex-col space-y-0 font-bold hover:text-blue-600"
-        title={`Ver cliente ${title}`}
+        title={`Ver Registro ${title}`}
       >
         <P className="truncate">{title}</P>
         <P className="text-sm font-normal">{public_id}</P>

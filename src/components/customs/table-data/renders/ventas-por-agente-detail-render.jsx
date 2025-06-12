@@ -1,10 +1,10 @@
 import React from "react"
 import { DefaultCell } from "../../table/cells"
-import { StatusBadgeCell } from "../../table/cells"
+import StatusBadge from "../../badge/status-badge"
 
 export const ventasPorAgenteDetailRender = {
   status: ({ item }) => (
-    <StatusBadgeCell title={item.status || "N/A"} align="center" />
+    <StatusBadge title={item.status || "N/A"} align="center" />
   ),
   quantity: ({ item }) => (
     <DefaultCell title={item.quantity || "N/A"} align="center" />

@@ -1,6 +1,19 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import * as recordApi from "@/api/recordApi"
 
+export const useGetRecordById = (searchable_id, options = {}) => {
+  return useQuery({
+    queryKey: ["recordById", searchable_id],
+    queryFn: async () => {
+      const res = await recordApi.getRecordById({ searchable_id })
+      console.log("useGetRecordById", res)
+      return res.data
+    },
+    enabled: !!searchable_id,
+    ...options,
+  })
+}
+
 export const useGetRecordsByUser = (params, options = {}) => {
   return useQuery({
     queryKey: ["recordsByUser", params],

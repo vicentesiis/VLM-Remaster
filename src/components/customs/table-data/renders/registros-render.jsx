@@ -1,7 +1,7 @@
 import React from "react"
+import StatusBadge from "../../badge/status-badge"
 import { DefaultCell } from "../../table/cells"
 import { MainCell } from "../../table/cells"
-import { StatusBadgeCell } from "../../table/cells"
 import { toTitleCase } from "@/utils/utils"
 
 export const registrosRender = {
@@ -12,7 +12,7 @@ export const registrosRender = {
       public_id={item.public_id?.toUpperCase()}
     />
   ),
-  status: ({ item }) => <StatusBadgeCell title={item.status || "N/A"} />,
+  status: ({ item }) => <StatusBadge title={item.status || "N/A"} />,
   channel: ({ item }) => (
     <DefaultCell title={toTitleCase(item.channel) || "N/A"} align="center" />
   ),

@@ -1,8 +1,8 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
+import StatusBadge from "../../badge/status-badge"
 import ActionDropdown from "@/components/customs/action-dropdown"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
-import { StatusBadgeCell } from "@/components/customs/table/cells/status-badge-cell"
 import { Roles } from "@/constants/appConstants"
 import { formatDate } from "@/lib/format"
 
@@ -32,7 +32,7 @@ export const getRegistrosColumns = ({
 
     columnHelper.accessor("status", {
       header: "Estatus",
-      cell: (info) => <StatusBadgeCell title={info.getValue()} />,
+      cell: (info) => <StatusBadge status={info.getValue()} />,
       meta: {
         align: "center",
         variant: "multiSelect",

@@ -27,7 +27,7 @@ export const routes = [
         allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
-        path: "detalle/:recordId",
+        path: "detalle/:public_id",
         routeKey: "registroDetail",
         allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
       },
