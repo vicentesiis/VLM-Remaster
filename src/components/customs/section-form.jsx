@@ -70,9 +70,7 @@ export const SectionForm = ({ form, title, fields }) => {
                     control={form.control}
                     name={name}
                     render={({ field }) => (
-                      <FormItem className="col-span-full -mt-2">
-                        {" "}
-                        {/* full width */}
+                      <FormItem className="col-span-full">
                         <FormLabel>{label}</FormLabel>
                         <FormControl>
                           <Textarea {...field} {...rest} />
@@ -121,17 +119,15 @@ export const SectionForm = ({ form, title, fields }) => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>{label}</FormLabel>
-                        <div className="flex w-full flex-col">
-                          <FormControl>
-                            <DatePickerField
-                              value={field.value}
-                              onChange={field.onChange}
-                              showYearDropdown
-                              scrollableYearDropdown
-                              dateFormat="dd/MM/yyyy"
-                            />
-                          </FormControl>
-                        </div>
+                        <FormControl>
+                          <DatePickerField
+                            value={field.value}
+                            onChange={field.onChange}
+                            showYearDropdown
+                            scrollableYearDropdown
+                            dateFormat="dd/MM/yyyy"
+                          />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}

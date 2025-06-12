@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import * as recordApi from "@/api/recordApi"
 
 export const useGetRecordsByUser = (params, options = {}) => {
@@ -20,6 +20,31 @@ export const useGetRecordsByCriteria = (params, options = {}) => {
       const res = await recordApi.getRecordsByCriteria(params)
       await new Promise((r) => setTimeout(r, 300))
       return res
+    },
+    ...options,
+  })
+}
+
+export const useCreateRecord = (options = {}) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (data) => {
+      const payload = {
+        ...data,
+        record_type: "prospect",
+      }
+      return recordApi.createProspectRecord(payload)
+    },
+    onSuccess: (data, variables, context) => {
+      // Optionally invalidate or refetch
+      queryClient.invalidateQueries(["recordsByUser"])
+      queryClient.invalidateQueries(["recordsByCriteria"])
+
+      // Call any custom success logic
+      if (options.onSuccess) {
+        options.onSuccess(data, variables, context)
+      }
     },
     ...options,
   })

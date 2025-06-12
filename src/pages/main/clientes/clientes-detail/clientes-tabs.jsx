@@ -1,6 +1,6 @@
-import { User, Edit, List } from "lucide-react" // Import icons from lucide-react
+import { User, Edit, List } from "lucide-react"
 import React from "react"
-import ClientForm from "@/components/customs/client-detail/client-form"
+import RegistroForm from "@/components/customs/client-detail/registro-form"
 import ClientesDetailTab from "@/components/customs/client-detail/tabs/client-detail-tab"
 import ClientOrdersTab from "@/components/customs/client-detail/tabs/client-orders-tab"
 import { Card } from "@/components/ui/card"
@@ -12,19 +12,19 @@ export function ClientesTab() {
     <Tabs defaultValue="detalle" className="-mt-9">
       <TabsList className="justify-start border-b bg-transparent p-0 pl-6">
         <TabsTrigger
-          className="h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary "
+          className="h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary"
           value="detalle"
         >
           <User className="mr-2" /> Detalle
         </TabsTrigger>
         <TabsTrigger
-          className="h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary "
+          className="h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary"
           value="edit"
         >
           <Edit className="mr-2" /> Editar
         </TabsTrigger>
         <TabsTrigger
-          className="h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary "
+          className="h-full rounded-none border-b-2 border-transparent data-[state=active]:border-primary"
           value="orders"
         >
           <List className="mr-2" /> Órdenes
@@ -41,7 +41,7 @@ export function ClientesTab() {
       {/* Tab Content 2: Editar */}
       <TabsContent value="edit">
         <Card className="p-8 pb-28 sm:p-8">
-          <ClientForm />
+          <RegistroForm />
         </Card>
       </TabsContent>
 

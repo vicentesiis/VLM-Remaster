@@ -50,22 +50,23 @@ export const formSchema = z.object({
   comments: commentsSchema,
 })
 
-const ClientForm = forwardRef(({ onSubmit }, ref) => {
+const RegistroForm = forwardRef(({ onSubmit }, ref) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      date_of_birth: null,
+      name: "test",
+      email: "test@test.com",
+      phone: "1234567890",
+      date_of_birth: new Date("2000-01-01"),
       nationality: "méxico",
-      state: "",
-      curp: "",
-      passport: "",
-      job: "",
-      program: "",
-      channel: "",
-      comments: "",
+      state: "chiapas",
+      curp: "RACW050729MMCSHNA2",
+      passport: "12345",
+      job: "12345",
+      program: "program_a",
+      channel: "phone",
+      comments:
+        "RACW050729MMCSHNA2RACW050729MMCSHNA2RACW050729MMCSHNA2RACW050729MMCSHNA2RACW050729MMCSHNA2",
     },
   })
 
@@ -125,6 +126,6 @@ const ClientForm = forwardRef(({ onSubmit }, ref) => {
   )
 })
 
-ClientForm.displayName = "ClientForm"
+RegistroForm.displayName = "RegistroForm"
 
-export default ClientForm
+export default RegistroForm

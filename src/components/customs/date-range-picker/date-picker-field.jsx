@@ -16,7 +16,7 @@ const DatePickerField = ({
   placeholder = "Selecciona una fecha",
 }) => {
   return (
-    <Popover>
+    <Popover modal={true}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"

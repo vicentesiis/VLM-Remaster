@@ -2,6 +2,7 @@ export const nameField = () => ({
   name: "name",
   label: "Nombre Completo",
   type: "input",
+  autoComplete: "off",
   placeholder: "Nombre completo",
 })
 
@@ -9,6 +10,7 @@ export const emailField = () => ({
   name: "email",
   label: "Email",
   type: "input",
+  autoComplete: "off",
   placeholder: "ejemplo@correo.com",
 })
 
@@ -16,6 +18,7 @@ export const phoneField = () => ({
   name: "phone",
   label: "Teléfono",
   type: "input",
+  autoComplete: "off",
   maxLength: 10,
   numericOnly: true,
   placeholder: "Número de teléfono (10 dígitos)",
@@ -48,6 +51,7 @@ export const passportField = () => ({
   name: "passport",
   label: "Pasaporte",
   type: "input",
+  autoComplete: "off",
   placeholder: "Ej. G20693408",
 })
 
@@ -55,6 +59,7 @@ export const curpField = () => ({
   name: "curp",
   label: "CURP",
   type: "input",
+  autoComplete: "off",
   placeholder: "Ej. RASC050729MMCSHNA2",
 })
 
@@ -62,6 +67,7 @@ export const jobField = () => ({
   name: "job",
   label: "ID de la Vacante",
   type: "input",
+  autoComplete: "off",
   placeholder: "Ingresa el ID de la vacante",
 })
 

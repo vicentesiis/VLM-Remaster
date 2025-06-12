@@ -1,26 +1,48 @@
 import { UserPlusIcon } from "lucide-react"
-import React, { useRef } from "react"
-import ClientForm from "../client-detail/client-form"
+import React, { useRef, useState } from "react"
+import { toast } from "sonner"
+import RegistroForm from "../client-detail/registro-form"
 import { Button, DialogHeaderCustom } from "@/components/ui"
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog"
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
+import { useCreateRecord } from "@/hooks/queries/useRecord"
 
 const AddRegistroDialog = ({ trigger }) => {
   const formRef = useRef()
+  const [open, setOpen] = useState(false)
 
-  const handleSubmit = (data) => {
-    console.log("Datos recibidos:", data)
+  const { mutateAsync: createRecord, isLoading } = useCreateRecord({
+    onError: () => {
+      toast.error("Error al crear el registro")
+    },
+  })
+
+  const handleSubmit = async (data) => {
+    try {
+      const response = await createRecord(data)
+
+      console.log("Registro creado:", response)
+      // 👇 Toast with action
+      toast("Registro creado con éxito", {
+        description: `ID: ${response.data.public_id}`,
+        action: {
+          label: "Copiar ID",
+          onClick: async () => {
+            await navigator.clipboard.writeText(response.data.public_id)
+            toast.success("ID copiado al portapapeles")
+          },
+        },
+      })
+
+      setOpen(false)
+      queryClient.invalidateQueries(["recordsByUser"])
+      queryClient.invalidateQueries(["recordsByCriteria"])
+    } catch (err) {
+      console.error("Error creating record:", err)
+    }
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger || (
           <Button variant="add">
@@ -30,16 +52,21 @@ const AddRegistroDialog = ({ trigger }) => {
         )}
       </DialogTrigger>
       <DialogContent className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-950 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl">
-        <DialogHeaderCustom icon={UserPlusIcon} title="Nuevo Registro" />
-        <ClientForm ref={formRef} onSubmit={handleSubmit} />
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Cancelar</Button>
-          </DialogClose>
-          <Button variant="add" onClick={() => formRef.current?.submit()}>
-            Guardar
-          </Button>
-        </DialogFooter>
+        <DialogHeaderCustom
+          icon={UserPlusIcon}
+          title="Nuevo Registro"
+          iconBgClass="bg-green-600"
+        />
+        <RegistroForm ref={formRef} onSubmit={handleSubmit} />
+
+        <Button
+          className="text-md sticky bottom-0 float-right ml-auto mr-8"
+          variant="add"
+          disabled={isLoading}
+          onClick={() => formRef.current?.submit()}
+        >
+          {isLoading ? "Agregando..." : "Agregar Registro"}
+        </Button>
       </DialogContent>
     </Dialog>
   )

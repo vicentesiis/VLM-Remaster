@@ -93,18 +93,29 @@ const DialogDescription = React.forwardRef(({ className, ...props }, ref) => (
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 
-const DialogHeaderCustom = ({ icon: Icon, title, className, ...props }) => {
+const DialogHeaderCustom = ({
+  icon: Icon,
+  title,
+  className,
+  iconBgClass = "bg-primary",
+  ...props
+}) => {
   return (
     <div
       className={cn(
-        "sticky top-0 z-10 -mx-6 flex h-16 items-center gap-2 border-b bg-white px-6",
+        "sticky top-0 z-10 -mx-6 flex h-16 items-center gap-2 border-b bg-background px-6",
         className
       )}
       {...props}
     >
       {Icon && (
         <div className="flex items-center gap-2 pr-1">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white">
+          <div
+            className={cn(
+              "flex h-9 w-9 items-center justify-center rounded-full text-white",
+              iconBgClass
+            )}
+          >
             <Icon className="h-5 w-5" />
           </div>
           <div className="h-6 w-0.5 bg-border" />
@@ -112,13 +123,17 @@ const DialogHeaderCustom = ({ icon: Icon, title, className, ...props }) => {
       )}
 
       <div className="flex-1">
-        <h3 className="text-xl font-semibold leading-tight tracking-tight">
+        <h3 className="text-xl font-semibold leading-tight tracking-tight dark:text-white">
           {title}
         </h3>
       </div>
 
       <DialogClose asChild>
-        <Button variant="ghost" size="bigIcon" className="rounded-full">
+        <Button
+          variant="ghost"
+          size="bigIcon"
+          className="rounded-full bg-accent"
+        >
           <X className="h-8 w-8" />
         </Button>
       </DialogClose>
