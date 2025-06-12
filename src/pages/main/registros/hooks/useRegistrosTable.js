@@ -1,11 +1,15 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
-import { useEffect, useMemo, useState } from "react"
+import { use, useEffect, useMemo, useState } from "react"
 import { getParsedRecordParams } from "../utils/getParsedRecordParams"
 import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { recordStatusesLabel } from "@/constants/appConstants"
+import { Roles } from "@/constants/appConstants"
 import { useIsSuperAdmin, useUserId, useUserRole } from "@/hooks"
 import { useCodexData } from "@/hooks/queries/useCodexData"
-import { useGetRecords } from "@/hooks/queries/useRecord"
+import {
+  useGetRecordsByCriteria,
+  useGetRecordsByUser,
+} from "@/hooks/queries/useRecord"
 import { extractAndMapToOptions } from "@/utils/utils"
 
 export const useRegistrosTable = (title) => {
@@ -22,6 +26,7 @@ export const useRegistrosTable = (title) => {
       pagination,
       appliedFilters,
       title,
+      userId,
       isSuperAdmin
     )
     if (
@@ -34,16 +39,17 @@ export const useRegistrosTable = (title) => {
   }, [appliedFilters, pagination, title, isSuperAdmin])
 
   const codex = useCodexData(currentRole)
-  const { data, isFetched, isFetching, isError, refetch } = useGetRecords(
-    parsedParams,
-    title,
-    currentRole,
-    userId,
-    {
-      enabled: !isSuperAdmin || parsedParams !== null,
-      refetchOnWindowFocus: false,
-    }
-  )
+  const recordQuery =
+    currentRole === Roles.AGENT
+      ? useGetRecordsByUser(parsedParams, {
+          refetchOnWindowFocus: false,
+        })
+      : useGetRecordsByCriteria(parsedParams, {
+          enabled: !isSuperAdmin || parsedParams !== null,
+          refetchOnWindowFocus: false,
+        })
+
+  const { data, isFetched, isFetching, isError, refetch } = recordQuery
 
   const getStatusLabel = (status) => recordStatusesLabel[status] ?? status
 
@@ -83,6 +89,16 @@ export const useRegistrosTable = (title) => {
       refetch()
     }
   }, [columnFilters, appliedFilters, refetch])
+
+  useEffect(() => {
+    console.log("Registros table mounted with title:", title)
+    setColumnFilters([])
+    setAppliedFilters([])
+    setPagination({ pageIndex: 0, pageSize: 10 })
+    if (currentRole === Roles.AGENT) {
+      refetch()
+    }
+  }, [title])
 
   return {
     table,

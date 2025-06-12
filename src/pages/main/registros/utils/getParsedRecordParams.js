@@ -1,4 +1,10 @@
-export const getParsedRecordParams = (pagination, appliedFilters, title, isSuperAdmin) => {
+export const getParsedRecordParams = (
+  pagination,
+  appliedFilters,
+  title,
+  userId,
+  isSuperAdmin
+) => {
   const params = new URLSearchParams()
 
   params.set("skip", pagination.pageIndex * pagination.pageSize)
@@ -6,6 +12,10 @@ export const getParsedRecordParams = (pagination, appliedFilters, title, isSuper
 
   if (!isSuperAdmin) {
     params.set("record_type", "prospect")
+  }
+
+  if (title.includes("Mis")) {
+    params.set("user_id", userId)
   }
 
   if (title === "Clientes" || title === "Mis Clientes") {
