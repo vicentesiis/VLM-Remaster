@@ -1,15 +1,15 @@
 import { Hash, Headset, Briefcase } from "lucide-react"
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
+import { RegistrosDetailTab } from "./tabs"
 import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import DownloadDropdown from "@/components/customs/download-dropdown"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
-import { Combobox } from "@/components/ui"
-import { ClientesTab } from "@/pages/main/clientes/clientes-detail/clientes-tabs"
+import { RegistroTabs } from "./registros-tabs"
 
-export const ClientesDetail = () => {
+export const RegistrosDetail = () => {
   const { clientId } = useParams()
   const [selectedStatus, setSelectedStatus] = useState("")
 
@@ -44,19 +44,13 @@ export const ClientesDetail = () => {
             </div>
             {/* ComboBox + Download Dropdown */}
             <div className="mb-4 flex justify-between space-x-2 sm:mb-0 sm:justify-end">
-              <ComboBox
-                options={comboBoxStatus}
-                value={selectedStatus}
-                onChange={setSelectedStatus}
-                placeholder="Actualizar Estatus"
-              />
               <DownloadDropdown label="Open Menu" items={menuItems} />
             </div>
           </div>
           {/* Icon Badges */}
           <div className="flex flex-wrap gap-2">
             <IconBadge
-              title={clientId}
+              title={"clientId"}
               icon={<Hash />}
               variant={"iconBadgePrimary"}
             />
@@ -73,9 +67,9 @@ export const ClientesDetail = () => {
           </div>
         </CardHeader>
       </Card>
-      <ClientesTab />
+      <RegistroTabs />
     </PageLayout>
   )
 }
 
-export default ClientesDetail
+export default RegistrosDetail

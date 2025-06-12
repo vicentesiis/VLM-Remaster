@@ -1,13 +1,13 @@
 import { User, Edit, List } from "lucide-react"
 import React from "react"
-import RegistroForm from "@/components/customs/client-detail/registro-form"
-import ClientesDetailTab from "@/components/customs/client-detail/tabs/client-detail-tab"
-import ClientOrdersTab from "@/components/customs/client-detail/tabs/client-orders-tab"
+import RegistroForm from "@/components/customs/forms/registro-form"
 import { Card } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import ClientesDetailData from "@/data/client-detail-data"
+import RegistrosDetailTab from "@/pages/main/registros/registros-detail/tabs/registros-detail-tab"
+import RegistrosOrdersTab from "@/pages/main/registros/registros-detail/tabs/registros-orders-tab"
 
-export function ClientesTab() {
+export function RegistroTabs() {
   return (
     <Tabs defaultValue="detalle" className="-mt-9">
       <TabsList className="justify-start border-b bg-transparent p-0 pl-6">
@@ -34,7 +34,7 @@ export function ClientesTab() {
       {/* Tab Content 1: Detalle */}
       <TabsContent value="detalle">
         <Card className="p-8 pb-28 sm:p-8">
-          <ClientesDetailTab sections={ClientesDetailData} />
+          <RegistrosDetailTab sections={ClientesDetailData} />
         </Card>
       </TabsContent>
 
@@ -48,7 +48,7 @@ export function ClientesTab() {
       {/* Tab Content 3: Órdenes */}
       <TabsContent value="orders">
         <Card className="p-8 pb-24 sm:p-8">
-          <ClientOrdersTab />
+          <RegistrosOrdersTab />
         </Card>
       </TabsContent>
     </Tabs>

@@ -1,7 +1,7 @@
 import { UserPlusIcon } from "lucide-react"
 import React, { useRef, useState } from "react"
 import { toast } from "sonner"
-import RegistroForm from "../client-detail/registro-form"
+import RegistroForm from "../forms/registro-form"
 import { Button, DialogHeaderCustom } from "@/components/ui"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateRecord } from "@/hooks/queries/useRecord"

@@ -1,9 +1,9 @@
 import React, { useState } from "react"
-import { ClientOrderDialog } from "@/components/customs/client-detail/client-order-dialog"
+import { ClientOrderDialog } from "@/components/customs/dialogs/client-order-dialog"
 import { Button } from "@/components/ui/button"
 import { H3 } from "@/components/ui/typography"
 
-export const ClientOrdersTab = () => {
+export const RegistrosOrdersTab = () => {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(!open)
 
@@ -18,4 +18,4 @@ export const ClientOrdersTab = () => {
   )
 }
 
-export default ClientOrdersTab
+export default RegistrosOrdersTab

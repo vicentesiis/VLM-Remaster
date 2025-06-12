@@ -5,7 +5,7 @@ import CardHeaderSection from "@/components/customs/card-header-section"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { Button, Card, CardContent } from "@/components/ui"
 import accontSettingsData from "@/data/account-settings-data"
-import { CuentaForm } from "@/components/customs/client-detail/cuenta-form"
+import { CuentaForm } from "@/components/customs/forms/cuenta-form"
 
 export const Cuentas = () => {
   const [open, setOpen] = useState(false)

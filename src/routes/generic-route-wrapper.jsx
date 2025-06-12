@@ -4,9 +4,9 @@ import { Ajustes } from "@/pages/main/ajustes/ajustes"
 import { Cuentas } from "@/pages/main/ajustes/modules/cuentas"
 import { AjustesUsuarios } from "@/pages/main/ajustes/modules/usuarios"
 import { Clientes } from "@/pages/main/clientes/clientes"
-import { ClientesDetail } from "@/pages/main/clientes/clientes-detail/clientes-detail"
 import { Info } from "@/pages/main/info/info"
 import { Registros } from "@/pages/main/registros/registros"
+import { RegistrosDetail } from "@/pages/main/registros/registros-detail/registros-detail"
 import { ReportesReporteDeRegistros } from "@/pages/main/reportes/modules/reportes-reporte-de-registros"
 import { ReportesReporteVentasPorAgente } from "@/pages/main/reportes/modules/reportes-reporte-de-ventas-por-agente"
 import { ReportesReporteVentalMensual } from "@/pages/main/reportes/modules/reportes-reporte-venta-mensual"
@@ -37,7 +37,7 @@ export const componentMap = {
   ajustes: Ajustes,
   cuentas: Cuentas,
   ajustesUsuarios: AjustesUsuarios,
-  registroDetail: ClientesDetail,
+  registroDetail: RegistrosDetail,
   info: Info,
   reportesReporteDeRegistros: ReportesReporteDeRegistros,
   reportesReporteVentasPorAgente: ReportesReporteVentasPorAgente,
