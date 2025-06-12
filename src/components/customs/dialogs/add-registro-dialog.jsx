@@ -20,8 +20,6 @@ const AddRegistroDialog = ({ trigger }) => {
     try {
       const response = await createRecord(data)
 
-      console.log("Registro creado:", response)
-      // 👇 Toast with action
       toast("Registro creado con éxito", {
         description: `ID: ${response.data.public_id}`,
         action: {

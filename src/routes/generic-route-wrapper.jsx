@@ -1,4 +1,5 @@
 import React from "react"
+import RegistrosIndexRedirect from "./registros-index-redirect"
 import { Ajustes } from "@/pages/main/ajustes/ajustes"
 import { Cuentas } from "@/pages/main/ajustes/modules/cuentas"
 import { AjustesUsuarios } from "@/pages/main/ajustes/modules/usuarios"
@@ -26,6 +27,7 @@ const UsuariosInfo = () => <>Usuarios</>
 const UnauthorizedAccess = () => <>Unauthorized Access</>
 
 export const componentMap = {
+  home: RegistrosIndexRedirect,
   registros: Registros,
   misRegistros: Registros,
   misLeads: Registros,

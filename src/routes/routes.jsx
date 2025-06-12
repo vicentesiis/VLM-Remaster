@@ -3,7 +3,7 @@ import { Roles } from "@/constants/appConstants"
 export const routes = [
   {
     path: "/registros",
-    routeKey: "registros",
+    routeKey: "home",
     allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
     children: [
       {

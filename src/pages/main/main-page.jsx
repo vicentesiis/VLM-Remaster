@@ -16,10 +16,7 @@ export const MainPage = () => {
 
       <div className="flex-grow overflow-auto bg-gray-100 dark:bg-gray-950">
         <Routes>
-          <Route
-            path="/"
-            element={<Navigate to="/registros/registros" replace />}
-          />
+          <Route path="/*" element={<Navigate to="/registros" replace />} />
           {routes.map(
             ({ path, routeKey, props = {}, children, allowedRoles }) => (
               <Route key={path} path={path} element={<Outlet />}>
