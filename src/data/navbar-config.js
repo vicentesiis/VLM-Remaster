@@ -7,6 +7,7 @@ import {
   Globe,
   ShoppingCart,
   Users,
+  UserSquare,
 } from "lucide-react"
 
 import { Roles } from "@/constants/appConstants"
@@ -39,13 +40,20 @@ export const dropdownMenus = [
         to: "/registros/registros",
         description: "Consulta y gestiona los registros generados.",
         icon: FileText,
-        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         title: "Mis Registros",
         to: "/registros/mis-registros",
         description: "Consulta y gestiona tus registros generados.",
         icon: BarChart,
+        allowedRoutes: [Roles.AGENT],
+      },
+      {
+        title: "Mis Leads",
+        to: "/registros/mis-leads",
+        description: "Consulta y gestiona tus Leads generados.",
+        icon: UserSquare,
         allowedRoutes: [Roles.AGENT],
       },
       {

@@ -14,6 +14,7 @@ import { Reportes } from "@/pages/main/reportes/reportes"
 import { Vacantes } from "@/pages/main/vacantes/vacantes"
 
 const MisRegistros = () => <>Mis Registros</>
+const MisLeads = () => <>Mis Leads</>
 const MisClientes = () => <>Mis Clientes</>
 const Tareas = () => <>Mis Tareas</>
 const ReportePersonal = () => <>Reporte Personal</>
@@ -27,6 +28,7 @@ const UnauthorizedAccess = () => <>Unauthorized Access</>
 export const componentMap = {
   registros: Registros,
   misRegistros: Registros,
+  misLeads: Registros,
   misClientes: Registros,
   clientes: Registros,
   tareas: Clientes,
@@ -57,6 +59,9 @@ export const componentPropsMap = {
   misRegistros: {
     title: "Mis Registros",
   },
+  misLeads: {
+    title: "Mis Leads",
+  },
   misClientes: {
     title: "Mis Clientes",
   },
@@ -64,8 +69,8 @@ export const componentPropsMap = {
     title: "Mis Tareas",
   },
   clientes: {
-    title: "Clientes"
-  }
+    title: "Clientes",
+  },
 }
 
 export const GenericRouteWrapper = ({ routeKey, ...routeParams }) => {

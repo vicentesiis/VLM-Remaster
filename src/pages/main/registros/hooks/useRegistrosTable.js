@@ -27,7 +27,7 @@ export const useRegistrosTable = (title) => {
       appliedFilters,
       title,
       userId,
-      isSuperAdmin
+      currentRole
     )
     if (
       isSuperAdmin &&
@@ -91,7 +91,6 @@ export const useRegistrosTable = (title) => {
   }, [columnFilters, appliedFilters, refetch])
 
   useEffect(() => {
-    console.log("Registros table mounted with title:", title)
     setColumnFilters([])
     setAppliedFilters([])
     setPagination({ pageIndex: 0, pageSize: 10 })

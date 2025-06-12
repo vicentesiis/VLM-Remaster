@@ -9,11 +9,16 @@ export const routes = [
       {
         path: "registros",
         routeKey: "registros",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "mis-registros",
         routeKey: "misRegistros",
+        allowedRoles: [Roles.AGENT],
+      },
+      {
+        path: "mis-leads",
+        routeKey: "misLeads",
         allowedRoles: [Roles.AGENT],
       },
       {
