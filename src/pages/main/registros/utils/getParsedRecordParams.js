@@ -5,18 +5,16 @@ export const getParsedRecordParams = (
   userId,
   currentRole
 ) => {
-  const params = new URLSearchParams()
+  const params = {}
 
-  // 1. Pagination
-  params.set("skip", pagination.pageIndex * pagination.pageSize)
-  params.set("limit", pagination.pageSize)
+  // Pagination
+  params.skip = pagination.pageIndex * pagination.pageSize
+  params.limit = pagination.pageSize
 
-  // 2. Title-based client logic (shared across roles)
   if (title === "Clientes" || title === "Mis Clientes") {
-    params.set("is_client", "true")
+    params.is_client = true
   }
 
-  // 3. Role-specific filter handling
   const roleHandlers = {
     super_admin: handleSuperAdminFilters,
     agent: handleAgentFilters,
@@ -24,8 +22,6 @@ export const getParsedRecordParams = (
 
   const handleFilters = roleHandlers[currentRole] ?? handleDefaultFilters
   handleFilters(params, appliedFilters, title, userId)
-
-  // 4. Common filters
   handleCommonFilters(params, appliedFilters)
 
   return params
@@ -35,52 +31,45 @@ export const getParsedRecordParams = (
 function handleSuperAdminFilters(params, filters) {
   for (const filter of filters) {
     if (filter.id === "group_id") {
-      params.append("group_id", filter.value)
+      params.group_id = filter.value
     }
 
     if (filter.id === "channel") {
-      for (const value of filter.value) {
-        params.append("channels", value)
-      }
+      params.channels = filter.value
     }
 
     if (filter.id === "program") {
-      for (const value of filter.value) {
-        params.append("programs", value)
-      }
+      params.programs = filter.value
     }
 
     if (filter.id === "record_type") {
-      params.append("record_type", filter.value)
+      params.record_type = filter.value
     }
   }
 }
 
 function handleAgentFilters(params, filters, title, userId) {
-  params.set("user_id", userId)
+  params.user_id = userId
 
   if (title === "Mis Registros") {
-    params.set("record_type", "prospect")
+    params.record_type = "prospect"
   } else if (title === "Mis Leads") {
-    params.set("record_type", "lead")
+    params.record_type = "lead"
   }
 }
 
 function handleCommonFilters(params, filters) {
   for (const filter of filters) {
     if (filter.id === "status") {
-      for (const status of filter.value) {
-        params.append("statuses", status)
-      }
+      params.statuses = filter.value
     }
 
     if (filter.id === "updated_at" && Array.isArray(filter.value)) {
       const [from, to] = filter.value
-      if (from) params.set("start_date", new Date(from).toISOString())
-      if (to) params.set("end_date", new Date(to).toISOString())
+      if (from) params.start_date = new Date(from).toISOString()
+      if (to) params.end_date = new Date(to).toISOString()
     }
   }
 }
 
-function handleDefaultFilters() {
-}
+function handleDefaultFilters() {}

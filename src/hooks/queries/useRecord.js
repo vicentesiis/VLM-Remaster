@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import * as recordApi from "@/api/recordApi"
+import { toURLSearchParams } from "@/utils/utils"
 
 export const useGetRecordById = (searchable_id, options = {}) => {
   return useQuery({
@@ -15,10 +16,12 @@ export const useGetRecordById = (searchable_id, options = {}) => {
 }
 
 export const useGetRecordsByUser = (params, options = {}) => {
+  const searchParams = toURLSearchParams(params)
+
   return useQuery({
-    queryKey: ["recordsByUser", params],
+    queryKey: ["records-by-user", params],
     queryFn: async () => {
-      const res = await recordApi.getRecordsByUser(params)
+      const res = await recordApi.getRecordsByUser(searchParams)
       await new Promise((r) => setTimeout(r, 300))
       return res
     },
@@ -27,10 +30,12 @@ export const useGetRecordsByUser = (params, options = {}) => {
 }
 
 export const useGetRecordsByCriteria = (params, options = {}) => {
+  console.log("useGetRecordsByCriteria", params)
+  const searchParams = toURLSearchParams(params)
   return useQuery({
     queryKey: ["recordsByCriteria", params],
     queryFn: async () => {
-      const res = await recordApi.getRecordsByCriteria(params)
+      const res = await recordApi.getRecordsByCriteria(searchParams)
       await new Promise((r) => setTimeout(r, 300))
       return res
     },

@@ -27,3 +27,25 @@ export const formatDate = (isoString) => {
     year: "numeric",
   })
 }
+
+export function toURLSearchParams(params) {
+  const searchParams = new URLSearchParams()
+
+  if (!params || typeof params !== "object") {
+    return searchParams
+  }
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((v) => {
+        if (v !== undefined && v !== null) {
+          searchParams.append(key, v)
+        }
+      })
+    } else if (value !== undefined && value !== null) {
+      searchParams.set(key, value)
+    }
+  })
+
+  return searchParams
+}

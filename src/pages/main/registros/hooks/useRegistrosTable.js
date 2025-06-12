@@ -22,31 +22,28 @@ export const useRegistrosTable = (title) => {
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
 
   const parsedParams = useMemo(() => {
-    const params = getParsedRecordParams(
-      pagination,
-      appliedFilters,
-      title,
-      userId,
-      currentRole
-    )
     if (
       isSuperAdmin &&
       !appliedFilters.find((f) => f.id === "group_id")?.value
     ) {
       return null
     }
-    return params
-  }, [appliedFilters, pagination, title, isSuperAdmin])
+
+    return getParsedRecordParams(
+      pagination,
+      appliedFilters,
+      title,
+      userId,
+      currentRole
+    )
+  }, [pagination, appliedFilters, title, userId, currentRole, isSuperAdmin])
 
   const codex = useCodexData(currentRole)
   const recordQuery =
     currentRole === Roles.AGENT
-      ? useGetRecordsByUser(parsedParams, {
-          refetchOnWindowFocus: false,
-        })
+      ? useGetRecordsByUser(parsedParams)
       : useGetRecordsByCriteria(parsedParams, {
           enabled: !isSuperAdmin || parsedParams !== null,
-          refetchOnWindowFocus: false,
         })
 
   const { data, isFetched, isFetching, isError, refetch } = recordQuery
