@@ -29,18 +29,18 @@ export const RegistrosDetailHeader = ({ registro }) => {
       icon: AtSignIcon,
     },
     {
-      title: registro?.updated_at
-        ? `Última actualización: ${registro.updated_at.split("T")[0]}`
-        : null,
-      icon: CalendarIcon,
-    },
-    {
       title: registro?.program
         ? `Programa: ${registro.program
             .replace(/_/g, " ")
             .replace(/\b\w/g, (c) => c.toUpperCase())}`
         : null,
       icon: LayersIcon,
+    },
+    {
+      title: registro?.updated_at
+        ? `Última actualización: ${registro.updated_at.split("T")[0]}`
+        : null,
+      icon: CalendarIcon,
     },
   ]
 

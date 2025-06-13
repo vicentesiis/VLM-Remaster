@@ -14,9 +14,9 @@ const PageLayout = ({ title, subtitle, children }) => {
       {/* --- Header + Buttons --- */}
       <div className="flex items-center justify-between px-2 py-2 sm:flex">
         <div className="flex flex-row items-center gap-2">
-          <H3 className="text-primary">{title}</H3>
+          <H3 className="text-lg text-primary sm:text-2xl">{title}</H3>
           {subtitle && (
-            <p className="text-xl font-bold text-muted-foreground mt-1">
+            <p className="font-bold text-muted-foreground sm:mt-1 sm:text-xl">
               {subtitle}
             </p>
           )}

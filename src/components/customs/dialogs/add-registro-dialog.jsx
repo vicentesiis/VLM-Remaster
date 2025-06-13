@@ -43,7 +43,7 @@ const AddRegistroDialog = ({ trigger }) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger || (
-          <Button variant="add">
+          <Button variant="add" size="sm">
             <UserPlusIcon />
             Agregar Registro
           </Button>

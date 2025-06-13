@@ -1,12 +1,5 @@
 export const ClientesDetailData = [
   {
-    title: "Información General",
-    content: [
-      { label: "ID de Cliente", value: "ZL401580UC" },
-      { label: "Estado de Registro", value: "Cliente Registrado" },
-    ],
-  },
-  {
     title: "Información de Cliente",
     content: [
       { label: "Nombre", value: "Test" },
