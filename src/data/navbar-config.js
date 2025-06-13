@@ -63,7 +63,7 @@ export const dropdownMenus = [
       {
         title: "Clientes",
         to: "/registros/clientes",
-        description: "Gestión de todos los clientes registrados.",
+        description: "Consulta de clientes.",
         icon: Users,
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
