@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
@@ -11,6 +12,13 @@ const IconBadge = ({ title, icon: Icon, variant = "outline", className }) => {
       </Badge>
     </div>
   )
+}
+
+IconBadge.propTypes = {
+  className: PropTypes.any,
+  icon: PropTypes.any,
+  title: PropTypes.any,
+  variant: PropTypes.string
 }
 
 export default IconBadge

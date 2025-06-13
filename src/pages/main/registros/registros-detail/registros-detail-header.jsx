@@ -9,6 +9,7 @@ import {
   BadgeInfoIcon,
   UserIcon,
 } from "lucide-react"
+import PropTypes from "prop-types"
 import React from "react"
 import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
@@ -107,6 +108,30 @@ export const RegistrosDetailHeader = ({ registro }) => {
       </CardHeader>
     </Card>
   )
+}
+
+RegistrosDetailHeader.propTypes = {
+  registro: PropTypes.shape({
+    amount_owed: PropTypes.shape({
+      toLocaleString: PropTypes.func,
+    }),
+    contacted: PropTypes.bool,
+    email: PropTypes.any,
+    name: PropTypes.string,
+    phone: PropTypes.any,
+    program: PropTypes.shape({
+      replace: PropTypes.func,
+    }),
+    public_id: PropTypes.any,
+    record_type: PropTypes.any,
+    status: PropTypes.string,
+    updated_at: PropTypes.shape({
+      split: PropTypes.func,
+    }),
+    user: PropTypes.shape({
+      name: PropTypes.any,
+    }),
+  }),
 }
 
 export default RegistrosDetailHeader

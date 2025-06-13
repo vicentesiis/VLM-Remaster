@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import PropTypes from "prop-types"
 import React, { createContext, useState, useEffect } from "react"
 import FullScreenLoader from "@/components/customs/full-screen-loader"
 import { useCodexData } from "@/hooks/queries/useCodexData"
@@ -66,4 +67,8 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
+}
+
+AuthProvider.propTypes = {
+  children: PropTypes.any,
 }

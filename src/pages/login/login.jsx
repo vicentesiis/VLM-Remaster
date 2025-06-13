@@ -38,12 +38,7 @@ export const Login = () => {
     },
   })
 
-  const {
-    handleSubmit,
-    control,
-    setError,
-    formState: { errors },
-  } = form
+  const { handleSubmit, control } = form
 
   const onSubmit = (data) => {
     loginMutation.mutate(

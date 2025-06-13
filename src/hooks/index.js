@@ -2,7 +2,6 @@ export * from "./use-callback-ref";
 export * from "./use-data-table";
 export * from "./use-debounced-callback";
 export * from "./useAuth";
-export * from "./useDisplayStatus";
 export * from "./useIsSmallScreen";
 export * from "./useOnWindowResize";
 export * from "./useRegistroColumns";
