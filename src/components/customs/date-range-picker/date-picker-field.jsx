@@ -1,4 +1,4 @@
-import { format } from "date-fns"
+import { format, parseISO } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import React from "react"
 import { Button } from "@/components/ui/button"
@@ -15,6 +15,13 @@ const DatePickerField = ({
   onChange,
   placeholder = "Selecciona una fecha",
 }) => {
+  const dateValue =
+    typeof value === "string"
+      ? parseISO(value)
+      : value instanceof Date
+        ? value
+        : null
+
   return (
     <Popover modal={true}>
       <PopoverTrigger asChild>
@@ -32,7 +39,7 @@ const DatePickerField = ({
       <PopoverContent className="w-full p-0" align="start">
         <Calendar
           mode="single"
-          selected={value}
+          selected={dateValue}
           onSelect={onChange}
           captionLayout="dropdown"
           fromYear={1900} // Años desde 1900

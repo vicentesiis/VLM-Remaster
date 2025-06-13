@@ -1,4 +1,5 @@
 import { UserPenIcon, UserPlusIcon } from "lucide-react"
+import PropTypes from "prop-types"
 import React, { useRef, useState } from "react"
 import { toast } from "sonner"
 import RegistroForm from "../forms/registro-form"
@@ -28,7 +29,6 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
   const isLoading = isCreating || isUpdating
 
   const handleSubmit = async (data) => {
-    console.log("data", data)
     try {
       const response = isEdit
         ? await updateRecord({
@@ -92,6 +92,12 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
       </DialogContent>
     </Dialog>
   )
+}
+
+RegistroDialog.propTypes = {
+  mode: PropTypes.string,
+  recordToEdit: PropTypes.any,
+  trigger: PropTypes.any,
 }
 
 export default RegistroDialog
