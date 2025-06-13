@@ -90,10 +90,13 @@ export const getRegistrosColumns = ({
   const commentsColumn = [
     columnHelper.accessor("comments", {
       header: "Comentarios",
-      cell: (info) => info.getValue() ?? "---",
+      cell: (info) => (
+        <div className="line-clamp-2 max-w-xs break-all text-muted-foreground">
+          {info.getValue() ?? "---"}
+        </div>
+      ),
       meta: {
         align: "center",
-        className: "text-muted-foreground",
       },
     }),
   ]
