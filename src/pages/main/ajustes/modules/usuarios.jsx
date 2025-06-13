@@ -4,7 +4,6 @@ import { InputIcon } from "@/components/customs"
 import { CardHeaderSection } from "@/components/customs/card-header-section"
 import { UsuarioForm } from "@/components/customs/forms/usuario-form"
 import PageLayout from "@/components/customs/layout/page-layout"
-import { BaseTable } from "@/components/customs/table-data"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { userSettingsTableBody } from "@/data/user-settings-table-data"
@@ -31,7 +30,6 @@ export const AjustesUsuarios = () => {
       <Card>
         <CardHeaderSection title="Lista de Usuarios" actions={<Actions />} />
         <CardContent>
-          <BaseTable data={userSettingsTableBody} tableType="AjustesUsuarios" />
         </CardContent>
       </Card>
     </PageLayout>

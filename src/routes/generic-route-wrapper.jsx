@@ -3,8 +3,6 @@ import RegistrosIndexRedirect from "./registros-index-redirect"
 import { Ajustes } from "@/pages/main/ajustes/ajustes"
 import { Cuentas } from "@/pages/main/ajustes/modules/cuentas"
 import { AjustesUsuarios } from "@/pages/main/ajustes/modules/usuarios"
-import { Clientes } from "@/pages/main/clientes/clientes"
-import { Info } from "@/pages/main/info/info"
 import { Registros } from "@/pages/main/registros/registros"
 import { RegistrosDetail } from "@/pages/main/registros/registros-detail/registros-detail"
 import { ReportesReporteDeRegistros } from "@/pages/main/reportes/modules/reportes-reporte-de-registros"
@@ -14,10 +12,6 @@ import { ReportesReporteVentasGlobales } from "@/pages/main/reportes/modules/rep
 import { Reportes } from "@/pages/main/reportes/reportes"
 import { Vacantes } from "@/pages/main/vacantes/vacantes"
 
-const MisRegistros = () => <>Mis Registros</>
-const MisLeads = () => <>Mis Leads</>
-const MisClientes = () => <>Mis Clientes</>
-const Tareas = () => <>Mis Tareas</>
 const ReportePersonal = () => <>Reporte Personal</>
 const AuditoriaDeRegistros = () => <>Auditoria de Registros</>
 const ControlDeFinalizados = () => <>Control de Finalizados</>
@@ -33,12 +27,12 @@ export const componentMap = {
   misLeads: Registros,
   misClientes: Registros,
   clientes: Registros,
-  tareas: Clientes,
+  tareas: Registros,
   ajustes: Ajustes,
   cuentas: Cuentas,
   ajustesUsuarios: AjustesUsuarios,
   registroDetail: RegistrosDetail,
-  info: Info,
+  info: <>asdf</>,
   reportesReporteDeRegistros: ReportesReporteDeRegistros,
   reportesReporteVentasPorAgente: ReportesReporteVentasPorAgente,
   reportesReporteVentalMensual: ReportesReporteVentalMensual,

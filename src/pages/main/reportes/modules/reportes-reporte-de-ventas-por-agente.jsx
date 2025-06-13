@@ -4,8 +4,6 @@ import { CardHeaderSection } from "@/components/customs/card-header-section"
 import { DateRangePicker } from "@/components/customs/date-range-picker/date-range-picker"
 import GenericSelect from "@/components/customs/generic-select"
 import PageLayout from "@/components/customs/layout/page-layout"
-import { SalesReportAgentDrawer } from "@/components/customs/sales-report-agent-drawer"
-import BaseTable from "@/components/customs/table-data/base-table"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { currentYear, currentMonth } from "@/constants/utils-contants"
@@ -95,29 +93,10 @@ export const ReportesReporteVentasPorAgente = () => {
           />
           <CardContent>
             <div ref={tableRef}>
-              <BaseTable
-                data={reportesReporteVentasPorAgenteDetail}
-                tableType={"ReportesVentasPorAgente"}
-                onRowClick={handleRowClick}
-              />
             </div>
           </CardContent>
         </Card>
       </PageLayout>
-
-      {/* Conditionally render the Drawer with selectedSaleReport data */}
-      <SalesReportAgentDrawer
-        open={isDrawerOpen}
-        onOpenChange={(val) => {
-          if (!val) {
-            // Delay deselecting until animation completes
-            setTimeout(() => setSelectedSaleReport(null), 300)
-          }
-          setIsDrawerOpen(val)
-        }}
-        saleReport={selectedSaleReport}
-        tableRef={tableRef}
-      />
     </div>
   )
 }

@@ -3,8 +3,6 @@ export * from "./use-data-table";
 export * from "./use-debounced-callback";
 export * from "./useAuth";
 export * from "./useDisplayStatus";
-export * from "./useFilterSummary";
-export * from "./useFilteredColumns";
 export * from "./useIsSmallScreen";
 export * from "./useOnWindowResize";
 export * from "./useRegistroColumns";

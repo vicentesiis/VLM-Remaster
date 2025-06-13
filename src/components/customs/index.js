@@ -13,7 +13,6 @@ export * from "./full-screen-loader";
 export * from "./generic-select";
 export * from "./generic-timeline";
 export * from "./input-icon";
-export * from "./sales-report-agent-drawer";
 export * from "./search-with-select";
 export * from "./section-divider";
 export * from "./section-form";
