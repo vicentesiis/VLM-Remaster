@@ -5,6 +5,9 @@ import { Separator } from "@/components/ui/separator"
 import { H3, PLead, ListStyle } from "@/components/ui/typography"
 
 import { toTitleCase } from "@/utils/utils"
+import { Button } from "@/components/ui"
+import { UserRoundPenIcon } from "lucide-react"
+import RegistroDialog from "@/components/customs/dialogs/registro-dialog"
 
 export const RegistrosDetailInfo = ({ registro }) => {
   const {
@@ -33,7 +36,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
 
   const sections = [
     {
-      title: "Información de Cliente",
+      title: "Información del Registro",
       content: [
         { label: "Nombre", value: toTitleCase(name) },
         { label: "Fecha de Nacimiento", value: formatDate(date_of_birth) },
@@ -69,7 +72,10 @@ export const RegistrosDetailInfo = ({ registro }) => {
     }, [])
 
   return (
-    <Card>
+    <Card className="relative">
+      <div className="absolute right-4 top-4 z-10">
+        <RegistroDialog mode="edit" recordToEdit={registro} />
+      </div>
       <CardContent className="flex flex-col gap-4 px-4 py-6 sm:px-8">
         {sections.map((section, sectionIndex) => {
           const content = [...section.content]

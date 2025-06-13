@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React from "react"
-import AddRegistroDialog from "../dialogs/add-registro-dialog"
+import RegistroDialog from "../dialogs/registro-dialog"
 import { H3 } from "@/components/ui/typography"
 import { Roles } from "@/constants/appConstants"
 import { useAuth } from "@/hooks"
@@ -21,7 +21,7 @@ const PageLayout = ({ title, subtitle, children }) => {
             </p>
           )}
         </div>
-        {role === Roles.AGENT && <AddRegistroDialog />}
+        {role === Roles.AGENT && <RegistroDialog mode="add" />}
       </div>
 
       {/* --- Content --- */}

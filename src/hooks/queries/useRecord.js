@@ -66,3 +66,20 @@ export const useCreateRecord = (options = {}) => {
     ...options,
   })
 }
+
+export const useUpdateRecord = (options = {}) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: recordApi.updateRecord,
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries(["recordsByUser"])
+      queryClient.invalidateQueries(["recordsByCriteria"])
+
+      if (options.onSuccess) {
+        options.onSuccess(data, variables, context)
+      }
+    },
+    ...options,
+  })
+}

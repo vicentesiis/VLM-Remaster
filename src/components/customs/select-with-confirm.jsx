@@ -50,8 +50,8 @@ export function SelectWithConfirm({ currentOption }) {
           }}
           disabled={!selected}
         >
-          Actualizar
           <SaveIcon className="size-5" />
+          Actualizar
         </Button>
       )}
       <Select

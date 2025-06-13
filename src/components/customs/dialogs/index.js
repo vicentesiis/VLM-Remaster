@@ -1,2 +1,2 @@
-export * from "./add-registro-dialog";
+export * from "./registro-dialog";
 export * from "./client-order-dialog";

@@ -51,82 +51,87 @@ export const formSchema = z.object({
   comments: commentsSchema,
 })
 
-const RegistroForm = forwardRef(({ onSubmit }, ref) => {
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      date_of_birth: "",
-      nationality: "méxico",
-      state: "",
-      curp: "",
-      passport: "",
-      job: "",
-      program: "",
-      channel: "",
-      comments: "",
-    },
-  })
+const RegistroForm = forwardRef(
+  ({ onSubmit, defaultValues, isEdit = false }, ref) => {
+    const form = useForm({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        name: "",
+        email: "",
+        phone: "",
+        date_of_birth: "",
+        nationality: "méxico",
+        state: "",
+        curp: "",
+        passport: "",
+        job: "",
+        program: "",
+        channel: "",
+        comments: "",
+        ...defaultValues,
+      },
+    })
 
-  const submitHandler = form.handleSubmit((data) => {
-    onSubmit?.(data)
-  })
+    const submitHandler = form.handleSubmit((data) => {
+      onSubmit?.(data)
+    })
 
-  // Expose the submit method to parent
-  useImperativeHandle(ref, () => ({
-    submit: () => submitHandler(),
-  }))
+    // Expose the submit method to parent
+    useImperativeHandle(ref, () => ({
+      submit: () => submitHandler(),
+    }))
 
-  const { nationalities, mexicoStates, programs, channels } = useCodexData()
+    const { nationalities, mexicoStates, programs, channels } = useCodexData()
 
-  const nacionalidadOptions = extractAndMapToOptions(nationalities)
-  const estadosOptions = extractAndMapToOptions(mexicoStates)
-  const programaOptions = extractAndMapToOptions(programs)
-  const channelOptions = extractAndMapToOptions(channels)
+    const nacionalidadOptions = extractAndMapToOptions(nationalities)
+    const estadosOptions = extractAndMapToOptions(mexicoStates)
+    const programaOptions = extractAndMapToOptions(programs)
+    const channelOptions = extractAndMapToOptions(channels)
 
-  const recordDataFields = [
-    nameField(),
-    emailField(),
-    phoneField(),
-    dateOfBirthField(),
-    nationalityField(nacionalidadOptions),
-    stateField(estadosOptions),
-    passportField(),
-    curpField(),
-  ]
+    const recordDataFields = [
+      nameField(),
+      emailField(),
+      phoneField(),
+      dateOfBirthField(),
+      nationalityField(nacionalidadOptions),
+      stateField(estadosOptions),
+      passportField(),
+      curpField({ disabled: isEdit }),
+    ]
 
-  const vacantInfoFields = [
-    jobField(),
-    programField(programaOptions),
-    channelField(channelOptions),
-    commentsField(),
-  ]
+    const vacantInfoFields = [
+      jobField(),
+      programField(programaOptions),
+      channelField(channelOptions),
+      commentsField(), // Usually always editable
+    ]
 
-  return (
-    <FormProvider {...form}>
-      <Form {...form}>
-        <form onSubmit={submitHandler}>
-          <div className="space-y-4">
-            <SectionForm
-              title="Datos del Registro"
-              form={form}
-              fields={recordDataFields}
-            />
-            <SectionForm
-              title="Información del Proceso"
-              form={form}
-              fields={vacantInfoFields}
-            />
-          </div>
-        </form>
-      </Form>
-    </FormProvider>
-  )
-})
+    return (
+      <FormProvider {...form}>
+        <Form {...form}>
+          <form onSubmit={submitHandler}>
+            <div className="space-y-4">
+              <SectionForm
+                title="Datos del Registro"
+                form={form}
+                fields={recordDataFields}
+              />
+              <SectionForm
+                title="Información del Proceso"
+                form={form}
+                fields={vacantInfoFields}
+              />
+            </div>
+          </form>
+        </Form>
+      </FormProvider>
+    )
+  }
+)
 
 RegistroForm.propTypes = {
+  defaultValues: PropTypes.any,
+  isEdit: PropTypes.bool,
   onSubmit: PropTypes.func,
 }
 
