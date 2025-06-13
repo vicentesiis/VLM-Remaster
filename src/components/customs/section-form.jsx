@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import DatePickerField from "./date-range-picker/date-picker-field"
 import { AutoComplete } from "../ui/auto-complete"
@@ -142,4 +143,10 @@ export const SectionForm = ({ form, title, fields }) => {
       </CardContent>
     </Card>
   )
+}
+
+SectionForm.propTypes = {
+  fields: PropTypes.any,
+  form: PropTypes.any,
+  title: PropTypes.string,
 }

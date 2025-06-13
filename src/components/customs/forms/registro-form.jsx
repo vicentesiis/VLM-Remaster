@@ -103,7 +103,7 @@ const RegistroForm = forwardRef(
       jobField(),
       programField(programaOptions),
       channelField(channelOptions),
-      commentsField(), // Usually always editable
+      commentsField(),
     ]
 
     return (

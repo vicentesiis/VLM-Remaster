@@ -28,11 +28,12 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
   const isLoading = isCreating || isUpdating
 
   const handleSubmit = async (data) => {
+    console.log("data", data)
     try {
       const response = isEdit
         ? await updateRecord({
             ...data,
-            searchable_id: recordToEdit.id,
+            id: recordToEdit.id,
           })
         : await createRecord(data)
 
