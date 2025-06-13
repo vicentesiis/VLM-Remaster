@@ -6,6 +6,8 @@ import {
   LayersIcon,
   UserXIcon,
   DollarSignIcon,
+  BadgeInfoIcon,
+  UserIcon,
 } from "lucide-react"
 import React from "react"
 import IconBadge from "@/components/customs/badge/icon-badge"
@@ -14,73 +16,68 @@ import { SelectWithConfirm } from "@/components/customs/select-with-confirm"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 
 export const RegistrosDetailHeader = ({ registro }) => {
-  // Basic badges always with fallback, but badges with conditionals added below
+  const {
+    name,
+    phone,
+    email,
+    status,
+    program,
+    record_type,
+    contacted,
+    amount_owed,
+    user,
+    public_id,
+    updated_at,
+  } = registro
+
   const baseBadges = [
+    { title: public_id ?? null, icon: HashIcon },
     {
-      title: registro?.public_id ?? null,
-      icon: HashIcon,
+      title: user?.name ? `Agente: ${user.name}` : null,
+      icon: UserIcon,
     },
+    { title: phone ?? null, icon: PhoneIcon },
+    { title: email ?? null, icon: AtSignIcon },
     {
-      title: registro?.phone ?? null,
-      icon: PhoneIcon,
-    },
-    {
-      title: registro?.email ?? null,
-      icon: AtSignIcon,
-    },
-    {
-      title: registro?.program
-        ? `Programa: ${registro.program
-            .replace(/_/g, " ")
-            .replace(/\b\w/g, (c) => c.toUpperCase())}`
+      title: program
+        ? `Programa: ${program.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}`
         : null,
       icon: LayersIcon,
     },
     {
-      title: registro?.updated_at
-        ? `Última actualización: ${registro.updated_at.split("T")[0]}`
+      title: updated_at
+        ? `Última actualización: ${updated_at.split("T")[0]}`
         : null,
       icon: CalendarIcon,
     },
+    {
+      title: record_type ? `Tipo: ${record_type}` : null,
+      icon: BadgeInfoIcon,
+    },
   ]
 
-  // Additional badges with conditional checks
   const additionalBadges = [
-    // Contacted badge ("Not Contacted" if contacted is false)
-    registro?.contacted === false
-      ? { title: "No ha sido contactado", icon: UserXIcon } // user with X icon = not contacted
+    contacted === false
+      ? { title: "No ha sido contactado", icon: UserXIcon }
       : null,
-
-    // Amount owed badge, only if amount_owed > 0
-    registro?.amount_owed > 0
+    amount_owed > 0
       ? {
-          title: `Por pagar: $${registro.amount_owed.toLocaleString()}`,
-          icon: DollarSignIcon, // money icon
+          title: `Por pagar: $${amount_owed.toLocaleString()}`,
+          icon: DollarSignIcon,
         }
       : null,
   ].filter(Boolean)
 
-  const badges = [...baseBadges, ...additionalBadges].filter(
-    (badge) => badge.title
-  )
+  const badges = [...baseBadges, ...additionalBadges].filter((b) => b.title)
 
   const getBadgeVariant = (badge) => {
-    // Customize logic here:
     if (
       badge.title ===
-      registro?.program
-        ?.replace(/_/g, " ")
-        .replace(/\b\w/g, (c) => c.toUpperCase())
-    ) {
-      return "info" // Program badge → blue
-    }
-    if (badge.title === "No ha sido contactado") {
-      return "warning" // Not contacted → red
-    }
-    if (badge.title?.startsWith("Por pagar")) {
-      return "destructive" // Amount owed → yellow
-    }
-    // Default variants for base badges (ID, phone, email, date)
+      program?.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    )
+      return "info"
+    if (badge.title?.startsWith("Por pagar")) return "destructive"
+    if (badge.title === "No ha sido contactado") return "warning"
     return "outline"
   }
 
@@ -88,14 +85,13 @@ export const RegistrosDetailHeader = ({ registro }) => {
     <Card>
       <CardHeader>
         <div className="flex flex-col sm:flex-row sm:justify-between">
-          {/* Title + Status */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <CardTitle>{registro?.name ?? "Sin nombre"}</CardTitle>
-              <StatusBadge status={registro?.status ?? "N/A"} />
+              <CardTitle>{name ?? "Sin nombre"}</CardTitle>
+              <StatusBadge status={status ?? "N/A"} />
             </div>
 
-            <div className="flex flex-wrap gap-2 sm:w-[900px]">
+            <div className="flex flex-wrap gap-2 sm:w-[700px]">
               {badges.map((badge, idx) => (
                 <IconBadge
                   key={idx}
@@ -106,7 +102,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
               ))}
             </div>
           </div>
-          <SelectWithConfirm currentOption={registro.status} />
+          <SelectWithConfirm currentOption={status} />
         </div>
       </CardHeader>
     </Card>
