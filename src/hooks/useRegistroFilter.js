@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react"
-import { getParsedParams } from "@/utils/recordUtils"
+import { getParsedRecordParams } from "@/pages/main/registros/utils"
 
 export function useRegistroFilters(title, currentRole, isSuperAdmin) {
   const [columnFilters, setColumnFilters] = useState([])
@@ -7,7 +7,7 @@ export function useRegistroFilters(title, currentRole, isSuperAdmin) {
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
 
   const parsedParams = useMemo(() => {
-    const baseParams = getParsedParams(
+    const baseParams = getParsedRecordParams(
       pagination,
       appliedFilters,
       title,

@@ -1,2 +1,4 @@
-export * from "../../../../components/customs/forms/registro-form";
-export * from "../../../../components/customs/dialogs/client-order-dialog";
+export * from "./registros-detail-header";
+export * from "./registros-detail-info";
+export * from "./registros-detail";
+export * from "./registros-tabs";

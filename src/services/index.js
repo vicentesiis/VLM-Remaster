@@ -1,3 +1,3 @@
 export * from "./authService";
-export * from "./roleService";
+export * from "./recordsService";
 export * from "./userService";

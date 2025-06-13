@@ -1,2 +1,2 @@
-export * from "./accounts-settings";
+export * from "./cuentas";
 export * from "./usuarios";

@@ -24,7 +24,6 @@ export const RegistrosDetailInfo = ({ registro }) => {
     end_date,
     record_type,
     contacted,
-    amount_owed,
     comments,
     user,
   } = registro

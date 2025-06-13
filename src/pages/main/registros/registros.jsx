@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { toast } from "sonner"
 import { useRegistrosTable } from "./hooks/useRegistrosTable"
@@ -54,4 +55,8 @@ export const Registros = ({ title }) => {
       </Card>
     </PageLayout>
   )
+}
+
+Registros.propTypes = {
+  title: PropTypes.string.isRequired,
 }
