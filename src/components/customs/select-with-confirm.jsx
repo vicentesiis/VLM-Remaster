@@ -43,6 +43,7 @@ export function SelectWithConfirm({ currentOption }) {
     <div className="ml-auto mt-2 flex gap-2 sm:mt-0">
       {hasChanged && (
         <Button
+          variant="edit"
           onClick={() => {
             console.log("Confirmed:", selected)
             setInitial(selected)

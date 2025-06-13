@@ -24,10 +24,10 @@ export const recordStatusesLabel = {
 }
 
 export const statusToVariantMap = {
-  created: "info",
+  created: "success",
   assigned: "info",
   pending_info: "warning",
-  generate_jobs: "warning",
+  generate_jobs: "info",
   jobs_generated: "info",
   regenerate_jobs: "warning",
   generate_contract: "info",
@@ -39,7 +39,7 @@ export const statusToVariantMap = {
   leave_date_selected: "info",
   leave_date_confirmed: "success",
   finalized: "success",
-  inactive: "destructive", // red
+  inactive: "destructive",
 }
 
 export const PaginationDefaults = {
