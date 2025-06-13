@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import FormFieldTooltip from "../form-field-tooltip"
 import { Button } from "@/components/ui/button"
-import { Combobox } from "@/components/ui"
 import {
   Dialog,
   DialogContent,

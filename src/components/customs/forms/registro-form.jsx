@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import PropTypes from "prop-types"
 import React, { forwardRef, useImperativeHandle } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
@@ -54,19 +55,18 @@ const RegistroForm = forwardRef(({ onSubmit }, ref) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "test",
-      email: "test@test.com",
-      phone: "1234567890",
-      date_of_birth: new Date("2000-01-01"),
+      name: "",
+      email: "",
+      phone: "",
+      date_of_birth: "",
       nationality: "méxico",
-      state: "chiapas",
-      curp: "RACW050729MMCSHNA2",
-      passport: "12345",
-      job: "12345",
-      program: "program_a",
-      channel: "phone",
-      comments:
-        "RACW050729MMCSHNA2RACW050729MMCSHNA2RACW050729MMCSHNA2RACW050729MMCSHNA2RACW050729MMCSHNA2",
+      state: "",
+      curp: "",
+      passport: "",
+      job: "",
+      program: "",
+      channel: "",
+      comments: "",
     },
   })
 
@@ -125,6 +125,10 @@ const RegistroForm = forwardRef(({ onSubmit }, ref) => {
     </FormProvider>
   )
 })
+
+RegistroForm.propTypes = {
+  onSubmit: PropTypes.func,
+}
 
 RegistroForm.displayName = "RegistroForm"
 
