@@ -18,9 +18,7 @@ const RoleProtectedRoute = ({ allowedRoles, children }) => {
 }
 
 RoleProtectedRoute.propTypes = {
-  allowedRoles: PropTypes.shape({
-    includes: PropTypes.func,
-  }),
+  allowedRoles: PropTypes.any,
   children: PropTypes.any,
 }
 

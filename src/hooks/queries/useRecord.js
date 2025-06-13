@@ -7,7 +7,6 @@ export const useGetRecordById = (searchable_id, options = {}) => {
     queryKey: ["recordById", searchable_id],
     queryFn: async () => {
       const res = await recordApi.getRecordById({ searchable_id })
-      console.log("useGetRecordById", res)
       return res.data
     },
     enabled: !!searchable_id,

@@ -124,35 +124,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
 }
 
 RegistrosDetailInfo.propTypes = {
-  registro: PropTypes.shape({
-    assignment_date: PropTypes.any,
-    channel: PropTypes.any,
-    comments: PropTypes.shape({
-      label: PropTypes.any,
-      value: PropTypes.string,
-    }),
-    contacted: PropTypes.any,
-    curp: PropTypes.shape({
-      toUpperCase: PropTypes.func,
-    }),
-    date_of_birth: PropTypes.any,
-    email: PropTypes.shape({
-      toLowerCase: PropTypes.func,
-    }),
-    end_date: PropTypes.any,
-    exit_date: PropTypes.any,
-    name: PropTypes.any,
-    nationality: PropTypes.any,
-    passport: PropTypes.any,
-    phone: PropTypes.any,
-    program: PropTypes.any,
-    record_type: PropTypes.any,
-    state: PropTypes.any,
-    status: PropTypes.any,
-    user: PropTypes.shape({
-      name: PropTypes.any,
-    }),
-  }),
+  registro: PropTypes.any.isRequired,
 }
 
 export default RegistrosDetailInfo
