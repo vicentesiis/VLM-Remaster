@@ -14,6 +14,10 @@ import { menuItems, dropdownMenus } from "@/data/navbar-config"
 import { useAuth } from "@/hooks/useAuth"
 import { cn } from "@/lib/utils"
 
+function getFirstSegment(path) {
+  return path.split("/")[1] // returns 'registros', 'vacants', etc.
+}
+
 export const NavMenu = (props) => {
   const location = useLocation()
   const { currentRole } = useAuth()
@@ -22,15 +26,22 @@ export const NavMenu = (props) => {
     item.allowedRoutes.includes(currentRole)
   )
 
+  const getFirstSegment = (path) => path.split("/")[1] || ""
+
   const filteredDropdownMenus = dropdownMenus
     .filter((menu) => menu.allowedRoutes.includes(currentRole))
     .map((menu) => {
       const filteredItems = menu.items.filter((item) =>
         item.allowedRoutes.includes(currentRole)
       )
-      const isActive = filteredItems.some((item) =>
-        location.pathname.startsWith(item.to)
-      )
+
+      const currentSegment = getFirstSegment(location.pathname)
+
+      const isActive = filteredItems.some((item) => {
+        const itemSegment = getFirstSegment(item.to)
+        return currentSegment === itemSegment
+      })
+
       return {
         ...menu,
         items: filteredItems,
