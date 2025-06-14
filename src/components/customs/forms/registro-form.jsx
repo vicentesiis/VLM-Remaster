@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import React, { forwardRef, useImperativeHandle } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
-import { SectionForm } from "../section-form"
+import { SectionForm } from "./section-form"
 import { Form } from "@/components/ui/form"
 import {
   nameField,

@@ -19,10 +19,9 @@ export const emailField = (config = {}) => ({
 export const phoneField = (config = {}) => ({
   name: "phone",
   label: "Teléfono",
-  type: "input",
+  type: "numeric",
   autoComplete: "off",
   maxLength: 10,
-  numericOnly: true,
   placeholder: "Número de teléfono (10 dígitos)",
   ...config,
 })
