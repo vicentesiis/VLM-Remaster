@@ -11,13 +11,13 @@ import {
 } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
+import { toast } from "sonner"
 import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import { SelectWithConfirm } from "@/components/customs/select-with-confirm"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { useUpdateRecord } from "@/hooks/queries"
 import { formatDate } from "@/lib"
-import { toast } from "sonner"
 
 const formatProgramName = (program) =>
   program?.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
@@ -82,9 +82,8 @@ export const RegistrosDetailHeader = ({ registro }) => {
   const handleStatusUpdate = async (newStatus) => {
     try {
       await updateRecord({ id, status: newStatus })
-      toast.success("Estado actualizado correctamente")
+      toast.success("Estatus actualizado correctamente")
     } catch (error) {
-      // error handled in onError, but you can log or extend here
       console.error("Update status failed", error)
     }
   }
