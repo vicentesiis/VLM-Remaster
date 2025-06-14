@@ -1,5 +1,5 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
-import { use, useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { getParsedRecordParams } from "../utils/getParsedRecordParams"
 import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { recordStatusesLabel } from "@/constants/appConstants"
