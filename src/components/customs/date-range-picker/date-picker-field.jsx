@@ -42,11 +42,12 @@ const DatePickerField = ({
           selected={dateValue}
           onSelect={onChange}
           captionLayout="dropdown"
-          fromYear={1900} // Años desde 1900
-          toYear={new Date().getFullYear()} // Hasta el año actual
+          fromYear={1900}
+          toYear={new Date().getFullYear()}
           disabled={(date) =>
             date > new Date() || date < new Date("1900-01-01")
           }
+          defaultMonth={dateValue || new Date()}
           initialFocus
         />
       </PopoverContent>

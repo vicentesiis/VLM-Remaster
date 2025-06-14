@@ -84,10 +84,10 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
         <Button
           className="text-md sticky bottom-0 float-right ml-auto mr-8"
           variant={buttonVariant}
-          disabled={isLoading}
+          isLoading={isLoading}
           onClick={() => formRef.current?.submit()}
         >
-          {isLoading ? "Guardando..." : buttonText}
+          {buttonText}
         </Button>
       </DialogContent>
     </Dialog>

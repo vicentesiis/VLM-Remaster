@@ -63,7 +63,7 @@ const Button = React.forwardRef(
       >
         {isLoading ? (
           <span className="flex items-center gap-2">
-            Actualizando...
+            Un momento...
             <Loader2 className="animate-spin" />
           </span>
         ) : (

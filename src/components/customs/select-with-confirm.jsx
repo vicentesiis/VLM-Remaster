@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import { SaveIcon, XIcon } from "lucide-react"
 import React, { useEffect, useState } from "react"
 import { Button } from "../ui"
@@ -87,4 +88,10 @@ export function SelectWithConfirm({ currentOption, onConfirm, isLoading }) {
       </Select>
     </div>
   )
+}
+
+SelectWithConfirm.propTypes = {
+  currentOption: PropTypes.string,
+  isLoading: PropTypes.any,
+  onConfirm: PropTypes.any,
 }

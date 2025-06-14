@@ -29,7 +29,6 @@ export const useGetRecordsByUser = (params, options = {}) => {
 }
 
 export const useGetRecordsByCriteria = (params, options = {}) => {
-  console.log("useGetRecordsByCriteria", params)
   const searchParams = toURLSearchParams(params)
   return useQuery({
     queryKey: ["recordsByCriteria", params],
@@ -54,11 +53,9 @@ export const useCreateRecord = (options = {}) => {
       return recordApi.createProspectRecord(payload)
     },
     onSuccess: (data, variables, context) => {
-      // Optionally invalidate or refetch
       queryClient.invalidateQueries(["recordsByUser"])
       queryClient.invalidateQueries(["recordsByCriteria"])
 
-      // Call any custom success logic
       if (options.onSuccess) {
         options.onSuccess(data, variables, context)
       }
