@@ -11,7 +11,7 @@ export const RegistrosOrders = ({ registro }) => {
 }
 
 RegistrosOrders.propTypes = {
-  registro: PropTypes.any.isRequired,
+  registro: PropTypes.any,
 }
 
 export default RegistrosOrders

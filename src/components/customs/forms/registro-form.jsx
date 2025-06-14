@@ -59,7 +59,7 @@ const RegistroForm = forwardRef(
         name: "",
         email: "",
         phone: "",
-        date_of_birth: "",
+        date_of_birth: defaultValues?.date_of_birth ?? new Date(),
         nationality: "méxico",
         state: "",
         curp: "",
