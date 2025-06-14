@@ -1,13 +1,11 @@
 import PropTypes from "prop-types"
 import React from "react"
+import RegistroDialog from "@/components/customs/dialogs/registro-dialog"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { H3, PLead, ListStyle } from "@/components/ui/typography"
 
 import { toTitleCase } from "@/utils/utils"
-import { Button } from "@/components/ui"
-import { UserRoundPenIcon } from "lucide-react"
-import RegistroDialog from "@/components/customs/dialogs/registro-dialog"
 
 export const RegistrosDetailInfo = ({ registro }) => {
   const {

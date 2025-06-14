@@ -4,7 +4,7 @@ import { toURLSearchParams } from "@/utils/utils"
 
 export const useGetRecordById = (searchable_id, options = {}) => {
   return useQuery({
-    queryKey: ["recordById", searchable_id],
+    queryKey: ["record-by-id", searchable_id],
     queryFn: async () => {
       const res = await recordApi.getRecordById({ searchable_id })
       return res.data
@@ -31,7 +31,7 @@ export const useGetRecordsByUser = (params, options = {}) => {
 export const useGetRecordsByCriteria = (params, options = {}) => {
   const searchParams = toURLSearchParams(params)
   return useQuery({
-    queryKey: ["recordsByCriteria", params],
+    queryKey: ["records-by-criteria", params],
     queryFn: async () => {
       const res = await recordApi.getRecordsByCriteria(searchParams)
       await new Promise((r) => setTimeout(r, 300))
@@ -53,8 +53,8 @@ export const useCreateRecord = (options = {}) => {
       return recordApi.createProspectRecord(payload)
     },
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries(["recordsByUser"])
-      queryClient.invalidateQueries(["recordsByCriteria"])
+      queryClient.invalidateQueries(["records-by-user"])
+      queryClient.invalidateQueries(["records-by-criteria"])
 
       if (options.onSuccess) {
         options.onSuccess(data, variables, context)
@@ -70,8 +70,8 @@ export const useUpdateRecord = (options = {}) => {
   return useMutation({
     mutationFn: recordApi.updateRecord,
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries(["recordsByUser"])
-      queryClient.invalidateQueries(["recordsByCriteria"])
+      queryClient.invalidateQueries(["records-by-user"])
+      queryClient.invalidateQueries(["records-by-criteria"])
 
       if (options.onSuccess) {
         options.onSuccess(data, variables, context)
