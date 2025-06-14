@@ -12,7 +12,7 @@ import { recordStatusesLabel } from "@/constants/appConstants"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { extractAndMapToOptions } from "@/utils/utils"
 
-export function SelectWithConfirm({ currentOption, onConfirm }) {
+export function SelectWithConfirm({ currentOption, onConfirm, isLoading }) {
   const { recordStatuses } = useCodexData()
 
   const getStatusLabel = (option) => recordStatusesLabel[option] ?? option
@@ -47,7 +47,7 @@ export function SelectWithConfirm({ currentOption, onConfirm }) {
   return (
     <div className="ml-auto mt-2 flex gap-2 sm:mt-0">
       {hasChanged && (
-        <Button variant="edit" onClick={handleConfirm} disabled={!selected}>
+        <Button variant="edit" onClick={handleConfirm} isLoading={isLoading}>
           <SaveIcon className="size-5" />
           Actualizar
         </Button>

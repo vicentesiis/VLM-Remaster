@@ -61,7 +61,14 @@ const Button = React.forwardRef(
         disabled={isLoading || props.disabled}
         {...props}
       >
-        {isLoading ? <Loader2 className="animate-spin" /> : children}
+        {isLoading ? (
+          <span className="flex items-center gap-2">
+            Actualizando...
+            <Loader2 className="animate-spin" />
+          </span>
+        ) : (
+          children
+        )}
       </Comp>
     )
   }

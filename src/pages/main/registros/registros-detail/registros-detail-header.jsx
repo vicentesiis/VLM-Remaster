@@ -15,6 +15,10 @@ import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import { SelectWithConfirm } from "@/components/customs/select-with-confirm"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
+import { formatDate } from "@/lib"
+
+const formatProgramName = (program) =>
+  program?.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
 
 export const RegistrosDetailHeader = ({ registro }) => {
   const {
@@ -31,54 +35,40 @@ export const RegistrosDetailHeader = ({ registro }) => {
     updated_at,
   } = registro
 
-  const baseBadges = [
-    { title: public_id ?? null, icon: HashIcon },
-    {
-      title: user?.name ? `Agente: ${user.name}` : null,
-      icon: UserIcon,
-    },
-    { title: phone ?? null, icon: PhoneIcon },
-    { title: email ?? null, icon: AtSignIcon },
-    {
-      title: program
-        ? `Programa: ${program.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}`
-        : null,
-      icon: LayersIcon,
-    },
-    {
-      title: updated_at
-        ? `Última actualización: ${updated_at.split("T")[0]}`
-        : null,
-      icon: CalendarIcon,
-    },
-    {
-      title: record_type ? `Tipo: ${record_type}` : null,
-      icon: BadgeInfoIcon,
-    },
-  ]
+  const getBadges = () => {
+    const base = [
+      { title: public_id, icon: HashIcon },
+      { title: user?.name && `Agente: ${user.name}`, icon: UserIcon },
+      { title: phone, icon: PhoneIcon },
+      { title: email, icon: AtSignIcon },
+      {
+        title: program && `Programa: ${formatProgramName(program)}`,
+        icon: LayersIcon,
+      },
+      {
+        title: updated_at && `Última actualización: ${formatDate(updated_at)}`,
+        icon: CalendarIcon,
+      },
+      { title: record_type && `Tipo: ${record_type}`, icon: BadgeInfoIcon },
+    ]
 
-  const additionalBadges = [
-    contacted === false
-      ? { title: "No ha sido contactado", icon: UserXIcon }
-      : null,
-    amount_owed > 0
-      ? {
-          title: `Por pagar: $${amount_owed.toLocaleString()}`,
-          icon: DollarSignIcon,
-        }
-      : null,
-  ].filter(Boolean)
+    const extras = [
+      contacted === false && {
+        title: "No ha sido contactado",
+        icon: UserXIcon,
+      },
+      amount_owed > 0 && {
+        title: `Por pagar: $${amount_owed.toLocaleString()}`,
+        icon: DollarSignIcon,
+      },
+    ]
 
-  const badges = [...baseBadges, ...additionalBadges].filter((b) => b.title)
+    return [...base, ...extras].filter(Boolean)
+  }
 
-  const getBadgeVariant = (badge) => {
-    if (
-      badge.title ===
-      program?.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-    )
-      return "info"
-    if (badge.title?.startsWith("Por pagar")) return "destructive"
-    if (badge.title === "No ha sido contactado") return "warning"
+  const getBadgeVariant = (title) => {
+    if (title?.startsWith("Por pagar")) return "destructive"
+    if (title === "No ha sido contactado") return "warning"
     return "outline"
   }
 
@@ -97,12 +87,12 @@ export const RegistrosDetailHeader = ({ registro }) => {
             </div>
 
             <div className="flex flex-wrap gap-2 sm:w-[700px]">
-              {badges.map((badge, idx) => (
+              {getBadges().map((badge, idx) => (
                 <IconBadge
                   key={idx}
                   title={badge.title}
                   icon={badge.icon}
-                  variant={getBadgeVariant(badge)}
+                  variant={getBadgeVariant(badge.title)}
                 />
               ))}
             </div>
