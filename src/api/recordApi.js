@@ -15,3 +15,10 @@ export const createProspectRecord = (data) =>
   apiClient.post("/records/record/prospect", data)
 export const assignLeadRecordToUser = (data) =>
   apiClient.post("/records/record/lead/assign", data)
+export const updateRecordStatus = ({ searchable_id, new_status }) =>
+  apiClient.patch("/records/record/status", null, {
+    params: {
+      searchable_id,
+      new_status,
+    },
+  })

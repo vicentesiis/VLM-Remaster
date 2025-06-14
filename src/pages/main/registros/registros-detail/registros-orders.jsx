@@ -1,11 +1,16 @@
 import PropTypes from "prop-types"
 import React from "react"
-import { Card, CardTitle } from "@/components/ui"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui"
 
 export const RegistrosOrders = ({ registro }) => {
   return (
     <Card>
-      <CardTitle>Ordenes</CardTitle>
+      <CardHeader>
+        <CardTitle>Lista de Órdenes</CardTitle>
+      </CardHeader>
+      <CardContent>
+        Future Table
+      </CardContent>
     </Card>
   )
 }

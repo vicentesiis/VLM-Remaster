@@ -16,7 +16,7 @@ import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import { SelectWithConfirm } from "@/components/customs/select-with-confirm"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
-import { useUpdateRecord } from "@/hooks/queries"
+import { useUpdateRecord, useUpdateRecordStatus } from "@/hooks/queries"
 import { formatDate } from "@/lib"
 
 const formatProgramName = (program) =>
@@ -75,13 +75,16 @@ export const RegistrosDetailHeader = ({ registro }) => {
     return "outline"
   }
 
-  const { mutateAsync: updateRecord, isLoading } = useUpdateRecord({
+  const { mutateAsync: updateRecord, isLoading } = useUpdateRecordStatus({
     onError: () => toast.error("Error al actualizar el registro"),
   })
 
   const handleStatusUpdate = async (newStatus) => {
     try {
-      await updateRecord({ id, status: newStatus })
+      await updateRecord({
+        searchable_id: id,
+        new_status: newStatus,
+      })
       toast.success("Estatus actualizado correctamente")
     } catch (error) {
       console.error("Update status failed", error)
@@ -89,7 +92,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
   }
 
   return (
-    <Card>
+    <Card className="sticky top-0 z-30">
       <CardHeader>
         <div className="flex flex-col lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-2">

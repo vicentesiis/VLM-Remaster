@@ -4,7 +4,13 @@ import React from "react"
 import { AuthProvider } from "@/context/auth-context"
 import AppRouter from "@/routes/app-router"
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 function App() {
   return (

@@ -61,7 +61,7 @@ export function SelectWithConfirm({ currentOption, onConfirm, isLoading }) {
       >
         {/* Wrap SelectTrigger in relative container */}
         <div className="relative sm:w-full">
-          <SelectTrigger>
+          <SelectTrigger >
             <SelectValue />
           </SelectTrigger>
 
