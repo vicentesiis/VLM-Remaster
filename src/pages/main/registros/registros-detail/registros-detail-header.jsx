@@ -82,10 +82,14 @@ export const RegistrosDetailHeader = ({ registro }) => {
     return "outline"
   }
 
+  const handleStatusUpdate = (newStatus) => {
+    console.log("new Status", newStatus)
+  }
+
   return (
     <Card>
       <CardHeader>
-        <div className="flex flex-col sm:flex-row sm:justify-between">
+        <div className="flex flex-col lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <CardTitle>{name ?? "Sin nombre"}</CardTitle>
@@ -103,7 +107,10 @@ export const RegistrosDetailHeader = ({ registro }) => {
               ))}
             </div>
           </div>
-          <SelectWithConfirm currentOption={status} />
+          <SelectWithConfirm
+            currentOption={status}
+            onConfirm={handleStatusUpdate}
+          />
         </div>
       </CardHeader>
     </Card>
