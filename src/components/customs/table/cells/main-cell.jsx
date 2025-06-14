@@ -1,22 +1,19 @@
 import PropTypes from "prop-types"
 import React from "react"
 import { Link } from "react-router-dom"
-import { TableCell } from "@/components/ui/table"
 import { P } from "@/components/ui/typography"
 
 export const MainCell = ({ path, title, public_id }) => {
   const fullPath = `/registros${path}/${public_id}`
   return (
-    <TableCell className="py-0">
-      <Link
-        to={fullPath}
-        className="select-text flex-col space-y-0 font-bold hover:text-blue-600"
-        title={`Ver Registro ${title}`}
-      >
-        <P className="truncate">{title}</P>
-        <P className="text-sm font-normal">{public_id}</P>
-      </Link>
-    </TableCell>
+    <Link
+      to={fullPath}
+      className="select-text flex-col space-y-0 font-bold hover:text-blue-600"
+      title={`Ver Registro ${title}`}
+    >
+      <P className="truncate">{title}</P>
+      <P className="text-sm font-normal">{public_id}</P>
+    </Link>
   )
 }
 

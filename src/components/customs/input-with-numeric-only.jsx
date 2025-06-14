@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import React from "react"
 import { Input } from "@/components/ui/input"
 
-const InputWithNumericOnly = ({ onKeyDown, ...rest }) => {
+const InputWithNumericOnly = React.forwardRef(({ onKeyDown, ...rest }, ref) => {
   const handleKeyDown = (e) => {
     const isNumber = /^[0-9]$/.test(e.key)
     const allowed = [
@@ -18,15 +18,15 @@ const InputWithNumericOnly = ({ onKeyDown, ...rest }) => {
       e.preventDefault()
     }
 
-    // Call original onKeyDown if provided
     if (onKeyDown) onKeyDown(e)
   }
 
-  return <Input {...rest} onKeyDown={handleKeyDown} />
-}
+  return <Input {...rest} onKeyDown={handleKeyDown} ref={ref} />
+})
+
+InputWithNumericOnly.displayName = "InputWithNumericOnly"
 
 InputWithNumericOnly.propTypes = {
-  numericOnly: PropTypes.any,
   onKeyDown: PropTypes.func,
 }
 
