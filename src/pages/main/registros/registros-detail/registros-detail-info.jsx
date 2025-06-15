@@ -71,7 +71,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
 
   return (
     <Card className="relative">
-      <div className="absolute right-4 top-4 z-10">
+      <div className="absolute right-0 z-10 sm:right-4 sm:top-4">
         <RegistroDialog mode="edit" recordToEdit={registro} />
       </div>
       <CardContent className="flex flex-col gap-4 px-4 py-6 sm:px-8">

@@ -6,8 +6,8 @@ import { Separator } from "@/components/ui/separator"
 export const SectionForm = ({ form, title, fields }) => {
   return (
     <Card>
-      <CardHeader className="-mb-6">
-        <CardTitle className="text-lg">{title}</CardTitle>
+      <CardHeader className="sm:-mb-10 sm:-mt-2 px-4">
+        <CardTitle className="text-lg font-semibold text-primary">{title}</CardTitle>
         <Separator />
       </CardHeader>
       <CardContent>

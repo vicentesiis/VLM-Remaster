@@ -93,12 +93,12 @@ export const RegistrosDetailHeader = ({ registro }) => {
 
 
   return (
-    <Card className="sticky top-0 z-30">
+    <Card className="sm:sticky top-0 z-30">
       <CardHeader>
         <div className="flex flex-col lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <CardTitle>{name ?? "Sin nombre"}</CardTitle>
+              <CardTitle className="text-2xl">{name ?? "Sin nombre"}</CardTitle>
               <StatusBadge status={status ?? "N/A"} />
             </div>
 

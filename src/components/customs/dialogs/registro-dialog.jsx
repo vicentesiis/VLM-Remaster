@@ -82,7 +82,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
         />
 
         <Button
-          className="text-md sticky bottom-0 float-right ml-auto mr-8"
+          className="text-md sticky bottom-0 float-right ml-auto sm:mr-8"
           variant={buttonVariant}
           isLoading={isLoading}
           onClick={() => formRef.current?.submit()}
