@@ -42,8 +42,26 @@ export const STATUS_TO_VARIANT_MAP = {
   inactive: "destructive",
 }
 
-// Available status for Agent
+// Payment Statuses
+export const PAYMENT_STATUSES_LABEL = {
+  created: "Creado",
+  pending_payment: "Pendiente de Pago",
+  paid: "Pagado",
+  cancelled: "Cancelado",
+  failed: "Fallido",
+  expired: "Expirado",
+}
 
+export const PAYMENT_STATUS_TO_VARIANT_MAP = {
+  created: "info",
+  pending_payment: "warning",
+  paid: "success",
+  cancelled: "destructive",
+  failed: "destructive",
+  expired: "secondary",
+}
+
+// Available status for Agent
 export const AGENT_ALLOWED_STATUS_LIST = [
   "pending_info",
   "generate_jobs",

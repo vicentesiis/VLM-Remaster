@@ -49,3 +49,11 @@ export function toURLSearchParams(params) {
 
   return searchParams
 }
+
+export function formatCurrency(cents) {
+  return new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    minimumFractionDigits: 0,
+  }).format(cents / 100)
+}
