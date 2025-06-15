@@ -38,6 +38,7 @@ export const getRegistrosColumns = ({
         variant: "multiSelect",
         label: "Estatus",
         options: recordStatuses,
+        maxWidth: "100px",
       },
     }),
 
