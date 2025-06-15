@@ -27,7 +27,7 @@ const OrderForm = forwardRef(({ onSubmit }, ref) => {
     submit: () => submitHandler(),
   }))
 
-  const fields = [ammountField(), paymentMethodField()]
+  const fields = [paymentMethodField(), ammountField()]
 
   return (
     <FormProvider {...form}>

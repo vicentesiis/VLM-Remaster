@@ -111,8 +111,8 @@ export const ammountField = (config = {}) => ({
   name: "ammount",
   label: "Monto de la Órden",
   type: "currency",
-  autoComplete: "off",
-  placeholder: "Min $500 max $10,000",
+  placeholder: "Min $500 - Max $10,000",
+  maxLength: 7,
   ...config,
 })
 
