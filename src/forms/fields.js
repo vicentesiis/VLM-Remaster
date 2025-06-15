@@ -1,3 +1,5 @@
+import { Banknote, CreditCard } from "lucide-react"
+
 export const nameField = (config = {}) => ({
   name: "name",
   label: "Nombre Completo",
@@ -102,5 +104,33 @@ export const commentsField = (config = {}) => ({
   label: "Comentarios",
   type: "textarea",
   placeholder: "Comentarios...",
+  ...config,
+})
+
+export const ammountField = (config = {}) => ({
+  name: "ammount",
+  label: "Monto de la Órden",
+  type: "currency",
+  autoComplete: "off",
+  placeholder: "Min $500 max $10,000",
+  ...config,
+})
+
+export const paymentMethodField = (config = {}) => ({
+  name: "payment_method",
+  label: "Método de Pago",
+  type: "radioCard",
+  options: [
+    {
+      label: "Efectivo",
+      value: "cash",
+      icon: Banknote,
+    },
+    {
+      label: "SPEI",
+      value: "spei",
+      icon: CreditCard,
+    },
+  ],
   ...config,
 })

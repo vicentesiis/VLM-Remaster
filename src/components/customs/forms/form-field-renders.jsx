@@ -1,6 +1,8 @@
 import React from "react"
 import DatePickerField from "../date-range-picker/date-picker-field"
-import InputWithNumericOnly from "../input-with-numeric-only"
+import InputCurrency from "../inputs/input-currency"
+import InputWithNumericOnly from "../inputs/input-with-numeric-only"
+import RadioCardSelector from "../radio-card-selector"
 import { AutoComplete } from "@/components/ui/auto-complete"
 import {
   FormField,
@@ -43,6 +45,24 @@ export const renderFormField = (type, name, label, options, rest, form) => {
               <FormLabel>{label}</FormLabel>
               <FormControl>
                 <InputWithNumericOnly {...field} {...rest} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      )
+
+    case "currency":
+      return (
+        <FormField
+          key={name}
+          control={form.control}
+          name={name}
+          render={() => (
+            <FormItem>
+              <FormLabel>{label}</FormLabel>
+              <FormControl>
+                <InputCurrency control={form.control} name={name} {...rest} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -111,6 +131,28 @@ export const renderFormField = (type, name, label, options, rest, form) => {
                   showYearDropdown
                   scrollableYearDropdown
                   dateFormat="dd/MM/yyyy"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      )
+
+    case "radioCard":
+      return (
+        <FormField
+          key={name}
+          control={form.control}
+          name={name}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{label}</FormLabel>
+              <FormControl>
+                <RadioCardSelector
+                  value={field.value}
+                  onChange={field.onChange}
+                  options={options} // ← options come from the field config
                 />
               </FormControl>
               <FormMessage />

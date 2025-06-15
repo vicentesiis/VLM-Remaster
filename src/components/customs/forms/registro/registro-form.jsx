@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import React, { forwardRef, useImperativeHandle } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
-import { SectionForm } from "./section-form"
+import { RegistroSectionForm } from "./registro-section-form"
 import { Form } from "@/components/ui/form"
 import {
   nameField,
@@ -111,12 +111,12 @@ const RegistroForm = forwardRef(
         <Form {...form}>
           <form onSubmit={submitHandler}>
             <div className="space-y-4">
-              <SectionForm
+              <RegistroSectionForm
                 title="Datos del Registro"
                 form={form}
                 fields={recordDataFields}
               />
-              <SectionForm
+              <RegistroSectionForm
                 title="Información del Proceso"
                 form={form}
                 fields={vacantInfoFields}

@@ -74,3 +74,19 @@ export const channelSchema = normalizeToEmptyString(
 )
 
 export const commentsSchema = z.string().optional()
+
+export const ammountSchema = z.preprocess(
+  (val) => {
+    const parsed = Number(val)
+    return isNaN(parsed) ? undefined : parsed
+  },
+  z
+    .number({ required_error: "El monto es obligatorio" })
+    .min(500, { message: "El monto mínimo es $500" })
+    .max(10000, { message: "El monto máximo es $10,000" })
+)
+
+export const paymentMethodSchema = normalizeToEmptyString(
+  z.string(),
+  "El método de pago es obligatorio"
+)

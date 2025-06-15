@@ -1,13 +1,16 @@
+import PropTypes from "prop-types"
 import React from "react"
-import { renderFormField } from "./form-field-renders"
+import { renderFormField } from "../form-field-renders"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 
-export const SectionForm = ({ form, title, fields }) => {
+export const RegistroSectionForm = ({ form, title, fields }) => {
   return (
     <Card>
-      <CardHeader className="sm:-mb-10 sm:-mt-2 px-4">
-        <CardTitle className="text-lg font-semibold text-primary">{title}</CardTitle>
+      <CardHeader className="px-4 sm:-mb-10 sm:-mt-2">
+        <CardTitle className="text-lg font-semibold text-primary">
+          {title}
+        </CardTitle>
         <Separator />
       </CardHeader>
       <CardContent>
@@ -20,4 +23,10 @@ export const SectionForm = ({ form, title, fields }) => {
       </CardContent>
     </Card>
   )
+}
+
+RegistroSectionForm.propTypes = {
+  fields: PropTypes.any,
+  form: PropTypes.any,
+  title: PropTypes.any,
 }
