@@ -1,4 +1,3 @@
-// src/api/axiosInstance.js
 import axios from "axios"
 import {
   getValidAccessToken,
@@ -27,13 +26,17 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-// Response interceptor to handle token refresh on 401 errors
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  async (response) => {
+    await delay(300)
+    return response
+  },
   async (error) => {
     const originalRequest = error.config
 
-    // Prevent infinite loops
+    // Retry on 401
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
       try {
@@ -46,7 +49,7 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(refreshError)
       }
     }
-    console.log(error)
+
     return Promise.reject(error)
   }
 )

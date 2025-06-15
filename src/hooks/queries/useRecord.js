@@ -20,9 +20,7 @@ export const useGetRecordsByUser = (params, options = {}) => {
   return useQuery({
     queryKey: ["records-by-user", params],
     queryFn: async () => {
-      const res = await recordApi.getRecordsByUser(searchParams)
-      await new Promise((r) => setTimeout(r, 300))
-      return res
+      return await recordApi.getRecordsByUser(searchParams)
     },
     ...options,
   })
@@ -33,9 +31,7 @@ export const useGetRecordsByCriteria = (params, options = {}) => {
   return useQuery({
     queryKey: ["records-by-criteria", params],
     queryFn: async () => {
-      const res = await recordApi.getRecordsByCriteria(searchParams)
-      await new Promise((r) => setTimeout(r, 300))
-      return res
+      return await recordApi.getRecordsByCriteria(searchParams)
     },
     ...options,
   })
