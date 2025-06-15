@@ -2,13 +2,13 @@ import PropTypes from "prop-types"
 import React from "react"
 import { Badge } from "@/components/ui/badge"
 import {
-  recordStatusesLabel,
-  statusToVariantMap,
+  RECORD_STATUSES_LABEL,
+  STATUS_TO_VARIANT_MAP,
 } from "@/constants/appConstants"
 
 const StatusBadge = ({ status }) => {
-  const label = recordStatusesLabel[status] || status
-  const variant = statusToVariantMap[status] || "outline"
+  const label = RECORD_STATUSES_LABEL[status] || status
+  const variant = STATUS_TO_VARIANT_MAP[status] || "outline"
 
   return <Badge variant={variant}>{label}</Badge>
 }

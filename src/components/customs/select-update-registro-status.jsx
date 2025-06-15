@@ -9,14 +9,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { recordStatusesLabel } from "@/constants/appConstants"
+import { AGENT_ALLOWED_STATUS_LIST, NEXT_STATUS_MAP } from "@/constants"
+import { RECORD_STATUSES_LABEL, Roles } from "@/constants/appConstants"
+import { useUserRole } from "@/hooks"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { extractAndMapToOptions } from "@/utils/utils"
 
-export function SelectWithConfirm({ currentOption, onConfirm, isLoading }) {
+export function SelectUpdateRegistroStatus({
+  currentOption,
+  onConfirm,
+  isLoading,
+}) {
   const { recordStatuses } = useCodexData()
+  const currentRole = useUserRole()
 
-  const getStatusLabel = (option) => recordStatusesLabel[option] ?? option
+  const getStatusLabel = (option) => RECORD_STATUSES_LABEL[option] ?? option
 
   const recordStatusesOptions = extractAndMapToOptions(
     recordStatuses,
@@ -45,6 +52,15 @@ export function SelectWithConfirm({ currentOption, onConfirm, isLoading }) {
     onConfirm?.(selected)
   }
 
+  const nextStatuses = NEXT_STATUS_MAP[initial] ?? []
+
+  const isDisabled = (status) => {
+    const notInNext = !nextStatuses.includes(status)
+    const agentNotAllowed =
+      currentRole === Roles.AGENT && !AGENT_ALLOWED_STATUS_LIST.includes(status)
+    return notInNext || agentNotAllowed
+  }
+
   return (
     <div className="ml-auto mt-2 flex gap-2 sm:mt-0">
       {hasChanged && (
@@ -61,7 +77,7 @@ export function SelectWithConfirm({ currentOption, onConfirm, isLoading }) {
       >
         {/* Wrap SelectTrigger in relative container */}
         <div className="relative sm:w-full">
-          <SelectTrigger >
+          <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
 
@@ -80,7 +96,16 @@ export function SelectWithConfirm({ currentOption, onConfirm, isLoading }) {
 
         <SelectContent>
           {recordStatusesOptions.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
+            <SelectItem
+              key={option.value}
+              value={option.value}
+              disabled={isDisabled(option.value)}
+              title={
+                isDisabled(option.value)
+                  ? "Sin permisos para seleccionar este estatus"
+                  : ""
+              }
+            >
               {option.label}
             </SelectItem>
           ))}
@@ -90,7 +115,7 @@ export function SelectWithConfirm({ currentOption, onConfirm, isLoading }) {
   )
 }
 
-SelectWithConfirm.propTypes = {
+SelectUpdateRegistroStatus.propTypes = {
   currentOption: PropTypes.string,
   isLoading: PropTypes.any,
   onConfirm: PropTypes.any,

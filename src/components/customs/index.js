@@ -16,6 +16,6 @@ export * from "./input-icon";
 export * from "./search-with-select";
 export * from "./section-divider";
 export * from "./forms/section-form";
-export * from "./select-with-confirm";
+export * from "./select-update-registro-status";
 export * from "./simple-select";
 export * from "./user-avatar-dropwdown";

@@ -1,12 +1,12 @@
-export const extractList = (response) => {
-  return response?.data?.data ?? []
-}
-
 export function toTitleCase(str) {
   return str.replace(
     /\w\S*/g,
     (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
   )
+}
+
+export const extractList = (response) => {
+  return response?.data?.data ?? []
 }
 
 export function extractAndMapToOptions(response, labelFn = toTitleCase) {

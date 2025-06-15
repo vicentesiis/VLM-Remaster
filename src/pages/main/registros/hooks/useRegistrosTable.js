@@ -2,7 +2,7 @@ import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import { useEffect, useMemo, useState } from "react"
 import { getParsedRecordParams } from "../utils/getParsedRecordParams"
 import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
-import { recordStatusesLabel } from "@/constants/appConstants"
+import { RECORD_STATUSES_LABEL } from "@/constants/appConstants"
 import { Roles } from "@/constants/appConstants"
 import { useIsSuperAdmin, useUserId, useUserRole } from "@/hooks"
 import { useCodexData } from "@/hooks/queries/useCodexData"
@@ -48,7 +48,7 @@ export const useRegistrosTable = (title) => {
 
   const { data, isFetched, isFetching, isError, refetch } = recordQuery
 
-  const getStatusLabel = (status) => recordStatusesLabel[status] ?? status
+  const getStatusLabel = (status) => RECORD_STATUSES_LABEL[status] ?? status
 
   const columns = useMemo(
     () =>

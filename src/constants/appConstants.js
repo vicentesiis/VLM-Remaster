@@ -4,7 +4,7 @@ export const Roles = {
   AGENT: "agent",
 }
 
-export const recordStatusesLabel = {
+export const RECORD_STATUSES_LABEL = {
   created: "Creado",
   assigned: "Asignado",
   pending_info: "Pendiente de información",
@@ -23,7 +23,7 @@ export const recordStatusesLabel = {
   inactive: "Inactivo",
 }
 
-export const statusToVariantMap = {
+export const STATUS_TO_VARIANT_MAP = {
   created: "success",
   assigned: "info",
   pending_info: "warning",
@@ -42,7 +42,50 @@ export const statusToVariantMap = {
   inactive: "destructive",
 }
 
-export const PaginationDefaults = {
-  PAGE_SIZE: 20,
-  PAGE_INDEX: 0,
+// Available status for Agent
+
+export const AGENT_ALLOWED_STATUS_LIST = [
+  "pending_info",
+  "generate_jobs",
+  "regenerate_jobs",
+  "generate_contract",
+  "fix_contract",
+  "pending_approval",
+  "selecting_leave_date",
+  "leave_date_selected",
+  "finalized",
+  "inactive",
+]
+
+// Allowed *transitions* for a status
+export const NEXT_STATUS_MAP = {
+  assigned: ["pending_info", "generate_jobs", "generate_contract"],
+  pending_info: [
+    "generate_jobs",
+    "jobs_generated",
+    "regenerate_jobs",
+    "generate_contract",
+    "contract_generated",
+    "fix_contract",
+  ],
+  generate_jobs: ["pending_info", "finalized", "inactive"],
+  jobs_generated: ["pending_info", "generate_jobs"],
+  regenerate_jobs: ["pending_info", "jobs_generated"],
+  generate_contract: ["pending_info", "finalized", "inactive"],
+  contract_generated: ["pending_info", "generate_contract", "fix_contract"],
+  fix_contract: ["pending_info", "contract_generated"],
+  pending_approval: ["contract_generated"],
+  approved: ["pending_approval"],
+  selecting_leave_date: ["approved"],
+  leave_date_selected: ["selecting_leave_date"],
+  leave_date_confirmed: ["leave_date_selected"],
+  finalized: ["pending_info", "generate_jobs", "regenerate_jobs"],
+  inactive: [
+    "pending_info",
+    "generate_jobs",
+    "regenerate_jobs",
+    "generate_contract",
+    "contract_generated",
+    "fix_contract",
+  ],
 }
