@@ -30,7 +30,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 axiosInstance.interceptors.response.use(
   async (response) => {
-    await delay(300)
+    await delay(200)
     return response
   },
   async (error) => {

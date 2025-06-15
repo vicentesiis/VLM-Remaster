@@ -23,6 +23,7 @@ export function DataTable({
   isLoading = false,
   isError = false,
   hasFetched = false,
+  showPagination = true,
   ...props
 }) {
   const hasData =
@@ -128,7 +129,7 @@ export function DataTable({
         </Table>
       </div>
       <div className="flex flex-col gap-2.5">
-        <DataTablePagination table={table} />
+        {showPagination && <DataTablePagination table={table} />}
         {actionBar &&
           table.getFilteredSelectedRowModel().rows.length > 0 &&
           actionBar}
