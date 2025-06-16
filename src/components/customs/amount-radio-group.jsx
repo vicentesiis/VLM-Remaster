@@ -26,7 +26,7 @@ const options = [
   },
 ]
 
-const AmmountRadioGroup = ({ className }) => {
+const AmountRadioGroup = ({ className }) => {
   return (
     <RadioGroup.Root
       defaultValue={options[0].value}
@@ -45,8 +45,8 @@ const AmmountRadioGroup = ({ className }) => {
   )
 }
 
-AmmountRadioGroup.propTypes = {
+AmountRadioGroup.propTypes = {
   className: PropTypes.string,
 }
 
-export default AmmountRadioGroup
+export default AmountRadioGroup

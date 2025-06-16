@@ -13,7 +13,7 @@ export const RegistrosOrders = ({ recordId }) => {
       <CardContent>
         <div className="mt-4 flex justify-between sm:mt-0">
           <CardTitle className="mb-4">Lista de Órdenes</CardTitle>
-          <OrderDialog />
+          <OrderDialog recordId={recordId} />
         </div>
         <DataTable
           table={table}

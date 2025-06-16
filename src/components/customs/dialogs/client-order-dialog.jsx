@@ -1,7 +1,7 @@
 import { CreditCard, CircleDollarSign } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
-import AmmountRadioGroup from "@/components/customs/ammount-radio-group"
+import AmountRadioGroup from "@/components/customs/amount-radio-group"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -43,7 +43,7 @@ export const  ClientOrderDialog = ({ open, handleOpen }) => {
           <div className="-space-y-1">
             <Lead className="mt-2 font-bold">Especifica el monto:</Lead>
             <P className="">Si no conoces el monto, acude con tu supervisor.</P>
-            <AmmountRadioGroup className="pt-4" />
+            <AmountRadioGroup className="pt-4" />
           </div>
         </DialogDescription>
         <DialogFooter className={"mt-44 sm:mt-10"}>

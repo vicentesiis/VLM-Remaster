@@ -18,7 +18,10 @@ export const getOrdersByRecord = (params) =>
 export const getOrdersByGroup = (params) =>
   apiClient.get("/orders/by-group", { params })
 
-export const createOrder = (data) => apiClient.post("/orders/order", data)
+export const createOrder = (data) => {
+  const params = new URLSearchParams(data)
+  return apiClient.post(`/orders/order?${params.toString()}`)
+}
 
 export const handleOrderWebhook = (data) =>
   apiClient.post("/orders/order/events", data)

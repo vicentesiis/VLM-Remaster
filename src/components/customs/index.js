@@ -1,5 +1,5 @@
 export * from "./action-dropdown";
-export * from "./ammount-radio-group";
+export * from "./amount-radio-group";
 export * from "./big-calendar";
 export * from "./button-loading";
 export * from "./card-header-section";

@@ -75,7 +75,7 @@ export const channelSchema = normalizeToEmptyString(
 
 export const commentsSchema = z.string().optional()
 
-export const ammountSchema = z.preprocess(
+export const amountSchema = z.preprocess(
   (val) => {
     const parsed = Number(val)
     return isNaN(parsed) ? undefined : parsed

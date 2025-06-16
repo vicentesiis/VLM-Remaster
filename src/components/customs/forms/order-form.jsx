@@ -5,11 +5,11 @@ import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
 import { renderFormField } from "./form-field-renders"
 import { Form } from "@/components/ui/form"
-import { ammountField, paymentMethodField } from "@/forms/fields"
-import { ammountSchema, paymentMethodSchema } from "@/forms/validators"
+import { amountField, paymentMethodField } from "@/forms/fields"
+import { amountSchema, paymentMethodSchema } from "@/forms/validators"
 
 export const formSchema = z.object({
-  ammount: ammountSchema,
+  order_amount: amountSchema,
   payment_method: paymentMethodSchema,
 })
 
@@ -27,7 +27,7 @@ const OrderForm = forwardRef(({ onSubmit }, ref) => {
     submit: () => submitHandler(),
   }))
 
-  const fields = [paymentMethodField(), ammountField()]
+  const fields = [paymentMethodField(), amountField()]
 
   return (
     <FormProvider {...form}>

@@ -107,8 +107,8 @@ export const commentsField = (config = {}) => ({
   ...config,
 })
 
-export const ammountField = (config = {}) => ({
-  name: "ammount",
+export const amountField = (config = {}) => ({
+  name: "order_amount",
   label: "Monto de la Órden",
   type: "currency",
   placeholder: "Min $500 - Max $10,000",
