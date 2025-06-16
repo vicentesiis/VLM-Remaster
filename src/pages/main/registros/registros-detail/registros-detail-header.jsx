@@ -75,7 +75,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
     return "outline"
   }
 
-  const { mutateAsync: updateRecord, isLoading } = useUpdateRecordStatus({
+  const { mutateAsync: updateRecord } = useUpdateRecordStatus({
     onError: () => toast.error("Error al actualizar el registro"),
   })
 
@@ -91,9 +91,8 @@ export const RegistrosDetailHeader = ({ registro }) => {
     }
   }
 
-
   return (
-    <Card className="sm:sticky top-0 z-30">
+    <Card className="top-0 z-30 sm:sticky">
       <CardHeader>
         <div className="flex flex-col lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-2">
@@ -116,7 +115,6 @@ export const RegistrosDetailHeader = ({ registro }) => {
           <SelectUpdateRegistroStatus
             currentOption={status}
             onConfirm={handleStatusUpdate}
-            isLoading={isLoading}
           />
         </div>
       </CardHeader>

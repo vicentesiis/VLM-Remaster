@@ -15,11 +15,7 @@ import { useUserRole } from "@/hooks"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { extractAndMapToOptions } from "@/utils/utils"
 
-export function SelectUpdateRegistroStatus({
-  currentOption,
-  onConfirm,
-  isLoading,
-}) {
+export function SelectUpdateRegistroStatus({ currentOption, onConfirm }) {
   const { recordStatuses } = useCodexData()
   const currentRole = useUserRole()
 
@@ -47,9 +43,18 @@ export function SelectUpdateRegistroStatus({
     setSelected(initial)
   }
 
-  const handleConfirm = () => {
-    setInitial(selected)
-    onConfirm?.(selected)
+  const [localLoading, setLocalLoading] = useState(false)
+
+  const handleConfirm = async () => {
+    setLocalLoading(true) // start loading immediately
+    try {
+      await onConfirm?.(selected)
+      setInitial(selected)
+    } catch (error) {
+      console.error("Error confirming status update:", error)
+    } finally {
+      setLocalLoading(false)
+    }
   }
 
   const nextStatuses = NEXT_STATUS_MAP[initial] ?? []
@@ -64,7 +69,7 @@ export function SelectUpdateRegistroStatus({
   return (
     <div className="ml-auto mt-2 flex gap-2 sm:mt-0">
       {hasChanged && (
-        <Button variant="edit" onClick={handleConfirm} isLoading={isLoading}>
+        <Button variant="edit" onClick={handleConfirm} isLoading={localLoading}>
           <SaveIcon className="size-5" />
           Actualizar
         </Button>

@@ -11,8 +11,10 @@ export const RegistrosOrders = ({ recordId }) => {
   return (
     <Card>
       <CardContent>
-        <CardTitle className="mb-4">Lista de Órdenes</CardTitle>
-        <OrderDialog />
+        <div className="mt-4 flex justify-between sm:mt-0">
+          <CardTitle className="mb-4">Lista de Órdenes</CardTitle>
+          <OrderDialog />
+        </div>
         <DataTable
           table={table}
           isLoading={isLoading}
