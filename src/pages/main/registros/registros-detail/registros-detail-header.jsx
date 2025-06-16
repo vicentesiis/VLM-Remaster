@@ -42,12 +42,12 @@ export const RegistrosDetailHeader = ({ registro }) => {
     const base = [
       { title: public_id, icon: HashIcon },
       { title: user?.name && `Agente: ${user.name}`, icon: UserIcon },
-      { title: phone, icon: PhoneIcon },
-      { title: email, icon: AtSignIcon },
-      {
-        title: program && `Programa: ${formatProgramName(program)}`,
-        icon: LayersIcon,
-      },
+      // { title: phone, icon: PhoneIcon },
+      // { title: email, icon: AtSignIcon },
+      // {
+      //   title: program && `Programa: ${formatProgramName(program)}`,
+      //   icon: LayersIcon,
+      // },
       {
         title: updated_at && `Última actualización: ${formatDate(updated_at)}`,
         icon: CalendarIcon,
@@ -101,7 +101,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
               <StatusBadge status={status ?? "N/A"} />
             </div>
 
-            <div className="flex flex-wrap gap-2 sm:w-[700px]">
+            <div className="flex flex-wrap gap-2">
               {getBadges().map((badge, idx) => (
                 <IconBadge
                   key={idx}

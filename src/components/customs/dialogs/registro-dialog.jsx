@@ -10,6 +10,7 @@ import { useCreateRecord, useUpdateRecord } from "@/hooks/queries/useRecord"
 const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
   const formRef = useRef()
   const [open, setOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const isEdit = mode === "edit"
   const icon = isEdit ? UserPenIcon : UserPlusIcon
@@ -18,18 +19,17 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
   const buttonVariant = isEdit ? "edit" : "add"
   const iconBgClass = isEdit ? "bg-orange-600" : "bg-green-600"
 
-  const { mutateAsync: createRecord, isLoading: isCreating } = useCreateRecord({
+  const { mutateAsync: createRecord } = useCreateRecord({
     onError: () => toast.error("Error al crear el registro"),
   })
 
-  const { mutateAsync: updateRecord, isLoading: isUpdating } = useUpdateRecord({
+  const { mutateAsync: updateRecord } = useUpdateRecord({
     onError: () => toast.error("Error al actualizar el registro"),
   })
 
-  const isLoading = isCreating || isUpdating
-
   const handleSubmit = async (data) => {
     try {
+      setIsSubmitting(true)
       const response = isEdit
         ? await updateRecord({
             ...data,
@@ -54,6 +54,8 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
       setOpen(false)
     } catch (err) {
       console.error("Error:", err)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -84,7 +86,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
         <Button
           className="text-md sticky bottom-0 float-right ml-auto sm:mr-8"
           variant={buttonVariant}
-          isLoading={isLoading}
+          isLoading={isSubmitting}
           onClick={() => formRef.current?.submit()}
         >
           {buttonText}

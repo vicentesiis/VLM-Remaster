@@ -10,18 +10,27 @@ import { useCreateOrder } from "@/hooks/queries/useOrder"
 const OrderDialog = ({ trigger, recordId }) => {
   const formRef = useRef()
   const [open, setOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const { mutateAsync: createOrder } = useCreateOrder({
+  const { mutateAsync: createOrder, isLoading } = useCreateOrder({
     onError: () => toast.error("Error al crear la órden"),
   })
 
-  const handleSubmit = async (data) => {
-    data.record_id = recordId
+  const handleSubmit = async (formData) => {
+    const data = {
+      ...formData,
+      record_id: recordId,
+      order_amount: Number(formData.order_amount) * 100,
+    }
+    setIsSubmitting(true)
     try {
       await createOrder(data)
       toast.success("Órden creada con éxito")
+      setOpen(false)
     } catch (error) {
       console.log("error", error)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -48,7 +57,14 @@ const OrderDialog = ({ trigger, recordId }) => {
           </CardContent>
         </Card>
 
-        <Button onClick={() => formRef.current?.submit()}>Crear Órden</Button>
+        <Button
+          className="text-md"
+          variant="add"
+          onClick={() => formRef.current?.submit()}
+          isLoading={isSubmitting}
+        >
+          Crear Órden
+        </Button>
       </DialogContent>
     </Dialog>
   )
