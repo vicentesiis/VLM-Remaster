@@ -18,46 +18,31 @@ import { useNavigate } from "react-router-dom"
 
 export const ReportesReporteVentasGlobales = () => {
   const navigate = useNavigate()
-  const currentRole = useUserRole()
-  const { groups, channels } = useCodexData(currentRole)
+  const role = useUserRole()
+  const { groups, channels } = useCodexData(role)
   const listOfGroups = extractAndMapToOptions(groups)
-  const listOfChannels = extractAndMapToOptions(channels)
-
+  const listOfChannels = [{ label: "Todos", value: null },...extractAndMapToOptions(channels),]
   const { values, onChange } = useFiltersState({
     group_id: "",
     channel: "",
     year: currentYear.toString(),
   })
-
   const [dataFinal, setDataFinal] = useState(null)
-
   const { refetch } = useGetVentasGlobales(
-    {
-      year: values.year,
-      group: values.group_id,
-      channel: values.channel,
-    },
-    {
-      enabled: false,
-    }
+    { year: values.year, group: values.group_id, channel: values.channel },
+    { enabled: false }
   )
 
   const handleSearch = async () => {
-    if (!values.group_id) {
-      toast.error("El Grupo es necesario para el proceso")
-      return
-    }
-
+    if (!values.group_id)
+      return toast.error("El Grupo es necesario para el proceso")
     const { data } = await refetch()
-    if (data) {
-      setDataFinal(data)
-      console.log("Datos recibidos:", data)
-    }
+    if (data) setDataFinal(data)
   }
 
-  const timelineData = mont.map((month) => ({
-    title: month.label,
-    description: dataFinal?.[month.value.toLowerCase()] || 0,
+  const timelineData = mont.map((m) => ({
+    title: m.label,
+    description: dataFinal?.[m.value.toLowerCase()] || 0,
   }))
 
   return (
@@ -81,12 +66,10 @@ export const ReportesReporteVentasGlobales = () => {
             <BarChartNotStacked
               data={timelineData}
               onValueChange={(item) => {
-                console.log("Barra clickeada:", item)
                 navigate("/reportes/ventas-mensuales", {
                   state: { year: item.date, group: item.Sales },
                 })
               }}
-              
             />
           )}
         </CardContent>

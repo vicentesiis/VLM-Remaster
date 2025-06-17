@@ -16,7 +16,6 @@ export const BarChartStacked = () => {
       legendPosition={isSmallScreen ? "right" : "center"}
       className="-ml-16 w-[400px] h-[1000px] sm:-ml-24 sm:h-[500px] sm:w-[1500px]"
       categories={["agenteA", "agenteB", "agenteC"]}
-      layout={isSmallScreen ? "vertical" : "horizontal"}
     />
   )
 }
