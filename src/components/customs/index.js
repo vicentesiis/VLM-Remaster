@@ -11,7 +11,7 @@ export * from "./fancy-multi-select";
 export * from "./form-field-tooltip";
 export * from "./full-screen-loader";
 export * from "./generic-select";
-export * from "./generic-timeline";
+export * from "./bar-chart-notStacked";
 export * from "./inputs/input-icon";
 export * from "./search-with-select";
 export * from "./section-divider";
