@@ -4,18 +4,16 @@ import { getParsedRecordParams } from "../utils/getParsedRecordParams"
 import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { RECORD_STATUSES_LABEL } from "@/constants/appConstants"
 import { Roles } from "@/constants/appConstants"
-import { useIsSuperAdmin, useUserId, useUserRole } from "@/hooks"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import {
   useGetRecordsByCriteria,
   useGetRecordsByUser,
 } from "@/hooks/queries/useRecord"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { extractAndMapToOptions } from "@/utils/utils"
 
 export const useRegistrosTable = (title) => {
-  const userId = useUserId()
-  const currentRole = useUserRole()
-  const isSuperAdmin = useIsSuperAdmin()
+  const { id: userId, role, isSuperAdmin } = useUserPermissions()
 
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
@@ -34,13 +32,13 @@ export const useRegistrosTable = (title) => {
       appliedFilters,
       title,
       userId,
-      currentRole
+      role
     )
-  }, [pagination, appliedFilters, title, userId, currentRole, isSuperAdmin])
+  }, [pagination, appliedFilters, title, userId, role, isSuperAdmin])
 
-  const codex = useCodexData(currentRole)
+  const codex = useCodexData(role)
   const recordQuery =
-    currentRole === Roles.AGENT
+    role === Roles.AGENT
       ? useGetRecordsByUser(parsedParams)
       : useGetRecordsByCriteria(parsedParams, {
           enabled: !isSuperAdmin || parsedParams !== null,
@@ -53,7 +51,7 @@ export const useRegistrosTable = (title) => {
   const columns = useMemo(
     () =>
       getRegistrosColumns({
-        role: currentRole,
+        role: role,
         groups: extractAndMapToOptions(codex.groups),
         channels: extractAndMapToOptions(codex.channels),
         programs: extractAndMapToOptions(codex.programs),
@@ -63,7 +61,7 @@ export const useRegistrosTable = (title) => {
         ),
         recordTypes: extractAndMapToOptions(codex.recordTypes),
       }),
-    [currentRole, codex]
+    [role, codex]
   )
 
   const table = useReactTable({
@@ -91,7 +89,7 @@ export const useRegistrosTable = (title) => {
     setColumnFilters([])
     setAppliedFilters([])
     setPagination({ pageIndex: 0, pageSize: 10 })
-    if (currentRole === Roles.AGENT) {
+    if (role === Roles.AGENT) {
       refetch()
     }
   }, [title])

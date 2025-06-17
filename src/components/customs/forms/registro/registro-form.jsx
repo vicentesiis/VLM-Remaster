@@ -96,13 +96,13 @@ const RegistroForm = forwardRef(
       nationalityField(nacionalidadOptions),
       stateField(estadosOptions),
       passportField(),
-      curpField({ disabled: isEdit }),
+      curpField(),
     ]
 
     const vacantInfoFields = [
-      jobField(),
-      programField(programaOptions),
-      channelField(channelOptions),
+      jobField({ disabled: isEdit }),
+      programField(programaOptions, { disabled: isEdit }),
+      channelField(channelOptions, { disabled: isEdit }),
       commentsField(),
     ]
 

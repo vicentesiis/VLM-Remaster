@@ -30,6 +30,7 @@ export const AjustesUsuarios = () => {
       <Card>
         <CardHeaderSection title="Lista de Usuarios" actions={<Actions />} />
         <CardContent>
+          asdfasdfasd
         </CardContent>
       </Card>
     </PageLayout>

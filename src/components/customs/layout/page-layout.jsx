@@ -3,11 +3,10 @@ import React from "react"
 import RegistroDialog from "../dialogs/registro-dialog"
 import { H3 } from "@/components/ui/typography"
 import { Roles } from "@/constants/appConstants"
-import { useAuth } from "@/hooks"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 
 const PageLayout = ({ title, subtitle, children }) => {
-  const { user } = useAuth()
-  const role = user?.data?.role
+  const { role } = useUserPermissions()
 
   return (
     <div className="mx-auto max-w-screen-xl sm:p-4 xl:p-0">
@@ -31,10 +30,10 @@ const PageLayout = ({ title, subtitle, children }) => {
 }
 
 PageLayout.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   subtitle: PropTypes.string,
   buttons: PropTypes.node,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 }
 
 export default PageLayout

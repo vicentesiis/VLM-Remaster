@@ -13,7 +13,7 @@ export const routes = [
       },
       {
         path: "mis-registros",
-        routeKey: "misRegistros",
+        routeKey: "misProspectos",
         allowedRoles: [Roles.AGENT],
       },
       {
@@ -55,8 +55,8 @@ export const routes = [
   },
   {
     path: "/usuarios",
-    routeKey: "usuariosInfo",
-    allowedRoles: [Roles.AGENT],
+    routeKey: "usuarios",
+    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
   },
   {
     path: "/reportes",

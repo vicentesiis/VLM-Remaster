@@ -11,13 +11,13 @@ import {
 } from "@/components/ui/select"
 import { AGENT_ALLOWED_STATUS_LIST, NEXT_STATUS_MAP } from "@/constants"
 import { RECORD_STATUSES_LABEL, Roles } from "@/constants/appConstants"
-import { useUserRole } from "@/hooks"
 import { useCodexData } from "@/hooks/queries/useCodexData"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { extractAndMapToOptions } from "@/utils/utils"
 
 export function SelectUpdateRegistroStatus({ currentOption, onConfirm }) {
   const { recordStatuses } = useCodexData()
-  const currentRole = useUserRole()
+  const { role } = useUserPermissions()
 
   const getStatusLabel = (option) => RECORD_STATUSES_LABEL[option] ?? option
 
@@ -62,7 +62,7 @@ export function SelectUpdateRegistroStatus({ currentOption, onConfirm }) {
   const isDisabled = (status) => {
     const notInNext = !nextStatuses.includes(status)
     const agentNotAllowed =
-      currentRole === Roles.AGENT && !AGENT_ALLOWED_STATUS_LIST.includes(status)
+      role === Roles.AGENT && !AGENT_ALLOWED_STATUS_LIST.includes(status)
     return notInNext || agentNotAllowed
   }
 

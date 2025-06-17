@@ -2,7 +2,6 @@ import React from "react"
 import RegistrosIndexRedirect from "./registros-index-redirect"
 import { Ajustes } from "@/pages/main/ajustes/ajustes"
 import { Cuentas } from "@/pages/main/ajustes/modules/cuentas"
-import { AjustesUsuarios } from "@/pages/main/ajustes/modules/usuarios"
 import { Registros } from "@/pages/main/registros/registros"
 import { RegistrosDetail } from "@/pages/main/registros/registros-detail/registros-detail"
 import { ReportesReporteDeRegistros } from "@/pages/main/reportes/modules/reportes-reporte-de-registros"
@@ -10,6 +9,7 @@ import { ReportesReporteVentasPorAgente } from "@/pages/main/reportes/modules/re
 import { ReportesReporteVentalMensual } from "@/pages/main/reportes/modules/reportes-reporte-venta-mensual"
 import { ReportesReporteVentasGlobales } from "@/pages/main/reportes/modules/reportes-reporte-ventas-globales"
 import { Reportes } from "@/pages/main/reportes/reportes"
+import Usuarios from "@/pages/main/usuarios/usuarios"
 import { Vacantes } from "@/pages/main/vacantes/vacantes"
 
 const ReportePersonal = () => <>Reporte Personal</>
@@ -17,20 +17,18 @@ const AuditoriaDeRegistros = () => <>Auditoria de Registros</>
 const ControlDeFinalizados = () => <>Control de Finalizados</>
 const VentasPorCanal = () => <>Ventas por Canal</>
 const CortesPorAgente = () => <>Cortes por Agente</>
-const UsuariosInfo = () => <>Usuarios</>
 const UnauthorizedAccess = () => <>Unauthorized Access</>
 
 export const componentMap = {
   home: RegistrosIndexRedirect,
   registros: Registros,
-  misRegistros: Registros,
+  misProspectos: Registros,
   misLeads: Registros,
   misClientes: Registros,
   clientes: Registros,
-  tareas: Registros,
+  tareas: <>Tareas</>,
   ajustes: Ajustes,
   cuentas: Cuentas,
-  ajustesUsuarios: AjustesUsuarios,
   registroDetail: RegistrosDetail,
   info: <>asdf</>,
   reportesReporteDeRegistros: ReportesReporteDeRegistros,
@@ -44,7 +42,7 @@ export const componentMap = {
   controlDeFinalizados: ControlDeFinalizados,
   ventasPorCanal: VentasPorCanal,
   cortesPorAgente: CortesPorAgente,
-  usuariosInfo: UsuariosInfo,
+  usuarios: Usuarios,
   unauthorizedAccess: UnauthorizedAccess,
 }
 
@@ -52,8 +50,8 @@ export const componentPropsMap = {
   registros: {
     title: "Registros",
   },
-  misRegistros: {
-    title: "Mis Registros",
+  misProspectos: {
+    title: "Mis Prospectos",
   },
   misLeads: {
     title: "Mis Leads",

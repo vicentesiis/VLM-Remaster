@@ -18,7 +18,7 @@ export const RegistrosDetail = () => {
     <PageLayout title={`Registro:`} subtitle={registro.name}>
       <div className="mb-4 flex flex-col gap-4">
         <RegistrosDetailHeader registro={registro} />
-        <div className="flex flex-col gap-4 sm:gap-8">
+        <div className="flex flex-col gap-4">
           <RegistrosDetailInfo registro={registro} />
           <RegistrosOrders recordId={registro.id} />
         </div>

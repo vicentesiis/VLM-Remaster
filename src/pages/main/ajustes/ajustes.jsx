@@ -3,17 +3,17 @@ import { Link } from "react-router-dom"
 import PageLayout from "@/components/customs/layout/page-layout"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { dropdownMenus } from "@/data/navbar-config"
-import { useAuth } from "@/hooks/useAuth"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 
 export const Ajustes = () => {
-  const { currentRole } = useAuth()
+  const { role } = useUserPermissions()
 
   const settingsMenu = dropdownMenus.find((menu) => menu.title === "Ajustes")
 
   if (!settingsMenu) return null
 
   const allowedItems = settingsMenu.items.filter((item) =>
-    item.allowedRoutes.includes(currentRole)
+    item.allowedRoutes.includes(role)
   )
 
   return (
