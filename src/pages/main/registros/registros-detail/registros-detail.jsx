@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import RegistrosDetailHeader from "./registros-detail-header"
 import RegistrosDetailInfo from "./registros-detail-info"
 import RegistrosOrders from "./registros-orders"
-import PageLayout from "@/components/customs/layout/page-layout"
+import PageLayout from "@/components/customs/page-layout/page-layout"
 import { StatusState } from "@/components/customs/status-state"
 import { useGetRecordById } from "@/hooks/queries/useRecord"
 

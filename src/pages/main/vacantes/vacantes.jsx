@@ -1,5 +1,5 @@
 import React from "react"
-import PageLayout from "@/components/customs/layout/page-layout"
+import PageLayout from "@/components/customs/page-layout/page-layout"
 import { PLead, Lead, ListStyle, H4 } from "@/components/ui"
 import { Button } from "@/components/ui/button"
 import {

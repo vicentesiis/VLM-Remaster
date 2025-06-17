@@ -1,5 +1,5 @@
 import React from "react"
-import PageLayout from "@/components/customs/layout/page-layout"
+import PageLayout from "@/components/customs/page-layout/page-layout"
 import { Card, CardTitle } from "@/components/ui"
 
 export const Usuarios = () => {

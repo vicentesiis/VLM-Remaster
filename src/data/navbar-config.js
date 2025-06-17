@@ -48,7 +48,7 @@ export const dropdownMenus = [
       },
       {
         title: "Mis Prospectos",
-        to: "/registros/mis-registros",
+        to: "/registros/mis-prospectos",
         description: "Consulta los registros asignados a ti.",
         icon: UserCircle,
         allowedRoutes: [Roles.AGENT],

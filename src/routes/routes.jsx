@@ -12,7 +12,7 @@ export const routes = [
         allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
-        path: "mis-registros",
+        path: "mis-prospectos",
         routeKey: "misProspectos",
         allowedRoles: [Roles.AGENT],
       },

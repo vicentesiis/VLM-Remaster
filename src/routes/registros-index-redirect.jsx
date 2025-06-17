@@ -11,7 +11,7 @@ const RegistrosIndexRedirect = () => {
     case Roles.ADMIN:
       return <Navigate to="/registros/registros" replace />
     case Roles.AGENT:
-      return <Navigate to="/registros/mis-registros" replace />
+      return <Navigate to="/registros/mis-prospectos" replace />
     default:
       return <Navigate to="/unauthorized" replace />
   }
