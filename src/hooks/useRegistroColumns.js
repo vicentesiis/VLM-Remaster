@@ -15,7 +15,7 @@ export function useRegistroColumns(
   const programList = useMemo(() => extractList(programs), [programs])
 
   return useMemo(() => {
-    const cols = getRegistrosColumns(role, title)
+    const cols = getRegistrosColumns(role)
 
     if (!isSuperAdmin) return cols
 

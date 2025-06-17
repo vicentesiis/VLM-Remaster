@@ -20,7 +20,7 @@ export const RegistrosDetail = () => {
         <RegistrosDetailHeader registro={registro} />
         <div className="flex flex-col gap-4">
           <RegistrosDetailInfo registro={registro} />
-          <RegistrosOrders recordId={registro.id} />
+          <RegistrosOrders registro={registro} />
         </div>
       </div>
     </PageLayout>

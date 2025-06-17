@@ -86,7 +86,10 @@ const RegistroForm = forwardRef(
     const nacionalidadOptions = extractAndMapToOptions(nationalities)
     const estadosOptions = extractAndMapToOptions(mexicoStates)
     const programaOptions = extractAndMapToOptions(programs)
-    const channelOptions = extractAndMapToOptions(channels)
+    const allowedChannels = ["facebook", "instagram", "whatsapp", "phone"]
+    const channelOptions = extractAndMapToOptions(channels).filter((opt) =>
+      allowedChannels.includes(opt.value)
+    )
 
     const recordDataFields = [
       nameField(),

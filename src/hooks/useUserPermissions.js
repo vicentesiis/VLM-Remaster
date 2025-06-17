@@ -10,6 +10,8 @@ export const useUserPermissions = () => {
     role: user.role || null,
     isSuperAdmin: user.role === Roles.SUPER_ADMIN,
     isAdmin: user.role === Roles.ADMIN,
+    isAgent: user.role === Roles.AGENT,
+    isLeader: user.agent_type === "leader",
     ...capabilities,
   }
 }

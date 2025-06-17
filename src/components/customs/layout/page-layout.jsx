@@ -2,11 +2,10 @@ import PropTypes from "prop-types"
 import React from "react"
 import RegistroDialog from "../dialogs/registro-dialog"
 import { H3 } from "@/components/ui/typography"
-import { Roles } from "@/constants/appConstants"
 import { useUserPermissions } from "@/hooks/useUserPermissions"
 
 const PageLayout = ({ title, subtitle, children }) => {
-  const { role } = useUserPermissions()
+  const { isAgent } = useUserPermissions()
 
   return (
     <div className="mx-auto max-w-screen-xl sm:p-4 xl:p-0">
@@ -20,7 +19,7 @@ const PageLayout = ({ title, subtitle, children }) => {
             </p>
           )}
         </div>
-        {role === Roles.AGENT && <RegistroDialog mode="add" />}
+        {isAgent && <RegistroDialog mode="add" />}
       </div>
 
       {/* --- Content --- */}
