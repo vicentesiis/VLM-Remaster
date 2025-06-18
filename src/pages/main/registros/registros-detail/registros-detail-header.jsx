@@ -23,15 +23,14 @@ export const RegistrosDetailHeader = ({ registro }) => {
     name,
     status,
     record_type,
-    contacted,
     amount_owed,
     user,
     public_id,
     updated_at,
   } = registro
 
-  const { isAgent, id: currentUserId, isLeader } = useUserPermissions()
-  const canUpdateStatus = (currentUserId === user?.id && isAgent) || isLeader
+  const { id: currentUserId, isAgent, isAdmin } = useUserPermissions()
+  const canUpdateStatus = (currentUserId === user?.id && isAgent) || isAdmin
 
   const getBadges = () => {
     const base = [
@@ -45,10 +44,6 @@ export const RegistrosDetailHeader = ({ registro }) => {
     ]
 
     const extras = [
-      contacted === false && {
-        title: "No ha sido contactado",
-        icon: UserXIcon,
-      },
       amount_owed > 0 && {
         title: `Por pagar: $${amount_owed.toLocaleString()}`,
         icon: DollarSignIcon,

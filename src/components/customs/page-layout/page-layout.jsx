@@ -13,7 +13,7 @@ const PageLayout = ({ routeKey, title, subtitle, children }) => {
   return (
     <div className="mx-auto max-w-screen-xl sm:p-4 xl:p-0">
       <PageHeader title={resolvedTitle} subtitle={resolvedSubtitle} />
-      <Breadcrumbs />
+      {/* <Breadcrumbs /> */}
       {children}
     </div>
   )
