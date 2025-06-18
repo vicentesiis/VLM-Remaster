@@ -18,10 +18,13 @@ import { useUserPermissions } from "@/hooks/useUserPermissions"
 
 export const ReportesReporteVentasGlobales = () => {
   const navigate = useNavigate()
-  const {role} = useUserPermissions()
+  const { role } = useUserPermissions()
   const { groups, channels } = useCodexData(role)
   const listOfGroups = extractAndMapToOptions(groups)
-  const listOfChannels = [{ label: "Todos", value: null },...extractAndMapToOptions(channels),]
+  const listOfChannels = [
+    { label: "Todos", value: null },
+    ...extractAndMapToOptions(channels),
+  ]
   const { values, onChange } = useFiltersState({
     group_id: "",
     channel: "",
@@ -77,3 +80,5 @@ export const ReportesReporteVentasGlobales = () => {
     </PageLayout>
   )
 }
+
+export default ReportesReporteVentasGlobales

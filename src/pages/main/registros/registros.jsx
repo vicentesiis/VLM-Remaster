@@ -57,6 +57,8 @@ export const Registros = ({ title }) => {
   )
 }
 
+export default Registros
+
 Registros.propTypes = {
   title: PropTypes.string.isRequired,
 }

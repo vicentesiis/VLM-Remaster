@@ -1,8 +1,7 @@
 import PropTypes from "prop-types"
 import React from "react"
-import Breadcrumbs from "./breadcrumbs"
 import PageHeader from "./page-header"
-import { componentPropsMap } from "@/routes"
+import { componentPropsMap } from "@/routes/route-props"
 
 const PageLayout = ({ routeKey, title, subtitle, children }) => {
   const mappedProps = componentPropsMap[routeKey] || {}
@@ -13,7 +12,6 @@ const PageLayout = ({ routeKey, title, subtitle, children }) => {
   return (
     <div className="mx-auto max-w-screen-xl sm:p-4 xl:p-0">
       <PageHeader title={resolvedTitle} subtitle={resolvedSubtitle} />
-      {/* <Breadcrumbs /> */}
       {children}
     </div>
   )

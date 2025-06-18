@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   } = useCurrentUser({ enabled: !!token })
   const currentRole = user?.data?.role || null
 
-  const codex = useCodexData(currentRole, { enabled: !!currentRole })
+  const codex = useCodexData({ enabled: !!currentRole })
 
   const loading = isUserLoading || codex.isLoading
 
