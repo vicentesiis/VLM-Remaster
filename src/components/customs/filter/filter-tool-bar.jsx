@@ -31,7 +31,7 @@ const FilterToolbar = ({
       })}
       <Button onClick={onSearch}>
         <SearchIcon />
-        Generar Reporte
+        Buscar
       </Button>
     </div>
   )
