@@ -12,7 +12,20 @@ const months = [
   { label: "Noviembre", value: "11" },
   { label: "Diciembre", value: "12" },
 ]
-
+export const mont = [
+  { label: "Enero", value: "january" },
+  { label: "Febrero", value: "february" },
+  { label: "Marzo", value: "march" },
+  { label: "Abril", value: "april" },
+  { label: "Mayo", value: "may" },
+  { label: "Junio", value: "june" },
+  { label: "Julio", value: "july" },
+  { label: "Agosto", value: "august" },
+  { label: "Septiembre", value: "september" },
+  { label: "Octubre", value: "october" },
+  { label: "Noviembre", value: "november" },
+  { label: "Diciembre", value: "december" },
+]
 const generateYearOptions = () =>
   Array.from({ length: 6 }, (_, i) => {
     const year = new Date().getFullYear() - i
@@ -20,7 +33,7 @@ const generateYearOptions = () =>
   })
 
 export const group = {
-  key: "group",
+  key: "group_id",
   label: "Grupo",
   placeholder: "Selecciona un grupo",
   getOptions: (context) => context.groups,
@@ -39,5 +52,18 @@ export const year = {
   placeholder: "Selecciona un año",
   options: generateYearOptions(),
 }
+export const channel = {
+  key:"channel",
+  label:"canal",
+  placeholder:"Selecciona un canal",
+  getOptions: (context) => context.channels,
+
+}
+
+export const currentMonth = new Date().getMonth()
+
+export const currentYear = new Date().getFullYear()
 
 export const baseFilterConfig = [group, month, year]
+
+export const registrosFilterConfig = [group, year, channel]
