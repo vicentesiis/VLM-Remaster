@@ -86,24 +86,24 @@ const RegistroForm = forwardRef(
     const nacionalidadOptions = extractAndMapToOptions(nationalities)
     const estadosOptions = extractAndMapToOptions(mexicoStates)
     const programaOptions = extractAndMapToOptions(programs)
-    const allowedChannels = ["facebook", "instagram", "whatsapp", "phone"]
+    const allowedChannels = ["whatsapp", "phone"]
     const channelOptions = extractAndMapToOptions(channels).filter((opt) =>
       allowedChannels.includes(opt.value)
     )
 
     const recordDataFields = [
-      nameField(),
+      nameField({ disabled: isEdit }),
       emailField(),
       phoneField(),
       dateOfBirthField(),
       nationalityField(nacionalidadOptions),
       stateField(estadosOptions),
-      passportField(),
-      curpField(),
+      passportField({ disabled: isEdit }),
+      curpField({ disabled: isEdit }),
     ]
 
     const vacantInfoFields = [
-      jobField({ disabled: isEdit }),
+      jobField(),
       programField(programaOptions, { disabled: isEdit }),
       channelField(channelOptions, { disabled: isEdit }),
       commentsField(),
