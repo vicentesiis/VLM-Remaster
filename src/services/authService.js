@@ -1,4 +1,3 @@
-import { apiClient } from "@/api/apiClient"
 import { plainAxios } from "@/api/plainAxios"
 
 const ACCESS_TOKEN_KEY = "access_token"

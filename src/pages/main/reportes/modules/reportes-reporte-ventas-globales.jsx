@@ -1,10 +1,9 @@
 import React, { useState } from "react"
 import { BarChartNotStacked } from "@/components/customs/bar-chart-notStacked"
-import PageLayout from "@/components/customs/layout/page-layout"
+import PageLayout from "@/components/customs/page-layout/page-layout"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { extractAndMapToOptions } from "@/utils"
-import { useUserRole } from "@/hooks"
 import { useCodexData } from "@/hooks/queries"
 import { useFiltersState } from "@/hooks/useFiltersState"
 import {
@@ -15,10 +14,11 @@ import {
 import { useGetVentasGlobales } from "@/hooks/queries/UseReports"
 import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 
 export const ReportesReporteVentasGlobales = () => {
   const navigate = useNavigate()
-  const role = useUserRole()
+  const {role} = useUserPermissions()
   const { groups, channels } = useCodexData(role)
   const listOfGroups = extractAndMapToOptions(groups)
   const listOfChannels = [{ label: "Todos", value: null },...extractAndMapToOptions(channels),]

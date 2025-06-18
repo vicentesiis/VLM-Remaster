@@ -1,9 +1,6 @@
 import {
   CalendarIcon,
-  PhoneIcon,
   HashIcon,
-  AtSignIcon,
-  LayersIcon,
   UserXIcon,
   DollarSignIcon,
   BadgeInfoIcon,
@@ -17,19 +14,14 @@ import StatusBadge from "@/components/customs/badge/status-badge"
 import { SelectUpdateRegistroStatus } from "@/components/customs/select-update-registro-status"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { useUpdateRecordStatus } from "@/hooks/queries"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { formatDate } from "@/lib"
-
-const formatProgramName = (program) =>
-  program?.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
 
 export const RegistrosDetailHeader = ({ registro }) => {
   const {
     id,
     name,
-    phone,
-    email,
     status,
-    program,
     record_type,
     contacted,
     amount_owed,
@@ -38,16 +30,13 @@ export const RegistrosDetailHeader = ({ registro }) => {
     updated_at,
   } = registro
 
+  const { isAgent, id: currentUserId, isLeader } = useUserPermissions()
+  const canUpdateStatus = (currentUserId === user?.id && isAgent) || isLeader
+
   const getBadges = () => {
     const base = [
       { title: public_id, icon: HashIcon },
-      { title: user?.name && `Agente: ${user.name}`, icon: UserIcon },
-      // { title: phone, icon: PhoneIcon },
-      // { title: email, icon: AtSignIcon },
-      // {
-      //   title: program && `Programa: ${formatProgramName(program)}`,
-      //   icon: LayersIcon,
-      // },
+      { title: `Agente: ${user?.name ?? "N/A"}`, icon: UserIcon },
       {
         title: updated_at && `Última actualización: ${formatDate(updated_at)}`,
         icon: CalendarIcon,
@@ -112,10 +101,12 @@ export const RegistrosDetailHeader = ({ registro }) => {
               ))}
             </div>
           </div>
-          <SelectUpdateRegistroStatus
-            currentOption={status}
-            onConfirm={handleStatusUpdate}
-          />
+          {canUpdateStatus && (
+            <SelectUpdateRegistroStatus
+              currentOption={status}
+              onConfirm={handleStatusUpdate}
+            />
+          )}
         </div>
       </CardHeader>
     </Card>
@@ -123,7 +114,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
 }
 
 RegistrosDetailHeader.propTypes = {
-  registro: PropTypes.any.isRequired,
+  registro: PropTypes.any,
 }
 
 export default RegistrosDetailHeader

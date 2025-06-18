@@ -1,8 +1,10 @@
 export function toTitleCase(str) {
-  return str.replace(
-    /\w\S*/g,
-    (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-  )
+  if (typeof str !== "string") return ""
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ")
 }
 
 export const extractList = (response) => {

@@ -2,6 +2,7 @@ import { Menu, ChevronDown } from "lucide-react"
 import React, { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import SearchWithSelect from "../search-with-select"
+import UserAvatarDropdown from "@/components/customs/user-avatar-dropwdown"
 import { Button } from "@/components/ui/button"
 import {
   Collapsible,
@@ -16,13 +17,12 @@ import {
 } from "@/components/ui/sheet"
 import { H2, H4, P } from "@/components/ui/typography"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
-import { useAuth } from "@/hooks/useAuth"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { cn } from "@/lib/utils"
-import UserAvatarDropdown from "@/components/customs/user-avatar-dropwdown"
 
 export const NavigationSheet = () => {
   const location = useLocation()
-  const { currentRole, logoutMutation } = useAuth()
+  const { role } = useUserPermissions()
   const [openMenu, setOpenMenu] = useState(null)
   const [open, setOpen] = useState(false)
 
@@ -33,16 +33,14 @@ export const NavigationSheet = () => {
   }
 
   const filteredMenuItems = menuItems.filter((item) =>
-    item.allowedRoutes.includes(currentRole)
+    item.allowedRoutes.includes(role)
   )
 
   const filteredDropdownMenus = dropdownMenus
-    .filter((menu) => menu.allowedRoutes.includes(currentRole))
+    .filter((menu) => menu.allowedRoutes.includes(role))
     .map((menu) => ({
       ...menu,
-      items: menu.items.filter((item) =>
-        item.allowedRoutes.includes(currentRole)
-      ),
+      items: menu.items.filter((item) => item.allowedRoutes.includes(role)),
     }))
 
   const handleLinkClick = () => {

@@ -30,7 +30,7 @@ export const menuItems = [
   {
     title: "Usuarios",
     to: "/usuarios",
-    allowedRoutes: [Roles.AGENT],
+    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
   },
 ]
 
@@ -47,8 +47,8 @@ export const dropdownMenus = [
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
-        title: "Mis Registros",
-        to: "/registros/mis-registros",
+        title: "Mis Prospectos",
+        to: "/registros/mis-prospectos",
         description: "Consulta los registros asignados a ti.",
         icon: UserCircle,
         allowedRoutes: [Roles.AGENT],

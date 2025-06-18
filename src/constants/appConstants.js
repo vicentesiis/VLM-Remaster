@@ -42,6 +42,27 @@ export const STATUS_TO_VARIANT_MAP = {
   inactive: "destructive",
 }
 
+export const RolesCapabilities = {
+  [Roles.SUPER_ADMIN]: {
+    canManageRecords: true,
+    canCreateOrders: true,
+    canDeleteUsers: true,
+    canViewReports: true,
+  },
+  [Roles.ADMIN]: {
+    canManageRecords: true,
+    canCreateOrders: true,
+    canDeleteUsers: false,
+    canViewReports: true,
+  },
+  [Roles.AGENT]: {
+    canManageRecords: false,
+    canCreateOrders: false,
+    canDeleteUsers: false,
+    canViewReports: true,
+  },
+}
+
 // Payment Statuses
 export const PAYMENT_STATUSES_LABEL = {
   created: "Creado",
@@ -75,7 +96,6 @@ export const AGENT_ALLOWED_STATUS_LIST = [
   "inactive",
 ]
 
-// Allowed *transitions* for a status
 export const NEXT_STATUS_MAP = {
   assigned: ["pending_info", "generate_jobs", "generate_contract"],
   pending_info: [

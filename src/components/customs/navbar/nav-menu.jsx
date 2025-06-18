@@ -11,28 +11,24 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
-import { useAuth } from "@/hooks/useAuth"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { cn } from "@/lib/utils"
-
-function getFirstSegment(path) {
-  return path.split("/")[1] // returns 'registros', 'vacants', etc.
-}
 
 export const NavMenu = (props) => {
   const location = useLocation()
-  const { currentRole } = useAuth()
+  const { role } = useUserPermissions()
 
   const filteredMenuItems = menuItems.filter((item) =>
-    item.allowedRoutes.includes(currentRole)
+    item.allowedRoutes.includes(role)
   )
 
   const getFirstSegment = (path) => path.split("/")[1] || ""
 
   const filteredDropdownMenus = dropdownMenus
-    .filter((menu) => menu.allowedRoutes.includes(currentRole))
+    .filter((menu) => menu.allowedRoutes.includes(role))
     .map((menu) => {
       const filteredItems = menu.items.filter((item) =>
-        item.allowedRoutes.includes(currentRole)
+        item.allowedRoutes.includes(role)
       )
 
       const currentSegment = getFirstSegment(location.pathname)

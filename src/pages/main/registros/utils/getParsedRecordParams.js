@@ -51,7 +51,7 @@ function handleSuperAdminFilters(params, filters) {
 function handleAgentFilters(params, filters, title, userId) {
   params.user_id = userId
 
-  if (title === "Mis Registros") {
+  if (title === "Mis Prospectos") {
     params.record_type = "prospect"
   } else if (title === "Mis Leads") {
     params.record_type = "lead"

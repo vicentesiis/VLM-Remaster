@@ -1,18 +1,17 @@
 import React from "react"
 import { Navigate } from "react-router-dom"
 import { Roles } from "@/constants/appConstants"
-import { useAuth } from "@/hooks"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 
 const RegistrosIndexRedirect = () => {
-  const { user } = useAuth()
-  const currentRole = user.data.role
+  const { role } = useUserPermissions()
 
-  switch (currentRole) {
+  switch (role) {
     case Roles.SUPER_ADMIN:
     case Roles.ADMIN:
       return <Navigate to="/registros/registros" replace />
     case Roles.AGENT:
-      return <Navigate to="/registros/mis-registros" replace />
+      return <Navigate to="/registros/mis-prospectos" replace />
     default:
       return <Navigate to="/unauthorized" replace />
   }

@@ -12,7 +12,7 @@ const OrderDialog = ({ trigger, recordId }) => {
   const [open, setOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const { mutateAsync: createOrder, isLoading } = useCreateOrder({
+  const { mutateAsync: createOrder } = useCreateOrder({
     onError: () => toast.error("Error al crear la órden"),
   })
 

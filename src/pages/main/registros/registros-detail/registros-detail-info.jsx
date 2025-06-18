@@ -5,9 +5,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { H3, PLead, ListStyle } from "@/components/ui/typography"
 
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { toTitleCase } from "@/utils/utils"
 
 export const RegistrosDetailInfo = ({ registro }) => {
+  const { isAgent } = useUserPermissions()
   const {
     name,
     date_of_birth,
@@ -71,9 +73,11 @@ export const RegistrosDetailInfo = ({ registro }) => {
 
   return (
     <Card className="relative">
-      <div className="absolute right-0 z-10 sm:right-4 sm:top-4">
-        <RegistroDialog mode="edit" recordToEdit={registro} />
-      </div>
+      {isAgent && (
+        <div className="absolute right-0 z-10 sm:right-4 sm:top-4">
+          <RegistroDialog mode="edit" recordToEdit={registro} />
+        </div>
+      )}
       <CardContent className="flex flex-col gap-4 px-4 py-6 sm:px-8">
         {sections.map((section, sectionIndex) => {
           const content = [...section.content]

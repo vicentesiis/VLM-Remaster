@@ -30,7 +30,7 @@ export const getOrdersColumns = () => {
   })
 
   return [
-    columnHelper.accessor("provider_order_id", { header: "ID del Provedor" }),
+    columnHelper.accessor("provider_order_id", { header: "ID del Proveedor" }),
     columnHelper.accessor("status", {
       header: "Estatus",
       cell: (info) => <PaymentStatusBadge status={info.getValue()} />,
