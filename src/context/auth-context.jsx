@@ -19,9 +19,9 @@ export const AuthProvider = ({ children }) => {
   } = useCurrentUser({ enabled: !!token })
   const currentRole = user?.data?.role || null
 
-  const codex = useCodexData({ enabled: !!currentRole })
+  useCodexData({ enabled: !!currentRole })
 
-  const loading = isUserLoading || codex.isLoading
+  const loading = isUserLoading
 
   const loginMutation = useMutation({
     mutationFn: loginUser,

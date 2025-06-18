@@ -1,5 +1,6 @@
 import React from "react"
 import RegistrosIndexRedirect from "./registros-index-redirect"
+import { componentPropsMap } from "./route-props"
 import Ajustes from "@/pages/main/ajustes/ajustes"
 import Cuentas from "@/pages/main/ajustes/modules/cuentas"
 import Registros from "@/pages/main/registros/registros"
@@ -11,7 +12,6 @@ import ReportesReporteVentasGlobales from "@/pages/main/reportes/modules/reporte
 import Reportes from "@/pages/main/reportes/reportes"
 import Usuarios from "@/pages/main/usuarios/usuarios"
 import Vacantes from "@/pages/main/vacantes/vacantes"
-import { componentPropsMap } from "./route-props"
 
 const ReportePersonal = () => <>Reporte Personal</>
 const AuditoriaDeRegistros = () => <>Auditoria de Registros</>
