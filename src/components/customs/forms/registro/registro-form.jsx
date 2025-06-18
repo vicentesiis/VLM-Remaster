@@ -94,20 +94,20 @@ const RegistroForm = forwardRef(
     )
 
     const recordDataFields = [
-      nameField({ disabled: !isAdmin ?? isEdit }),
+      nameField({ disabled: !isAdmin && isEdit }),
       emailField(),
       phoneField(),
       dateOfBirthField(),
       nationalityField(nacionalidadOptions),
       stateField(estadosOptions),
-      passportField({ disabled: !isAdmin ?? isEdit }),
-      curpField({ disabled: !isAdmin ?? isEdit }),
+      passportField({ disabled: !isAdmin && isEdit }),
+      curpField({ disabled: !isAdmin && isEdit }),
     ]
 
     const vacantInfoFields = [
       jobField(),
-      programField(programaOptions, { disabled: !isAdmin ?? isEdit }),
-      channelField(channelOptions, { disabled: !isAdmin ?? isEdit }),
+      programField(programaOptions, { disabled: !isAdmin && isEdit }),
+      channelField(channelOptions, { disabled: !isAdmin && isEdit }),
       commentsField(),
     ]
 
