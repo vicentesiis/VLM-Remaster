@@ -8,6 +8,7 @@ export const useUserPermissions = () => {
   return {
     id: user.id || null,
     role: user.role || null,
+    groupId: user.group?.id || null,
     isSuperAdmin: user.role === Roles.SUPER_ADMIN,
     isAdmin: user.role === Roles.ADMIN,
     isAgent: user.role === Roles.AGENT,

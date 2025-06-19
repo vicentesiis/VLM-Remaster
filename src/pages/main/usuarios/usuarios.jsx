@@ -17,7 +17,7 @@ import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { extractAndMapToOptions } from "@/utils"
 
 const Usuarios = () => {
-  const { role } = useUserPermissions()
+  const { role, groupId } = useUserPermissions()
   const { groups } = useCodexData(role)
   const listOfGroups = extractAndMapToOptions(groups)
 
@@ -34,7 +34,7 @@ const Usuarios = () => {
     isLoading,
     isError,
   } = useGetGroupById({
-    group_searchable_id: "7d57f432-f831-43cd-9fcc-bd85ce51a7c4",
+    group_searchable_id: groupId,
     with_members: true,
   })
 

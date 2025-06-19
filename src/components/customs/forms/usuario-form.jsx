@@ -56,7 +56,7 @@ const UsuarioForm = forwardRef(
       submit: () => submitHandler(),
     }))
 
-    const agentTypesOptions = [
+    const agentTypeOptions = [
       { label: "Remote", value: "remote" },
       { label: "Callcenter", value: "callcenter" },
       { label: "Post", value: "post" },
@@ -67,7 +67,7 @@ const UsuarioForm = forwardRef(
       usernameField({ disabled: isEdit }),
       ...(!isEdit ? [passwordField()] : []),
       phoneField(),
-      agentTypeField(agentTypesOptions),
+      agentTypeField(agentTypeOptions),
       ...(isEdit ? [activeField()] : []),
     ]
 
