@@ -22,7 +22,7 @@ const SectionHeader = ({ title, subtitle, actions }) => {
 SectionHeader.propTypes = {
   title: PropTypes.node,
   subtitle: PropTypes.node,
-  actions: PropTypes.node, // could be a button, filter bar, etc.
+  actions: PropTypes.node,
 }
 
 export default SectionHeader

@@ -12,7 +12,6 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogCancel,
-  AlertDialogAction,
 } from "@/components/ui/alert-dialog"
 
 import { Button } from "@/components/ui/button"
@@ -25,7 +24,8 @@ export const ReassignLeaderDialog = ({ currentLeaderName }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const { groupId } = useUserPermissions()
+  const { group } = useUserPermissions()
+  const groupId = group?.id || null
 
   const { data: response } = useGetGroupById({
     group_searchable_id: groupId,

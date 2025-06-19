@@ -14,6 +14,7 @@ const FilterToolbar = ({
   return (
     <div className="flex flex-col items-center gap-2 md:flex-row">
       {filterConfig.map((config) => {
+        if (!config) return null
         const options = config.getOptions
           ? config.getOptions(context)
           : config.options
@@ -38,11 +39,11 @@ const FilterToolbar = ({
 }
 
 FilterToolbar.propTypes = {
-  context: PropTypes.object,
-  filterConfig: PropTypes.arrayOf(PropTypes.object),
-  onChange: PropTypes.object,
-  onSearch: PropTypes.func,
-  values: PropTypes.object,
+  context: PropTypes.any,
+  filterConfig: PropTypes.any,
+  onChange: PropTypes.any,
+  onSearch: PropTypes.any,
+  values: PropTypes.any,
 }
 
 export default FilterToolbar

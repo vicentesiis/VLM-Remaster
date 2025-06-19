@@ -10,7 +10,7 @@ const PageLayout = ({ routeKey, title, subtitle, children }) => {
   const resolvedSubtitle = subtitle ?? mappedProps.subtitle
 
   return (
-    <div className="mx-auto max-w-screen-xl sm:p-4 xl:p-0">
+    <div className="relative mx-auto max-w-screen-xl sm:p-4 xl:p-0">
       <PageHeader title={resolvedTitle} subtitle={resolvedSubtitle} />
       {children}
     </div>

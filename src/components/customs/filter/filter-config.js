@@ -32,7 +32,7 @@ const generateYearOptions = () =>
     return { label: year.toString(), value: year.toString() }
   })
 
-export const group = {
+export const groupConfig = {
   key: "group_id",
   label: "Grupo",
   placeholder: "Selecciona un grupo",
@@ -53,17 +53,16 @@ export const year = {
   options: generateYearOptions(),
 }
 export const channel = {
-  key:"channel",
-  label:"canal",
-  placeholder:"Selecciona un canal",
+  key: "channel",
+  label: "canal",
+  placeholder: "Selecciona un canal",
   getOptions: (context) => context.channels,
-
 }
 
 export const currentMonth = new Date().getMonth()
 
 export const currentYear = new Date().getFullYear()
 
-export const baseFilterConfig = [group, month, year]
+export const baseFilterConfig = [groupConfig, month, year]
 
-export const registrosFilterConfig = [group, year, channel]
+export const registrosFilterConfig = [groupConfig, year, channel]
