@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 
 const columnHelper = createColumnHelper()
 
-export const getUsuarioColumns = (onEditClick) => {
+export const getUsuarioColumns = (onEditClick, isAgent = false) => {
   const columns = [
     columnHelper.display({
       id: "usuario",
@@ -47,21 +47,26 @@ export const getUsuarioColumns = (onEditClick) => {
         </div>
       ),
     }),
-    columnHelper.display({
-      id: "actions",
-      header: "",
-      cell: ({ row }) => (
-        <Button
-          size="icon"
-          variant="ghost"
-          onClick={() => onEditClick(row.original)}
-        >
-          <Pencil className="h-4 w-4" />
-        </Button>
-      ),
-      meta: { align: "center", maxWidth: "40px" },
-    }),
   ]
+
+  if (!isAgent) {
+    columns.push(
+      columnHelper.display({
+        id: "actions",
+        header: "",
+        cell: ({ row }) => (
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => onEditClick(row.original)}
+          >
+            <Pencil className="h-4 w-4" />
+          </Button>
+        ),
+        meta: { align: "center", maxWidth: "40px" },
+      })
+    )
+  }
 
   return columns
 }

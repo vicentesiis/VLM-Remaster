@@ -35,12 +35,16 @@ export function useUsuariosData() {
   const admin = response?.data?.admin ?? {}
   const leader = response?.data?.leader ?? {}
 
+  const groupName = isSuperAdmin
+    ? response?.data?.name || "En espera de búsqueda"
+    : group?.name || ""
+
   return {
     role,
     isAdmin,
     isSuperAdmin,
     isAgent,
-    groupName: group?.name || "",
+    groupName: groupName,
     selectedGroupId,
     setSelectedGroupId,
     hasSearched,

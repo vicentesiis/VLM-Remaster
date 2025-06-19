@@ -83,7 +83,7 @@ const UsuarioDialog = ({
           </Button>
         </DialogTrigger>
       )}
-      <DialogContent className="max-h-full overflow-y-auto bg-gray-200 dark:bg-gray-950 sm:h-auto sm:max-w-3xl">
+      <DialogContent className="max-h-full overflow-y-auto bg-gray-100 dark:bg-gray-950 sm:h-auto sm:max-w-3xl">
         <DialogHeaderCustom
           icon={icon}
           title={title}

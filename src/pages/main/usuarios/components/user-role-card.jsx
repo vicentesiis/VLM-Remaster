@@ -5,9 +5,9 @@ import { Badge } from "@/components/ui/badge"
 import { useUserPermissions } from "@/hooks/useUserPermissions"
 
 const UserRoleCard = ({ name, username, phone, role }) => {
-  const { isAdmin } = useUserPermissions()
+  const { isAdmin, isSuperAdmin } = useUserPermissions()
   const isLeader = role?.toLowerCase() === "lider"
-  const canReasingLeader = isLeader && isAdmin
+  const canReasingLeader = isLeader && (isAdmin || isSuperAdmin)
 
   return (
     <div className="rounded-xl border bg-card p-3 shadow-sm transition hover:shadow-md">

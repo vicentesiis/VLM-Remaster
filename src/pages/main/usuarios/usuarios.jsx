@@ -38,7 +38,7 @@ const Usuarios = () => {
     setIsDialogOpen(true)
   }
 
-  const columns = getUsuarioColumns(handleEdit)
+  const columns = getUsuarioColumns(handleEdit, isAgent)
   const table = useReactTable({
     data: members,
     columns,
@@ -48,9 +48,9 @@ const Usuarios = () => {
   const title = isSuperAdmin
     ? "Usuarios por Grupo"
     : isAdmin
-      ? "Usuarios de tu Grupo"
+      ? "Usuarios"
       : isAgent
-        ? "Información de tu Grupo"
+        ? "Usuarios"
         : "Usuarios"
 
   return (
@@ -64,7 +64,9 @@ const Usuarios = () => {
       <Card>
         <CardContent>
           <SectionHeader
-            title={`${groupName}`}
+            title="Informacion del Grupo:"
+            extra={groupName}
+            className="pb-6"
             actions={
               isSuperAdmin &&
               listOfGroups.length > 0 && (
@@ -92,11 +94,6 @@ const Usuarios = () => {
                 />
               </div>
             </WithStatusState>
-          ) : isSuperAdmin ? (
-            <p className="mt-4 text-center text-muted-foreground">
-              Selecciona un grupo y presiona <strong>Buscar</strong> para
-              continuar.
-            </p>
           ) : null}
         </CardContent>
       </Card>

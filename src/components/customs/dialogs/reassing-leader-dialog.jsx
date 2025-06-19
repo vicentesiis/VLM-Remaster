@@ -75,7 +75,7 @@ export const ReassignLeaderDialog = ({ currentLeaderName }) => {
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>
-        <Button size="icon" variant="outline">
+        <Button size="mini" variant="outline">
           <Shuffle />
         </Button>
       </AlertDialogTrigger>
