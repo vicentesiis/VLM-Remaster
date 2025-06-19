@@ -162,3 +162,10 @@ export const agentTypeField = (options, config = {}) => ({
   placeholder: "Selecciona el tipo de Agente",
   ...config,
 })
+
+export const activeField = (config = {}) => ({
+  name: "active",
+  label: "¿Usuario Activo?",
+  type: "switch",
+  ...config,
+})

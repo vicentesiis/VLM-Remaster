@@ -4,6 +4,7 @@ import InputCurrency from "../inputs/input-currency"
 import InputWithNumericOnly from "../inputs/input-with-numeric-only"
 import RadioCardSelector from "../radio-card-selector"
 import { RadioGroup, RadioGroupItem } from "@/components/ui"
+import { Switch } from "@/components/ui"
 import { AutoComplete } from "@/components/ui/auto-complete"
 import {
   FormField,
@@ -198,6 +199,29 @@ export const renderFormField = (type, name, label, options, rest, form) => {
                 </RadioGroup>
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+      )
+
+    case "switch":
+      return (
+        <FormField
+          key={name}
+          control={form.control}
+          name={name}
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+              <div className="space-y-0.5">
+                <FormLabel className="text-sm font-medium">{label}</FormLabel>
+              </div>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  {...rest}
+                />
+              </FormControl>
             </FormItem>
           )}
         />

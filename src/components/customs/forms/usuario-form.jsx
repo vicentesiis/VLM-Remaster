@@ -11,6 +11,7 @@ import {
   passwordField,
   phoneField,
   agentTypeField,
+  activeField,
 } from "@/forms/fields"
 import {
   nameSchema,
@@ -19,64 +20,73 @@ import {
   phoneSchema,
   agentTypeSchema,
 } from "@/forms/validators"
-import { useCodexData } from "@/hooks/queries"
-import { extractAndMapToOptions } from "@/utils"
 
-export const formSchema = z.object({
-  name: nameSchema,
-  username: usernameSchema,
-  password: passwordSchema,
-  phone: phoneSchema,
-  agent_type: agentTypeSchema,
-})
-
-const UsuarioForm = forwardRef(({ onSubmit }, ref) => {
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      username: "",
-      password: "",
-      phone: "",
-      agent_type: "",
-    },
+export const getFormSchema = (isEdit) =>
+  z.object({
+    name: nameSchema,
+    username: usernameSchema,
+    password: isEdit ? z.string().optional() : passwordSchema,
+    phone: phoneSchema,
+    agent_type: agentTypeSchema,
+    active: z.boolean().optional(),
   })
 
-  const submitHandler = form.handleSubmit((data) => {
-    onSubmit?.(data)
-  })
+const UsuarioForm = forwardRef(
+  ({ onSubmit, defaultValues, isEdit = false }, ref) => {
+    const schema = getFormSchema(isEdit)
 
-  // Expose the submit method to parent
-  useImperativeHandle(ref, () => ({
-    submit: () => submitHandler(),
-  }))
+    const form = useForm({
+      resolver: zodResolver(schema),
+      defaultValues: {
+        name: "",
+        username: "",
+        password: "",
+        phone: "",
+        agent_type: "",
+        active: true,
+        ...defaultValues,
+      },
+    })
+    const submitHandler = form.handleSubmit((data) => {
+      onSubmit?.(data)
+    })
 
-  const { agentTypes } = useCodexData()
-  const agentTypesOptions = extractAndMapToOptions(agentTypes)
+    // Expose the submit method to parent
+    useImperativeHandle(ref, () => ({
+      submit: () => submitHandler(),
+    }))
 
-  const fields = [
-    nameField(),
-    usernameField(),
-    passwordField(),
-    phoneField(),
-    agentTypeField(agentTypesOptions),
-  ]
+    const agentTypesOptions = [
+      { label: "Remote", value: "remote" },
+      { label: "Callcenter", value: "callcenter" },
+      { label: "Post", value: "post" },
+    ]
 
-  return (
-    <FormProvider {...form}>
-      <Form {...form}>
-        <form onSubmit={submitHandler}>
-          <div className="grid grid-cols-2 gap-4">
-            {fields.map((fieldConfig) => {
-              const { name, type, label, options, ...rest } = fieldConfig
-              return renderFormField(type, name, label, options, rest, form)
-            })}
-          </div>
-        </form>
-      </Form>
-    </FormProvider>
-  )
-})
+    const fields = [
+      nameField(),
+      usernameField({ disabled: isEdit }),
+      ...(!isEdit ? [passwordField()] : []),
+      phoneField(),
+      agentTypeField(agentTypesOptions),
+      ...(isEdit ? [activeField()] : []),
+    ]
+
+    return (
+      <FormProvider {...form}>
+        <Form {...form}>
+          <form onSubmit={submitHandler}>
+            <div className="grid grid-cols-2 gap-4">
+              {fields.map((fieldConfig) => {
+                const { name, type, label, options, ...rest } = fieldConfig
+                return renderFormField(type, name, label, options, rest, form)
+              })}
+            </div>
+          </form>
+        </Form>
+      </FormProvider>
+    )
+  }
+)
 
 UsuarioForm.propTypes = {
   defaultValues: PropTypes.any,

@@ -1,12 +1,13 @@
 import { createColumnHelper } from "@tanstack/react-table"
-import { Check, X } from "lucide-react"
+import { Check, Pencil, X } from "lucide-react"
 import React from "react"
 import UsuarioCell from "../cells/usuario-cell"
+import { Button } from "@/components/ui"
 import { Badge } from "@/components/ui/badge"
 
 const columnHelper = createColumnHelper()
 
-export const getUsuarioColumns = () => {
+export const getUsuarioColumns = (onEditClick) => {
   const columns = [
     columnHelper.display({
       id: "usuario",
@@ -19,7 +20,6 @@ export const getUsuarioColumns = () => {
     columnHelper.accessor("phone", {
       header: "Télefono",
       meta: { align: "center" },
-      
     }),
     columnHelper.accessor("agent_type", {
       header: "Tipo de Agente",
@@ -46,6 +46,20 @@ export const getUsuarioColumns = () => {
           )}
         </div>
       ),
+    }),
+    columnHelper.display({
+      id: "actions",
+      header: "",
+      cell: ({ row }) => (
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={() => onEditClick(row.original)}
+        >
+          <Pencil className="h-4 w-4" />
+        </Button>
+      ),
+      meta: { align: "center", maxWidth: "40px" },
     }),
   ]
 

@@ -5,11 +5,20 @@ import { toast } from "sonner"
 import UsuarioForm from "../forms/usuario-form"
 import { Button, Card, CardContent, DialogHeaderCustom } from "@/components/ui"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
-import { useCreateUser, useUpdateRecord, useUpdateUser } from "@/hooks/queries"
+import { useCreateUser, useUpdateUser } from "@/hooks/queries"
 
-const UsuarioDialog = ({ trigger, mode = "add" }) => {
+const UsuarioDialog = ({
+  trigger,
+  mode = "add",
+  userToEdit,
+  open,
+  onOpenChange,
+}) => {
+  const isControlled = open !== undefined && onOpenChange !== undefined
+  const [internalOpen, setInternalOpen] = useState(false)
+  const dialogOpen = isControlled ? open : internalOpen
+  const setDialogOpen = isControlled ? onOpenChange : setInternalOpen
   const formRef = useRef()
-  const [open, setOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const isEdit = mode === "edit"
@@ -33,8 +42,7 @@ const UsuarioDialog = ({ trigger, mode = "add" }) => {
 
       if (isEdit) {
         await updateUser({
-          // ...data,
-          // id: recordToEdit.id,
+          ...data,
         })
       } else {
         await createUser({
@@ -46,7 +54,7 @@ const UsuarioDialog = ({ trigger, mode = "add" }) => {
       toast.success(
         `${isEdit ? "Usuario actualizado" : "Usuario creado"} con éxito`
       )
-      setOpen(false)
+      setDialogOpen(false)
     } catch (err) {
       console.error("Error:", err)
     } finally {
@@ -54,16 +62,27 @@ const UsuarioDialog = ({ trigger, mode = "add" }) => {
     }
   }
 
+  const normalizedUser = {
+    name: userToEdit?.name ?? "",
+    username: userToEdit?.username ?? "",
+    password: "", // leave empty
+    phone: userToEdit?.phone ?? "",
+    agent_type: userToEdit?.agent_type ?? "",
+    active: userToEdit?.active ?? false,
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {trigger || (
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      {typeof trigger !== "undefined" ? (
+        trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>
+      ) : (
+        <DialogTrigger asChild>
           <Button variant={buttonVariant} size="sm">
             {React.createElement(icon)}
             {title}
           </Button>
-        )}
-      </DialogTrigger>
+        </DialogTrigger>
+      )}
       <DialogContent className="max-h-full overflow-y-auto bg-gray-200 dark:bg-gray-950 sm:h-auto sm:max-w-3xl">
         <DialogHeaderCustom
           icon={icon}
@@ -76,6 +95,7 @@ const UsuarioDialog = ({ trigger, mode = "add" }) => {
             <UsuarioForm
               ref={formRef}
               onSubmit={handleSubmit}
+              defaultValues={normalizedUser}
               isEdit={isEdit}
             />
           </CardContent>
@@ -96,8 +116,11 @@ const UsuarioDialog = ({ trigger, mode = "add" }) => {
 
 UsuarioDialog.propTypes = {
   mode: PropTypes.string,
+  onOpenChange: PropTypes.any,
+  open: PropTypes.any,
   recordToEdit: PropTypes.any,
   trigger: PropTypes.any,
+  userToEdit: PropTypes.any,
 }
 
 export default UsuarioDialog

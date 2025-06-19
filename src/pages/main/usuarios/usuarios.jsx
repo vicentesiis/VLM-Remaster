@@ -1,6 +1,7 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import React from "react"
+import React, { useState } from "react"
 import { toast } from "sonner"
+import UsuarioDialog from "@/components/customs/dialogs/usuario-dialog"
 import { group } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
@@ -42,7 +43,15 @@ const Usuarios = () => {
   const admin = data?.admin ?? {}
   const leader = data?.leader ?? {}
 
-  const columns = getUsuarioColumns()
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [userToEdit, setUserToEdit] = useState(null)
+
+  const handleEdit = (user) => {
+    setUserToEdit(user)
+    setIsDialogOpen(true)
+  }
+
+  const columns = getUsuarioColumns(handleEdit)
 
   const table = useReactTable({
     data: members,
@@ -67,7 +76,7 @@ const Usuarios = () => {
             }
           />
           <div className="flex gap-4">
-            <div className="flex w-[250px] flex-col gap-2">
+            <div className="flex w-[270px] flex-col gap-2">
               <p className="text-lg font-normal">Responsables del Grupo</p>
 
               <div className="flex flex-col gap-4">
@@ -91,10 +100,17 @@ const Usuarios = () => {
               isError={isError}
               hasFetched={true}
               showPagination={false}
-            ></DataTable>
+            />
           </div>
         </CardContent>
       </Card>
+      <UsuarioDialog
+        mode="edit"
+        userToEdit={userToEdit}
+        trigger={null}
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+      />
     </PageLayout>
   )
 }
