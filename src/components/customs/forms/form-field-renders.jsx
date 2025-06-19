@@ -3,6 +3,7 @@ import DatePickerField from "../date-range-picker/date-picker-field"
 import InputCurrency from "../inputs/input-currency"
 import InputWithNumericOnly from "../inputs/input-with-numeric-only"
 import RadioCardSelector from "../radio-card-selector"
+import { RadioGroup, RadioGroupItem } from "@/components/ui"
 import { AutoComplete } from "@/components/ui/auto-complete"
 import {
   FormField,
@@ -152,8 +153,49 @@ export const renderFormField = (type, name, label, options, rest, form) => {
                 <RadioCardSelector
                   value={field.value}
                   onChange={field.onChange}
-                  options={options} // ← options come from the field config
+                  options={options}
                 />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      )
+
+    case "radio":
+      return (
+        <FormField
+          key={name}
+          control={form.control}
+          name={name}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{label}</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex"
+                  {...rest}
+                >
+                  {options?.map((option) => (
+                    <div
+                      key={option.value}
+                      className="flex items-center space-x-2"
+                    >
+                      <RadioGroupItem
+                        value={option.value}
+                        id={`${name}-${option.value}`}
+                      />
+                      <label
+                        htmlFor={`${name}-${option.value}`}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        {option.label}
+                      </label>
+                    </div>
+                  ))}
+                </RadioGroup>
               </FormControl>
               <FormMessage />
             </FormItem>

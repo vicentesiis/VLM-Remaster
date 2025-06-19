@@ -69,7 +69,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-950 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl">
+      <DialogContent className="h-full overflow-y-auto bg-gray-200 dark:bg-gray-950 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl">
         <DialogHeaderCustom
           icon={icon}
           title={title}

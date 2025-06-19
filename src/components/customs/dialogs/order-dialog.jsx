@@ -44,7 +44,7 @@ const OrderDialog = ({ trigger, recordId }) => {
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="bg-gray-50 dark:bg-gray-950">
+      <DialogContent className="bg-gray-200 dark:bg-gray-950">
         <DialogHeaderCustom
           icon={FileText}
           title={"Crear Órden"}
