@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React from "react"
-import { ReassignLeaderDialog } from "./dialogs/reassing-leader-dialog"
+import { ReassignLeaderDialog } from "../../../../components/customs/dialogs/reassing-leader-dialog"
 import { Badge } from "@/components/ui/badge"
 import { useUserPermissions } from "@/hooks/useUserPermissions"
 
