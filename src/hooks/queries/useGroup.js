@@ -40,3 +40,18 @@ export const useReassignGroupLeader = (options = {}) => {
     ...options,
   })
 }
+
+export const useCreateGroup = (options = {}) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: groupApi.createGroup,
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries(["group"])
+
+      if (options.onSuccess) {
+        options.onSuccess(data, variables, context)
+      }
+    },
+    ...options,
+  })
+}
