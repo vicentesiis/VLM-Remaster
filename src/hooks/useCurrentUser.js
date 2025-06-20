@@ -7,6 +7,7 @@ export const useCurrentUser = () => {
 
   return {
     user: user,
+    group: user.group,
     id: user.id || null,
     role: user.role || null,
     group: user.group || null,

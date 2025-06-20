@@ -58,3 +58,11 @@ export function formatCurrency(cents) {
     minimumFractionDigits: 0,
   }).format(cents / 100)
 }
+
+export const getYearOptions = (yearsBack = 6) => {
+  const currentYear = new Date().getFullYear()
+  return Array.from({ length: yearsBack }, (_, i) => {
+    const year = currentYear - i
+    return { label: year.toString(), value: year.toString() }
+  })
+}
