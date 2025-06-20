@@ -34,7 +34,7 @@ import {
   commentsSchema,
 } from "@/forms/validators"
 import { useCodexData } from "@/hooks/queries/useCodexData"
-import { extractAndMapToOptions } from "@/utils/utils"
+import { mapToOptions } from "@/utils/utils"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 export const formSchema = z.object({
@@ -85,11 +85,11 @@ const RegistroForm = forwardRef(
     const { isAdmin } = useCurrentUser()
     const { nationalities, mexicoStates, programs, channels } = useCodexData()
 
-    const nacionalidadOptions = extractAndMapToOptions(nationalities)
-    const estadosOptions = extractAndMapToOptions(mexicoStates)
-    const programaOptions = extractAndMapToOptions(programs)
+    const nacionalidadOptions = mapToOptions(nationalities.data)
+    const estadosOptions = mapToOptions(mexicoStates.data)
+    const programaOptions = mapToOptions(programs.data)
     const allowedChannels = ["whatsapp", "phone"]
-    const channelOptions = extractAndMapToOptions(channels).filter((opt) =>
+    const channelOptions = mapToOptions(channels.data).filter((opt) =>
       allowedChannels.includes(opt.value)
     )
 

@@ -4,13 +4,14 @@ import { getParsedRecordParams } from "../utils/getParsedRecordParams"
 import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { RECORD_STATUSES_LABEL } from "@/constants/appConstants"
 import { Roles } from "@/constants/appConstants"
+import { useGetGroups } from "@/hooks/queries"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import {
   useGetRecordsByCriteria,
   useGetRecordsByUser,
 } from "@/hooks/queries/useRecord"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { extractAndMapToOptions } from "@/utils/utils"
+import { mapToOptions } from "@/utils/utils"
 
 export const useRegistrosTable = (title) => {
   const { id: userId, role, isSuperAdmin } = useCurrentUser()
@@ -36,7 +37,6 @@ export const useRegistrosTable = (title) => {
     )
   }, [pagination, appliedFilters, title, userId, role, isSuperAdmin])
 
-  const codex = useCodexData()
   const recordQuery =
     role === Roles.AGENT
       ? useGetRecordsByUser(parsedParams)
@@ -48,20 +48,29 @@ export const useRegistrosTable = (title) => {
 
   const getStatusLabel = (status) => RECORD_STATUSES_LABEL[status] ?? status
 
+  const groups = useGetGroups()
+  const groupsOptions = mapToOptions(groups)
+  const { channels, programs, recordTypes, recordStatuses } = useCodexData()
+
+  const channelsOptions = mapToOptions(channels.data)
+  const programsOptions = mapToOptions(programs.data)
+  const recordTypesOptions = mapToOptions(recordTypes.data)
+  const recordStatusesOptions = mapToOptions(
+    recordStatuses.data,
+    getStatusLabel
+  )
+
   const columns = useMemo(
     () =>
       getRegistrosColumns({
         role: role,
-        groups: extractAndMapToOptions(codex.groups),
-        channels: extractAndMapToOptions(codex.channels),
-        programs: extractAndMapToOptions(codex.programs),
-        recordStatuses: extractAndMapToOptions(
-          codex.recordStatuses,
-          getStatusLabel
-        ),
-        recordTypes: extractAndMapToOptions(codex.recordTypes),
+        groups: groupsOptions,
+        channels: channelsOptions,
+        programs: programsOptions,
+        recordStatuses: recordTypesOptions,
+        recordTypes: recordStatusesOptions,
       }),
-    [role, codex]
+    [role]
   )
 
   const table = useReactTable({

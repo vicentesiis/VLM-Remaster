@@ -7,16 +7,11 @@ export function toTitleCase(str) {
     .join(" ")
 }
 
-export const extractList = (response) => {
-  return response?.data?.data ?? []
-}
-
-export function extractAndMapToOptions(response, labelFn = toTitleCase) {
-  const list = extractList(response)
+export function mapToOptions(list = [], labelFn = toTitleCase) {
   return Array.isArray(list)
     ? list.map((item) => ({
-        label: labelFn(item.name || item), // handle both object.name and string
-        value: item.id ?? item, // fallback to item if no id
+        label: labelFn(item.name || item),
+        value: item.id ?? item,
       }))
     : []
 }

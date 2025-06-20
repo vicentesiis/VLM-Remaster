@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { toast } from "sonner"
-import { useCodexData, useGetGroupById, useGetGroups } from "@/hooks/queries"
-import { useFiltersState } from "@/hooks/useFiltersState"
+import { useGetGroupById, useGetGroups } from "@/hooks/queries"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { extractAndMapToOptions } from "@/utils"
+import { useFiltersState } from "@/hooks/useFiltersState"
+import { mapToOptions } from "@/utils"
 
 export function useUsuariosData() {
   const { role, group, isAdmin, isSuperAdmin, isAgent } = useCurrentUser()
@@ -19,7 +19,7 @@ export function useUsuariosData() {
 
   const groups = useGetGroups()
 
-  const listOfGroups = extractAndMapToOptions(groups)
+  const listOfGroups = mapToOptions(groups.data)
   console.log(listOfGroups)
 
   const { values, onChange } = useFiltersState({ group_id: "" })

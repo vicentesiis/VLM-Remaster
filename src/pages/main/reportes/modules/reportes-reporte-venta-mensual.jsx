@@ -6,12 +6,11 @@ import PageLayout from "@/components/customs/page-layout/page-layout"
 import { Card, CardHeader, CardTitle } from "@/components/ui"
 import { useGetGroups } from "@/hooks/queries"
 import { useFiltersState } from "@/hooks/useFiltersState"
-import { extractAndMapToOptions } from "@/utils"
+import { mapToOptions } from "@/utils"
 
 export const ReportesReporteVentalMensual = () => {
   const groups = useGetGroups()
-  console.log("ReportesReporteVentalMensual - groups", groups)
-  const listOfGroups = extractAndMapToOptions(groups)
+  const listOfGroups = mapToOptions(groups.data)
 
   const { values, onChange } = useFiltersState({
     group: "",
