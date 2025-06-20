@@ -14,7 +14,7 @@ import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { mapToOptions } from "@/utils/utils"
 
 export const useRegistrosTable = (title) => {
-  const { id: userId, role, isSuperAdmin } = useCurrentUser()
+  const { id: userId, role, isSuperAdmin, isAgent } = useCurrentUser()
 
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
@@ -37,12 +37,11 @@ export const useRegistrosTable = (title) => {
     )
   }, [pagination, appliedFilters, title, userId, role, isSuperAdmin])
 
-  const recordQuery =
-    role === Roles.AGENT
-      ? useGetRecordsByUser(parsedParams)
-      : useGetRecordsByCriteria(parsedParams, {
-          enabled: !isSuperAdmin || parsedParams !== null,
-        })
+  const recordQuery = isAgent
+    ? useGetRecordsByUser(parsedParams)
+    : useGetRecordsByCriteria(parsedParams, {
+        enabled: !isSuperAdmin || parsedParams !== null,
+      })
 
   const { data, isFetched, isFetching, isError, refetch } = recordQuery
 
