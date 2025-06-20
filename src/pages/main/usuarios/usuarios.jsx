@@ -11,6 +11,7 @@ import { WithStatusState } from "@/components/customs/status-state/with-status-s
 import { getUsuarioColumns } from "@/components/customs/table/columns/usuarioColumns"
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
+import GroupDialog from "@/components/customs/dialogs/group-dialog"
 
 const Usuarios = () => {
   const {
@@ -55,9 +56,14 @@ const Usuarios = () => {
 
   return (
     <PageLayout title={title}>
-      {isAdmin && (
+      {(isAdmin || isSuperAdmin) && (
         <div className="absolute right-0 top-2 z-10">
           <UsuarioDialog />
+        </div>
+      )}
+      {isSuperAdmin && (
+        <div className="absolute right-40 top-2 z-10">
+          <GroupDialog />
         </div>
       )}
 
@@ -68,8 +74,7 @@ const Usuarios = () => {
             extra={groupName}
             className="pb-6"
             actions={
-              isSuperAdmin &&
-              listOfGroups.length > 0 && (
+              isSuperAdmin && (
                 <FilterToolbar
                   filterConfig={[groupConfig]}
                   values={values}

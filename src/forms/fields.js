@@ -169,3 +169,12 @@ export const activeField = (config = {}) => ({
   type: "switch",
   ...config,
 })
+
+export const groupNameField = (config = {}) => ({
+  name: "name",
+  label: "Nombre del Grupo",
+  type: "input",
+  autoComplete: "off",
+  placeholder: "Nombre del Grupo",
+  ...config,
+})

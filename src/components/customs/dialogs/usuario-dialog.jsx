@@ -65,7 +65,7 @@ const UsuarioDialog = ({
   const normalizedUser = {
     name: userToEdit?.name ?? "",
     username: userToEdit?.username ?? "",
-    password: "", // leave empty
+    password: "",
     phone: userToEdit?.phone ?? "",
     agent_type: userToEdit?.agent_type ?? "",
     active: userToEdit?.active ?? false,

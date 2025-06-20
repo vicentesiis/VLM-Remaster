@@ -103,5 +103,10 @@ export const passwordSchema = normalizeToEmptyString(
 
 export const agentTypeSchema = normalizeToEmptyString(
   z.string(),
-  "El tipo de Agente es obligatorio"
+  "El tipo de agente es obligatorio"
+)
+
+export const groupNameSchema = normalizeToEmptyString(
+  z.string(),
+  "El nombre del grupo es obligatorio"
 )
