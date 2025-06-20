@@ -49,16 +49,16 @@ export const useRegistrosTable = (title) => {
   const getStatusLabel = (status) => RECORD_STATUSES_LABEL[status] ?? status
 
   const groups = useGetGroups()
-  const groupsOptions = mapToOptions(groups)
   const { channels, programs, recordTypes, recordStatuses } = useCodexData()
 
-  const channelsOptions = mapToOptions(channels.data)
-  const programsOptions = mapToOptions(programs.data)
-  const recordTypesOptions = mapToOptions(recordTypes.data)
+  const channelsOptions = mapToOptions(channels?.data)
+  const programsOptions = mapToOptions(programs?.data)
+  const recordTypesOptions = mapToOptions(recordTypes?.data)
   const recordStatusesOptions = mapToOptions(
-    recordStatuses.data,
+    recordStatuses?.data,
     getStatusLabel
   )
+  const groupsOptions = mapToOptions(groups?.data)
 
   const columns = useMemo(
     () =>
@@ -70,7 +70,7 @@ export const useRegistrosTable = (title) => {
         recordStatuses: recordTypesOptions,
         recordTypes: recordStatusesOptions,
       }),
-    [role]
+    [role, groups]
   )
 
   const table = useReactTable({

@@ -7,13 +7,17 @@ export function toTitleCase(str) {
     .join(" ")
 }
 
-export function mapToOptions(list = [], labelFn = toTitleCase) {
-  return Array.isArray(list)
-    ? list.map((item) => ({
-        label: labelFn(item.name || item),
-        value: item.id ?? item,
-      }))
-    : []
+export function mapToOptions(input, labelFn = toTitleCase) {
+  const list = Array.isArray(input)
+    ? input
+    : Array.isArray(input?.data)
+      ? input.data
+      : []
+
+  return list.map((item) => ({
+    label: labelFn(item.name || item),
+    value: item.id ?? item,
+  }))
 }
 
 export const formatDate = (isoString) => {
