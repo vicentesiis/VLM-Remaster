@@ -12,10 +12,16 @@ export const useGetGroups = (options = {}) => {
 }
 
 export const useGetGroupById = (params, options = {}) => {
-  const searchParams = toURLSearchParams(params)
+  const hasValidParams = !!params?.group_searchable_id
+
   return useQuery({
-    queryKey: ["group", params],
-    queryFn: () => groupApi.getGroupByIdOrName(searchParams),
+    queryKey: ["group", params?.group_searchable_id],
+    queryFn: () => {
+      if (!hasValidParams) return Promise.resolve(null)
+      const searchParams = toURLSearchParams(params)
+      return groupApi.getGroupByIdOrName(searchParams)
+    },
+    enabled: hasValidParams && (options.enabled ?? true),
     ...options,
   })
 }
