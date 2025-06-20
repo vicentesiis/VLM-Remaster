@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import React from "react"
 import { H3 } from "@/components/ui/typography"
-import { cn } from "@/lib/utils" // If you use Tailwind’s `clsx`-style utility
+import { cn } from "@/lib/utils"
 
 const SectionHeader = ({ title, extra, subtitle, actions, className }) => {
   return (
