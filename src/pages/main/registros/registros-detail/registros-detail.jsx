@@ -4,25 +4,27 @@ import RegistrosDetailHeader from "./registros-detail-header"
 import RegistrosDetailInfo from "./registros-detail-info"
 import RegistrosOrders from "./registros-orders"
 import PageLayout from "@/components/customs/page-layout/page-layout"
-import { StatusState } from "@/components/customs/status-state"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { useGetRecordById } from "@/hooks/queries/useRecord"
 
 export const RegistrosDetail = () => {
   const { public_id } = useParams()
   const { data: registro, isLoading, isError } = useGetRecordById(public_id)
 
-  if (isLoading) return <StatusState type="loading" />
-  if (isError || !registro) return <StatusState type="error" />
-
   return (
-    <PageLayout title={`Registro:`} subtitle={registro.name}>
-      <div className="mb-4 flex flex-col gap-4">
-        <RegistrosDetailHeader registro={registro} />
-        <div className="flex flex-col gap-4">
-          <RegistrosDetailInfo registro={registro} />
-          <RegistrosOrders registro={registro} />
+    <PageLayout
+      title="Registro:"
+      subtitle={registro ? registro.name : isLoading ? "Cargando..." : ""}
+    >
+      <WithStatusState isLoading={isLoading} isError={isError}>
+        <div className="mb-4 flex flex-col gap-4">
+          <RegistrosDetailHeader registro={registro} />
+          <div className="flex flex-col gap-4">
+            <RegistrosDetailInfo registro={registro} />
+            <RegistrosOrders registro={registro} />
+          </div>
         </div>
-      </div>
+      </WithStatusState>
     </PageLayout>
   )
 }

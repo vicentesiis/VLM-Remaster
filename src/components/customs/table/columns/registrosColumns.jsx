@@ -83,11 +83,15 @@ const phoneColumn = columnHelper.accessor("phone", {
   header: "Teléfono",
 })
 
+const vacantColumn = columnHelper.accessor("job", {
+  header: "ID de la Vacante",
+})
+
 // Shared Columns
 const commentsColumn = columnHelper.accessor("comments", {
   header: "Comentarios",
   cell: (info) => (
-    <div className="line-clamp-2 max-w-xs break-all text-muted-foreground">
+    <div className="line-clamp-2 max-w-xs break-words text-muted-foreground">
       {info.getValue() ?? "---"}
     </div>
   ),
@@ -196,6 +200,7 @@ export const getRegistrosColumns = ({
   if (isAgent) {
     return [
       ...baseColumns,
+      vacantColumn,
       emailColumn,
       phoneColumn,
       commentsColumn,

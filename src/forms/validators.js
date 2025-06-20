@@ -90,3 +90,23 @@ export const paymentMethodSchema = normalizeToEmptyString(
   z.string(),
   "El método de pago es obligatorio"
 )
+
+export const usernameSchema = normalizeToEmptyString(
+  z.string(),
+  "El nombre de usuario es obligatorio"
+)
+
+export const passwordSchema = normalizeToEmptyString(
+  z.string(),
+  "La contraseña es obligatorio"
+)
+
+export const agentTypeSchema = normalizeToEmptyString(
+  z.string(),
+  "El tipo de agente es obligatorio"
+)
+
+export const groupNameSchema = normalizeToEmptyString(
+  z.string(),
+  "El nombre del grupo es obligatorio"
+)

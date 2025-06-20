@@ -93,3 +93,8 @@ export const useUpdateRecordStatus = (options = {}) => {
     ...options,
   })
 }
+
+export const getRecordByIdQueryKey = (searchable_id) => [
+  "record-by-id",
+  searchable_id,
+]

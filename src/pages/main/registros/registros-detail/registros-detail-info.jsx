@@ -9,7 +9,6 @@ import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { toTitleCase } from "@/utils/utils"
 
 export const RegistrosDetailInfo = ({ registro }) => {
-  const { isAgent } = useUserPermissions()
   const {
     name,
     date_of_birth,
@@ -26,10 +25,13 @@ export const RegistrosDetailInfo = ({ registro }) => {
     exit_date,
     end_date,
     record_type,
-    contacted,
     comments,
     user,
+    job,
   } = registro
+
+  const { id: currentUserId, isAgent, isAdmin } = useUserPermissions()
+  const canUpdateRecord = (currentUserId === user?.id && isAgent) || isAdmin
 
   const formatDate = (isoDate) =>
     isoDate ? new Date(isoDate).toLocaleDateString("es-MX") : "N/A"
@@ -59,7 +61,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
         { label: "Fecha de Asignación", value: formatDate(assignment_date) },
         { label: "Fecha de Salida", value: formatDate(exit_date) },
         { label: "Fecha de Finalización", value: formatDate(end_date) },
-        { label: "Contactado", value: contacted ? "Sí" : "No" },
+        { label: "ID de la Vacante", value: job },
         { label: "Comentarios", value: comments },
       ],
     },
@@ -73,7 +75,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
 
   return (
     <Card className="relative">
-      {isAgent && (
+      {canUpdateRecord && (
         <div className="absolute right-0 z-10 sm:right-4 sm:top-4">
           <RegistroDialog mode="edit" recordToEdit={registro} />
         </div>

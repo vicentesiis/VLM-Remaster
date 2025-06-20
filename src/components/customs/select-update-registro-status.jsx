@@ -10,14 +10,14 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { AGENT_ALLOWED_STATUS_LIST, NEXT_STATUS_MAP } from "@/constants"
-import { RECORD_STATUSES_LABEL, Roles } from "@/constants/appConstants"
+import { RECORD_STATUSES_LABEL } from "@/constants/appConstants"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { extractAndMapToOptions } from "@/utils/utils"
 
 export function SelectUpdateRegistroStatus({ currentOption, onConfirm }) {
   const { recordStatuses } = useCodexData()
-  const { role } = useUserPermissions()
+  const { isAgent, isAdmin } = useUserPermissions()
 
   const getStatusLabel = (option) => RECORD_STATUSES_LABEL[option] ?? option
 
@@ -46,7 +46,7 @@ export function SelectUpdateRegistroStatus({ currentOption, onConfirm }) {
   const [localLoading, setLocalLoading] = useState(false)
 
   const handleConfirm = async () => {
-    setLocalLoading(true) // start loading immediately
+    setLocalLoading(true)
     try {
       await onConfirm?.(selected)
       setInitial(selected)
@@ -60,9 +60,12 @@ export function SelectUpdateRegistroStatus({ currentOption, onConfirm }) {
   const nextStatuses = NEXT_STATUS_MAP[initial] ?? []
 
   const isDisabled = (status) => {
+    if (isAdmin) {
+      return false
+    }
     const notInNext = !nextStatuses.includes(status)
     const agentNotAllowed =
-      role === Roles.AGENT && !AGENT_ALLOWED_STATUS_LIST.includes(status)
+      isAgent && !AGENT_ALLOWED_STATUS_LIST.includes(status)
     return notInNext || agentNotAllowed
   }
 
@@ -80,13 +83,11 @@ export function SelectUpdateRegistroStatus({ currentOption, onConfirm }) {
         disabled={!recordStatuses}
         className="w-full"
       >
-        {/* Wrap SelectTrigger in relative container */}
         <div className="relative sm:w-full">
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
 
-          {/* Reset button positioned absolutely inside trigger */}
           {hasChanged && (
             <Button
               size="mini"

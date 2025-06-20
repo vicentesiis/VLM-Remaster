@@ -35,6 +35,7 @@ import {
 } from "@/forms/validators"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { extractAndMapToOptions } from "@/utils/utils"
+import { useUserPermissions } from "@/hooks/useUserPermissions"
 
 export const formSchema = z.object({
   name: nameSchema,
@@ -81,6 +82,7 @@ const RegistroForm = forwardRef(
       submit: () => submitHandler(),
     }))
 
+    const { isAdmin } = useUserPermissions()
     const { nationalities, mexicoStates, programs, channels } = useCodexData()
 
     const nacionalidadOptions = extractAndMapToOptions(nationalities)
@@ -92,20 +94,20 @@ const RegistroForm = forwardRef(
     )
 
     const recordDataFields = [
-      nameField({ disabled: isEdit }),
+      nameField({ disabled: !isAdmin && isEdit }),
       emailField(),
       phoneField(),
       dateOfBirthField(),
       nationalityField(nacionalidadOptions),
       stateField(estadosOptions),
-      passportField({ disabled: isEdit }),
-      curpField({ disabled: isEdit }),
+      passportField({ disabled: !isAdmin && isEdit }),
+      curpField({ disabled: !isAdmin && isEdit }),
     ]
 
     const vacantInfoFields = [
       jobField(),
-      programField(programaOptions, { disabled: isEdit }),
-      channelField(channelOptions, { disabled: isEdit }),
+      programField(programaOptions, { disabled: !isAdmin && isEdit }),
+      channelField(channelOptions, { disabled: !isAdmin && isEdit }),
       commentsField(),
     ]
 
