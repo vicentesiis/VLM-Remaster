@@ -20,7 +20,6 @@ export function useUsuariosData() {
   const groups = useGetGroups()
 
   const listOfGroups = mapToOptions(groups.data)
-  console.log(listOfGroups)
 
   const { values, onChange } = useFiltersState({ group_id: "" })
 

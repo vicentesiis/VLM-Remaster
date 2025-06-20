@@ -9,15 +9,15 @@ import {
   useGetAgentTypes,
 } from "./useCodex"
 
-export const useCodexData = () => {
-  const recordStatuses = useGetRecordStatuses()
-  const recordTypes = useGetRecordTypes()
-  const nationalities = useGetNationalities()
-  const mexicoStates = useGetMexicoStates()
-  const roles = useGetRoles()
-  const agentTypes = useGetAgentTypes()
-  const programs = useGetPrograms()
-  const channels = useGetChannels()
+export const useCodexData = ({ enabled = true } = {}) => {
+  const recordStatuses = useGetRecordStatuses({ enabled })
+  const recordTypes = useGetRecordTypes({ enabled })
+  const nationalities = useGetNationalities({ enabled })
+  const mexicoStates = useGetMexicoStates({ enabled })
+  const roles = useGetRoles({ enabled })
+  const agentTypes = useGetAgentTypes({ enabled })
+  const programs = useGetPrograms({ enabled })
+  const channels = useGetChannels({ enabled })
 
   const isLoading =
     recordStatuses.isLoading ||
