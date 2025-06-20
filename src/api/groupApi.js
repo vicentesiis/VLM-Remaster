@@ -3,7 +3,7 @@ import { apiClient } from "./apiClient"
 export const getGroupByIdOrName = (params) =>
   apiClient.get(`/groups/group?${params.toString()}`)
 
-export const getAllGroups = () => apiClient.get("/groups/all")
+export const getAllGroups = () => apiClient.get("/groups/all?with_members=true")
 
 export const createGroup = (data) => apiClient.post("/groups/new", data)
 

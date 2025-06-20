@@ -15,6 +15,7 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateUser, useUpdateUser } from "@/hooks/queries"
 import GroupForm from "../forms/group-form"
 import { Separator } from "@radix-ui/react-dropdown-menu"
+import AdminForm from "../forms/admin-form"
 
 const GroupDialog = ({ trigger, open, onOpenChange }) => {
   const isControlled = open !== undefined && onOpenChange !== undefined
@@ -28,21 +29,14 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
   const groupFormRef = useRef()
 
   const handleSubmit = async (data) => {
+    console.log("handleSubmit")
     setIsSubmitting(true)
     try {
       if (step === "create-admin") {
-        const adminResponse = await createUserMutation.mutateAsync(data)
         toast.success("Admin creado correctamente")
-        setCreatedAdmin(adminResponse.data) // or whatever your API returns
         setStep("create-group")
       } else if (step === "create-group") {
-        const groupPayload = {
-          ...data,
-          admin_id: createdAdmin.id, // attach admin id
-        }
-        await createGroupMutation.mutateAsync(groupPayload)
         toast.success("Grupo creado correctamente")
-        setDialogOpen(false)
       }
     } catch (err) {
       toast.error("Error en el proceso")
@@ -75,7 +69,7 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
             <CardTitle className="-mt-3 mb-2 text-lg font-semibold text-primary">
               Datos del Administrador
             </CardTitle>
-            <UsuarioForm
+            <AdminForm
               ref={usuarioFormRef}
               onSubmit={handleSubmit}
               itComesFromGroupForm={true}

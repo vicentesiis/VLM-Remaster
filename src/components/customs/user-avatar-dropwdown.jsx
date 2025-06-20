@@ -10,10 +10,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useAuth } from "@/hooks/useAuth"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useTheme } from "@/hooks/useTheme"
 
 export function UserAvatarDropdown() {
-  const { logoutMutation, user } = useAuth()
+  const { logoutMutation } = useAuth()
+  const { user } = useCurrentUser()
   const { isDark, toggleTheme } = useTheme()
 
   const getAvatarInitials = (fullName) => {
@@ -33,11 +35,13 @@ export function UserAvatarDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full">
         <Avatar>
-          <AvatarFallback>{getAvatarInitials(user?.data?.name)}</AvatarFallback>
+          <AvatarFallback>
+            {getAvatarInitials(user.name ?? "???")}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-48">
-        <DropdownMenuLabel>Hola!, {user?.data.name}</DropdownMenuLabel>
+        <DropdownMenuLabel>Hola!, {user.name ?? "???"}</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <DropdownMenuItem onClick={toggleTheme}>

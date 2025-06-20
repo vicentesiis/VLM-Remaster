@@ -2,10 +2,10 @@ import PropTypes from "prop-types"
 import React from "react"
 import { ReassignLeaderDialog } from "../../../../components/customs/dialogs/reassing-leader-dialog"
 import { Badge } from "@/components/ui/badge"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 const UserRoleCard = ({ name, username, phone, role }) => {
-  const { isAdmin, isSuperAdmin } = useUserPermissions()
+  const { isAdmin, isSuperAdmin } = useCurrentUser()
   const isLeader = role?.toLowerCase() === "lider"
   const canReasingLeader = isLeader && (isAdmin || isSuperAdmin)
 

@@ -16,7 +16,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { useGetGroupById, useReassignGroupLeader } from "@/hooks/queries"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 export const ReassignLeaderDialog = ({ currentLeaderName }) => {
   const [selectedUserId, setSelectedUserId] = useState("")
@@ -24,7 +24,7 @@ export const ReassignLeaderDialog = ({ currentLeaderName }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const { group } = useUserPermissions()
+  const { group } = useCurrentUser()
   const groupId = group?.id || null
 
   const { data: response } = useGetGroupById({

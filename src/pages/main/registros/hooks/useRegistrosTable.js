@@ -9,11 +9,11 @@ import {
   useGetRecordsByCriteria,
   useGetRecordsByUser,
 } from "@/hooks/queries/useRecord"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { extractAndMapToOptions } from "@/utils/utils"
 
 export const useRegistrosTable = (title) => {
-  const { id: userId, role, isSuperAdmin } = useUserPermissions()
+  const { id: userId, role, isSuperAdmin } = useCurrentUser()
 
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
@@ -36,7 +36,7 @@ export const useRegistrosTable = (title) => {
     )
   }, [pagination, appliedFilters, title, userId, role, isSuperAdmin])
 
-  const codex = useCodexData(role)
+  const codex = useCodexData()
   const recordQuery =
     role === Roles.AGENT
       ? useGetRecordsByUser(parsedParams)

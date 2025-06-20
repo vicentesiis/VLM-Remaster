@@ -32,10 +32,7 @@ export const getFormSchema = (isEdit) =>
   })
 
 const UsuarioForm = forwardRef(
-  (
-    { onSubmit, defaultValues, isEdit = false, itComesFromGroupForm = false },
-    ref
-  ) => {
+  ({ onSubmit, defaultValues, isEdit = false }, ref) => {
     const schema = getFormSchema(isEdit)
 
     const form = useForm({
@@ -70,7 +67,7 @@ const UsuarioForm = forwardRef(
       usernameField({ disabled: isEdit }),
       ...(!isEdit ? [passwordField()] : []),
       phoneField(),
-      ...(!itComesFromGroupForm ? [agentTypeField(agentTypeOptions)] : []),
+      agentTypeField(agentTypeOptions),
       ...(isEdit ? [activeField()] : []),
     ]
 
@@ -94,7 +91,6 @@ const UsuarioForm = forwardRef(
 UsuarioForm.propTypes = {
   defaultValues: PropTypes.any,
   isEdit: PropTypes.bool,
-  itComesFromGroupForm: PropTypes.bool,
   onSubmit: PropTypes.func,
 }
 

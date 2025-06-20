@@ -2,10 +2,10 @@ import PropTypes from "prop-types"
 import React from "react"
 import RegistroDialog from "../dialogs/registro-dialog"
 import { H3 } from "@/components/ui/typography"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 const PageHeader = ({ title, subtitle }) => {
-  const { isAgent } = useUserPermissions()
+  const { isAgent } = useCurrentUser()
 
   return (
     <div className="flex items-center justify-between px-2 py-2 sm:flex">

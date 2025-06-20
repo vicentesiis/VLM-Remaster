@@ -17,12 +17,12 @@ import {
 } from "@/components/ui/sheet"
 import { H2, H4, P } from "@/components/ui/typography"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { cn } from "@/lib/utils"
 
 export const NavigationSheet = () => {
   const location = useLocation()
-  const { role } = useUserPermissions()
+  const { role } = useCurrentUser()
   const [openMenu, setOpenMenu] = useState(null)
   const [open, setOpen] = useState(false)
 

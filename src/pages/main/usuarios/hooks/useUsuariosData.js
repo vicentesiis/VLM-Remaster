@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { toast } from "sonner"
-import { useCodexData, useGetGroupById } from "@/hooks/queries"
+import { useCodexData, useGetGroupById, useGetGroups } from "@/hooks/queries"
 import { useFiltersState } from "@/hooks/useFiltersState"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { extractAndMapToOptions } from "@/utils"
 
 export function useUsuariosData() {
-  const { role, group, isAdmin, isSuperAdmin, isAgent } = useUserPermissions()
+  const { role, group, isAdmin, isSuperAdmin, isAgent } = useCurrentUser()
   const initialGroupId = group?.id ?? ""
   const [selectedGroupId, setSelectedGroupId] = useState(
     isSuperAdmin ? null : initialGroupId
@@ -17,8 +17,10 @@ export function useUsuariosData() {
     (isSuperAdmin && hasSearched && selectedGroupId) ||
     (!isSuperAdmin && selectedGroupId)
 
-  const { groups } = useCodexData(role)
+  const groups = useGetGroups()
+
   const listOfGroups = extractAndMapToOptions(groups)
+  console.log(listOfGroups)
 
   const { values, onChange } = useFiltersState({ group_id: "" })
 

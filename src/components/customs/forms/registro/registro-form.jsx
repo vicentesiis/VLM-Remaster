@@ -35,7 +35,7 @@ import {
 } from "@/forms/validators"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { extractAndMapToOptions } from "@/utils/utils"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 export const formSchema = z.object({
   name: nameSchema,
@@ -82,7 +82,7 @@ const RegistroForm = forwardRef(
       submit: () => submitHandler(),
     }))
 
-    const { isAdmin } = useUserPermissions()
+    const { isAdmin } = useCurrentUser()
     const { nationalities, mexicoStates, programs, channels } = useCodexData()
 
     const nacionalidadOptions = extractAndMapToOptions(nationalities)

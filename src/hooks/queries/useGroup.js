@@ -5,7 +5,7 @@ import { toURLSearchParams } from "@/utils"
 
 export const useGetGroups = (options = {}) => {
   return useQuery({
-    queryKey: ["groups", "admin"],
+    queryKey: ["groups", "Super Admin"],
     queryFn: () => groupApi.getAllGroups(),
     ...options,
   })

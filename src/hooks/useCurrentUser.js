@@ -1,11 +1,12 @@
 import { useAuth } from "./useAuth"
 import { Roles, RolesCapabilities } from "@/constants/appConstants"
 
-export const useUserPermissions = () => {
+export const useCurrentUser = () => {
   const user = useAuth().user?.data || {}
   const capabilities = RolesCapabilities[user.role] || {}
 
   return {
+    user: user,
     id: user.id || null,
     role: user.role || null,
     group: user.group || null,

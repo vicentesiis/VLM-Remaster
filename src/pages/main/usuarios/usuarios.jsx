@@ -2,6 +2,7 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import React, { useState } from "react"
 import GroupResponsible from "./components/group-responsible"
 import { useUsuariosData } from "./hooks/useUsuariosData"
+import GroupDialog from "@/components/customs/dialogs/group-dialog"
 import UsuarioDialog from "@/components/customs/dialogs/usuario-dialog"
 import { groupConfig } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
@@ -11,7 +12,6 @@ import { WithStatusState } from "@/components/customs/status-state/with-status-s
 import { getUsuarioColumns } from "@/components/customs/table/columns/usuarioColumns"
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
-import GroupDialog from "@/components/customs/dialogs/group-dialog"
 
 const Usuarios = () => {
   const {

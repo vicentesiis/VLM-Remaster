@@ -1,25 +1,24 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 import { BarChartNotStacked } from "@/components/customs/bar-chart-notStacked"
-import PageLayout from "@/components/customs/page-layout/page-layout"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { extractAndMapToOptions } from "@/utils"
-import { useCodexData } from "@/hooks/queries"
-import { useFiltersState } from "@/hooks/useFiltersState"
 import {
   registrosFilterConfig,
   currentYear,
   mont,
 } from "@/components/customs/filter/filter-config"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import PageLayout from "@/components/customs/page-layout/page-layout"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useCodexData, useGetGroups } from "@/hooks/queries"
 import { useGetVentasGlobales } from "@/hooks/queries/UseReports"
-import { toast } from "sonner"
-import { useNavigate } from "react-router-dom"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useFiltersState } from "@/hooks/useFiltersState"
+import { extractAndMapToOptions } from "@/utils"
 
 export const ReportesReporteVentasGlobales = () => {
   const navigate = useNavigate()
-  const { role } = useUserPermissions()
-  const { groups, channels } = useCodexData(role)
+  const { channels } = useCodexData()
+  const groups = useGetGroups()
   const listOfGroups = extractAndMapToOptions(groups)
   const listOfChannels = [
     { label: "Todos", value: null },

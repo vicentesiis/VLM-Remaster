@@ -4,14 +4,13 @@ import { baseFilterConfig } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import { Card, CardHeader, CardTitle } from "@/components/ui"
-import { useCodexData } from "@/hooks/queries"
+import { useGetGroups } from "@/hooks/queries"
 import { useFiltersState } from "@/hooks/useFiltersState"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
 import { extractAndMapToOptions } from "@/utils"
 
 export const ReportesReporteVentalMensual = () => {
-  const { role } = useUserPermissions()
-  const { groups } = useCodexData(role)
+  const groups = useGetGroups()
+  console.log("ReportesReporteVentalMensual - groups", groups)
   const listOfGroups = extractAndMapToOptions(groups)
 
   const { values, onChange } = useFiltersState({

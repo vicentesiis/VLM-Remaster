@@ -14,7 +14,7 @@ import StatusBadge from "@/components/customs/badge/status-badge"
 import { SelectUpdateRegistroStatus } from "@/components/customs/select-update-registro-status"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { useUpdateRecordStatus } from "@/hooks/queries"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatDate } from "@/lib"
 
 export const RegistrosDetailHeader = ({ registro }) => {
@@ -29,7 +29,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
     updated_at,
   } = registro
 
-  const { id: currentUserId, isAgent, isAdmin } = useUserPermissions()
+  const { id: currentUserId, isAgent, isAdmin } = useCurrentUser()
   const canUpdateStatus = (currentUserId === user?.id && isAgent) || isAdmin
 
   const getBadges = () => {

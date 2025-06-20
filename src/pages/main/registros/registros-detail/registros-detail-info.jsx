@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { H3, PLead, ListStyle } from "@/components/ui/typography"
 
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { toTitleCase } from "@/utils/utils"
 
 export const RegistrosDetailInfo = ({ registro }) => {
@@ -30,7 +30,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
     job,
   } = registro
 
-  const { id: currentUserId, isAgent, isAdmin } = useUserPermissions()
+  const { id: currentUserId, isAgent, isAdmin } = useCurrentUser()
   const canUpdateRecord = (currentUserId === user?.id && isAgent) || isAdmin
 
   const formatDate = (isoDate) =>

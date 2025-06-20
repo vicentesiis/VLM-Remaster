@@ -9,22 +9,15 @@ import {
   useGetAgentTypes,
 } from "./useCodex"
 
-import { useGetGroups } from "./useGroup"
-import { Roles } from "@/constants/appConstants"
-
-export const useCodexData = (currentRole, { enabled = true } = {}) => {
-  const recordStatuses = useGetRecordStatuses({ enabled })
-  const recordTypes = useGetRecordTypes({ enabled })
-  const nationalities = useGetNationalities({ enabled })
-  const mexicoStates = useGetMexicoStates({ enabled })
-  const roles = useGetRoles({ enabled })
-  const agentTypes = useGetAgentTypes({ enabled })
-  const programs = useGetPrograms({ enabled })
-  const channels = useGetChannels({ enabled })
-
-  const groups = useGetGroups({
-    enabled: enabled && currentRole === Roles.SUPER_ADMIN,
-  })
+export const useCodexData = () => {
+  const recordStatuses = useGetRecordStatuses()
+  const recordTypes = useGetRecordTypes()
+  const nationalities = useGetNationalities()
+  const mexicoStates = useGetMexicoStates()
+  const roles = useGetRoles()
+  const agentTypes = useGetAgentTypes()
+  const programs = useGetPrograms()
+  const channels = useGetChannels()
 
   const isLoading =
     recordStatuses.isLoading ||
@@ -34,8 +27,7 @@ export const useCodexData = (currentRole, { enabled = true } = {}) => {
     roles.isLoading ||
     agentTypes.isLoading ||
     programs.isLoading ||
-    channels.isLoading ||
-    groups.isLoading
+    channels.isLoading
 
   return {
     recordStatuses,
@@ -46,7 +38,6 @@ export const useCodexData = (currentRole, { enabled = true } = {}) => {
     agentTypes,
     programs,
     channels,
-    groups: currentRole === Roles.SUPER_ADMIN ? groups : null,
     isLoading,
   }
 }

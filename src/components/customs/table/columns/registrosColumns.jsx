@@ -3,7 +3,7 @@ import React from "react"
 import StatusBadge from "../../badge/status-badge"
 import ActionDropdown from "@/components/customs/action-dropdown"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatDate } from "@/lib/format"
 import { Roles } from "@/constants"
 
