@@ -33,7 +33,9 @@ export const RegistrosDetailHeader = ({ registro }) => {
   const canUpdateStatus = (currentUserId === user?.id && isAgent) || isAdmin
 
   const getBadges = () => {
-    const base = [
+    const amount = (amount_owed ?? 0) / 100
+
+    return [
       { title: public_id, icon: HashIcon },
       { title: `Agente: ${user?.name ?? "N/A"}`, icon: UserIcon },
       {
@@ -41,21 +43,17 @@ export const RegistrosDetailHeader = ({ registro }) => {
         icon: CalendarIcon,
       },
       { title: record_type && `Tipo: ${record_type}`, icon: BadgeInfoIcon },
-    ]
-
-    const extras = [
-      amount_owed > 0 && {
-        title: `Por pagar: $${amount_owed.toLocaleString()}`,
+      {
+        title: `Por pagar: $${amount}`,
         icon: DollarSignIcon,
+        variant: amount > 0 ? "destructive" : "outline",
       },
-    ]
-
-    return [...base, ...extras].filter(Boolean)
+    ].filter((badge) => badge.title)
   }
 
-  const getBadgeVariant = (title) => {
-    if (title?.startsWith("Por pagar")) return "destructive"
-    if (title === "No ha sido contactado") return "warning"
+  const getBadgeVariant = (badge) => {
+    if (badge.variant) return badge.variant
+    if (badge.title === "No ha sido contactado") return "warning"
     return "outline"
   }
 
@@ -91,7 +89,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
                   key={idx}
                   title={badge.title}
                   icon={badge.icon}
-                  variant={getBadgeVariant(badge.title)}
+                  variant={getBadgeVariant(badge)}
                 />
               ))}
             </div>

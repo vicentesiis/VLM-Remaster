@@ -6,9 +6,15 @@ const normalizeToEmptyString = (schema, errorMsg) =>
     schema.min(1, { message: errorMsg })
   )
 
-export const nameSchema = normalizeToEmptyString(
-  z.string(),
-  "El nombre es obligatorio"
+export const nameSchema = z.preprocess(
+  (val) => (val === null || val === undefined ? "" : val),
+  z
+    .string()
+    .min(1, { message: "El nombre es obligatorio" })
+    .regex(
+      /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?: [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+)*$/,
+      "El nombre no permite caracteres especiales, números o espacios en blanco al inicio o final"
+    )
 )
 
 export const emailSchema = z.preprocess(
@@ -17,7 +23,7 @@ export const emailSchema = z.preprocess(
 )
 
 export const phoneSchema = normalizeToEmptyString(
-  z.string(),
+  z.string().regex(/^\d{10}$/, "El teléfono debe tener exactamente 10 dígitos"),
   "El teléfono es obligatorio"
 )
 

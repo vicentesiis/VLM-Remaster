@@ -32,6 +32,7 @@ const DialogContent = React.forwardRef(
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
+        onPointerDownOutside={(event) => event.preventDefault()}
         ref={ref}
         aria-describedby={undefined}
         className={cn(

@@ -34,8 +34,8 @@ import {
   commentsSchema,
 } from "@/forms/validators"
 import { useCodexData } from "@/hooks/queries/useCodexData"
-import { mapToOptions } from "@/utils/utils"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { mapToOptions } from "@/utils/utils"
 
 export const formSchema = z.object({
   name: nameSchema,
