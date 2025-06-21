@@ -19,7 +19,6 @@ const ControlDeFinalizados = () => <>Control de Finalizados</>
 const VentasPorCanal = () => <>Ventas por Canal</>
 const CortesPorAgente = () => <>Cortes por Agente</>
 const UnauthorizedAccess = () => <>Unauthorized Access</>
-const Tareas = () => <>Tareas</>
 
 export const componentMap = {
   home: RegistrosIndexRedirect,
@@ -28,7 +27,7 @@ export const componentMap = {
   misLeads: Registros,
   misClientes: Registros,
   clientes: Registros,
-  tareas: Tareas,
+  tareas: Registros,
   ajustes: Ajustes,
   cuentas: Cuentas,
   registroDetail: RegistrosDetail,

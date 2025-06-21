@@ -19,6 +19,7 @@ export const Registros = ({ title }) => {
     setPagination,
     refetch,
     isSuperAdmin,
+    showFilters,
   } = useRegistrosTable(title)
 
   const handleApplyFilters = () => {
@@ -44,12 +45,15 @@ export const Registros = ({ title }) => {
             isLoading={isFetching}
             isError={isError}
             hasFetched={isFetched}
+            showPagination={showFilters}
           >
-            <DataTableToolbar table={table}>
-              <Button size="sm" onClick={handleApplyFilters}>
-                Buscar
-              </Button>
-            </DataTableToolbar>
+            {showFilters && (
+              <DataTableToolbar table={table}>
+                <Button size="sm" onClick={handleApplyFilters}>
+                  Buscar
+                </Button>
+              </DataTableToolbar>
+            )}
           </DataTable>
         </CardContent>
       </Card>
