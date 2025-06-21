@@ -69,7 +69,12 @@ export const getOrdersColumns = () => {
     }),
     columnHelper.accessor("clabe", {
       header: "CLABE",
-      cell: (info) => info.getValue() ?? "No aplica",
+      cell: (info) => info.getValue() ?? "---",
+      meta: { align: "center" },
+    }),
+    columnHelper.accessor("reference", {
+      header: "Referencia",
+      cell: (info) => info.getValue() ?? "---",
       meta: { align: "center" },
     }),
     columnHelper.accessor("created_at", {
