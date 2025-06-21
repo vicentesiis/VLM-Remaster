@@ -1,90 +1,57 @@
 import React from "react"
-import { useState } from "react"
-import { BarChartStacked } from "@/components/customs/bar-chart/bar-chart-stacked"
-import CardHeaderSection from "@/components/customs/card-header-section"
-import GenericSelect from "@/components/customs/generic-select"
-import PageLayout from "@/components/customs/page-layout/page-layout"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import {
-  currentYear,
-  years,
-  months,
-  logChartData,
-  currentMonth,
-} from "@/constants/utils-contants"
+  groupConfig,
+  monthConfig,
+  userConfig,
+  yearConfig,
+} from "@/components/customs/filter/filter-config"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import PageLayout from "@/components/customs/page-layout/page-layout"
+import SectionHeader from "@/components/customs/section-header"
+import { Card, CardContent } from "@/components/ui"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 
 export const ReportesReporteDeRegistros = () => {
-  const [filters, setFilters] = useState({
-    selectedYear: currentYear.toString(),
-    selectedMonth: currentMonth.toString(),
-    displayedYear: null,
-    displayedMonth: null,
-  })
+  const { values, onChange, listOfGroups, listOfUsers } =
+    useGroupAndMembersFilter({
+      group_id: "",
+      user_id: "",
+      month: "",
+      year: "",
+    })
 
   const handleSearch = () => {
-    setFilters((prev) => ({
-      ...prev,
-      displayedYear: filters.selectedYear,
-      displayedMonth: filters.selectedMonth,
-    }))
-  }
-
-  const Actions = () => {
-    return (
-      <>
-        <GenericSelect
-          value={filters.selectedYear}
-          onValueChange={(value) =>
-            setFilters((prev) => ({ ...prev, selectedYear: value }))
-          }
-          options={years.map((year) => ({
-            value: year.toString(),
-            label: year,
-          }))}
-          placeholder="Año"
-          className="w-[100px]"
-        />
-
-        <GenericSelect
-          value={filters.selectedMonth}
-          onValueChange={(value) =>
-            setFilters((prev) => ({ ...prev, selectedMonth: value }))
-          }
-          options={months.map((month, index) => ({
-            value: index.toString(),
-            label: month,
-          }))}
-          placeholder="Mes"
-          className="w-[120px]"
-        />
-
-        <Button onClick={handleSearch} className="ml-auto">
-          Buscar
-        </Button>
-      </>
-    )
+    console.log("Search values:", values)
+    // Trigger your report fetch logic here
   }
 
   return (
-    <PageLayout title="Reporte de Registros">
-      {" "}
+    <PageLayout title="Reporte de Registros por Agente">
       <Card>
-        <CardHeaderSection
-          title={"Reporte de Registros por Agente"}
-          subTitle={
-            filters.displayedYear && filters.displayedMonth
-              ? `${months[parseInt(filters.displayedMonth)]} - ${filters.displayedYear}`
-              : undefined
-          }
-          actions={<Actions />}
-        />
         <CardContent>
-          <div className="overflow-auto">
-            <BarChartStacked />
-          </div>
+          <SectionHeader
+            title="Información del Grupo:"
+            className="pb-6"
+            actions={
+              <FilterToolbar
+                filterConfig={[
+                  ...(listOfGroups.length ? [groupConfig] : []),
+                  userConfig,
+                  monthConfig,
+                  yearConfig,
+                ]}
+                values={values}
+                onChange={onChange}
+                context={{
+                  groups: listOfGroups,
+                  users: listOfUsers,
+                }}
+                onSearch={handleSearch}
+              />
+            }
+          />
         </CardContent>
-      </Card>{" "}
+      </Card>
     </PageLayout>
   )
 }

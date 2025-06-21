@@ -1,2 +1,1 @@
-export * from "./appConstants";
-export * from "./utils-contants";
+export * from "./appConstants"

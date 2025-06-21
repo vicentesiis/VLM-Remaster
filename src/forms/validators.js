@@ -6,9 +6,15 @@ const normalizeToEmptyString = (schema, errorMsg) =>
     schema.min(1, { message: errorMsg })
   )
 
-export const nameSchema = normalizeToEmptyString(
-  z.string(),
-  "El nombre es obligatorio"
+export const nameSchema = z.preprocess(
+  (val) => (val === null || val === undefined ? "" : val),
+  z
+    .string()
+    .min(1, { message: "El nombre es obligatorio" })
+    .regex(
+      /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?: [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+)*$/,
+      "El nombre no permite caracteres especiales, números o espacios en blanco al inicio o final"
+    )
 )
 
 export const emailSchema = z.preprocess(
@@ -17,7 +23,7 @@ export const emailSchema = z.preprocess(
 )
 
 export const phoneSchema = normalizeToEmptyString(
-  z.string(),
+  z.string().regex(/^\d{10}$/, "El teléfono debe tener exactamente 10 dígitos"),
   "El teléfono es obligatorio"
 )
 
@@ -89,4 +95,24 @@ export const amountSchema = z.preprocess(
 export const paymentMethodSchema = normalizeToEmptyString(
   z.string(),
   "El método de pago es obligatorio"
+)
+
+export const usernameSchema = normalizeToEmptyString(
+  z.string(),
+  "El nombre de usuario es obligatorio"
+)
+
+export const passwordSchema = normalizeToEmptyString(
+  z.string(),
+  "La contraseña es obligatorio"
+)
+
+export const agentTypeSchema = normalizeToEmptyString(
+  z.string(),
+  "El tipo de agente es obligatorio"
+)
+
+export const groupNameSchema = normalizeToEmptyString(
+  z.string(),
+  "El nombre del grupo es obligatorio"
 )

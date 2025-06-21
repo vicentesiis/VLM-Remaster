@@ -7,18 +7,17 @@ export function toTitleCase(str) {
     .join(" ")
 }
 
-export const extractList = (response) => {
-  return response?.data?.data ?? []
-}
+export function mapToOptions(input, labelFn = toTitleCase) {
+  const list = Array.isArray(input)
+    ? input
+    : Array.isArray(input?.data)
+      ? input.data
+      : []
 
-export function extractAndMapToOptions(response, labelFn = toTitleCase) {
-  const list = extractList(response)
-  return Array.isArray(list)
-    ? list.map((item) => ({
-        label: labelFn(item.name || item), // handle both object.name and string
-        value: item.id ?? item, // fallback to item if no id
-      }))
-    : []
+  return list.map((item) => ({
+    label: labelFn(item.name || item),
+    value: item.id ?? item,
+  }))
 }
 
 export const formatDate = (isoString) => {
@@ -58,4 +57,12 @@ export function formatCurrency(cents) {
     currency: "MXN",
     minimumFractionDigits: 0,
   }).format(cents / 100)
+}
+
+export const getYearOptions = (yearsBack = 6) => {
+  const currentYear = new Date().getFullYear()
+  return Array.from({ length: yearsBack }, (_, i) => {
+    const year = currentYear - i
+    return { label: year.toString(), value: year.toString() }
+  })
 }

@@ -134,3 +134,47 @@ export const paymentMethodField = (config = {}) => ({
   ],
   ...config,
 })
+
+export const usernameField = (config = {}) => ({
+  name: "username",
+  label: "Nombre de Usuario",
+  type: "input",
+  autoComplete: "off",
+  placeholder: "Nombre de Usuario",
+  ...config,
+})
+
+export const passwordField = (config = {}) => ({
+  name: "password",
+  label: "Contraseña",
+  type: "input",
+  placeholder: "Mínimo 8 caracteres",
+  autoComplete: "off",
+
+  ...config,
+})
+
+export const agentTypeField = (options, config = {}) => ({
+  name: "agent_type",
+  label: "Tipo de Agente",
+  type: "radio",
+  options,
+  placeholder: "Selecciona el tipo de Agente",
+  ...config,
+})
+
+export const activeField = (config = {}) => ({
+  name: "active",
+  label: "¿Usuario Activo?",
+  type: "switch",
+  ...config,
+})
+
+export const groupNameField = (config = {}) => ({
+  name: "name",
+  label: "Nombre del Grupo",
+  type: "input",
+  autoComplete: "off",
+  placeholder: "Nombre del Grupo",
+  ...config,
+})

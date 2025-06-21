@@ -12,17 +12,17 @@ import {
 import { AGENT_ALLOWED_STATUS_LIST, NEXT_STATUS_MAP } from "@/constants"
 import { RECORD_STATUSES_LABEL } from "@/constants/appConstants"
 import { useCodexData } from "@/hooks/queries/useCodexData"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
-import { extractAndMapToOptions } from "@/utils/utils"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { mapToOptions } from "@/utils/utils"
 
 export function SelectUpdateRegistroStatus({ currentOption, onConfirm }) {
   const { recordStatuses } = useCodexData()
-  const { isAgent, isAdmin } = useUserPermissions()
+  const { isAgent, isAdmin } = useCurrentUser()
 
   const getStatusLabel = (option) => RECORD_STATUSES_LABEL[option] ?? option
 
-  const recordStatusesOptions = extractAndMapToOptions(
-    recordStatuses,
+  const recordStatusesOptions = mapToOptions(
+    recordStatuses.data,
     getStatusLabel
   )
 

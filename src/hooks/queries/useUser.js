@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "@tanstack/react-query"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import * as userApi from "@/api/userApi"
 
 export const useCurrentUser = ({
@@ -25,8 +25,32 @@ export const useGetUserById = (id) =>
     enabled: !!id,
   })
 
-export const useCreateUser = () =>
-  useMutation({ mutationFn: userApi.createUser })
+export const useCreateUser = (options = {}) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: userApi.createUser,
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries(["group"])
 
-export const useUpdateUser = () =>
-  useMutation({ mutationFn: userApi.updateUser })
+      if (options.onSuccess) {
+        options.onSuccess(data, variables, context)
+      }
+    },
+    ...options,
+  })
+}
+
+export const useUpdateUser = (options = {}) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: userApi.updateUser,
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries(["group"])
+
+      if (options.onSuccess) {
+        options.onSuccess(data, variables, context)
+      }
+    },
+    ...options,
+  })
+}

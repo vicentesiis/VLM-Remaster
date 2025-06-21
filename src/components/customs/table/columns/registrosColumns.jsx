@@ -3,9 +3,8 @@ import React from "react"
 import StatusBadge from "../../badge/status-badge"
 import ActionDropdown from "@/components/customs/action-dropdown"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
-import { formatDate } from "@/lib/format"
 import { Roles } from "@/constants"
+import { formatDate } from "@/lib/format"
 
 const columnHelper = createColumnHelper()
 
@@ -91,7 +90,7 @@ const vacantColumn = columnHelper.accessor("job", {
 const commentsColumn = columnHelper.accessor("comments", {
   header: "Comentarios",
   cell: (info) => (
-    <div className="line-clamp-2 max-w-xs break-all text-muted-foreground">
+    <div className="line-clamp-2 max-w-xs break-words text-muted-foreground">
       {info.getValue() ?? "---"}
     </div>
   ),

@@ -1,10 +1,10 @@
 import React from "react"
 import { Navigate } from "react-router-dom"
 import { Roles } from "@/constants/appConstants"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 const RegistrosIndexRedirect = () => {
-  const { role } = useUserPermissions()
+  const { role } = useCurrentUser()
 
   switch (role) {
     case Roles.SUPER_ADMIN:

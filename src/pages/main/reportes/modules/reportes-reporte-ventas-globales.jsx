@@ -1,79 +1,56 @@
-import React, { useState } from "react"
-import { BarChartNotStacked } from "@/components/customs/bar-chart-notStacked"
-import PageLayout from "@/components/customs/page-layout/page-layout"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { extractAndMapToOptions } from "@/utils"
-import { useCodexData } from "@/hooks/queries"
-import { useFiltersState } from "@/hooks/useFiltersState"
+import React from "react"
 import {
-  registrosFilterConfig,
-  currentYear,
-  mont,
+  groupConfig,
+  monthConfig,
+  yearConfig,
 } from "@/components/customs/filter/filter-config"
-import { useGetVentasGlobales } from "@/hooks/queries/UseReports"
-import { toast } from "sonner"
-import { useNavigate } from "react-router-dom"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import PageLayout from "@/components/customs/page-layout/page-layout"
+import SectionHeader from "@/components/customs/section-header"
+import { Card, CardContent } from "@/components/ui"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 
 export const ReportesReporteVentasGlobales = () => {
-  const navigate = useNavigate()
-  const {role} = useUserPermissions()
-  const { groups, channels } = useCodexData(role)
-  const listOfGroups = extractAndMapToOptions(groups)
-  const listOfChannels = [{ label: "Todos", value: null },...extractAndMapToOptions(channels),]
-  const { values, onChange } = useFiltersState({
-    group_id: "",
-    channel: "",
-    year: currentYear.toString(),
+  const { isAdmin, group } = useCurrentUser()
+  const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
+    group_id: isAdmin ? group?.id || "" : "",
+    month: "",
+    year: "",
   })
-  const [dataFinal, setDataFinal] = useState(null)
-  const { refetch } = useGetVentasGlobales(
-    { year: values.year, group: values.group_id, channel: values.channel },
-    { enabled: false }
-  )
 
-  const handleSearch = async () => {
-    if (!values.group_id)
-      return toast.error("El Grupo es necesario para el proceso")
-    const { data } = await refetch()
-    if (data) setDataFinal(data)
+  const handleSearch = () => {
+    console.log("Search values:", values)
+    // Trigger your report fetch logic here
   }
 
-  const timelineData = mont.map((m) => ({
-    title: m.label,
-    description: dataFinal?.[m.value.toLowerCase()] || 0,
-  }))
-
   return (
-    <PageLayout title="Reporte de Ventas Globales">
+    <PageLayout title="ReportesReporteVentasGlobales">
       <Card>
-        <CardHeader>
-          <CardTitle>Reporte de ventas globales</CardTitle>
-          <FilterToolbar
-            filterConfig={registrosFilterConfig}
-            values={values}
-            onChange={onChange}
-            context={{
-              groups: listOfGroups,
-              channels: listOfChannels,
-            }}
-            onSearch={handleSearch}
-          />
-        </CardHeader>
         <CardContent>
-          {dataFinal && (
-            <BarChartNotStacked
-              data={timelineData}
-              onValueChange={(item) => {
-                navigate("/reportes/ventas-mensuales", {
-                  state: { year: item.date, group: item.Sales },
-                })
-              }}
-            />
-          )}
+          <SectionHeader
+            title="Ventas Globales:"
+            className="pb-6"
+            actions={
+              <FilterToolbar
+                filterConfig={[
+                  ...(listOfGroups.length ? [groupConfig] : []),
+                  monthConfig,
+                  yearConfig,
+                ]}
+                values={values}
+                onChange={onChange}
+                context={{
+                  groups: listOfGroups,
+                }}
+                onSearch={handleSearch}
+              />
+            }
+          />
         </CardContent>
       </Card>
     </PageLayout>
   )
 }
+
+export default ReportesReporteVentasGlobales

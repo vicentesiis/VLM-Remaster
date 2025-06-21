@@ -4,13 +4,13 @@ import { useOrdersTable } from "./hooks/useOrdersTable"
 import OrderDialog from "@/components/customs/dialogs/order-dialog"
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent, CardTitle } from "@/components/ui"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 export const RegistrosOrders = ({ registro }) => {
   const { id: recordId, user } = registro
   const { table, isLoading, isError } = useOrdersTable(recordId)
 
-  const { id: currentUserId, isAgent } = useUserPermissions()
+  const { id: currentUserId, isAgent } = useCurrentUser()
   const canCreateOrder = isAgent && currentUserId === user.id
 
   return (

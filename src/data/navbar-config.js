@@ -1,6 +1,5 @@
 import {
   BarChart,
-  FileText,
   ClipboardList,
   ShieldCheck,
   CheckCircle,
@@ -79,7 +78,7 @@ export const dropdownMenus = [
         to: "/registros/tareas",
         description: "Tus tareas pendientes y asignaciones diarias.",
         icon: ListChecks,
-        allowedRoutes: [Roles.ADMIN, Roles.AGENT],
+        allowedRoutes: [Roles.AGENT],
       },
     ],
   },

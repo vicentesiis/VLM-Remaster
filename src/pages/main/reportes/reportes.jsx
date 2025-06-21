@@ -3,10 +3,10 @@ import { Link } from "react-router-dom"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { dropdownMenus } from "@/data/navbar-config"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 export const Reportes = () => {
-  const { role } = useUserPermissions()
+  const { role } = useCurrentUser()
 
   const reportMenu = dropdownMenus.find((menu) => menu.title === "Reportes")
 

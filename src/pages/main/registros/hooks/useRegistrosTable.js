@@ -4,22 +4,28 @@ import { getParsedRecordParams } from "../utils/getParsedRecordParams"
 import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { RECORD_STATUSES_LABEL } from "@/constants/appConstants"
 import { Roles } from "@/constants/appConstants"
+import { useGetGroups } from "@/hooks/queries"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import {
   useGetRecordsByCriteria,
   useGetRecordsByUser,
 } from "@/hooks/queries/useRecord"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
-import { extractAndMapToOptions } from "@/utils/utils"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { mapToOptions } from "@/utils/utils"
+import { useGetTasks } from "@/hooks/queries/UseReports"
 
 export const useRegistrosTable = (title) => {
-  const { id: userId, role, isSuperAdmin } = useUserPermissions()
+  const { id: userId, role, isSuperAdmin, isAgent } = useCurrentUser()
 
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
 
   const parsedParams = useMemo(() => {
+    if (title === "Mis Tareas") {
+      return null
+    }
+
     if (
       isSuperAdmin &&
       !appliedFilters.find((f) => f.id === "group_id")?.value
@@ -36,36 +42,57 @@ export const useRegistrosTable = (title) => {
     )
   }, [pagination, appliedFilters, title, userId, role, isSuperAdmin])
 
-  const codex = useCodexData(role)
-  const recordQuery =
-    role === Roles.AGENT
-      ? useGetRecordsByUser(parsedParams)
-      : useGetRecordsByCriteria(parsedParams, {
-          enabled: !isSuperAdmin || parsedParams !== null,
-        })
+  // CHOOSE THE QUERY BASED ON TITLE
+  let recordQuery
+
+  if (title === "Mis Tareas") {
+    recordQuery = useGetTasks()
+  } else if (isAgent) {
+    recordQuery = useGetRecordsByUser(parsedParams)
+  } else {
+    recordQuery = useGetRecordsByCriteria(parsedParams, {
+      enabled: !isSuperAdmin || parsedParams !== null,
+    })
+  }
 
   const { data, isFetched, isFetching, isError, refetch } = recordQuery
 
   const getStatusLabel = (status) => RECORD_STATUSES_LABEL[status] ?? status
 
+  const groups = useGetGroups({ enabled: isSuperAdmin })
+  const { channels, programs, recordTypes, recordStatuses } = useCodexData()
+
+  const channelsOptions = mapToOptions(channels?.data)
+  const programsOptions = mapToOptions(programs?.data)
+  const recordTypesOptions = mapToOptions(recordTypes?.data)
+  const recordStatusesOptions = mapToOptions(
+    recordStatuses?.data,
+    getStatusLabel
+  )
+  const groupsOptions = mapToOptions(groups?.data)
+
   const columns = useMemo(
     () =>
       getRegistrosColumns({
-        role: role,
-        groups: extractAndMapToOptions(codex.groups),
-        channels: extractAndMapToOptions(codex.channels),
-        programs: extractAndMapToOptions(codex.programs),
-        recordStatuses: extractAndMapToOptions(
-          codex.recordStatuses,
-          getStatusLabel
-        ),
-        recordTypes: extractAndMapToOptions(codex.recordTypes),
+        role,
+        groups: groupsOptions,
+        channels: channelsOptions,
+        programs: programsOptions,
+        recordStatuses: recordStatusesOptions,
+        recordTypes: recordTypesOptions,
       }),
-    [role, codex]
+    [role, groups, channels, programs, recordTypes, recordStatuses]
   )
 
+  const tableData = useMemo(() => {
+    if (title === "Mis Tareas") {
+      return data?.data?.tasks ?? []
+    }
+    return data?.data ?? []
+  }, [data, title])
+
   const table = useReactTable({
-    data: data?.data ?? [],
+    data: tableData,
     columns,
     state: { columnFilters, pagination },
     onColumnFiltersChange: setColumnFilters,
@@ -89,9 +116,6 @@ export const useRegistrosTable = (title) => {
     setColumnFilters([])
     setAppliedFilters([])
     setPagination({ pageIndex: 0, pageSize: 10 })
-    if (role === Roles.AGENT) {
-      refetch()
-    }
   }, [title])
 
   return {
@@ -105,5 +129,6 @@ export const useRegistrosTable = (title) => {
     setPagination,
     refetch,
     isSuperAdmin,
+    showFilters: title !== "Mis Tareas",
   }
 }

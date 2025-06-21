@@ -11,12 +11,12 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { menuItems, dropdownMenus } from "@/data/navbar-config"
-import { useUserPermissions } from "@/hooks/useUserPermissions"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { cn } from "@/lib/utils"
 
 export const NavMenu = (props) => {
   const location = useLocation()
-  const { role } = useUserPermissions()
+  const { role } = useCurrentUser()
 
   const filteredMenuItems = menuItems.filter((item) =>
     item.allowedRoutes.includes(role)
