@@ -17,7 +17,7 @@ import { useGetAgentRegistrations } from "@/hooks/queries/UseReports"
 import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import { es } from "date-fns/locale"
 import { toast } from "sonner"
-import { Users, User, Calendar, FileText } from "lucide-react"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 export const ReportesReporteDeRegistros = () => {
   const [searchParams, setSearchParams] = useState(null)
   const { isAdmin, group } = useCurrentUser()
@@ -32,8 +32,17 @@ export const ReportesReporteDeRegistros = () => {
 
   const handleSearch = () => {
     const { user_id, month, year, record_type } = values
-    if (!user_id || !month || !year) {
-      toast.error("Por favor llene los campos obligatorios.")
+    const error = !user_id
+      ? "El usuario es necesario"
+      : !month
+        ? "El mes es necesario"
+        : !year
+          ? "El año es necesario"
+          : !record_type
+            ? "el tipo es necesario"
+            : ""
+    if (error) {
+      toast.error(error)
       return
     }
 
@@ -46,24 +55,31 @@ export const ReportesReporteDeRegistros = () => {
     setSearchParams({ user_id, start_date, end_date, record_type })
   }
 
-  const { data } = useGetAgentRegistrations(searchParams ?? {}, {
-    enabled: !!searchParams,
-  })
+  const { data, isLoading, isError } = useGetAgentRegistrations(
+    searchParams ?? {},
+    {
+      enabled: !!searchParams,
+    }
+  )
 
   const chartData = Array.isArray(data?.daily_registrations)
     ? data.daily_registrations.map((registro) => ({
         title: format(new Date(registro.date), "MMM d", { locale: es }),
         description: registro.amount_of_registrations ?? 0,
+        formatted: new Intl.NumberFormat("es-MX", {
+          style: "currency",
+          currency: "MXN",
+          maximumFractionDigits: 0,
+        }).format(registro.amount_of_registrations ?? 0),
       }))
     : []
-  
+
   return (
     <PageLayout title="Reporte de Registros por Agente">
       <Card>
         <CardContent>
           <SectionHeader
             title="Información del Grupo:"
-            className=""
             actions={
               <FilterToolbar
                 filterConfig={[
@@ -71,7 +87,7 @@ export const ReportesReporteDeRegistros = () => {
                   userConfig,
                   monthConfig,
                   yearConfig,
-                  record_type,  
+                  record_type,
                 ]}
                 values={values}
                 onChange={onChange}
@@ -81,7 +97,13 @@ export const ReportesReporteDeRegistros = () => {
             }
           />
         </CardContent>
-        <CardContent>{data && <ChartRegistros data={chartData} />}</CardContent>
+        <WithStatusState
+          isLoading={isLoading}
+          isError={isError}
+          hasFetched={!!searchParams}
+        >
+          {data && <ChartRegistros data={chartData} />}
+        </WithStatusState>
       </Card>
     </PageLayout>
   )

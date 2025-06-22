@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import {
   groupConfig,
-  monthConfig,
   yearConfig,
   channelConfig,
 } from "@/components/customs/filter/filter-config"
@@ -11,12 +10,12 @@ import SectionHeader from "@/components/customs/section-header"
 import { Card, CardContent } from "@/components/ui"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { mapToOptions } from "@/utils"
 import { useCodexData } from "@/hooks/queries"
-import { mapVentasGlobalesToChartData } from "@/utils"
+import { mapVentasGlobalesToChartData, mapToOptions } from "@/utils"
 import { useGetVentasGlobales } from "@/hooks/queries/UseReports"
 import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import { toast } from "sonner"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 
 export const ReportesReporteVentasGlobales = () => {
   const { channels } = useCodexData()
@@ -24,7 +23,6 @@ export const ReportesReporteVentasGlobales = () => {
   const { isAdmin, group } = useCurrentUser()
   const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
     group_id: isAdmin ? group?.id || "" : "",
-    month: "",
     year: "",
     channel: "",
   })
@@ -40,18 +38,20 @@ export const ReportesReporteVentasGlobales = () => {
         : !channel
           ? "El channel es necesario"
           : ""
-
-          if (!error) {toast.error(error)}
-
-    if (!year || !channel || !group_id) return
+    if (error) {
+      toast.error(error)
+      return
+    }
     setSearchParams({ year, channel, group: group_id })
   }
 
-  const { data } = useGetVentasGlobales(searchParams ?? {}, {
-    enabled: !!searchParams,
-  })
+  const { data, isLoading, isError } = useGetVentasGlobales(
+    searchParams ?? {},
+    {
+      enabled: !!searchParams,
+    }
+  )
   const chartData = data ? mapVentasGlobalesToChartData(data) : []
-  console.log("esta es mi data", data, "esta es mi chartdata ", chartData)
   return (
     <PageLayout title="ReportesReporteVentasGlobales">
       <Card>
@@ -63,7 +63,6 @@ export const ReportesReporteVentasGlobales = () => {
               <FilterToolbar
                 filterConfig={[
                   ...(listOfGroups.length ? [groupConfig] : []),
-                  monthConfig,
                   yearConfig,
                   channelConfig,
                 ]}
@@ -77,8 +76,14 @@ export const ReportesReporteVentasGlobales = () => {
               />
             }
           />
+          <WithStatusState
+            isLoading={isLoading}
+            isError={isError}
+            hasFetched={!!searchParams}
+          >
+            {data && (<ChartRegistros data={chartData} formatAsCurrency={true} />)}
+          </WithStatusState>
         </CardContent>
-        <CardContent>{data && <ChartRegistros data={chartData} />}</CardContent>
       </Card>
     </PageLayout>
   )

@@ -1,15 +1,23 @@
-import { AlertTriangle, Loader2 } from "lucide-react"
+import { AlertTriangle, Loader2, AlertCircle } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
 import { cn } from "@/lib/utils"
 
 export function StatusState({ type = "loading", className, ...props }) {
   const isError = type === "error"
+  const isWaiting = type === "waiting"
 
-  const defaultTitle = isError ? "Error al cargar los datos" : "Cargando..."
+  const defaultTitle = isError
+    ? "Error al cargar los datos"
+    : isWaiting
+    ? "Esperando Búsqueda..."
+    : "Cargando..."
   const defaultDescription = isError
-    ? "Ocurrió un error al obtener la información. Intenta nuevamente."
-    : "Por favor espera mientras se cargan los datos."
+  ? "Ocurrió un error al obtener la información. Intenta nuevamente."
+  : isWaiting
+  ? "" 
+  : "Por favor espera mientras se cargan los datos."
+
 
   const title = props.title || defaultTitle
   const description = props.description || defaultDescription
@@ -21,8 +29,10 @@ export function StatusState({ type = "loading", className, ...props }) {
         className
       )}
     >
-      {isError ? (
+     {isError ? (
         <AlertTriangle className="h-12 w-12 text-destructive" />
+      ) : isWaiting ? (
+        <AlertCircle className="h-12 w-12 text-gray-600" />
       ) : (
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
       )}
@@ -35,7 +45,7 @@ export function StatusState({ type = "loading", className, ...props }) {
 }
 
 StatusState.propTypes = {
-  type: PropTypes.oneOf(["loading", "error"]),
+  type: PropTypes.oneOf(["loading", "error", "waiting"]),
   title: PropTypes.string,
   description: PropTypes.string,
   className: PropTypes.string,

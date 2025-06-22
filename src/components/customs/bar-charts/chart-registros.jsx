@@ -2,28 +2,37 @@ import React from "react"
 import { BarChart } from "@/components/ui/bar-chart"
 import { useIsSmallScreen } from "@/hooks"
 
-export const ChartRegistros = ({ data = [], onValueChange }) => {
+export const ChartRegistros = ({ data = [], onValueChange, formatAsCurrency = false }) => {
   const isSmallScreen = useIsSmallScreen()
+
+  const valueFormatter = formatAsCurrency
+    ? (number) =>
+        new Intl.NumberFormat("es-MX", {
+          style: "currency",
+          currency: "MXN",
+          maximumFractionDigits: 0,
+        }).format(number)
+    : undefined 
+
   const chartData = data.map((item) => ({
     date: item.title,
-    Sales: item.description ?? 0,
+    Ventas: item.description ?? 0,
   }))
 
   return (
-    <div className="overflow-x-auto">
-    <div style={{ minWidth: isSmallScreen ? "400px" : "1600px" }}>
+    <div className="overflow-x-auto mb-4 mr-4">
       <BarChart
         className="h-[900px] cursor-pointer sm:h-[350px]"
         data={chartData}
         index="date"
-        categories={["Sales"]}
+        categories={["Ventas"]}
         yAxisWidth={70}
         layout={isSmallScreen ? "vertical" : "horizontal"}
         onValueChange={onValueChange}
+        valueFormatter={valueFormatter}
       />
     </div>
-  </div>
   )
 }
-  
-  export default ChartRegistros
+
+export default ChartRegistros
