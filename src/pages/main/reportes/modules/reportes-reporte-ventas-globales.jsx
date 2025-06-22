@@ -16,8 +16,10 @@ import { useGetVentasGlobales } from "@/hooks/queries/UseReports"
 import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import { toast } from "sonner"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
+import { useNavigate } from "react-router-dom"
 
 export const ReportesReporteVentasGlobales = () => {
+  const navigate = useNavigate()
   const { channels } = useCodexData()
   const channelOptions = mapToOptions(channels.data)
   const { isAdmin, group } = useCurrentUser()
@@ -81,7 +83,17 @@ export const ReportesReporteVentasGlobales = () => {
             isError={isError}
             hasFetched={!!searchParams}
           >
-            {data && (<ChartRegistros data={chartData} formatAsCurrency={true} />)}
+            {data && (
+              <ChartRegistros
+                data={chartData}
+                formatAsCurrency={true}
+                onValueChange={(item) => {
+                  console.log("Elemento clickeado:", item)
+                  navigate("/reportes/ventas-mensuales", {
+                    state: { year: item.date, group: item.Sales },
+                  })
+                }} />
+            )}
           </WithStatusState>
         </CardContent>
       </Card>
