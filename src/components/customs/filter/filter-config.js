@@ -35,3 +35,12 @@ export const channelConfig = {
   placeholder: "Selecciona un canal",
   getOptions: (context) => context.channels,
 }
+export const record_type = {
+  key: "record_type",
+  label: "Tipo de Registro",
+  placeholder: "Selecciona tipo",
+  options: [
+    { label: "Lead", value: "lead" },
+    { label: "Prospect", value: "prospect" },
+  ],
+}
