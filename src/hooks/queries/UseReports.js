@@ -41,3 +41,18 @@ export const useGetAgentRegistrations = ({user_id, start_date, end_date, record_
       ...options,
   }) 
 }
+export const useGetGroupSalesReport = ({start_date, end_date, group_id, channel}, options = {}) => {
+  return useQuery({
+    queryKey:["groupSalesReport", start_date, end_date, group_id, channel],
+    queryFn: () =>
+      ReportApi.getGroupSalesReport({
+        start_date, 
+        end_date, 
+        group_id, 
+        channel, 
+      }).then((res) => res.data),
+      enabled:  !!start_date && !!end_date, channel,
+      ...options,
+
+  })
+}

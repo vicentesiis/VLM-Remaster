@@ -7,3 +7,5 @@ export const getReportesGlobales = (params) => apiClient.get("/reports/sales/glo
 export const getAgentSales = (params) => apiClient.get("/reports/sales/agent", {params})
 
 export const getAgentRegistrations = (params) => apiClient.get("/reports/registrations/agent", {params})
+
+export const getGroupSalesReport = (params) => apiClient.get("/reports/sales/group", {params})

@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import React from "react"
 import { StatusState } from "./status-state"
 
-export const WithStatusState = ({ isLoading, isError, hasFetched, children }) => {
+export const WithStatusState = ({ isLoading , isError, hasFetched = true, children }) => {
   if (isError) {
     return <StatusState type="error" />
   }
