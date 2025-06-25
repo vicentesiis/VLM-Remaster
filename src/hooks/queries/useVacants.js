@@ -27,3 +27,14 @@ export const useGetVacants = (filters, options = {}) => {
     ...options,
   })
 }
+
+export const useGetVacantDetail = (id, options = {}) => {
+  return useQuery({
+    queryKey: ["vacants-detail", id],
+    queryFn: async () => {
+      const response = await vacantApi.getJobById(id)
+      return response.data
+    },
+    ...options,
+  })
+}

@@ -1,6 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
-import { ALL_PROVINCES, VACANT_CATEGORIES } from "@/constants"
+import { Link } from "react-router-dom"
+import { ALL_PROVINCES } from "@/constants"
 import { formatDate } from "@/lib"
 import { formatCurrency, mapToOptions } from "@/utils"
 
@@ -30,6 +31,15 @@ export const getVacantColumns = () => {
     columnHelper.accessor("id", {
       header: "ID",
       meta: { align: "center", maxWidth: "200px" },
+      cell: (info) => {
+        const id = info.getValue()
+        const fullPath = `/vacantes/detalle/${id}`
+        return (
+          <Link to={fullPath} className="text-blue-600 hover:underline">
+            {id}
+          </Link>
+        )
+      },
     }),
     columnHelper.accessor("title", {
       header: "Título",
@@ -77,15 +87,8 @@ export const getVacantColumns = () => {
     // }),
     columnHelper.accessor("rate", {
       header: "Sueldo",
-      cell: (info) => {
-        const value = info.getValue()
-        const multiplied = value
-        return formatCurrency(multiplied, info.row.original.currency)
-      },
       meta: {
         align: "center",
-        variant: "range", // Puedes implementar un filtro rango para min_rate / max_rate
-        label: "Sueldo",
       },
     }),
     columnHelper.accessor("visa_class", {
