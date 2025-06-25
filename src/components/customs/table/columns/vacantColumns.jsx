@@ -35,14 +35,14 @@ export const getVacantColumns = () => {
       header: "Título",
       meta: { align: "left" },
     }),
-    columnHelper.accessor("original_title", {
-      header: "Título Original",
-      meta: { align: "left" },
-    }),
-    columnHelper.accessor("employer_name", {
-      header: "Empleador",
-      meta: { align: "left" },
-    }),
+    // columnHelper.accessor("original_title", {
+    //   header: "Título Original",
+    //   meta: { align: "left" },
+    // }),
+    // columnHelper.accessor("employer_name", {
+    //   header: "Empleador",
+    //   meta: { align: "left" },
+    // }),
     columnHelper.accessor("country", {
       header: "País",
       cell: (info) => <span>{info.getValue()?.toUpperCase()}</span>,
@@ -66,15 +66,15 @@ export const getVacantColumns = () => {
         options: mapToOptions(ALL_PROVINCES),
       },
     }),
-    columnHelper.accessor("category", {
-      header: "Categoría",
-      meta: {
-        align: "center",
-        variant: "select",
-        label: "Categoría",
-        options: mapToOptions(VACANT_CATEGORIES),
-      },
-    }),
+    // columnHelper.accessor("category", {
+    //   header: "Categoría",
+    //   meta: {
+    //     align: "center",
+    //     variant: "select",
+    //     label: "Categoría",
+    //     options: mapToOptions(VACANT_CATEGORIES),
+    //   },
+    // }),
     columnHelper.accessor("rate", {
       header: "Sueldo",
       cell: (info) => {

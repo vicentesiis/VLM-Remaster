@@ -7,7 +7,7 @@ export const GroupResponsible = ({ admin, leader }) => {
   const { isAgent } = useCurrentUser()
 
   return (
-    <div className="flex w-[270px] flex-col gap-2">
+    <div className="flex sm:w-[270px] flex-col gap-2">
       <p className="text-lg font-normal">
         {isAgent ? "Líder del Equipo" : "Responsables del Equipo"}
       </p>

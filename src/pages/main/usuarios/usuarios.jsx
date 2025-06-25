@@ -62,7 +62,7 @@ const Usuarios = () => {
         </div>
       )}
       {isSuperAdmin && (
-        <div className="absolute right-40 top-2 z-10">
+        <div className="absolute right-40 top-2 z-10 hidden sm:block">
           <GroupDialog />
         </div>
       )}
@@ -88,7 +88,7 @@ const Usuarios = () => {
 
           {shouldFetch ? (
             <WithStatusState isLoading={isLoading} isError={isError}>
-              <div className="flex gap-4">
+              <div className="flex flex-col gap-4 sm:flex-row">
                 <GroupResponsible admin={admin} leader={leader} />
                 <DataTable
                   table={table}
