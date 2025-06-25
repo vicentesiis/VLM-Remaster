@@ -38,3 +38,14 @@ export const useGetVacantDetail = (id, options = {}) => {
     ...options,
   })
 }
+
+export const useGetVacantDetailTranslated = (id, options = {}) => {
+  return useQuery({
+    queryKey: ["vacants-detail-translated", id],
+    queryFn: async () => {
+      const response = await vacantApi.getTranslatedJobById(id)
+      return response.data
+    },
+    ...options,
+  })
+}

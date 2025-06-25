@@ -13,7 +13,11 @@ import { Badge, Button } from "@/components/ui"
 import { Card, CardHeader, CardTitle, CardSubTitle } from "@/components/ui/card"
 import { toTitleCase } from "@/utils"
 
-export const VacantesDetailHeader = ({ vacant, onTranslate }) => {
+export const VacantesDetailHeader = ({
+  vacant,
+  onTranslate,
+  isLoadingTranslated,
+}) => {
   const {
     id,
     title,
@@ -99,7 +103,9 @@ export const VacantesDetailHeader = ({ vacant, onTranslate }) => {
           {/* Button top-right */}
           {!translated && (
             <div className="mt-2 lg:mt-0">
-              <Button onClick={onTranslate}>Traducir vacante</Button>
+              <Button onClick={onTranslate} isLoading={isLoadingTranslated}>
+                Traducir vacante
+              </Button>
             </div>
           )}
         </div>
@@ -109,6 +115,8 @@ export const VacantesDetailHeader = ({ vacant, onTranslate }) => {
 }
 
 VacantesDetailHeader.propTypes = {
+  isLoadingTranslated: PropTypes.any,
+  onTranslate: PropTypes.any,
   vacant: PropTypes.any,
 }
 
