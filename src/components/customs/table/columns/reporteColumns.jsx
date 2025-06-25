@@ -8,7 +8,7 @@ import { formatCurrency } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
-export const getOrdersColumns = () => {
+export const getReportColumns = () => {
   const voucherColumn = columnHelper.display({
     id: "voucher",
     header: "Voucher",
@@ -29,6 +29,12 @@ export const getOrdersColumns = () => {
     },
   })
   return [
+columnHelper.accessor("user.username", {
+    id: "username",
+    header: "Usuario",
+    cell: (info) => info.getValue() ?? "No aplica",
+    meta: { align: "center" },
+  }),
     columnHelper.accessor("provider_order_id", { header: "ID del Proveedor" }),
     columnHelper.accessor("status", {
       header: "Estatus",
@@ -80,3 +86,4 @@ export const getOrdersColumns = () => {
     voucherColumn,
   ]
 }
+

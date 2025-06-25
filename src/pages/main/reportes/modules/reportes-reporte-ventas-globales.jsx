@@ -17,6 +17,7 @@ import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import { toast } from "sonner"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { useNavigate } from "react-router-dom"
+import { months } from "@/constants"
 
 export const ReportesReporteVentasGlobales = () => {
   const navigate = useNavigate()
@@ -88,11 +89,21 @@ export const ReportesReporteVentasGlobales = () => {
                 data={chartData}
                 formatAsCurrency={true}
                 onValueChange={(item) => {
-                  console.log("Elemento clickeado:", item)
-                  navigate("/reportes/ventas-mensuales", {
-                    state: { year: item.date, group: item.Sales },
-                  })
-                }} />
+                  const monthObj = months.find(
+                    (m) => m.label.toLowerCase() === item.date.toLowerCase()
+                  );     
+                  const month = Number(monthObj.value); // Convierte "06" a 6 numérico
+                  const year = Number(values.year);
+                  const channel = values.channel;
+                  const group_id = values.group_id;
+                
+                
+                  console.log("Navegando con:", { month, year, channel, group_id });
+                
+                  navigate(`/reportes/ventas-mensuales?ts=${Date.now()}`, {
+                    state: { month, year, channel, group_id },
+                  });
+                }}/>
             )}
           </WithStatusState>
         </CardContent>

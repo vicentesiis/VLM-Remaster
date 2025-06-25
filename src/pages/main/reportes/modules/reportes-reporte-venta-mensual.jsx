@@ -1,8 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import {
-  groupConfig,
-  yearConfig,
-  channelConfig,
+  groupConfig, yearConfig, monthConfig, channelConfig,
 } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
@@ -18,69 +16,72 @@ import { mapToOptions } from "@/utils"
 import { useReportTable } from "../hooks/useReportsTable"
 import { DataTable } from "@/components/data-table"
 import { toast } from "sonner"
+import { useLocation } from "react-router-dom"
+import { months } from "@/constants"
 
 export const ReportesReporteVentalMensual = () => {
+  const { state } = useLocation()
+  const stateRef = useRef(state || {})
+  const { isAdmin, group } = useCurrentUser()
   const { channels } = useCodexData()
   const channelOptions = mapToOptions(channels.data)
-  const { isAdmin, group } = useCurrentUser()
 
   const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
-    group_id: isAdmin ? group?.id || "" : "",
-        year: "",
-    channel: "",
+    group_id: isAdmin ? "" : stateRef.current.group_id || group?.id || "",
+    year: stateRef.current.year?.toString() || "",
+    month: stateRef.current.month?.toString() || "",
+    channel: stateRef.current.channel || "",
   })
 
   const [searchParams, setSearchParams] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
+  const [autoLaunched, setAutoLaunched] = useState(false)
 
   const handleSearch = () => {
-    const { year, group_id, channel } = values
-  
-    if (!year || !channel || (!group_id && !isAdmin)) {
-      toast.error("Todos los filtros son requeridos")
-      return
-    }
-  
-    const month = 5
-    const start_date = new Date(year, month, 1).toISOString()
-    const end_date = new Date(year, month + 1, 0).toISOString()
-  
-    const params = {
-      start_date,
-      end_date,
+    const { year, month, channel, group_id } = values
+    if (!year || !month || !channel || (!isAdmin && !group_id))
+      return toast.error("Todos los filtros son requeridos")
+    setSearchParams({
+      start_date: new Date(+year, +month - 1, 1).toISOString(),
+      end_date: new Date(+year, +month, 0).toISOString(),
+      calendarMonth: +month - 1,
+      calendarYear: +year,
       channel,
-    }
-  
-    if (!isAdmin) {
-      params.group_id = group_id
-    }
-  
-    setSearchParams(params)
+      ...(isAdmin ? {} : { group_id }),
+    })
     setSelectedDate(null)
   }
-  const { data, isLoading, isError } = useGetGroupSalesReport(searchParams ?? {}, {
-    enabled: !!searchParams,
-  })
 
-  const groupDailySales = data?.group_daily_sales ?? []
+  useEffect(() => {
+    const s = stateRef.current
+    const match = s.year && s.month && s.channel && s.group_id &&
+      values.year === String(s.year) &&
+      values.month === String(s.month) &&
+      values.channel === s.channel &&
+      values.group_id === s.group_id &&
+      listOfGroups.length
+    if (match && !autoLaunched) {
+      handleSearch()
+      setAutoLaunched(true)
+    }
+  }, [values, listOfGroups, autoLaunched])
 
-  const valores = groupDailySales.reduce((acc, item) => {
-    const date = item.date?.split("T")[0]
-    if (date) acc[date] = item.total_day_sales / 100
-    return acc
-  }, {})
+  const { data, isLoading, isError } = useGetGroupSalesReport(searchParams || {}, { enabled: !!searchParams })
+  const ventas = data?.group_daily_sales ?? []
+  const valores = Object.fromEntries(
+    ventas.filter(v => v.date).map(v => [v.date.split("T")[0], v.total_day_sales / 100])
+  )
 
-  const handleDayClick = (day, month, year) => {
-    const dateStr = new Date(year, month, day).toISOString().split("T")[0]
-    setSelectedDate(dateStr)
-  }
+  const handleDayClick = (d, m, y) => setSelectedDate(new Date(y, m, d).toISOString().split("T")[0])
+  const selectedOrders = ventas.find(v => v.date?.split("T")[0] === selectedDate)?.orders ?? []
+  const { table } = useReportTable(selectedOrders)
 
-  const selectedDayOrders = groupDailySales.find(
-    (item) => item.date?.split("T")[0] === selectedDate
-  )?.orders ?? []
+  const hasFetched = !!searchParams &&
+    +searchParams.calendarMonth === +values.month - 1 &&
+    +searchParams.calendarYear === +values.year &&
+    searchParams.channel === values.channel &&
+    (isAdmin || searchParams.group_id === values.group_id)
 
-  const { table } = useReportTable(selectedDayOrders)
-console.log("esta es mi data",data,"esta es mi selectedDayorder?: ",selectedDayOrders,"y estos son mis valores", valores)
   return (
     <PageLayout title="Reporte de Ventas por Día">
       <Card>
@@ -92,37 +93,31 @@ console.log("esta es mi data",data,"esta es mi selectedDayorder?: ",selectedDayO
               <FilterToolbar
                 filterConfig={[
                   ...(listOfGroups.length ? [groupConfig] : []),
-                  yearConfig,
-                  channelConfig,
+                  yearConfig, monthConfig, channelConfig,
                 ]}
-                values={values}
-                onChange={onChange}
-                context={{
-                  groups: listOfGroups,
-                  channels: channelOptions,
+                values={{
+                  ...values,
+                  month: months.find(m => m.value === values.month.padStart(2, "0"))?.value || values.month,
                 }}
+                onChange={onChange}
+                context={{ groups: listOfGroups, channels: channelOptions, months }}
                 onSearch={handleSearch}
               />
             }
           />
-          <WithStatusState
-            isLoading={isLoading}
-            isError={isError}
-            hasFetched={!!searchParams}
-          >
-            <CalendarPage values={valores} onDayClick={handleDayClick} />
+          <WithStatusState isLoading={isLoading} isError={isError} hasFetched={hasFetched}>
+            {searchParams?.calendarMonth != null && searchParams?.calendarYear != null && (
+              <CalendarPage
+                values={valores}
+                onDayClick={handleDayClick}
+                month={values.month}
+                year={values.year}
+              />
+            )}
             {selectedDate && (
               <div className="mt-8">
-                <CardTitle className="mb-4">
-                  Órdenes del {selectedDate}
-                </CardTitle>
-                <DataTable
-                  table={table}
-                  isLoading={false}
-                  isError={false}
-                  hasFetched={true}
-                  showPagination={false}
-                />
+                <CardTitle className="mb-4">Órdenes del {selectedDate}</CardTitle>
+                <DataTable table={table} showPagination={false} hasFetched />
               </div>
             )}
           </WithStatusState>
