@@ -105,7 +105,7 @@ export const routes = [
       },
       {
         path: "cortes-agente",
-        routeKey: "cortesPorAgente",
+        routeKey: "reportesReporteCorteAgente",
         allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
     ],

@@ -91,19 +91,17 @@ export const ReportesReporteVentasGlobales = () => {
                 onValueChange={(item) => {
                   const monthObj = months.find(
                     (m) => m.label.toLowerCase() === item.date.toLowerCase()
-                  );     
-                  const month = Number(monthObj.value); // Convierte "06" a 6 numérico
-                  const year = Number(values.year);
-                  const channel = values.channel;
-                  const group_id = values.group_id;
-                
-                
-                  console.log("Navegando con:", { month, year, channel, group_id });
-                
+                  )
+                  const month = Number(monthObj.value)
+                  const year = Number(values.year)
+                  const channel = values.channel
+                  const group_id = values.group_id
+
                   navigate(`/reportes/ventas-mensuales?ts=${Date.now()}`, {
                     state: { month, year, channel, group_id },
-                  });
-                }}/>
+                  })
+                }}
+              />
             )}
           </WithStatusState>
         </CardContent>

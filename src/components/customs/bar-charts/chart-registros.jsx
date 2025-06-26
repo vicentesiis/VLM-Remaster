@@ -6,13 +6,13 @@ export const ChartRegistros = ({ data = [], onValueChange, formatAsCurrency = fa
   const isSmallScreen = useIsSmallScreen()
 
   const valueFormatter = formatAsCurrency
-    ? (number) =>
-        new Intl.NumberFormat("es-MX", {
-          style: "currency",
-          currency: "MXN",
-          maximumFractionDigits: 0,
-        }).format(number)
-    : undefined 
+  ? (number) =>
+      new Intl.NumberFormat("es-MX", {
+        style: "currency",
+        currency: "MXN",
+        maximumFractionDigits: 0,
+      }).format(number / 100)
+  : undefined
 
   const chartData = data.map((item) => ({
     date: item.title,

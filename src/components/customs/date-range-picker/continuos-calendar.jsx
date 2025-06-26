@@ -2,7 +2,15 @@
 
 import React, { useMemo, useRef } from "react"
 
-const daysOfWeek = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
+const daysOfWeek = [
+  "Lunes",
+  "Martes",
+  "Miercoles",
+  "Jueves",
+  "Viernes",
+  "Sabado",
+  "Domingo",
+]
 
 export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
   const parsedMonth = parseInt(month, 10) - 1
@@ -24,17 +32,17 @@ export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
     const prevMonthDays = new Date(prevYear, prevMonth + 1, 0).getDate()
 
     for (let i = startDay - 1; i >= 0; i--) {
-      daysArray.push({ day: prevMonthDays - i, month: -1 }) // días del mes anterior
+      daysArray.push({ day: prevMonthDays - i, month: -1 })
     }
 
     for (let day = 1; day <= daysInMonth; day++) {
-      daysArray.push({ day, month: parsedMonth }) // días del mes actual
+      daysArray.push({ day, month: parsedMonth })
     }
 
     const remaining = 7 - (daysArray.length % 7)
     if (remaining < 7) {
       for (let i = 1; i <= remaining; i++) {
-        daysArray.push({ day: i, month: -2 }) // días del mes siguiente
+        daysArray.push({ day: i, month: -2 })
       }
     }
 
@@ -49,10 +57,9 @@ export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
           const index = weekIndex * 7 + dayIndex
           const usedMonth = cellMonth < 0 ? parsedMonth : cellMonth
 
-          const isToday =
-            today.getFullYear() === parsedYear &&
-            today.getMonth() === usedMonth &&
-            today.getDate() === day
+          const dateObj = new Date(parsedYear, usedMonth, day)
+          const isFuture = dateObj > today
+          const isDisabled = cellMonth < 0 || isFuture
 
           return (
             <div
@@ -63,23 +70,26 @@ export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
               data-month={usedMonth}
               data-day={day}
               onClick={
-                cellMonth < 0
+                isDisabled
                   ? undefined
                   : () => handleDayClick(day, usedMonth, parsedYear)
               }
-              className={`relative z-10 m-[-0.5px] aspect-square w-full grow rounded-xl font-medium transition-all ${cellMonth < 0 ? "cursor-default border-0 bg-transparent text-gray-300" : "cursor-pointer border hover:z-20 hover:border-cyan-400"} sm:-m-px sm:size-20 sm:rounded-2xl sm:border-2 lg:size-36 lg:rounded-3xl 2xl:size-40`}
+              className={`flex h-12 w-full flex-col items-center justify-center border border-slate-200 text-center text-sm font-medium sm:h-14 lg:h-16 ${
+                isDisabled
+                  ? "cursor-not-allowed bg-slate-50 text-gray-300"
+                  : "cursor-pointer bg-white text-slate-800 hover:border-cyan-400"
+              }`}
             >
               <span className="flex flex-col items-center text-center">
                 <span
                   className={`text-base font-semibold ${
-                    cellMonth < 0 ? "text-gray-300" : ""
+                    isDisabled ? "text-gray-300" : ""
                   }`}
                 >
                   {day}
                 </span>
-                {cellMonth >= 0 &&
+                {!isDisabled &&
                   (() => {
-                    const dateObj = new Date(parsedYear, usedMonth, day)
                     const dateKey = dateObj.toISOString().split("T")[0]
                     const value = values[dateKey]
 
@@ -103,14 +113,7 @@ export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
   return (
     <div className="no-scrollbar calendar-container max-h-full overflow-y-scroll rounded-t-2xl bg-white pb-10 text-slate-800 shadow-xl">
       <div className="-top-px z-50 w-full rounded-t-2xl bg-white px-5 pt-7 sm:px-8 sm:pt-8">
-        <div className="mb-4 flex w-full items-center justify-center">
-          <h1 className="text-xl font-semibold capitalize">
-            {new Date(parsedYear, parsedMonth).toLocaleDateString("es-MX", {
-              month: "long",
-              year: "numeric",
-            })}
-          </h1>
-        </div>
+        <div className="mb-4 flex w-full items-center justify-center"></div>
         <div className="grid w-full grid-cols-7 justify-between text-slate-500">
           {daysOfWeek.map((day, index) => (
             <div

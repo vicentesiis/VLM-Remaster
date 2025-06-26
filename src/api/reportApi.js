@@ -9,3 +9,5 @@ export const getAgentSales = (params) => apiClient.get("/reports/sales/agent", {
 export const getAgentRegistrations = (params) => apiClient.get("/reports/registrations/agent", {params})
 
 export const getGroupSalesReport = (params) => apiClient.get("/reports/sales/group", {params})
+
+export const getAgentCutOff = (params) => apiClient.get("/reports/cut-off",{params})

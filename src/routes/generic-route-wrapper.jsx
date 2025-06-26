@@ -9,6 +9,7 @@ import ReportesReporteDeRegistros from "@/pages/main/reportes/modules/reportes-r
 import ReportesReporteVentasPorAgente from "@/pages/main/reportes/modules/reportes-reporte-de-ventas-por-agente"
 import ReportesReporteVentalMensual from "@/pages/main/reportes/modules/reportes-reporte-venta-mensual"
 import ReportesReporteVentasGlobales from "@/pages/main/reportes/modules/reportes-reporte-ventas-globales"
+import ReporteReporteCorteAgente  from "@/pages/main/reportes/modules/reportes-reporte-de-corte-de-agente"
 import Reportes from "@/pages/main/reportes/reportes"
 import Usuarios from "@/pages/main/usuarios/usuarios"
 import Vacantes from "@/pages/main/vacantes/vacantes"
@@ -37,6 +38,7 @@ export const componentMap = {
   reportesReporteVentasPorAgente: ReportesReporteVentasPorAgente,
   reportesReporteVentalMensual: ReportesReporteVentalMensual,
   reportesReporteVentasGlobales: ReportesReporteVentasGlobales,
+  reportesReporteCorteAgente: ReporteReporteCorteAgente,
   reportes: Reportes,
   vacantes: Vacantes,
   reportePersonal: ReportePersonal,
