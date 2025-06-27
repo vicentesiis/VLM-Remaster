@@ -28,7 +28,7 @@ export const useGetVacants = (filters, options = {}) => {
   })
 }
 
-export const useGetVacantDetail = (id, options = {}) => {
+export const useGetVacantbyId = (id, options = {}) => {
   return useQuery({
     queryKey: ["vacants-detail", id],
     queryFn: async () => {
@@ -39,7 +39,7 @@ export const useGetVacantDetail = (id, options = {}) => {
   })
 }
 
-export const useGetVacantDetailTranslated = (id, options = {}) => {
+export const useGetVacantbyIdTranslated = (id, options = {}) => {
   return useQuery({
     queryKey: ["vacants-detail-translated", id],
     queryFn: async () => {

@@ -160,7 +160,7 @@ export function DataTableDateFilter({ column, title, multiple }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="border-dashed">
+        <Button variant="outline" className="border-dashed">
           {hasValue ? (
             <div
               role="button"

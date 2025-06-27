@@ -5,13 +5,13 @@ import VacantesDetailInfo from "./vacantes-detail-info"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import {
-  useGetVacantDetail,
-  useGetVacantDetailTranslated,
+  useGetVacantbyId,
+  useGetVacantbyIdTranslated,
 } from "@/hooks/queries/useVacants"
 
 export const VacantesDetail = () => {
   const { id } = useParams()
-  const { data: vacant, isLoading, isError } = useGetVacantDetail(id)
+  const { data: vacant, isLoading, isError } = useGetVacantbyId(id)
 
   const [showTranslated, setShowTranslated] = useState(false)
   const {
@@ -19,7 +19,7 @@ export const VacantesDetail = () => {
     isLoading: isLoadingTranslated,
     isError: isErrorTranslated,
     refetch: fetchTranslated,
-  } = useGetVacantDetailTranslated(id, { enabled: false })
+  } = useGetVacantbyIdTranslated(id, { enabled: false })
 
   const onTranslate = async () => {
     const result = await fetchTranslated()

@@ -43,7 +43,6 @@ export function DataTableToolbar(
           <Button
             aria-label="Reset filters"
             variant="outline"
-            size="sm"
             className="border-dashed"
             onClick={onReset}>
             <X />

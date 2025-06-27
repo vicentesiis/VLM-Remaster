@@ -3,6 +3,7 @@ import { useVacantsTable } from "./hooks/useVacantsTable"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import { DataTable, DataTableToolbar } from "@/components/data-table"
 import { Button, Card, CardContent } from "@/components/ui"
+import { SearchIcon } from "lucide-react"
 
 export const Vacantes = () => {
   const {
@@ -33,7 +34,11 @@ export const Vacantes = () => {
             hasFetched={isFetched}
           >
             <DataTableToolbar table={table}>
-              <Button size="sm" onClick={handleApplyFilters}>
+              <Button
+                onClick={handleApplyFilters}
+                isLoading={isFetching}
+              >
+                <SearchIcon />
                 Buscar
               </Button>
             </DataTableToolbar>

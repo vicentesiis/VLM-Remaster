@@ -198,7 +198,6 @@ export function DataTableSliderFilter(
         <Button
           aria-label={`Limpiar ${title} Filtro`}
           variant="outline"
-          size="sm"
           onClick={onReset}>
           Limpiar
         </Button>
