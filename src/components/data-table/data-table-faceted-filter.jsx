@@ -64,7 +64,7 @@ export function DataTableFacetedFilter(
           {selectedValues?.size > 0 ? (
             <div
               role="button"
-              aria-label={`Clear ${title} filter`}
+              aria-label={`Limpiar ${title} Filtro`}
               tabIndex={0}
               onClick={onReset}
               className="rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
@@ -102,7 +102,7 @@ export function DataTableFacetedFilter(
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[12.5rem] p-0" align="start">
+      <PopoverContent className="w-[15rem] p-0" align="start">
         <Command>
           <CommandInput placeholder={title} />
           <CommandList className="max-h-full">

@@ -30,3 +30,14 @@ export const useCreateOrder = (options = {}) => {
     ...options,
   })
 }
+
+export const useGetOrderById = (params, options = {}) => {
+  const searchParams = toURLSearchParams(params)
+  return useQuery({
+    queryKey: ["orders-by-id", params],
+    queryFn: async () => {
+      return await orderApi.getOrderById(searchParams)
+    },
+    ...options,
+  })
+}

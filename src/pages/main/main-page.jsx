@@ -13,8 +13,7 @@ export const MainPage = () => {
       <div className="sticky top-0 z-50 border-b">
         <Navbar />
       </div>
-
-      <div className="flex-grow overflow-auto bg-gray-100 dark:bg-gray-950">
+      <div className="flex-grow overflow-auto bg-gray-50 dark:bg-background">
         <Routes>
           <Route path="/*" element={<Navigate to="/registros" replace />} />
           {routes.map(

@@ -75,8 +75,8 @@ export const ReassignLeaderDialog = ({ currentLeaderName }) => {
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>
-        <Button size="mini" variant="outline">
-          <Shuffle />
+        <Button size="sm" variant="outline">
+          Reasignar
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -123,7 +123,7 @@ export const ReassignLeaderDialog = ({ currentLeaderName }) => {
             Cancelar
           </AlertDialogCancel>
           <Button
-            className="text-md sticky bottom-0 float-right ml-auto sm:mr-8"
+            className="text-md sticky bottom-0 float-right ml-auto w-full sm:mr-8 sm:w-auto"
             variant="default"
             isLoading={isSubmitting}
             onClick={handleConfirm}

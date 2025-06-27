@@ -3,7 +3,7 @@ import { NavMenu } from "./nav-menu"
 import { NavigationSheet } from "./navigation-sheet"
 import UserAvatarDropdown from "../user-avatar-dropwdown"
 import logo from "@/assets/logo.png"
-import { SearchWithSelect } from "@/components/customs/search-with-select"
+import { OmniSearch } from "@/components/customs/navbar/omnisearch"
 import { Lead } from "@/components/ui/typography"
 
 const Navbar = () => {
@@ -29,7 +29,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="hidden gap-8 lg:flex">
-          <SearchWithSelect />
+          <OmniSearch />
           <UserAvatarDropdown />
         </div>
       </div>

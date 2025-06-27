@@ -12,6 +12,7 @@ import ReportesReporteVentasGlobales from "@/pages/main/reportes/modules/reporte
 import Reportes from "@/pages/main/reportes/reportes"
 import Usuarios from "@/pages/main/usuarios/usuarios"
 import Vacantes from "@/pages/main/vacantes/vacantes"
+import VacantesDetail from "@/pages/main/vacantes/vacantes-detail/vacantes-detail"
 
 const ReportePersonal = () => <>Reporte Personal</>
 const AuditoriaDeRegistros = () => <>Auditoria de Registros</>
@@ -38,6 +39,7 @@ export const componentMap = {
   reportesReporteVentasGlobales: ReportesReporteVentasGlobales,
   reportes: Reportes,
   vacantes: Vacantes,
+  vacantDetail: VacantesDetail,
   reportePersonal: ReportePersonal,
   auditoriaDeRegistros: AuditoriaDeRegistros,
   controlDeFinalizados: ControlDeFinalizados,

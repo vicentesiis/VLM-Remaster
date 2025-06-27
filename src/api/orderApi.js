@@ -1,7 +1,7 @@
 import { apiClient } from "./apiClient"
 
-export const getOrderById = (id) =>
-  apiClient.get(`/orders/order/id`, { params: { id } })
+export const getOrderById = (params) =>
+  apiClient.get(`/orders/order/id?${params.toString()}`)
 
 export const getOrderByProviderId = (id) =>
   apiClient.get(`/orders/order/provider-id`, { params: { id } })
