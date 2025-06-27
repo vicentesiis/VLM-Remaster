@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import * as ReportApi from "@/api/reportApi"
+import * as reportApi from "@/api/reportApi"
 
 export const useGetVentasGlobales = (
   { year, group, channel },
@@ -84,5 +84,14 @@ export const useGetAgentCutOff = ({ agent_id }, options = {}) => {
       }).then((res) => res.data),
     enabled: !!agent_id,
     ...options,
+  })
+}
+export const useGetTasks = (options = {}) => {
+  return useQuery({
+    queryKey: ["tasks"],
+    queryFn: async () => {
+      return await reportApi.getUserTasks()
+    },
+        ...options,
   })
 }

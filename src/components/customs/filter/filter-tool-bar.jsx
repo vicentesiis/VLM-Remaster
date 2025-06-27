@@ -12,7 +12,7 @@ const FilterToolbar = ({
   context = {},
 }) => {
   return (
-    <div className="flex flex-col items-center gap-2 md:flex-row">
+    <div className="flex items-end gap-2 sm:flex-col lg:flex-row">
       {filterConfig.map((config) => {
         if (!config) return null
         const options = config.getOptions

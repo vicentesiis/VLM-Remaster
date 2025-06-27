@@ -14,4 +14,7 @@ export const componentPropsMap = {
   clientes: {
     title: "Clientes",
   },
+  tareas: {
+    title: "Mis Tareas",
+  },
 }

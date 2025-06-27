@@ -32,6 +32,7 @@ const DialogContent = React.forwardRef(
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
+        onPointerDownOutside={(event) => event.preventDefault()}
         ref={ref}
         aria-describedby={undefined}
         className={cn(
@@ -129,9 +130,9 @@ const DialogHeaderCustom = ({
 
       <DialogClose asChild>
         <Button
-          variant="ghost"
+          variant="secondary"
           size="bigIcon"
-          className="rounded-full bg-accent"
+          className="rounded-full"
         >
           <X className="h-8 w-8" />
         </Button>

@@ -108,7 +108,7 @@ export function DataTableSliderFilter(
           {columnFilterValue ? (
             <div
               role="button"
-              aria-label={`Clear ${title} filter`}
+              aria-label={`Limpiar ${title} Filtro`}
               tabIndex={0}
               className="rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               onClick={onReset}>
@@ -196,11 +196,10 @@ export function DataTableSliderFilter(
             onValueChange={onSliderValueChange} />
         </div>
         <Button
-          aria-label={`Clear ${title} filter`}
+          aria-label={`Limpiar ${title} Filtro`}
           variant="outline"
-          size="sm"
           onClick={onReset}>
-          Clear
+          Limpiar
         </Button>
       </PopoverContent>
     </Popover>

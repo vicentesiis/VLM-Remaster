@@ -1,6 +1,7 @@
 import { UserPenIcon, UserPlusIcon } from "lucide-react"
 import PropTypes from "prop-types"
 import React, { useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import RegistroForm from "../forms/registro/registro-form"
 import { Button, DialogHeaderCustom } from "@/components/ui"
@@ -11,6 +12,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
   const formRef = useRef()
   const [open, setOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const navigate = useNavigate()
 
   const isEdit = mode === "edit"
   const icon = isEdit ? UserPenIcon : UserPlusIcon
@@ -37,21 +39,17 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
           })
         : await createRecord(data)
 
-      toast(
-        `${isEdit ? "Registro actualizado" : "Registro creado"} con éxito`,
-        {
-          description: `ID: ${response.data.public_id}`,
-          action: {
-            label: "Copiar ID",
-            onClick: async () => {
-              await navigator.clipboard.writeText(response.data.public_id)
-              toast.success("ID copiado al portapapeles")
-            },
-          },
-        }
+      const publicId = response.data.public_id
+
+      toast.success(
+        `${isEdit ? "Registro actualizado" : "Registro creado"} con éxito`
       )
 
       setOpen(false)
+
+      if (!isEdit) {
+        navigate(`/registros/detalle/${publicId}`)
+      }
     } catch (err) {
       console.error("Error:", err)
     } finally {
@@ -69,7 +67,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="h-full overflow-y-auto bg-gray-100 dark:bg-gray-950 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl">
+      <DialogContent className="h-full overflow-y-auto bg-gray-100 dark:bg-gray-950 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl 2xl:max-h-[calc(100vh-170px)]">
         <DialogHeaderCustom
           icon={icon}
           title={title}

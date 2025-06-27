@@ -1,3 +1,5 @@
+import { Roles } from "@/constants/appConstants"
+
 export const getParsedRecordParams = (
   pagination,
   appliedFilters,
@@ -5,71 +7,83 @@ export const getParsedRecordParams = (
   userId,
   currentRole
 ) => {
-  const params = {}
-
-  // Pagination
-  params.skip = pagination.pageIndex * pagination.pageSize
-  params.limit = pagination.pageSize
+  const params = {
+    skip: pagination.pageIndex * pagination.pageSize,
+    limit: pagination.pageSize,
+  }
 
   if (title === "Clientes" || title === "Mis Clientes") {
     params.is_client = true
   }
 
-  const roleHandlers = {
-    super_admin: handleSuperAdminFilters,
-    agent: handleAgentFilters,
-  }
-
-  const handleFilters = roleHandlers[currentRole] ?? handleDefaultFilters
-  handleFilters(params, appliedFilters, title, userId)
-  handleCommonFilters(params, appliedFilters)
+  applyRoleFilters(params, appliedFilters, title, userId, currentRole)
 
   return params
 }
 
-// Handlers
-function handleSuperAdminFilters(params, filters) {
-  for (const filter of filters) {
-    if (filter.id === "group_id") {
-      params.group_id = filter.value
-    }
-
-    if (filter.id === "channel") {
-      params.channels = filter.value
-    }
-
-    if (filter.id === "program") {
-      params.programs = filter.value
-    }
-
-    if (filter.id === "record_type") {
-      params.record_type = filter.value
-    }
+function applyRoleFilters(params, filters, title, userId, currentRole) {
+  if (currentRole === Roles.AGENT) {
+    params.user_id = userId
+    applyAgentTitleLogic(params, title)
   }
+
+  const roleFilterMap = {
+    [Roles.SUPER_ADMIN]: [
+      "group_id",
+      "channel",
+      "program",
+      "record_type",
+      "status",
+      "updated_at",
+    ],
+    [Roles.ADMIN]: [
+      "channel",
+      "program",
+      "record_type",
+      "status",
+      "updated_at",
+    ],
+    [Roles.AGENT]: ["status", "updated_at"],
+  }
+
+  const allowedFilters = roleFilterMap[currentRole] || []
+
+  filters.forEach((filter) => {
+    if (!allowedFilters.includes(filter.id)) return
+
+    switch (filter.id) {
+      case "group_id":
+        params.group_id = filter.value
+        break
+      case "channel":
+        params.channels = filter.value
+        break
+      case "program":
+        params.programs = filter.value
+        break
+      case "record_type":
+        params.record_type = filter.value
+        break
+      case "status":
+        params.statuses = filter.value
+        break
+      case "updated_at":
+        if (Array.isArray(filter.value)) {
+          const [from, to] = filter.value
+          if (from) params.start_date = new Date(from).toISOString()
+          if (to) params.end_date = new Date(to).toISOString()
+        }
+        break
+      default:
+        break
+    }
+  })
 }
 
-function handleAgentFilters(params, filters, title, userId) {
-  params.user_id = userId
-
+function applyAgentTitleLogic(params, title) {
   if (title === "Mis Prospectos") {
     params.record_type = "prospect"
   } else if (title === "Mis Leads") {
     params.record_type = "lead"
   }
 }
-
-function handleCommonFilters(params, filters) {
-  for (const filter of filters) {
-    if (filter.id === "status") {
-      params.statuses = filter.value
-    }
-
-    if (filter.id === "updated_at" && Array.isArray(filter.value)) {
-      const [from, to] = filter.value
-      if (from) params.start_date = new Date(from).toISOString()
-      if (to) params.end_date = new Date(to).toISOString()
-    }
-  }
-}
-
-function handleDefaultFilters() {}

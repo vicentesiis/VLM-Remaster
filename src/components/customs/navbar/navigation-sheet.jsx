@@ -1,7 +1,7 @@
 import { Menu, ChevronDown } from "lucide-react"
 import React, { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import SearchWithSelect from "../search-with-select"
+import OmniSearch from "./omnisearch"
 import UserAvatarDropdown from "@/components/customs/user-avatar-dropwdown"
 import { Button } from "@/components/ui/button"
 import {
@@ -64,10 +64,8 @@ export const NavigationSheet = () => {
           <H2>Modulos</H2>
         </SheetHeader>
 
-        {/* Scrollable Content */}
         <div className="flex-1 space-y-3 overflow-y-auto">
-          {/* Plain Items */}
-          <SearchWithSelect />
+          <OmniSearch />
           {filteredMenuItems.map((item) => (
             <Link
               key={item.title}

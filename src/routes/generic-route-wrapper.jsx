@@ -13,6 +13,7 @@ import ReporteReporteCorteAgente  from "@/pages/main/reportes/modules/reportes-r
 import Reportes from "@/pages/main/reportes/reportes"
 import Usuarios from "@/pages/main/usuarios/usuarios"
 import Vacantes from "@/pages/main/vacantes/vacantes"
+import VacantesDetail from "@/pages/main/vacantes/vacantes-detail/vacantes-detail"
 
 const ReportePersonal = () => <>Reporte Personal</>
 const AuditoriaDeRegistros = () => <>Auditoria de Registros</>
@@ -20,7 +21,6 @@ const ControlDeFinalizados = () => <>Control de Finalizados</>
 const VentasPorCanal = () => <>Ventas por Canal</>
 const CortesPorAgente = () => <>Cortes por Agente</>
 const UnauthorizedAccess = () => <>Unauthorized Access</>
-const Tareas = () => <>Tareas</>
 
 export const componentMap = {
   home: RegistrosIndexRedirect,
@@ -29,7 +29,7 @@ export const componentMap = {
   misLeads: Registros,
   misClientes: Registros,
   clientes: Registros,
-  tareas: Tareas,
+  tareas: Registros,
   ajustes: Ajustes,
   cuentas: Cuentas,
   registroDetail: RegistrosDetail,
@@ -41,6 +41,7 @@ export const componentMap = {
   reportesReporteCorteAgente: ReporteReporteCorteAgente,
   reportes: Reportes,
   vacantes: Vacantes,
+  vacantDetail: VacantesDetail,
   reportePersonal: ReportePersonal,
   auditoriaDeRegistros: AuditoriaDeRegistros,
   controlDeFinalizados: ControlDeFinalizados,

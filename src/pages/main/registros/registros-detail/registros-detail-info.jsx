@@ -134,7 +134,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
 }
 
 RegistrosDetailInfo.propTypes = {
-  registro: PropTypes.any.isRequired,
+  registro: PropTypes.any,
 }
 
 export default RegistrosDetailInfo

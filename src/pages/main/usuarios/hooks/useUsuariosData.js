@@ -17,7 +17,7 @@ export function useUsuariosData() {
     (isSuperAdmin && hasSearched && selectedGroupId) ||
     (!isSuperAdmin && selectedGroupId)
 
-  const groups = useGetGroups()
+  const groups = useGetGroups({ enabled: isSuperAdmin })
 
   const listOfGroups = mapToOptions(groups.data)
 

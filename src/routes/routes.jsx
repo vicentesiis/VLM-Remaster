@@ -39,7 +39,7 @@ export const routes = [
       {
         path: "tareas",
         routeKey: "tareas",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+        allowedRoles: [Roles.AGENT],
       },
     ],
   },
@@ -47,6 +47,13 @@ export const routes = [
     path: "/vacantes",
     routeKey: "vacantes",
     allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+    children: [
+      {
+        path: "detalle/:id",
+        routeKey: "vacantDetail",
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+      },
+    ],
   },
   {
     path: "/ventas",

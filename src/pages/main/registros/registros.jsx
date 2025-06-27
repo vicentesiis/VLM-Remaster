@@ -7,6 +7,7 @@ import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
+import { SearchIcon } from "lucide-react"
 
 export const Registros = ({ title }) => {
   const {
@@ -19,6 +20,7 @@ export const Registros = ({ title }) => {
     setPagination,
     refetch,
     isSuperAdmin,
+    showFilters,
   } = useRegistrosTable(title)
 
   const handleApplyFilters = () => {
@@ -44,12 +46,16 @@ export const Registros = ({ title }) => {
             isLoading={isFetching}
             isError={isError}
             hasFetched={isFetched}
+            showPagination={showFilters}
           >
-            <DataTableToolbar table={table}>
-              <Button size="sm" onClick={handleApplyFilters}>
-                Buscar
-              </Button>
-            </DataTableToolbar>
+            {showFilters && (
+              <DataTableToolbar table={table}>
+                <Button onClick={handleApplyFilters} isLoading={isFetching}>
+                  <SearchIcon />
+                  Buscar
+                </Button>
+              </DataTableToolbar>
+            )}
           </DataTable>
         </CardContent>
       </Card>
