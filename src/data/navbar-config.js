@@ -78,7 +78,7 @@ export const dropdownMenus = [
         to: "/registros/tareas",
         description: "Tus tareas pendientes y asignaciones diarias.",
         icon: ListChecks,
-        allowedRoutes: [Roles.AGENT],
+        allowedRoutes: [Roles.AGENT, Roles.ADMIN],
       },
     ],
   },

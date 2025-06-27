@@ -9,9 +9,9 @@ const RegistrosIndexRedirect = () => {
   switch (role) {
     case Roles.SUPER_ADMIN:
     case Roles.ADMIN:
-      return <Navigate to="/registros/registros" replace />
+      return <Navigate to="/registros/tareas" replace />
     case Roles.AGENT:
-      return <Navigate to="/registros/mis-prospectos" replace />
+      return <Navigate to="/registros/tareas" replace />
     default:
       return <Navigate to="/unauthorized" replace />
   }

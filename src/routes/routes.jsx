@@ -39,7 +39,7 @@ export const routes = [
       {
         path: "tareas",
         routeKey: "tareas",
-        allowedRoles: [Roles.AGENT],
+        allowedRoles: [Roles.AGENT, Roles.ADMIN],
       },
     ],
   },
