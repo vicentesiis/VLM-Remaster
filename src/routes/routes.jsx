@@ -97,7 +97,7 @@ export const routes = [
       },
       {
         path: "control-finalizados",
-        routeKey: "controlDeFinalizados",
+        routeKey: "reporteReporteRecordFinalizado",
         allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {

@@ -8,7 +8,7 @@ export const useGetVentasGlobales = (
   return useQuery({
     queryKey: ["globalSales", year, group, channel],
     queryFn: () =>
-      ReportApi.getReportesGlobales({
+      reportApi.getReportesGlobales({
         year,
         group_id: group,
         channel,
@@ -24,7 +24,7 @@ export const useGetAgentSales = (
   return useQuery({
     queryKey: ["agentSalesReport", user_id, start_date, end_date],
     queryFn: () =>
-      ReportApi.getAgentSales({
+      reportApi.getAgentSales({
         user_id,
         start_date,
         end_date,
@@ -46,7 +46,7 @@ export const useGetAgentRegistrations = (
       record_type,
     ],
     queryFn: () =>
-      ReportApi.getAgentRegistrations({
+      reportApi.getAgentRegistrations({
         user_id,
         start_date,
         end_date,
@@ -64,7 +64,7 @@ export const useGetGroupSalesReport = (
   return useQuery({
     queryKey: ["groupSalesReport", start_date, end_date, group_id, channel],
     queryFn: () =>
-      ReportApi.getGroupSalesReport({
+      reportApi.getGroupSalesReport({
         start_date,
         end_date,
         group_id,
@@ -79,7 +79,7 @@ export const useGetAgentCutOff = ({ agent_id }, options = {}) => {
   return useQuery({
     queryKey: ["agentCutOff", agent_id],
     queryFn: () =>
-      ReportApi.getAgentCutOff({
+      reportApi.getAgentCutOff({
         agent_id,
       }).then((res) => res.data),
     enabled: !!agent_id,
@@ -93,5 +93,15 @@ export const useGetTasks = (options = {}) => {
       return await reportApi.getUserTasks()
     },
         ...options,
+  })
+}
+
+export const useGetFinalizedReport = ({ skip , limit }, options = {}) => {
+  return useQuery({
+    queryKey: ["finalizedReport", skip, limit],
+    queryFn: () =>
+      reportApi.getFinalizedReport({ skip, limit }).then((res) => res.data),
+    enabled: true,
+    ...options,
   })
 }
