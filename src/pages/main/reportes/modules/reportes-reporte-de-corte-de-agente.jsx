@@ -1,91 +1,74 @@
 import React, { useState } from "react"
 import PageLayout from "@/components/customs/page-layout/page-layout"
+import { userConfig } from "@/components/customs/filter/filter-config"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import SectionHeader from "@/components/customs/section-header"
 import { Card, CardContent } from "@/components/ui"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
-import { groupConfig } from "@/components/customs/filter/filter-config"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { useGetFinalizedReport } from "@/hooks/queries/UseReports"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGetAgentCutOff } from "@/hooks/queries/UseReports"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { toast } from "sonner"
 import { DataTable } from "@/components/data-table"
 import { useOrdersTable } from "../../registros/registros-detail/hooks/useOrdersTable"
 
-export const ReporteReporteRecordFinalizado = () => {
+export const ReporteReporteCorteAgente = () => {
+  const [searchParams, setSearchParams] = useState(null)
   const { isAdmin, group } = useCurrentUser()
 
-  // Si NO es admin, debe elegir grupo (por eso group_id = ""), si es admin usa grupo del usuario directamente
-  const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
-    group_id: isAdmin ? group?.id || "" : "",
-  })
-
-  const [searchParams, setSearchParams] = useState(null)
+  const { values, onChange, listOfUsers, listOfGroups } =
+    useGroupAndMembersFilter({
+      group_id: isAdmin ? group?.id || "" : "",
+      user_id: "",
+    })
 
   const handleSearch = () => {
-    if (!isAdmin && !values.group_id) {
-      toast.error("El grupo es requerido")
+    if (!values.user_id) {
+      toast.error("El agente es requerido")
       return
     }
 
-    setSearchParams({
-      skip: 0,
-      limit: 100,
-      group_id: isAdmin ? group?.id : values.group_id,
-    })
+    setSearchParams({ agent_id: values.user_id })
   }
 
-  // Opcional: Lanzar búsqueda automática si admin y grupo ya existe
-  React.useEffect(() => {
-    if (isAdmin && group?.id && !searchParams) {
-      setSearchParams({ skip: 0, limit: 100, group_id: group.id })
-    }
-  }, [isAdmin, group, searchParams])
-
-  const { data, isLoading, isError } = useGetFinalizedReport(searchParams ?? {}, {
+  const { data, isLoading, isError } = useGetAgentCutOff(searchParams ?? {}, {
     enabled: !!searchParams,
   })
 
-  const records = (data?.records_and_orders ?? []).map(([record, orderCount]) => ({
-    ...record,
-    orderCount,
-  }))
+  const orders = data?.data?.orders ?? []
+  const { table } = useOrdersTable(orders)
 
-  const { table } = useOrdersTable(records)
+  const formatCurrency = (amount) =>
+    (amount / 100).toLocaleString("es-MX", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
 
   return (
-    <PageLayout title="Reporte de Records Finalizados">
+    <PageLayout title="Reporte de Corte por Agente">
       <Card>
         <CardContent>
           <SectionHeader
-            title="Records Finalizados"
-            subtitle={
-              data?.group_name
-                ? `Grupo: ${data.group_name} — Total: ${data.total ?? 0}`
-                : ""
-            }
+            title="Información del Agente"
             actions={
-              !isAdmin ? (
-                <FilterToolbar
-                  filterConfig={[groupConfig]}
-                  values={values}
-                  onChange={onChange}
-                  context={{ groups: listOfGroups }}
-                  onSearch={handleSearch}
-                />
-              ) : (
-                <button
-                  className="btn btn-primary"
-                  onClick={handleSearch}
-                  style={{ marginLeft: "auto" }}
-                >
-                  Buscar
-                </button>
-              )
+              <FilterToolbar
+                filterConfig={[userConfig]}
+                values={values}
+                onChange={onChange}
+                context={{ users: listOfUsers }}
+                onSearch={handleSearch}
+              />
             }
           />
-          <WithStatusState isLoading={isLoading} isError={isError} hasFetched={!!searchParams}>
-            <DataTable table={table} showPagination={false} hasFetched />
+          <WithStatusState
+            isLoading={isLoading}
+            isError={isError}
+            hasFetched={!!searchParams}
+          >
+        
+  
+                <DataTable table={table} showPagination={false} hasFetched />
+           
           </WithStatusState>
         </CardContent>
       </Card>
@@ -93,4 +76,4 @@ export const ReporteReporteRecordFinalizado = () => {
   )
 }
 
-export default ReporteReporteRecordFinalizado
+export default ReporteReporteCorteAgente

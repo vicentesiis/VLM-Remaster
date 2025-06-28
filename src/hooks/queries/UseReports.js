@@ -96,12 +96,24 @@ export const useGetTasks = (options = {}) => {
   })
 }
 
-export const useGetFinalizedReport = ({ skip , limit }, options = {}) => {
+export const useGetFinalizedReport = ({ skip = 0, limit = 100 }, options = {}) => {
   return useQuery({
     queryKey: ["finalizedReport", skip, limit],
+    queryFn: () => reportApi.getFinalizedReport({ skip, limit }),
+    ...options,
+  });
+};
+
+export const useGetAgentPotentialSales = ({ agent_id }, options = {}) => {
+  return useQuery({
+    queryKey: ["agentPotentialSale", agent_id],
     queryFn: () =>
-      reportApi.getFinalizedReport({ skip, limit }).then((res) => res.data),
-    enabled: true,
+      reportApi.getAgentPotentialSales({
+        agent_id,
+      }).then((res) => res.data),
+    enabled: !!agent_id,
     ...options,
   })
 }
+
+

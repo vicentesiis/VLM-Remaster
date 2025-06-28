@@ -20,7 +20,8 @@ export const getFinalizedReportColumns = () => [
   }),
   columnHelper.accessor("exit_date", {
     header: "FECHA DE SALIDA",
-    cell: (info) => info.getValue() ? formatDate(info.getValue()) : "-",
+    cell: (info) =>
+      info.getValue() ? formatDate(info.getValue()) : "-",
   }),
   columnHelper.accessor("phone", {
     header: "TELÉFONO",
@@ -32,17 +33,24 @@ export const getFinalizedReportColumns = () => [
   }),
   columnHelper.accessor("status", {
     header: "ESTATUS",
-    cell: (info) => (
-      <span className="capitalize text-muted-foreground">{info.getValue()}</span>
-    ),
+    cell: (info) =>
+      React.createElement(
+        "span",
+        { className: "capitalize text-muted-foreground" },
+        info.getValue()
+      ),
   }),
   columnHelper.accessor("contacted", {
     header: "CONTACTADO",
     cell: (info) =>
-      info.getValue() ? (
-        <span className="text-green-600 font-semibold">Sí</span>
-      ) : (
-        <span className="text-red-500 font-semibold">No</span>
+      React.createElement(
+        "span",
+        {
+          className: info.getValue()
+            ? "text-green-600 font-semibold"
+            : "text-red-500 font-semibold",
+      },
+        info.getValue() ? "Sí" : "No"
       ),
     meta: { align: "center" },
   }),
