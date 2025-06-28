@@ -1,16 +1,9 @@
-"use client"
-
+import { LayoutGrid, LogOut, Moon, Sun, User } from "lucide-react"
+import React from "react"
 import { Link } from "react-router-dom"
-import { LayoutGrid, LogOut, User } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider,
-} from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,8 +13,34 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip"
+import { useAuth } from "@/hooks/useAuth"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useTheme } from "@/hooks/useTheme"
 
 export function UserNav() {
+  const { logoutMutation } = useAuth()
+  const { user } = useCurrentUser()
+  const { isDark, toggleTheme } = useTheme()
+
+  const getAvatarInitials = (fullName) => {
+    if (!fullName) return ""
+    const nameParts = fullName.split(" ")
+    if (nameParts.length > 1) {
+      return (
+        nameParts[0].charAt(0).toUpperCase() +
+        nameParts[1].charAt(0).toUpperCase()
+      )
+    } else {
+      return nameParts[0]?.charAt(0).toUpperCase() || ""
+    }
+  }
+
   return (
     <DropdownMenu>
       <TooltipProvider disableHoverableContent>
@@ -34,42 +53,50 @@ export function UserNav() {
               >
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="#" alt="Avatar" />
-                  <AvatarFallback className="bg-transparent">JD</AvatarFallback>
+                  <AvatarFallback className="bg-transparent">
+                    {getAvatarInitials(user.name ?? "???")}
+                  </AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
           </TooltipTrigger>
-          <TooltipContent side="bottom">Profile</TooltipContent>
+          <TooltipContent side="bottom">Perfil</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className="w-40" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">John Doe</p>
+            <p className="text-sm font-medium leading-none">
+              {user.name ?? "???"}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              johndoe@example.com
+              {user.username ?? "???"}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="hover:cursor-pointer" asChild>
-            <Link href="/dashboard" className="flex items-center">
-              <LayoutGrid className="mr-3 h-4 w-4 text-muted-foreground" />
-              Dashboard
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="hover:cursor-pointer" asChild>
-            <Link href="/account" className="flex items-center">
-              <User className="mr-3 h-4 w-4 text-muted-foreground" />
-              Account
-            </Link>
+          <DropdownMenuItem onClick={toggleTheme}>
+            {isDark ? (
+              <>
+                <Sun className="mr-2 h-4 w-4" />
+                Modo claro
+              </>
+            ) : (
+              <>
+                <Moon className="mr-2 h-4 w-4" />
+                Modo oscuro
+              </>
+            )}
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:cursor-pointer" onClick={() => {}}>
+        <DropdownMenuItem
+          className="hover:cursor-pointer"
+          onClick={() => logoutMutation.mutate()}
+        >
           <LogOut className="mr-3 h-4 w-4 text-muted-foreground" />
-          Sign out
+          Cerrar sesion
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

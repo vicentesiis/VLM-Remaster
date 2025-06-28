@@ -10,7 +10,6 @@ import routes from "@/routes/routes"
 export const MainPage = () => {
   return (
     <AdminPanelLayout>
-      <NewNavbar title={"title"} />
       <div className="pb-4">
         <Routes>
           <Route path="/*" element={<Navigate to="/registros" replace />} />
