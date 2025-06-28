@@ -2,7 +2,6 @@ import { Roles } from "@/constants"
 import { dropdownMenus, menuItems } from "@/data"
 
 export function getSidebarMenu(role, pathname) {
-  console.log("getSidebarMenu")
   const getFirstSegment = (path) => path.split("/")[1] || ""
 
   const baseMenus = menuItems

@@ -60,13 +60,6 @@ export function OmniSearch() {
     }
   }, [result])
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      inputRef.current?.focus()
-    }, 0)
-    return () => clearTimeout(timer)
-  }, [selectedOption])
-
   return (
     <div className="w-full sm:w-[400px]">
       <div className="flex flex-col gap-2 rounded-md border border-input p-2 sm:flex-row sm:items-center sm:gap-0 sm:p-0">
