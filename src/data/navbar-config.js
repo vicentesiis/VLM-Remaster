@@ -19,16 +19,19 @@ export const menuItems = [
   {
     title: "Vacantes",
     to: "/vacantes",
+    icon: Briefcase,
     allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
   },
   {
     title: "Ventas",
     to: "/ventas",
+    icon: ShoppingCart,
     allowedRoutes: [Roles.AGENT],
   },
   {
     title: "Usuarios",
     to: "/usuarios",
+    icon: Users,
     allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
   },
 ]
