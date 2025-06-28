@@ -48,7 +48,7 @@ export function Menu({ isOpen }) {
                             <span
                               className={cn(isOpen === false ? "" : "mr-4")}
                             >
-                              <Icon size={18} />
+                              <Icon className="size-5" />
                             </span>
                             <p
                               className={cn(

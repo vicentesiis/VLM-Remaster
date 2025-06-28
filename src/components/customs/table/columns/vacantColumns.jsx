@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
 import { Link } from "react-router-dom"
-import { ALL_PROVINCES } from "@/constants"
+import { ALL_PROVINCES, VACANT_CATEGORIES } from "@/constants"
 import { formatDate } from "@/lib"
 import { formatCurrency, mapToOptions } from "@/utils"
 
@@ -45,10 +45,10 @@ export const getVacantColumns = () => {
       header: "Título",
       meta: { align: "left" },
     }),
-    // columnHelper.accessor("original_title", {
-    //   header: "Título Original",
-    //   meta: { align: "left" },
-    // }),
+    columnHelper.accessor("original_title", {
+      header: "Título Original",
+      meta: { align: "left" },
+    }),
     // columnHelper.accessor("employer_name", {
     //   header: "Empleador",
     //   meta: { align: "left" },
@@ -58,10 +58,9 @@ export const getVacantColumns = () => {
       cell: (info) => <span>{info.getValue()?.toUpperCase()}</span>,
       meta: {
         align: "center",
-        variant: "select", // Tipo de filtro
+        variant: "select",
         label: "País",
         options: [
-          // Opciones fijas en frontend
           { label: "USA", value: "usa" },
           { label: "Canada", value: "canada" },
         ],
@@ -76,15 +75,15 @@ export const getVacantColumns = () => {
         options: mapToOptions(ALL_PROVINCES),
       },
     }),
-    // columnHelper.accessor("category", {
-    //   header: "Categoría",
-    //   meta: {
-    //     align: "center",
-    //     variant: "select",
-    //     label: "Categoría",
-    //     options: mapToOptions(VACANT_CATEGORIES),
-    //   },
-    // }),
+    columnHelper.accessor("category", {
+      header: "Categoría",
+      meta: {
+        align: "center",
+        variant: "select",
+        label: "Categoría",
+        options: mapToOptions(VACANT_CATEGORIES),
+      },
+    }),
     columnHelper.accessor("rate", {
       header: "Sueldo",
       meta: {

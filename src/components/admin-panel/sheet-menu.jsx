@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom"
 import { MenuIcon, PanelsTopLeft } from "lucide-react"
+import React from "react"
+import { Link } from "react-router-dom"
+import logo from "@/assets/logo.png"
 
-import { Button } from "@/components/ui/button"
 import { Menu } from "@/components/admin-panel/menu"
+import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetHeader,
@@ -26,9 +28,11 @@ export function SheetMenu() {
             variant="link"
             asChild
           >
-            <Link href="/dashboard" className="flex items-center gap-2">
-              <PanelsTopLeft className="mr-1 h-6 w-6" />
-              <SheetTitle className="text-lg font-bold">Brand</SheetTitle>
+            <Link to="/registros" className="flex items-center">
+              <img src={logo} width={40} alt="Logo" />
+              <SheetTitle className="text-lg font-bold">
+                Proyecto VLM
+              </SheetTitle>
             </Link>
           </Button>
         </SheetHeader>

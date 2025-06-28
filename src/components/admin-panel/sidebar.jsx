@@ -1,12 +1,12 @@
-"use client"
+import React from "react"
+import { Link } from "react-router-dom"
+import logo from "@/assets/logo.png"
 import { Menu } from "@/components/admin-panel/menu"
 import { SidebarToggle } from "@/components/admin-panel/sidebar-toggle"
 import { Button } from "@/components/ui/button"
 import { useSidebar } from "@/hooks/use-sidebar"
 import { useStore } from "@/hooks/use-store"
 import { cn } from "@/lib/utils"
-import { PanelsTopLeft } from "lucide-react"
-import { Link } from "react-router-dom"
 
 export function Sidebar() {
   const sidebar = useStore(useSidebar, (x) => x)
@@ -28,23 +28,23 @@ export function Sidebar() {
       >
         <Button
           className={cn(
-            "mb-1 transition-transform duration-300 ease-in-out",
+            "transition-transform duration-300 ease-in-out",
             !getOpenState() ? "translate-x-1" : "translate-x-0"
           )}
           variant="link"
           asChild
         >
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <PanelsTopLeft className="mr-1 h-6 w-6" />
+          <Link to="/registros" className="mr-auto flex">
+            <img src={logo} width={40} alt="Logo" />
             <h1
               className={cn(
-                "whitespace-nowrap text-lg font-bold transition-[transform,opacity,display] duration-300 ease-in-out",
+                "whitespace-nowrap text-lg font-bold text-black transition-[transform,opacity,display] duration-300 ease-in-out dark:text-white",
                 !getOpenState()
                   ? "hidden -translate-x-96 opacity-0"
                   : "translate-x-0 opacity-100"
               )}
             >
-              Brand
+              Proyecto VLM
             </h1>
           </Link>
         </Button>
