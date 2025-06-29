@@ -5,13 +5,13 @@ import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 const RegistrosIndexRedirect = () => {
   const { role } = useCurrentUser()
-
   switch (role) {
     case Roles.SUPER_ADMIN:
-    case Roles.ADMIN:
       return <Navigate to="/registros/registros" replace />
+    case Roles.ADMIN:
+      return <Navigate to="/tareas" replace />
     case Roles.AGENT:
-      return <Navigate to="/registros/mis-prospectos" replace />
+      return <Navigate to="/tareas" replace />
     default:
       return <Navigate to="/unauthorized" replace />
   }

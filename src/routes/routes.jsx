@@ -2,9 +2,14 @@ import { Roles } from "@/constants/appConstants"
 
 export const routes = [
   {
+    path: "/tareas",
+    routeKey: "tareas",
+    allowedRoles: [Roles.AGENT, Roles.ADMIN],
+  },
+  {
     path: "/registros",
-    routeKey: "home",
     allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+    routeKey: "home",
     children: [
       {
         path: "registros",
@@ -34,11 +39,6 @@ export const routes = [
       {
         path: "mis-clientes",
         routeKey: "misClientes",
-        allowedRoles: [Roles.AGENT],
-      },
-      {
-        path: "tareas",
-        routeKey: "tareas",
         allowedRoles: [Roles.AGENT],
       },
     ],

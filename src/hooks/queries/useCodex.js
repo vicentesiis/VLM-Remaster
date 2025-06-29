@@ -72,3 +72,21 @@ export const useGetAgentTypes = (options = {}) => {
     ...options,
   })
 }
+
+// Vacant Categories
+export const useGetVacantCategories = (options = {}) => {
+  return useQuery({
+    queryKey: ["vacant-categories"],
+    queryFn: () => codexApi.getVacantCategories(),
+    ...options,
+  })
+}
+
+// Country States
+export const useGetCountryStates = (options = {}) => {
+  return useQuery({
+    queryKey: ["country-states"],
+    queryFn: () => codexApi.getCountryStates(),
+    ...options,
+  })
+}

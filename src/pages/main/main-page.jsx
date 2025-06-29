@@ -1,19 +1,15 @@
 import React from "react"
 import { Routes, Route, Outlet, Navigate } from "react-router-dom"
 import { Toaster } from "sonner"
-import Navbar from "@/components/customs/navbar/navbar"
+import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout"
 import { GenericRouteWrapper } from "@/routes/generic-route-wrapper"
 import RoleProtectedRoute from "@/routes/role-protected-route"
 import routes from "@/routes/routes"
 
 export const MainPage = () => {
   return (
-    <div className="flex h-screen flex-col">
-      {/* Sticky navbar */}
-      <div className="sticky top-0 z-50 border-b">
-        <Navbar />
-      </div>
-      <div className="flex-grow overflow-auto bg-gray-50 dark:bg-background">
+    <AdminPanelLayout>
+      <div className="pb-4">
         <Routes>
           <Route path="/*" element={<Navigate to="/registros" replace />} />
           {routes.map(
@@ -63,9 +59,9 @@ export const MainPage = () => {
             )
           )}
         </Routes>
+        <Toaster position="top-right" richColors closeButton />
       </div>
-      <Toaster position="top-right" richColors closeButton />
-    </div>
+    </AdminPanelLayout>
   )
 }
 

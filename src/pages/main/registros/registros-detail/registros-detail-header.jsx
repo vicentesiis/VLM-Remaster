@@ -74,7 +74,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
   }
 
   return (
-    <Card className="top-0 z-30 sm:sticky">
+    <Card>
       <CardHeader>
         <div className="flex flex-col lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-2">

@@ -1,36 +1,17 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
 import { Link } from "react-router-dom"
-import { ALL_PROVINCES } from "@/constants"
+import { ALL_PROVINCES, VACANT_CATEGORIES } from "@/constants"
 import { formatDate } from "@/lib"
-import { formatCurrency, mapToOptions } from "@/utils"
+import { formatCurrency, mapToOptions, toTitleCase } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
 export const getVacantColumns = () => {
-  const urlColumn = columnHelper.display({
-    id: "url",
-    header: "URL",
-    cell: ({ row }) => {
-      const url = row.original.url
-      return (
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary underline"
-        >
-          Link
-        </a>
-      )
-    },
-    meta: { align: "center", maxWidth: "80px" },
-  })
-
   return [
     columnHelper.accessor("id", {
       header: "ID",
-      meta: { align: "center", maxWidth: "200px" },
+      meta: { align: "center", maxWidth: "150px" },
       cell: (info) => {
         const id = info.getValue()
         const fullPath = `/vacantes/detalle/${id}`
@@ -43,25 +24,22 @@ export const getVacantColumns = () => {
     }),
     columnHelper.accessor("title", {
       header: "Título",
-      meta: { align: "left" },
+      cell: (info) => info.getValue() ?? "---",
+      meta: { align: "center" },
     }),
-    // columnHelper.accessor("original_title", {
-    //   header: "Título Original",
-    //   meta: { align: "left" },
-    // }),
-    // columnHelper.accessor("employer_name", {
-    //   header: "Empleador",
-    //   meta: { align: "left" },
-    // }),
+    columnHelper.accessor("original_title", {
+      header: "Título Original",
+      cell: (info) => toTitleCase(info.getValue()) ?? "---",
+      meta: { align: "center" },
+    }),
     columnHelper.accessor("country", {
       header: "País",
       cell: (info) => <span>{info.getValue()?.toUpperCase()}</span>,
       meta: {
         align: "center",
-        variant: "select", // Tipo de filtro
+        variant: "select",
         label: "País",
         options: [
-          // Opciones fijas en frontend
           { label: "USA", value: "usa" },
           { label: "Canada", value: "canada" },
         ],
@@ -76,24 +54,28 @@ export const getVacantColumns = () => {
         options: mapToOptions(ALL_PROVINCES),
       },
     }),
-    // columnHelper.accessor("category", {
-    //   header: "Categoría",
-    //   meta: {
-    //     align: "center",
-    //     variant: "select",
-    //     label: "Categoría",
-    //     options: mapToOptions(VACANT_CATEGORIES),
-    //   },
-    // }),
+    columnHelper.accessor("category", {
+      header: "Categoría",
+      meta: {
+        align: "center",
+        variant: "select",
+        label: "Categoría",
+        options: mapToOptions(VACANT_CATEGORIES),
+      },
+    }),
     columnHelper.accessor("rate", {
       header: "Sueldo",
+      cell: (info) => {
+        const rate = info.getValue()
+        const currency = info.row.original.currency
+        const rate_description = info.row.original.rate_description
+        return (
+          <span>{`$${rate} ${currency?.toUpperCase()}/${rate_description}`}</span>
+        )
+      },
       meta: {
         align: "center",
       },
-    }),
-    columnHelper.accessor("visa_class", {
-      header: "Visa",
-      meta: { align: "center" },
     }),
     columnHelper.accessor("positions", {
       header: "Posiciones",
@@ -104,6 +86,5 @@ export const getVacantColumns = () => {
       cell: (info) => formatDate(info.getValue()),
       meta: { align: "center" },
     }),
-    urlColumn,
   ]
 }

@@ -73,6 +73,10 @@ export const useVacantsTable = () => {
     }
   }, [columnFilters, appliedFilters, refetch])
 
+  useEffect(() => {
+  refetch()
+}, [queryParams, refetch])
+
   return {
     table,
     isFetched,

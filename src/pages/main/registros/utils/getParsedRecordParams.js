@@ -16,6 +16,10 @@ export const getParsedRecordParams = (
     params.is_client = true
   }
 
+  if (title === "Mis Prospectos") {
+    params.is_client = false
+  }
+
   applyRoleFilters(params, appliedFilters, title, userId, currentRole)
 
   return params

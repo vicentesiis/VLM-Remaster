@@ -1,19 +1,29 @@
 import PropTypes from "prop-types"
 import React from "react"
-import PageHeader from "./page-header"
+import RegistroDialog from "../dialogs/registro-dialog"
+import NewNavbar from "@/components/admin-panel/navbar"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { componentPropsMap } from "@/routes/route-props"
 
 const PageLayout = ({ routeKey, title, subtitle, children }) => {
+  const { isAgent } = useCurrentUser()
   const mappedProps = componentPropsMap[routeKey] || {}
 
   const resolvedTitle = title ?? mappedProps.title
   const resolvedSubtitle = subtitle ?? mappedProps.subtitle
 
   return (
-    <div className="relative mx-auto max-w-screen-xl sm:p-4 xl:p-0">
-      <PageHeader title={resolvedTitle} subtitle={resolvedSubtitle} />
-      {children}
-    </div>
+    <>
+      <NewNavbar title={resolvedTitle} subtitle={resolvedSubtitle} />
+      {isAgent && (
+        <div className="fixed bottom-4 right-4 z-50">
+          <RegistroDialog mode="add" />
+        </div>
+      )}
+      <div className="relative mx-auto max-w-screen-xl px-4 py-8">
+        {children}
+      </div>
+    </>
   )
 }
 
