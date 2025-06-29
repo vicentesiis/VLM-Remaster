@@ -56,33 +56,31 @@ const Usuarios = () => {
 
   return (
     <PageLayout title={title}>
-      {(isAdmin || isSuperAdmin) && (
-        <div className="absolute right-0 top-2 z-10">
-          <UsuarioDialog />
-        </div>
-      )}
-      {isSuperAdmin && (
-        <div className="absolute right-40 top-2 z-10 hidden sm:block">
-          <GroupDialog />
-        </div>
-      )}
-
       <Card>
         <CardContent>
           <SectionHeader
-            title="Informacion del Grupo:"
+            title="Informacion del Grupo"
             extra={groupName}
             className="pb-6"
             actions={
-              isSuperAdmin && (
-                <FilterToolbar
-                  filterConfig={[groupConfig]}
-                  values={values}
-                  onChange={onChange}
-                  context={{ groups: listOfGroups }}
-                  onSearch={handleSearch}
-                />
-              )
+              <div className="flex flex-wrap gap-2 sm:gap-4">
+                {isSuperAdmin && (
+                  <>
+                    <GroupDialog />
+                    <UsuarioDialog />
+                  </>
+                )}
+                {isAdmin && !isSuperAdmin && <UsuarioDialog />}
+                {isSuperAdmin && (
+                  <FilterToolbar
+                    filterConfig={[groupConfig]}
+                    values={values}
+                    onChange={onChange}
+                    context={{ groups: listOfGroups }}
+                    onSearch={handleSearch}
+                  />
+                )}
+              </div>
             }
           />
 

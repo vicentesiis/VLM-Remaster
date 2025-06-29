@@ -9,9 +9,11 @@ export function NewNavbar({ title, subtitle }) {
       <div className="mx-4 flex h-14 items-center sm:mx-8">
         <div className="flex items-center space-x-4 lg:space-x-0">
           <SheetMenu />
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             <h1 className="text-xl font-bold dark:text-white">{title}</h1>
-            {subtitle && <p className="font-bold text-primary">{subtitle}</p>}
+            {subtitle && (
+              <p className="text-xl font-bold text-primary">{subtitle}</p>
+            )}
           </div>
         </div>
         <div className="flex flex-1 items-center justify-end gap-4">

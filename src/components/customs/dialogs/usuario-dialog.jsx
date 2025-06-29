@@ -77,7 +77,7 @@ const UsuarioDialog = ({
         trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>
       ) : (
         <DialogTrigger asChild>
-          <Button variant={buttonVariant} size="sm">
+          <Button variant={buttonVariant}>
             {React.createElement(icon)}
             {title}
           </Button>

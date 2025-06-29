@@ -76,7 +76,7 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
         trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>
       ) : (
         <DialogTrigger asChild>
-          <Button variant="add" size="sm">
+          <Button variant="add">
             {React.createElement(Users2)}
             Nuevo Groupo
           </Button>

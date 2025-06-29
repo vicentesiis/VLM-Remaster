@@ -17,7 +17,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <AppRouter />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </AuthProvider>
     </QueryClientProvider>
   )

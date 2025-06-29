@@ -37,7 +37,7 @@ export function useUsuariosData() {
   const leader = response?.data?.leader ?? {}
 
   const groupName = isSuperAdmin
-    ? response?.data?.name || "En espera de búsqueda"
+    ? response?.data?.name || "..."
     : group?.name || ""
 
   return {
