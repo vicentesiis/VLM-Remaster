@@ -13,3 +13,5 @@ export const getGroupSalesReport = (params) => apiClient.get("/reports/sales/gro
 export const getAgentCutOff = (params) => apiClient.get("/reports/cut-off",{params})
 
 export const getFinalizedReport = (params) => apiClient.get("/reports/records/finalized", {params})
+
+export const getAgentPotentialSales = (params) => apiClient.get("/reports/sales/agent/potential", {params})

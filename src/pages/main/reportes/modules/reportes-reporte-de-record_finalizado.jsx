@@ -26,7 +26,7 @@ const ReporteReporteRecordFinalizado = () => {
   const { data, isLoading, isError } = useGetFinalizedReport(
     {
       skip: 0,
-      limit: 10,
+      limit: 100,
       ...(groupIdToSearch ? { group_id: groupIdToSearch } : {}),
     },
     { enabled: searchTriggered && canSearch }
