@@ -1,5 +1,5 @@
 import React from "react"
-import OmniSearch from "../customs/navbar/omnisearch"
+import OmniSearch from "../customs/omnisearch"
 import { SheetMenu } from "@/components/admin-panel/sheet-menu"
 import { UserNav } from "@/components/admin-panel/user-nav"
 

@@ -41,7 +41,6 @@ const Usuarios = () => {
 
   const columns = getUsuarioColumns(handleEdit, isAgent)
 
-  // 👇 Prepare table data based on role
   const tableData = isAgent ? [leader, ...members].filter(Boolean) : members
 
   const table = useReactTable({
@@ -59,6 +58,7 @@ const Usuarios = () => {
           <SectionHeader
             title="Informacion del Grupo"
             extra={groupName}
+            extraColor="text-primary"
             className="pb-4"
             actions={
               <div className="flex flex-wrap gap-2 sm:gap-4">
