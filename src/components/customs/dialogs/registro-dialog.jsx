@@ -8,7 +8,7 @@ import { Button, DialogFooterCustom, DialogHeaderCustom } from "@/components/ui"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateRecord, useUpdateRecord } from "@/hooks/queries/useRecord"
 
-const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
+const RegistroDialog = ({ trigger, mode = "add", recordToEdit, vacantId }) => {
   const formRef = useRef()
   const [open, setOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -79,6 +79,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
           onSubmit={handleSubmit}
           defaultValues={recordToEdit}
           isEdit={isEdit}
+          vacantId={vacantId}
         />
 
         <DialogFooterCustom
@@ -96,6 +97,7 @@ RegistroDialog.propTypes = {
   mode: PropTypes.string,
   recordToEdit: PropTypes.any,
   trigger: PropTypes.any,
+  vacantId: PropTypes.any,
 }
 
 export default RegistroDialog

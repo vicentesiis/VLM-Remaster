@@ -53,7 +53,7 @@ export const formSchema = z.object({
 })
 
 const RegistroForm = forwardRef(
-  ({ onSubmit, defaultValues, isEdit = false }, ref) => {
+  ({ onSubmit, defaultValues, isEdit = false, vacantId }, ref) => {
     const form = useForm({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -65,7 +65,7 @@ const RegistroForm = forwardRef(
         state: "",
         curp: "",
         passport: "",
-        job: "",
+        job: vacantId ?? "",
         program: "",
         channel: "",
         comments: "",
@@ -138,6 +138,7 @@ RegistroForm.propTypes = {
   defaultValues: PropTypes.any,
   isEdit: PropTypes.bool,
   onSubmit: PropTypes.func,
+  vacantId: PropTypes.any,
 }
 
 RegistroForm.displayName = "RegistroForm"

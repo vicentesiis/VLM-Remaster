@@ -1,5 +1,8 @@
+import { UserPlusIcon } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
+import RegistroDialog from "@/components/customs/dialogs/registro-dialog"
+import { Button } from "@/components/ui"
 import { CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { H3 } from "@/components/ui/typography"
@@ -29,9 +32,21 @@ const GeneralInfo = ({ vacant }) => {
     <div>
       <H3 className="text-xl">Información General</H3>
       <Separator className="w-80" />
-      <CardContent className="space-y-2 px-0 text-md text-gray-700 sm:px-4">
-        <div>
-          <strong>ID:</strong> {id}
+      <CardContent className="text-md space-y-2 px-0 text-gray-700 sm:px-4">
+        <div className="flex items-center gap-4">
+          <div>
+            <strong>ID:</strong> {id}
+          </div>
+          <RegistroDialog
+            mode="add"
+            vacantId={id}
+            trigger={
+              <Button variant="add" size="sm">
+                <UserPlusIcon className="size-6" />
+                Crear Registro
+              </Button>
+            }
+          />
         </div>
         <div>
           <strong>Título original:</strong> {original_title}
