@@ -40,19 +40,17 @@ const Usuarios = () => {
   }
 
   const columns = getUsuarioColumns(handleEdit, isAgent)
+
+  // 👇 Prepare table data based on role
+  const tableData = isAgent ? [leader, ...members].filter(Boolean) : members
+
   const table = useReactTable({
-    data: members,
+    data: tableData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
 
-  const title = isSuperAdmin
-    ? "Usuarios por Grupo"
-    : isAdmin
-      ? "Usuarios"
-      : isAgent
-        ? "Usuarios"
-        : "Usuarios"
+  const title = isSuperAdmin ? "Usuarios por Grupo" : "Usuarios"
 
   return (
     <PageLayout title={title}>
@@ -61,7 +59,7 @@ const Usuarios = () => {
           <SectionHeader
             title="Informacion del Grupo"
             extra={groupName}
-            className="sm:pb-6"
+            className="pb-4"
             actions={
               <div className="flex flex-wrap gap-2 sm:gap-4">
                 {isSuperAdmin && (
@@ -87,7 +85,8 @@ const Usuarios = () => {
           {shouldFetch ? (
             <WithStatusState isLoading={isLoading} isError={isError}>
               <div className="flex flex-col gap-4 sm:flex-row">
-                <GroupResponsible admin={admin} leader={leader} />
+                {!isAgent && <GroupResponsible admin={admin} leader={leader} />}
+
                 <DataTable
                   table={table}
                   isLoading={isLoading}

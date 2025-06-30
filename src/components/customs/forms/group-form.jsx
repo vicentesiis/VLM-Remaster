@@ -39,7 +39,7 @@ const GroupForm = forwardRef(({ onSubmit }, ref) => {
     <FormProvider {...form}>
       <Form {...form}>
         <form onSubmit={submitHandler}>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             {fields.map((fieldConfig) => {
               const { name, type, label, options, ...rest } = fieldConfig
               return renderFormField(type, name, label, options, rest, form)

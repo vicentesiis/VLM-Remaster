@@ -84,7 +84,7 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
           </Button>
         </DialogTrigger>
       )}
-      <DialogContent className="max-h-full overflow-y-auto bg-gray-100 dark:bg-gray-950 sm:h-auto sm:max-w-3xl">
+      <DialogContent className="max-h-full overflow-y-auto bg-gray-100 dark:bg-gray-950 sm:max-w-3xl">
         <DialogHeaderCustom
           icon={Users2}
           title="Nuevo Grupo"
@@ -99,7 +99,7 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
           }
         >
           <CardContent>
-            <CardTitle className="text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
+            <CardTitle className="my-3 text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
               Datos del Administrador
             </CardTitle>
             <AdminForm
@@ -118,7 +118,7 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
           }
         >
           <CardContent>
-            <CardTitle className="flex items-center gap-2 text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
+            <CardTitle className="my-3 flex items-center gap-2 text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
               Datos del Grupo
               <p className="text-sm text-muted-foreground">
                 {createdAdmin ? ` (Admin a asignar: ${createdAdmin.name})` : ""}
