@@ -37,14 +37,14 @@ export const getVacantColumns = ({
         )
       },
     }),
-    columnHelper.accessor("title", {
-      header: "Título",
-      cell: (info) => <NullableCell value={info.getValue()} />,
-      meta: { align: "center" },
-    }),
     columnHelper.accessor("original_title", {
       header: "Título Original",
       cell: (info) => <NullableCell value={toTitleCase(info.getValue())} />,
+      meta: { align: "center" },
+    }),
+    columnHelper.accessor("title", {
+      header: "Título",
+      cell: (info) => <NullableCell value={info.getValue()} />,
       meta: { align: "center" },
     }),
     columnHelper.accessor("country", {

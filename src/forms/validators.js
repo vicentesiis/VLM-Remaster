@@ -48,20 +48,14 @@ export const stateSchema = normalizeToEmptyString(
   "El estado es obligatorio"
 )
 
-export const curpSchema = z.preprocess(
-  (val) => (val === null || val === undefined ? "" : val),
-  z
-    .string()
-    .min(1, { message: "El CURP es obligatorio" })
-    .regex(
-      /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
-      "CURP inválido"
-    )
+export const documentSchema = normalizeToEmptyString(
+  z.string(),
+  "El Documento es obligatorio"
 )
 
-export const passportSchema = normalizeToEmptyString(
+export const documentTypeSchema = normalizeToEmptyString(
   z.string(),
-  "El pasaporte es obligatorio"
+  "El tipo de Documento es obligatorio"
 )
 
 export const jobSchema = z.string().optional()

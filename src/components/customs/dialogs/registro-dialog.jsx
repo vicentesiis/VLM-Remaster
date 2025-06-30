@@ -30,14 +30,20 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit, vacantId }) => {
   })
 
   const handleSubmit = async (data) => {
+    const payload = {
+      ...data,
+      passport: data.document_type === "passport" ? data.document : "",
+      curp: data.document_type === "curp" ? data.document : "",
+    }
+
+    delete payload.document
+    delete payload.document_type
+
     try {
       setIsSubmitting(true)
       const response = isEdit
-        ? await updateRecord({
-            ...data,
-            id: recordToEdit.id,
-          })
-        : await createRecord(data)
+        ? await updateRecord({ ...payload, id: recordToEdit.id })
+        : await createRecord(payload)
 
       const publicId = response.data.public_id
 

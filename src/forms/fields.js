@@ -54,21 +54,21 @@ export const stateField = (options, config = {}) => ({
   ...config,
 })
 
-export const passportField = (config = {}) => ({
-  name: "passport",
-  label: "Pasaporte",
+export const documentField = (config = {}) => ({
+  name: "document",
+  label: "Documento",
   type: "input",
   autoComplete: "off",
-  placeholder: "Ej. G20693408",
+  placeholder: "Pasaporte / CURP",
   ...config,
 })
 
-export const curpField = (config = {}) => ({
-  name: "curp",
-  label: "CURP",
-  type: "input",
-  autoComplete: "off",
-  placeholder: "Ej. RASC050729MMCSHNA2",
+export const documentTypeField = (options, config = {}) => ({
+  name: "document_type",
+  label: "Tipo de Documento",
+  type: "radio",
+  options,
+  placeholder: "Selecciona el tipo de Documento",
   ...config,
 })
 

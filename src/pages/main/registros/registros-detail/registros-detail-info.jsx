@@ -91,7 +91,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
 
           return (
             <div key={sectionIndex} className="space-y-2">
-              <H3 className="text-xl">{section.title}</H3>
+              <H3 className="text-lg">{section.title}</H3>
               <Separator />
               <CardContent className="space-y-4 px-0 sm:px-4">
                 {groupIntoPairs(content).map((row, rowIndex) => (
@@ -104,8 +104,8 @@ export const RegistrosDetailInfo = ({ registro }) => {
                         key={index}
                         className="flex flex-row justify-between py-2 sm:w-1/2 sm:items-center sm:py-0 sm:pr-16"
                       >
-                        <PLead className="text-md">{detail.label}:</PLead>
-                        <ListStyle className="sm:text-md font-bold">
+                        <PLead className="text-sm">{detail.label}:</PLead>
+                        <ListStyle className="text-sm font-bold">
                           {detail.value || "N/A"}
                         </ListStyle>
                       </div>
@@ -117,8 +117,8 @@ export const RegistrosDetailInfo = ({ registro }) => {
                 {comments && (
                   <div className="pt-2">
                     <div className="flex flex-col gap-4 sm:flex-row sm:gap-16">
-                      <PLead className="text-md">{comments.label}:</PLead>
-                      <ListStyle className="text-md font-bold">
+                      <PLead className="text-sm">{comments.label}:</PLead>
+                      <ListStyle className="text-sm font-bold">
                         {comments.value || "---"}
                       </ListStyle>
                     </div>

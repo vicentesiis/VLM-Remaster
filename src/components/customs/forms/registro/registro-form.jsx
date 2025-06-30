@@ -12,8 +12,8 @@ import {
   dateOfBirthField,
   nationalityField,
   stateField,
-  passportField,
-  curpField,
+  documentField,
+  documentTypeField,
   jobField,
   programField,
   channelField,
@@ -26,8 +26,8 @@ import {
   dateOfBirthSchema,
   nationalitySchema,
   stateSchema,
-  curpSchema,
-  passportSchema,
+  documentSchema,
+  documentTypeSchema,
   jobSchema,
   programSchema,
   channelSchema,
@@ -44,8 +44,8 @@ export const formSchema = z.object({
   date_of_birth: dateOfBirthSchema,
   nationality: nationalitySchema,
   state: stateSchema,
-  curp: curpSchema,
-  passport: passportSchema,
+  document: documentSchema,
+  document_type: documentTypeSchema,
   job: jobSchema,
   program: programSchema,
   channel: channelSchema,
@@ -60,11 +60,15 @@ const RegistroForm = forwardRef(
         name: "",
         email: "",
         phone: "",
-        date_of_birth: defaultValues?.date_of_birth ?? new Date(),
+        date_of_birth: defaultValues?.date_of_birth ?? new Date("2000-01-02"),
         nationality: "méxico",
         state: "",
-        curp: "",
-        passport: "",
+        document: defaultValues?.passport || defaultValues?.curp || "",
+        document_type: defaultValues?.passport
+          ? "passport"
+          : defaultValues?.curp
+            ? "curp"
+            : "",
         job: vacantId ?? "",
         program: "",
         channel: "",
@@ -100,8 +104,14 @@ const RegistroForm = forwardRef(
       dateOfBirthField(),
       nationalityField(nacionalidadOptions),
       stateField(estadosOptions),
-      passportField({ disabled: !isAdmin && isEdit }),
-      curpField({ disabled: !isAdmin && isEdit }),
+      documentField({ disabled: isEdit }),
+      documentTypeField(
+        [
+          { label: "Pasaporte", value: "passport" },
+          { label: "CURP", value: "curp" },
+        ],
+        { disabled: isEdit }
+      ),
     ]
 
     const vacantInfoFields = [
