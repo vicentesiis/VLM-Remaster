@@ -7,6 +7,8 @@ import {
   useGetMexicoStates,
   useGetRoles,
   useGetAgentTypes,
+  useGetCountryStates,
+  useGetVacantCategories,
 } from "./useCodex"
 
 export const useCodexData = ({ enabled = true } = {}) => {
@@ -18,6 +20,8 @@ export const useCodexData = ({ enabled = true } = {}) => {
   const agentTypes = useGetAgentTypes({ enabled })
   const programs = useGetPrograms({ enabled })
   const channels = useGetChannels({ enabled })
+  const countryStates = useGetCountryStates({ enabled })
+  const vacantCategories = useGetVacantCategories({ enabled })
 
   const isLoading =
     recordStatuses.isLoading ||
@@ -27,7 +31,9 @@ export const useCodexData = ({ enabled = true } = {}) => {
     roles.isLoading ||
     agentTypes.isLoading ||
     programs.isLoading ||
-    channels.isLoading
+    channels.isLoading ||
+    countryStates.isLoading ||
+    vacantCategories.isLoading
 
   return {
     recordStatuses,
@@ -39,5 +45,7 @@ export const useCodexData = ({ enabled = true } = {}) => {
     programs,
     channels,
     isLoading,
+    countryStates,
+    vacantCategories,
   }
 }

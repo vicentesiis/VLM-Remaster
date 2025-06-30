@@ -64,10 +64,7 @@ export const passportSchema = normalizeToEmptyString(
   "El pasaporte es obligatorio"
 )
 
-export const jobSchema = normalizeToEmptyString(
-  z.string(),
-  "La vacante es obligatoria"
-)
+export const jobSchema = z.string().optional()
 
 export const programSchema = normalizeToEmptyString(
   z.string(),

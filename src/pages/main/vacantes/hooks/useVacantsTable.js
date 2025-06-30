@@ -1,6 +1,7 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { useEffect, useMemo, useState } from "react"
 import { getVacantColumns } from "@/components/customs/table/columns/vacantColumns"
+import { useCodexData } from "@/hooks/queries"
 import { useGetVacants } from "@/hooks/queries/useVacants"
 
 export const useVacantsTable = () => {
@@ -11,6 +12,10 @@ export const useVacantsTable = () => {
 
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
+
+  const selectedCountry = useMemo(() => {
+    return columnFilters.find((f) => f.id === "country")?.value ?? null
+  }, [columnFilters])
 
   const queryParams = useMemo(() => {
     const params = {
@@ -46,12 +51,20 @@ export const useVacantsTable = () => {
     return params
   }, [pagination, appliedFilters])
 
+  const { countryStates, vacantCategories } = useCodexData()
+
+  const columns = useMemo(() => {
+    return getVacantColumns({
+      selectedCountry,
+      vacantCategories: vacantCategories?.data ?? [],
+      countryStates: countryStates?.data?.data ?? {},
+    })
+  }, [selectedCountry, vacantCategories?.data, countryStates?.data?.data])
+
   const { data, isFetched, isFetching, isError, refetch } = useGetVacants(
     queryParams,
     { enabled: false }
   )
-
-  const columns = getVacantColumns()
 
   const table = useReactTable({
     data: data?.data ?? [],
@@ -74,11 +87,12 @@ export const useVacantsTable = () => {
   }, [columnFilters, appliedFilters, refetch])
 
   useEffect(() => {
-  refetch()
-}, [queryParams, refetch])
+    refetch()
+  }, [queryParams, refetch])
 
   return {
     table,
+    selectedCountry,
     isFetched,
     isFetching,
     isError,

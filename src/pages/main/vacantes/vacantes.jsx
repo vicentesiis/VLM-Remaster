@@ -8,6 +8,7 @@ import { Button, Card, CardContent } from "@/components/ui"
 export const Vacantes = () => {
   const {
     table,
+    selectedCountry,
     isFetched,
     isFetching,
     isError,
@@ -23,19 +24,17 @@ export const Vacantes = () => {
 
   return (
     <PageLayout title="Vacantes">
-      <Card className="sm:pt-0 pt-4">
+      <Card className="pt-4 sm:pt-0">
         <CardContent>
           <DataTable
+            key={selectedCountry}
             table={table}
             isLoading={isFetching}
             isError={isError}
             hasFetched={isFetched}
           >
             <DataTableToolbar table={table}>
-              <Button
-                onClick={handleApplyFilters}
-                isLoading={isFetching}
-              >
+              <Button onClick={handleApplyFilters} isLoading={isFetching}>
                 <SearchIcon />
                 Buscar
               </Button>
