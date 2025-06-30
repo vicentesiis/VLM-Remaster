@@ -28,20 +28,11 @@ export const useVacantsTable = () => {
         case "country":
           params.country = filter.value
           break
-        case "state":
+        case "location_state_province":
           params.state = filter.value
           break
         case "category":
           params.category = filter.value
-          break
-        case "min_rate":
-          params.min_rate = filter.value
-          break
-        case "max_rate":
-          params.max_rate = filter.value
-          break
-        case "min_popularity":
-          params.min_popularity = filter.value
           break
         default:
           break
@@ -61,13 +52,24 @@ export const useVacantsTable = () => {
     })
   }, [selectedCountry, vacantCategories?.data, countryStates?.data?.data])
 
+  const isReadyToFetch = useMemo(() => {
+    const requiredFilters = ["country", "location_state_province", "category"]
+    return requiredFilters.every((key) =>
+      appliedFilters.find((f) => f.id === key && f.value)
+    )
+  }, [appliedFilters])
+
   const { data, isFetched, isFetching, isError, refetch } = useGetVacants(
     queryParams,
-    { enabled: false }
+    { enabled: isReadyToFetch }
   )
 
+  const tableData = useMemo(() => {
+    return isReadyToFetch ? (data?.data ?? []) : []
+  }, [data, isReadyToFetch])
+
   const table = useReactTable({
-    data: data?.data ?? [],
+    data: tableData,
     columns,
     state: { pagination, columnFilters },
     onPaginationChange: setPagination,
@@ -79,16 +81,12 @@ export const useVacantsTable = () => {
 
   useEffect(() => {
     const cleared = columnFilters.length === 0 && appliedFilters.length > 0
+    console.log("cleared", cleared)
     if (cleared) {
       setAppliedFilters([])
       setPagination((prev) => ({ ...prev, pageIndex: 0 }))
-      refetch()
     }
   }, [columnFilters, appliedFilters, refetch])
-
-  useEffect(() => {
-    refetch()
-  }, [queryParams, refetch])
 
   return {
     table,

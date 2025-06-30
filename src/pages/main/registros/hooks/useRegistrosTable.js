@@ -3,16 +3,15 @@ import { useEffect, useMemo, useState } from "react"
 import { getParsedRecordParams } from "../utils/getParsedRecordParams"
 import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
 import { RECORD_STATUSES_LABEL } from "@/constants/appConstants"
-import { Roles } from "@/constants/appConstants"
 import { useGetGroups } from "@/hooks/queries"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import {
   useGetRecordsByCriteria,
   useGetRecordsByUser,
 } from "@/hooks/queries/useRecord"
+import { useGetTasks } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { mapToOptions } from "@/utils/utils"
-import { useGetTasks } from "@/hooks/queries/UseReports"
 
 export const useRegistrosTable = (title) => {
   const { id: userId, role, isSuperAdmin, isAgent } = useCurrentUser()

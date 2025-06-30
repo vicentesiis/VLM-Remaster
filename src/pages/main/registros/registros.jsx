@@ -1,3 +1,4 @@
+import { SearchIcon } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
 import { toast } from "sonner"
@@ -7,7 +8,6 @@ import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
-import { SearchIcon } from "lucide-react"
 
 export const Registros = ({ title }) => {
   const {
