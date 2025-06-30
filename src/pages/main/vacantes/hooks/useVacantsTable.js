@@ -1,15 +1,17 @@
+import { useQueryClient } from "@tanstack/react-query"
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { useEffect, useMemo, useState } from "react"
+import { getParsedVacantParams } from "./getParsedVacantParams"
 import { getVacantColumns } from "@/components/customs/table/columns/vacantColumns"
 import { useCodexData } from "@/hooks/queries"
 import { useGetVacants } from "@/hooks/queries/useVacants"
 
 export const useVacantsTable = () => {
+  const queryClient = useQueryClient()
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 20,
   })
-
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
 
@@ -17,29 +19,8 @@ export const useVacantsTable = () => {
     return columnFilters.find((f) => f.id === "country")?.value ?? null
   }, [columnFilters])
 
-  const queryParams = useMemo(() => {
-    const params = {
-      skip: pagination.pageIndex * pagination.pageSize,
-      limit: pagination.pageSize,
-    }
-
-    appliedFilters.forEach((filter) => {
-      switch (filter.id) {
-        case "country":
-          params.country = filter.value
-          break
-        case "location_state_province":
-          params.state = filter.value
-          break
-        case "category":
-          params.category = filter.value
-          break
-        default:
-          break
-      }
-    })
-
-    return params
+  const parsedParams = useMemo(() => {
+    return getParsedVacantParams(pagination, appliedFilters)
   }, [pagination, appliedFilters])
 
   const { countryStates, vacantCategories } = useCodexData()
@@ -52,21 +33,14 @@ export const useVacantsTable = () => {
     })
   }, [selectedCountry, vacantCategories?.data, countryStates?.data?.data])
 
-  const isReadyToFetch = useMemo(() => {
-    const requiredFilters = ["country", "location_state_province", "category"]
-    return requiredFilters.every((key) =>
-      appliedFilters.find((f) => f.id === key && f.value)
-    )
-  }, [appliedFilters])
-
   const { data, isFetched, isFetching, isError, refetch } = useGetVacants(
-    queryParams,
-    { enabled: isReadyToFetch }
+    parsedParams,
+    { enabled: parsedParams !== null }
   )
 
   const tableData = useMemo(() => {
-    return isReadyToFetch ? (data?.data ?? []) : []
-  }, [data, isReadyToFetch])
+    return parsedParams ? (data?.data ?? []) : []
+  }, [data, parsedParams])
 
   const table = useReactTable({
     data: tableData,
@@ -81,12 +55,12 @@ export const useVacantsTable = () => {
 
   useEffect(() => {
     const cleared = columnFilters.length === 0 && appliedFilters.length > 0
-    console.log("cleared", cleared)
     if (cleared) {
       setAppliedFilters([])
       setPagination((prev) => ({ ...prev, pageIndex: 0 }))
+      queryClient.removeQueries({ queryKey: ["vacants"] })
     }
-  }, [columnFilters, appliedFilters, refetch])
+  }, [columnFilters, appliedFilters])
 
   return {
     table,
