@@ -4,7 +4,7 @@ import React from "react"
 import PaymentStatusBadge from "../../badge/payment-status-badge"
 import NullableCell from "../cells/nullable-cell"
 import { Button } from "@/components/ui"
-import { formatDate } from "@/lib"
+import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
 
 const columnHelper = createColumnHelper()
@@ -21,13 +21,16 @@ export const getOrdersColumns = () => {
         </Button>
       )
     },
-    meta: { align: "center", maxWidth: "60px" },
+    meta: { align: "center" },
   })
 
   return [
-    columnHelper.accessor("provider_order_id", {
-      header: "ID del Proveedor",
-      cell: (info) => <NullableCell value={info.getValue()} />,
+    columnHelper.accessor("created_at", {
+      header: "Fecha de Creación",
+      cell: (info) => {
+        const date = info.getValue()
+        return <NullableCell value={date ? formatDate(date) : null} />
+      },
       meta: { align: "center" },
     }),
     columnHelper.accessor("status", {
@@ -77,8 +80,8 @@ export const getOrdersColumns = () => {
       cell: (info) => <NullableCell value={info.getValue()} />,
       meta: { align: "center" },
     }),
-    columnHelper.accessor("created_at", {
-      header: "Fecha de Creación",
+    columnHelper.accessor("payment_date", {
+      header: "Fecha de Pago",
       cell: (info) => {
         const date = info.getValue()
         return <NullableCell value={date ? formatDate(date) : null} />

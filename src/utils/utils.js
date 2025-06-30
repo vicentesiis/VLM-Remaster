@@ -19,14 +19,19 @@ export function mapToOptions(input, labelFn = toTitleCase) {
     value: item.id ?? item,
   }))
 }
+export function formatDate(date, opts = {}) {
+  if (!date) return ""
 
-export const formatDate = (isoString) => {
-  const date = new Date(isoString)
-  return date.toLocaleDateString("es-MX", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  })
+  try {
+    return new Intl.DateTimeFormat("es-MX", {
+      month: opts.month ?? "short",
+      day: opts.day ?? "numeric",
+      year: opts.year ?? "numeric",
+      ...opts,
+    }).format(new Date(date))
+  } catch (_err) {
+    return ""
+  }
 }
 
 export function toURLSearchParams(params) {

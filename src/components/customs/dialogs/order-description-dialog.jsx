@@ -1,15 +1,15 @@
 import { Banknote, CreditCard, FileText } from "lucide-react"
 import React from "react"
 import PaymentStatusBadge from "../badge/payment-status-badge"
+import { Card, CardContent } from "@/components/ui"
 import { Badge } from "@/components/ui/badge"
 import {
   Dialog,
   DialogContent,
   DialogHeaderCustom,
 } from "@/components/ui/dialog"
-import { formatDate } from "@/lib"
+import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
-import { Card, CardContent } from "@/components/ui"
 
 export function OrderDescriptionDialog({ order, open, onOpenChange }) {
   if (!order) return null

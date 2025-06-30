@@ -1,7 +1,6 @@
 import {
   CalendarIcon,
   HashIcon,
-  UserXIcon,
   DollarSignIcon,
   BadgeInfoIcon,
   UserIcon,
@@ -15,7 +14,7 @@ import { SelectUpdateRegistroStatus } from "@/components/customs/select-update-r
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { useUpdateRecordStatus } from "@/hooks/queries"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { formatDate } from "@/lib"
+import { formatDate } from "@/utils"
 
 export const RegistrosDetailHeader = ({ registro }) => {
   const {

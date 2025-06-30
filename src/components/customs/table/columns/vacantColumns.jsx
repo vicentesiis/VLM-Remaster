@@ -3,8 +3,8 @@ import React from "react"
 import { Link } from "react-router-dom"
 import NullableCell from "../cells/nullable-cell"
 import { ALL_PROVINCES, VACANT_CATEGORIES } from "@/constants"
-import { formatDate } from "@/lib"
-import { formatCurrency, mapToOptions, toTitleCase } from "@/utils"
+import { formatDate } from "@/utils"
+import { mapToOptions, toTitleCase } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
@@ -17,7 +17,7 @@ export const getVacantColumns = () => [
       return id ? (
         <Link
           to={`/vacantes/detalle/${id}`}
-          className="text-blue-600 hover:underline"
+          className="truncate font-mono text-primary hover:underline"
         >
           {id}
         </Link>
@@ -63,7 +63,7 @@ export const getVacantColumns = () => [
       const currency = info.row.original.currency
       const rateDesc = info.row.original.rate_description
       return rate ? (
-        <span>{`$${rate} ${currency?.toUpperCase()}/${rateDesc}`}</span>
+        <span className="text-muted-foreground">{`$${rate} ${currency?.toUpperCase()}/${rateDesc}`}</span>
       ) : (
         <NullableCell value={null} />
       )
@@ -73,7 +73,7 @@ export const getVacantColumns = () => [
   columnHelper.accessor("positions", {
     header: "Posiciones",
     cell: (info) => <NullableCell value={info.getValue()} />,
-    meta: { align: "center", maxWidth: "60px" },
+    meta: { align: "center", maxWidth: "70px" },
   }),
   columnHelper.accessor("end_date", {
     header: "Vence",

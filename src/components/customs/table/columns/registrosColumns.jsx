@@ -4,7 +4,7 @@ import StatusBadge from "../../badge/status-badge"
 import NullableCell from "../cells/nullable-cell"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { Roles } from "@/constants"
-import { formatDate } from "@/lib/format"
+import { formatDate } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
