@@ -9,6 +9,8 @@ import {
   Card,
   CardContent,
   CardTitle,
+  DialogFooter,
+  DialogFooterCustom,
   DialogHeaderCustom,
 } from "@/components/ui"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
@@ -78,7 +80,7 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
         <DialogTrigger asChild>
           <Button variant="add">
             {React.createElement(Users2)}
-            Nuevo Groupo
+            Nuevo Grupo
           </Button>
         </DialogTrigger>
       )}
@@ -97,7 +99,7 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
           }
         >
           <CardContent>
-            <CardTitle className="-mt-3 mb-2 text-lg font-semibold text-primary">
+            <CardTitle className="text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
               Datos del Administrador
             </CardTitle>
             <AdminForm
@@ -116,7 +118,7 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
           }
         >
           <CardContent>
-            <CardTitle className="-mt-3 mb-2 flex items-center gap-2 text-lg font-semibold text-primary">
+            <CardTitle className="flex items-center gap-2 text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
               Datos del Grupo
               <p className="text-sm text-muted-foreground">
                 {createdAdmin ? ` (Admin a asignar: ${createdAdmin.name})` : ""}
@@ -125,19 +127,16 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
             <GroupForm ref={groupFormRef} onSubmit={handleSubmit} />
           </CardContent>
         </Card>
-
-        <Button
-          className="text-md sticky bottom-0 float-right ml-auto sm:mr-4"
-          variant="add"
+        <DialogFooterCustom
+          actionLabel={step === "create-admin" ? "Crear Admin" : "Crear Grupo"}
+          actionVariant="add"
           isLoading={isSubmitting}
-          onClick={() =>
+          onAction={() =>
             step === "create-admin"
               ? usuarioFormRef.current?.submit()
               : groupFormRef.current?.submit()
           }
-        >
-          {step === "create-admin" ? "Crear Admin" : "Crear Grupo"}
-        </Button>
+        />
       </DialogContent>
     </Dialog>
   )

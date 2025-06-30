@@ -55,7 +55,7 @@ export function useUsuariosData() {
     onChange,
     handleSearch: () => {
       if (!values.group_id) {
-        toast.error("El Grupo es necesario para el proceso")
+        toast.error("El Grupo es necesario para la búsqueda")
         return
       }
       setSelectedGroupId(values.group_id)

@@ -3,7 +3,13 @@ import PropTypes from "prop-types"
 import React, { useRef, useState } from "react"
 import { toast } from "sonner"
 import UsuarioForm from "../forms/usuario-form"
-import { Button, Card, CardContent, DialogHeaderCustom } from "@/components/ui"
+import {
+  Button,
+  Card,
+  CardContent,
+  DialogFooterCustom,
+  DialogHeaderCustom,
+} from "@/components/ui"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateUser, useUpdateUser } from "@/hooks/queries"
 
@@ -101,14 +107,12 @@ const UsuarioDialog = ({
           </CardContent>
         </Card>
 
-        <Button
-          className="text-md sticky bottom-0 float-right ml-auto sm:mr-4"
-          variant={buttonVariant}
+        <DialogFooterCustom
+          actionLabel={buttonText}
+          actionVariant={buttonVariant}
           isLoading={isSubmitting}
-          onClick={() => formRef.current?.submit()}
-        >
-          {buttonText}
-        </Button>
+          onAction={() => formRef.current?.submit()}
+        />
       </DialogContent>
     </Dialog>
   )

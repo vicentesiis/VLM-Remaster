@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import RegistroForm from "../forms/registro/registro-form"
-import { Button, DialogHeaderCustom } from "@/components/ui"
+import { Button, DialogFooterCustom, DialogHeaderCustom } from "@/components/ui"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateRecord, useUpdateRecord } from "@/hooks/queries/useRecord"
 
@@ -67,7 +67,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="h-full overflow-y-auto bg-gray-100 dark:bg-zinc-800 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl 2xl:max-h-[calc(100vh-170px)]">
+      <DialogContent className="h-full overflow-y-auto bg-gray-100 dark:bg-zinc-800 sm:max-w-7xl 2xl:max-h-[calc(100vh-150px)]">
         <DialogHeaderCustom
           icon={icon}
           title={title}
@@ -81,14 +81,12 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
           isEdit={isEdit}
         />
 
-        <Button
-          className="text-md sticky bottom-0 float-right ml-auto sm:mr-8"
-          variant={buttonVariant}
+        <DialogFooterCustom
+          actionLabel={buttonText}
+          actionVariant={buttonVariant}
           isLoading={isSubmitting}
-          onClick={() => formRef.current?.submit()}
-        >
-          {buttonText}
-        </Button>
+          onAction={() => formRef.current?.submit()}
+        />
       </DialogContent>
     </Dialog>
   )

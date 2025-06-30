@@ -11,7 +11,7 @@ export const getVacantColumns = () => {
   return [
     columnHelper.accessor("id", {
       header: "ID",
-      meta: { align: "center", maxWidth: "150px" },
+      meta: { align: "center", maxWidth: "100px" },
       cell: (info) => {
         const id = info.getValue()
         const fullPath = `/vacantes/detalle/${id}`
@@ -31,19 +31,6 @@ export const getVacantColumns = () => {
       header: "Título Original",
       cell: (info) => toTitleCase(info.getValue()) ?? "---",
       meta: { align: "center" },
-    }),
-    columnHelper.accessor("country", {
-      header: "País",
-      cell: (info) => <span>{info.getValue()?.toUpperCase()}</span>,
-      meta: {
-        align: "center",
-        variant: "select",
-        label: "País",
-        options: [
-          { label: "USA", value: "usa" },
-          { label: "Canada", value: "canada" },
-        ],
-      },
     }),
     columnHelper.accessor("location_state_province", {
       header: "Estado",
@@ -79,7 +66,7 @@ export const getVacantColumns = () => {
     }),
     columnHelper.accessor("positions", {
       header: "Posiciones",
-      meta: { align: "center" },
+      meta: { align: "center", maxWidth: "60px" },
     }),
     columnHelper.accessor("end_date", {
       header: "Vence",

@@ -129,11 +129,7 @@ const DialogHeaderCustom = ({
       </div>
 
       <DialogClose asChild>
-        <Button
-          variant="secondary"
-          size="bigIcon"
-          className="rounded-full"
-        >
+        <Button variant="secondary" size="bigIcon" className="rounded-full">
           <X className="h-8 w-8" />
         </Button>
       </DialogClose>
@@ -142,6 +138,49 @@ const DialogHeaderCustom = ({
 }
 
 DialogHeaderCustom.displayName = "DialogHeaderCustom"
+
+const DialogFooterCustom = ({
+  className,
+  cancelLabel = "Cancelar",
+  cancelVariant = "outline",
+  onCancel,
+  actionLabel,
+  actionVariant = "default",
+  actionDisabled = false,
+  isLoading = false,
+  onAction,
+  actionProps = {},
+}) => {
+  return (
+    <div
+      className={cn(
+        "-mx-6 mt-4 -mb-6 flex h-16 items-center justify-end gap-2 border-t bg-background px-6",
+        className
+      )}
+    >
+      <DialogClose asChild>
+        <Button size="lg" variant={cancelVariant} onClick={onCancel}>
+          {cancelLabel}
+        </Button>
+      </DialogClose>
+
+      <Button
+        size="lg"
+        variant={actionVariant}
+        onClick={onAction}
+        disabled={actionDisabled}
+        isLoading={isLoading}
+        {...actionProps}
+      >
+        {actionLabel}
+      </Button>
+    </div>
+  )
+}
+
+DialogFooterCustom.displayName = "DialogFooterCustom"
+
+export { DialogFooterCustom }
 
 export {
   Dialog,

@@ -23,7 +23,7 @@ export const Vacantes = () => {
 
   return (
     <PageLayout title="Vacantes">
-      <Card>
+      <Card className="sm:pt-0 pt-4">
         <CardContent>
           <DataTable
             table={table}

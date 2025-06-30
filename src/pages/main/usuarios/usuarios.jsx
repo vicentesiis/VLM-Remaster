@@ -56,12 +56,12 @@ const Usuarios = () => {
 
   return (
     <PageLayout title={title}>
-      <Card>
+      <Card className="pt-4 sm:pt-0">
         <CardContent>
           <SectionHeader
             title="Informacion del Grupo"
             extra={groupName}
-            className="pb-6"
+            className="sm:pb-6"
             actions={
               <div className="flex flex-wrap gap-2 sm:gap-4">
                 {isSuperAdmin && (

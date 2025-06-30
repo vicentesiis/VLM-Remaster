@@ -7,12 +7,12 @@ export function NewNavbar({ title, subtitle }) {
   return (
     <header className="sticky top-0 z-30 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:shadow-secondary">
       <div className="mx-4 flex h-14 items-center sm:mx-8">
-        <div className="flex items-center space-x-4 lg:space-x-0">
+        <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-0">
           <SheetMenu />
-          <div className="flex gap-2">
-            <h1 className="text-xl font-bold dark:text-white">{title}</h1>
+          <div className="flex gap-1 sm:gap-2">
+            <h1 className="font-bold dark:text-white sm:text-xl">{title}</h1>
             {subtitle && (
-              <p className="text-xl font-bold text-primary">{subtitle}</p>
+              <p className="font-bold text-primary sm:text-xl">{subtitle}</p>
             )}
           </div>
         </div>

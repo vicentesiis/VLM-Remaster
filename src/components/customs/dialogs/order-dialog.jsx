@@ -3,7 +3,13 @@ import PropTypes from "prop-types"
 import React, { useRef, useState } from "react"
 import { toast } from "sonner"
 import OrderForm from "../forms/order-form"
-import { Button, Card, CardContent, DialogHeaderCustom } from "@/components/ui"
+import {
+  Button,
+  Card,
+  CardContent,
+  DialogFooterCustom,
+  DialogHeaderCustom,
+} from "@/components/ui"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateOrder } from "@/hooks/queries/useOrder"
 
@@ -57,14 +63,12 @@ const OrderDialog = ({ trigger, recordId }) => {
           </CardContent>
         </Card>
 
-        <Button
-          className="text-md"
-          variant="add"
-          onClick={() => formRef.current?.submit()}
+        <DialogFooterCustom
+          actionLabel="Crear Órden"
+          actionVariant="add"
           isLoading={isSubmitting}
-        >
-          Crear Órden
-        </Button>
+          onAction={() => formRef.current?.submit()}
+        />
       </DialogContent>
     </Dialog>
   )
