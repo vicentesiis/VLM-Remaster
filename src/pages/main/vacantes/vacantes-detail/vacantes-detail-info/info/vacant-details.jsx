@@ -9,7 +9,7 @@ const VacantDetails = ({ vacant }) => {
 
   return (
     <div>
-      <H3 className="text-lg">Detalles del Puesto</H3>
+      <H3 className="text-xl">Detalles del Puesto</H3>
       <Separator className="w-80" />
       <CardContent className="space-y-4 px-0 sm:px-4">
         {translated ? (
@@ -17,13 +17,13 @@ const VacantDetails = ({ vacant }) => {
             {description && (
               <div>
                 <h4 className="font-semibold">Descripción</h4>
-                <p className="text-sm text-gray-700">{description}</p>
+                <p className="text-md text-gray-700">{description}</p>
               </div>
             )}
             {responsibilities?.length > 0 && (
               <div>
                 <h4 className="font-semibold">Responsabilidades</h4>
-                <ul className="list-inside list-disc text-sm text-gray-700">
+                <ul className="list-inside list-disc text-md text-gray-700">
                   {responsibilities.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}
@@ -33,7 +33,7 @@ const VacantDetails = ({ vacant }) => {
             {requirements?.length > 0 && (
               <div>
                 <h4 className="font-semibold">Requisitos</h4>
-                <ul className="list-inside list-disc text-sm text-gray-700">
+                <ul className="list-inside list-disc text-md text-gray-700">
                   {requirements.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}

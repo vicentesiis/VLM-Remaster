@@ -27,9 +27,9 @@ const GeneralInfo = ({ vacant }) => {
 
   return (
     <div>
-      <H3 className="text-lg">Información General</H3>
+      <H3 className="text-xl">Información General</H3>
       <Separator className="w-80" />
-      <CardContent className="space-y-3 px-0 text-sm text-gray-700 sm:px-4">
+      <CardContent className="space-y-2 px-0 text-md text-gray-700 sm:px-4">
         <div>
           <strong>ID:</strong> {id}
         </div>
