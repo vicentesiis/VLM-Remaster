@@ -14,30 +14,30 @@ async function handleSearchByType({ type, query, refetchers }) {
     switch (type) {
       case "Registros": {
         const res = await refetchers.refetchRecord()
-        if (res.error || !res.data) throw new Error()
+        if (res.error || !res.data) throw res.error
         return { redirectPath: `/registros/detalle/${res.data.public_id}` }
       }
+
       case "Vacantes": {
         const res = await refetchers.refetchVacant()
-        if (res.error || !res.data) throw new Error()
+        if (res.error || !res.data) throw res.error
         return { redirectPath: `/vacantes/detalle/${res.data.id}` }
       }
+
       case "Ordenes": {
         const res = await refetchers.refetchOrder()
-        if (res.error || !res.data) throw new Error()
+        if (res.error || !res.data) throw res.error
         return { showModal: true, data: res.data }
       }
+
       default:
         toast.error("Tipo de búsqueda no soportado.")
         return null
     }
-  } catch {
-    const messages = {
-      Registros: "No se encontró ningún registro con ese ID.",
-      Vacantes: "No se encontró ninguna vacante con ese ID.",
-      Ordenes: "No se encontró ninguna orden con ese ID.",
-    }
-    toast.error(messages[type] || "Error en la búsqueda.")
+  } catch (error) {
+    const message =
+      error?.response?.data?.detail || "Ocurrió un error en la búsqueda."
+    toast.error(message)
     return null
   }
 }
