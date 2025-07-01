@@ -49,9 +49,8 @@ export const getVacantColumns = ({
     }),
     columnHelper.accessor("country", {
       header: "País",
-      cell: (info) => <NullableCell value={info.getValue()} />,
       meta: {
-        align: "center",
+        hidden: true,
         variant: "select",
         label: "País",
         options: [
@@ -62,9 +61,8 @@ export const getVacantColumns = ({
     }),
     columnHelper.accessor("category", {
       header: "Categoría",
-      cell: (info) => <NullableCell value={info.getValue()} />,
       meta: {
-        align: "center",
+        hidden: true,
         variant: "select",
         label: "Categoría",
         options: mapToOptions(vacantCategories),
