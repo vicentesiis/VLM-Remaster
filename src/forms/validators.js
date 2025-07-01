@@ -17,10 +17,7 @@ export const nameSchema = z.preprocess(
     )
 )
 
-export const emailSchema = z.preprocess(
-  (val) => (val === null || val === undefined ? "" : val),
-  z.string().email({ message: "Correo electrónico inválido" })
-)
+export const emailSchema = z.string().optional()
 
 export const phoneSchema = normalizeToEmptyString(
   z.string().regex(/^\d{10}$/, "El teléfono debe tener exactamente 10 dígitos"),

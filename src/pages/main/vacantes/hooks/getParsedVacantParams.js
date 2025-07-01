@@ -1,5 +1,5 @@
 export const getParsedVacantParams = (pagination, filters) => {
-  const required = ["country", "location_state_province", "category"]
+  const required = ["country", "category"]
 
   const isComplete = required.every((key) =>
     filters.find((f) => f.id === key && f.value)

@@ -20,7 +20,7 @@ export const Vacantes = () => {
   } = useVacantsTable()
 
   const handleApplyFilters = () => {
-    const requiredFilterIds = ["country", "location_state_province", "category"]
+    const requiredFilterIds = ["country", "category"]
 
     const missingFilter = requiredFilterIds.find(
       (id) =>
@@ -34,7 +34,9 @@ export const Vacantes = () => {
     )
 
     if (missingFilter) {
-      toast.error("Todos los filtros son necesarios para hacer la búsqueda")
+      toast.error(
+        "El país y la categoría son necesarios para hacer la búsqueda"
+      )
       return
     }
 
