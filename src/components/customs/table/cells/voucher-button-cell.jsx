@@ -4,8 +4,8 @@ import React from "react"
 import { Button } from "@/components/ui"
 import { shouldDisableVoucher } from "@/utils"
 
-export function VoucherButton({ order, canCreateOrder, onClick }) {
-  const disabled = shouldDisableVoucher(order, canCreateOrder)
+export function VoucherButton({ order, canCreateOrder, onClick, isLoading }) {
+  const disabled = shouldDisableVoucher(order, canCreateOrder) || isLoading
 
   const handleClick = () => {
     if (!disabled) onClick?.(order)
@@ -17,6 +17,8 @@ export function VoucherButton({ order, canCreateOrder, onClick }) {
       variant="ghost"
       disabled={disabled}
       onClick={handleClick}
+      isLoading={isLoading}
+      showSpinnerText={false}
     >
       <DownloadIcon className="h-4 w-4" />
     </Button>
@@ -25,6 +27,7 @@ export function VoucherButton({ order, canCreateOrder, onClick }) {
 
 VoucherButton.propTypes = {
   canCreateOrder: PropTypes.any,
+  isLoading: PropTypes.any,
   onClick: PropTypes.func,
   order: PropTypes.any,
 }

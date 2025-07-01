@@ -1,11 +1,13 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import { Banknote, CreditCard } from "lucide-react"
-import React from "react"
+import React, { useState } from "react"
 import PaymentStatusBadge from "../../badge/payment-status-badge"
 import NullableCell from "../cells/nullable-cell"
 import VoucherButton from "../cells/voucher-button-cell"
+import { downloadVoucher } from "@/services/documentService"
 import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
+import { toast } from "sonner"
 
 const columnHelper = createColumnHelper()
 
@@ -13,13 +15,30 @@ export const getOrdersColumns = (canCreateOrder) => {
   const voucherColumn = columnHelper.display({
     id: "voucher",
     header: "Voucher",
-    cell: ({ row }) => (
-      <VoucherButton
-        order={row.original}
-        canCreateOrder={canCreateOrder}
-        onClick={(order) => alert(`Voucher: ${order.reference}`)}
-      />
-    ),
+    cell: ({ row }) => {
+      const order = row.original
+      const [isLoading, setIsLoading] = useState(false)
+
+      const handleDownload = async (order) => {
+        setIsLoading(true)
+        try {
+          await downloadVoucher(order.id)
+        } catch (error) {
+          toast.error(error)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+
+      return (
+        <VoucherButton
+          order={order}
+          canCreateOrder={canCreateOrder}
+          isLoading={isLoading}
+          onClick={handleDownload}
+        />
+      )
+    },
     meta: { align: "center" },
   })
 
