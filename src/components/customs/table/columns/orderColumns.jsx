@@ -1,26 +1,25 @@
 import { createColumnHelper } from "@tanstack/react-table"
-import { Banknote, CreditCard, DownloadIcon } from "lucide-react"
+import { Banknote, CreditCard } from "lucide-react"
 import React from "react"
 import PaymentStatusBadge from "../../badge/payment-status-badge"
 import NullableCell from "../cells/nullable-cell"
-import { Button } from "@/components/ui"
+import VoucherButton from "../cells/voucher-button-cell"
 import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
-export const getOrdersColumns = () => {
+export const getOrdersColumns = (canCreateOrder) => {
   const voucherColumn = columnHelper.display({
     id: "voucher",
     header: "Voucher",
-    cell: ({ row }) => {
-      const handleClick = () => alert(`Voucher: ${row.original.name}`)
-      return (
-        <Button size="icon" variant="ghost" onClick={handleClick}>
-          <DownloadIcon className="h-4 w-4" />
-        </Button>
-      )
-    },
+    cell: ({ row }) => (
+      <VoucherButton
+        order={row.original}
+        canCreateOrder={canCreateOrder}
+        onClick={(order) => alert(`Voucher: ${order.reference}`)}
+      />
+    ),
     meta: { align: "center" },
   })
 
