@@ -5,15 +5,21 @@ import { P } from "@/components/ui/typography"
 
 export const MainCell = ({ path, title, public_id }) => {
   const fullPath = `/registros${path}/${public_id}`
+
   return (
-    <Link
-      to={fullPath}
-      className="select-text flex-col space-y-0 font-bold hover:text-blue-600"
-      title={`Ver Registro ${title}`}
-    >
-      <P className="truncate">{title}</P>
-      <P className="text-sm font-normal">{public_id}</P>
-    </Link>
+    <div className="flex flex-col gap-0.5 text-left">
+      <Link
+        to={fullPath}
+        className="truncate font-semibold text-primary hover:underline"
+        title={`Ver Registro ${title}`}
+      >
+        <P className="truncate">{title}</P>
+      </Link>
+
+      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+        <span className="select-text truncate font-mono">{public_id}</span>
+      </div>
+    </div>
   )
 }
 

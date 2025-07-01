@@ -45,7 +45,7 @@ body,
     --popover: 220 10% 12%;
     --popover-foreground: 210 20% 95%;
 
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 221.2 83.2% 53.3%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 220 10% 25%;
@@ -68,7 +68,7 @@ body,
 
 /* Targeting the scrollbar itself */
 ::-webkit-scrollbar {
-  width: 16px;
+  width: 12px;
   height: 16px;
 }
 
@@ -105,4 +105,13 @@ body,
 }
 .scrollbar-visible {
   scrollbar-width: thin;
+}
+
+.scrollbar-x-hidden {
+  overflow-x: scroll; /* enable scroll */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-x-hidden::-webkit-scrollbar {
+  height: 0; /* Chrome/Safari */
 }

@@ -37,7 +37,7 @@ export function useUsuariosData() {
   const leader = response?.data?.leader ?? {}
 
   const groupName = isSuperAdmin
-    ? response?.data?.name || "En espera de búsqueda"
+    ? response?.data?.name || "..."
     : group?.name || ""
 
   return {
@@ -55,7 +55,7 @@ export function useUsuariosData() {
     onChange,
     handleSearch: () => {
       if (!values.group_id) {
-        toast.error("El Grupo es necesario para el proceso")
+        toast.error("El Grupo es necesario para la búsqueda")
         return
       }
       setSelectedGroupId(values.group_id)

@@ -40,56 +40,53 @@ const Usuarios = () => {
   }
 
   const columns = getUsuarioColumns(handleEdit, isAgent)
+
+  const tableData = isAgent ? [leader, ...members].filter(Boolean) : members
+
   const table = useReactTable({
-    data: members,
+    data: tableData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
 
-  const title = isSuperAdmin
-    ? "Usuarios por Grupo"
-    : isAdmin
-      ? "Usuarios"
-      : isAgent
-        ? "Usuarios"
-        : "Usuarios"
+  const title = isSuperAdmin ? "Usuarios por Grupo" : "Usuarios"
 
   return (
     <PageLayout title={title}>
-      {(isAdmin || isSuperAdmin) && (
-        <div className="absolute right-0 top-2 z-10">
-          <UsuarioDialog />
-        </div>
-      )}
-      {isSuperAdmin && (
-        <div className="absolute right-40 top-2 z-10 hidden sm:block">
-          <GroupDialog />
-        </div>
-      )}
-
-      <Card>
+      <Card className="pt-4 sm:pt-0">
         <CardContent>
           <SectionHeader
-            title="Informacion del Grupo:"
+            title="Informacion del Grupo"
             extra={groupName}
-            className="pb-6"
+            extraColor="text-primary"
+            className="pb-4"
             actions={
-              isSuperAdmin && (
-                <FilterToolbar
-                  filterConfig={[groupConfig]}
-                  values={values}
-                  onChange={onChange}
-                  context={{ groups: listOfGroups }}
-                  onSearch={handleSearch}
-                />
-              )
+              <div className="flex flex-wrap gap-2 sm:gap-4">
+                {isSuperAdmin && (
+                  <>
+                    <GroupDialog />
+                    <UsuarioDialog />
+                  </>
+                )}
+                {isAdmin && !isSuperAdmin && <UsuarioDialog />}
+                {isSuperAdmin && (
+                  <FilterToolbar
+                    filterConfig={[groupConfig]}
+                    values={values}
+                    onChange={onChange}
+                    context={{ groups: listOfGroups }}
+                    onSearch={handleSearch}
+                  />
+                )}
+              </div>
             }
           />
 
           {shouldFetch ? (
             <WithStatusState isLoading={isLoading} isError={isError}>
               <div className="flex flex-col gap-4 sm:flex-row">
-                <GroupResponsible admin={admin} leader={leader} />
+                {!isAgent && <GroupResponsible admin={admin} leader={leader} />}
+
                 <DataTable
                   table={table}
                   isLoading={isLoading}

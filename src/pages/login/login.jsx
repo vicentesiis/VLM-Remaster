@@ -5,8 +5,8 @@ import { Navigate } from "react-router-dom"
 import { z } from "zod"
 
 import logo from "@/assets/logo.png"
-import { ButtonLoading } from "@/components/customs/button-loading"
 import FullScreenLoader from "@/components/customs/full-screen-loader"
+import { Button } from "@/components/ui"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import {
@@ -142,13 +142,9 @@ export const Login = () => {
               </Alert>
             )}
 
-            <ButtonLoading
-              className="w-full"
-              isLoading={loginMutation.isPending}
-              message={"Iniciando Sesión..."}
-            >
+            <Button className="w-full" isLoading={loginMutation.isPending}>
               Iniciar Sesión
-            </ButtonLoading>
+            </Button>
           </form>
         </Form>
       </CardContent>

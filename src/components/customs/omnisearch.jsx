@@ -2,7 +2,7 @@ import { SearchIcon } from "lucide-react"
 import { UserIcon, BriefcaseIcon, FileTextIcon } from "lucide-react"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { OrderDescriptionDialog } from "../dialogs/order-description-dialog"
+import { OrderDescriptionDialog } from "./dialogs/order-description-dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {

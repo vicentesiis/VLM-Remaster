@@ -1,16 +1,29 @@
 import PropTypes from "prop-types"
 import React from "react"
-import { H3 } from "@/components/ui/typography"
 import { cn } from "@/lib/utils"
+import { Separator } from "../ui"
 
-const SectionHeader = ({ title, extra, subtitle, actions, className }) => {
+const SectionHeader = ({
+  title,
+  extra,
+  subtitle,
+  actions,
+  className,
+  titleColor = "text-foreground",
+  extraColor = "text-muted-foreground",
+  subtitleColor = "text-muted-foreground",
+}) => {
   return (
     <div className={cn(className)}>
       <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
-          {title && <H3>{title}</H3>}
+          {title && (
+            <h1 className={cn("text-xl font-semibold", titleColor)}>{title}</h1>
+          )}
           {extra && (
-            <span className="text-lg text-muted-foreground">{extra}</span>
+            <span className={cn("text-xl font-semibold", extraColor)}>
+              {extra}
+            </span>
           )}
         </div>
 
@@ -20,7 +33,7 @@ const SectionHeader = ({ title, extra, subtitle, actions, className }) => {
       </div>
 
       {subtitle && (
-        <p className="text-sm text-muted-foreground sm:text-base">{subtitle}</p>
+        <p className={cn("text-sm sm:text-base", subtitleColor)}>{subtitle}</p>
       )}
     </div>
   )
@@ -32,6 +45,9 @@ SectionHeader.propTypes = {
   subtitle: PropTypes.node,
   actions: PropTypes.node,
   className: PropTypes.string,
+  titleColor: PropTypes.string,
+  extraColor: PropTypes.string,
+  subtitleColor: PropTypes.string,
 }
 
 export default SectionHeader

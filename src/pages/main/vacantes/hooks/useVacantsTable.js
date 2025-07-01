@@ -1,60 +1,49 @@
+import { useQueryClient } from "@tanstack/react-query"
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
 import { useEffect, useMemo, useState } from "react"
+import { getParsedVacantParams } from "./getParsedVacantParams"
 import { getVacantColumns } from "@/components/customs/table/columns/vacantColumns"
+import { useCodexData } from "@/hooks/queries"
 import { useGetVacants } from "@/hooks/queries/useVacants"
 
 export const useVacantsTable = () => {
+  const queryClient = useQueryClient()
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 20,
   })
-
   const [columnFilters, setColumnFilters] = useState([])
   const [appliedFilters, setAppliedFilters] = useState([])
 
-  const queryParams = useMemo(() => {
-    const params = {
-      skip: pagination.pageIndex * pagination.pageSize,
-      limit: pagination.pageSize,
-    }
+  const selectedCountry = useMemo(() => {
+    return columnFilters.find((f) => f.id === "country")?.value ?? null
+  }, [columnFilters])
 
-    appliedFilters.forEach((filter) => {
-      switch (filter.id) {
-        case "country":
-          params.country = filter.value
-          break
-        case "state":
-          params.state = filter.value
-          break
-        case "category":
-          params.category = filter.value
-          break
-        case "min_rate":
-          params.min_rate = filter.value
-          break
-        case "max_rate":
-          params.max_rate = filter.value
-          break
-        case "min_popularity":
-          params.min_popularity = filter.value
-          break
-        default:
-          break
-      }
-    })
-
-    return params
+  const parsedParams = useMemo(() => {
+    return getParsedVacantParams(pagination, appliedFilters)
   }, [pagination, appliedFilters])
 
+  const { countryStates, vacantCategories } = useCodexData()
+
+  const columns = useMemo(() => {
+    return getVacantColumns({
+      selectedCountry,
+      vacantCategories: vacantCategories?.data ?? [],
+      countryStates: countryStates?.data?.data ?? {},
+    })
+  }, [selectedCountry, vacantCategories?.data, countryStates?.data?.data])
+
   const { data, isFetched, isFetching, isError, refetch } = useGetVacants(
-    queryParams,
-    { enabled: false }
+    parsedParams,
+    { enabled: parsedParams !== null }
   )
 
-  const columns = getVacantColumns()
+  const tableData = useMemo(() => {
+    return parsedParams ? (data?.data ?? []) : []
+  }, [data, parsedParams])
 
   const table = useReactTable({
-    data: data?.data ?? [],
+    data: tableData,
     columns,
     state: { pagination, columnFilters },
     onPaginationChange: setPagination,
@@ -69,16 +58,13 @@ export const useVacantsTable = () => {
     if (cleared) {
       setAppliedFilters([])
       setPagination((prev) => ({ ...prev, pageIndex: 0 }))
-      refetch()
+      queryClient.removeQueries({ queryKey: ["vacants"] })
     }
-  }, [columnFilters, appliedFilters, refetch])
-
-  useEffect(() => {
-  refetch()
-}, [queryParams, refetch])
+  }, [columnFilters, appliedFilters])
 
   return {
     table,
+    selectedCountry,
     isFetched,
     isFetching,
     isError,

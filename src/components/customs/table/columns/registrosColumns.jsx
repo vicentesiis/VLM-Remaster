@@ -1,10 +1,10 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
 import StatusBadge from "../../badge/status-badge"
-import ActionDropdown from "@/components/customs/action-dropdown"
+import NullableCell from "../cells/nullable-cell"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { Roles } from "@/constants"
-import { formatDate } from "@/lib/format"
+import { formatDate } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
@@ -34,7 +34,9 @@ const statusColumn = columnHelper.accessor("status", {
 
 const updatedAtColumn = columnHelper.accessor("updated_at", {
   header: "Última Actualización",
-  cell: (info) => formatDate(info.getValue()),
+  cell: (info) => (
+    <NullableCell value={formatDate(info.getValue())} className="text-center" />
+  ),
   meta: {
     align: "center",
     variant: "dateRange",
@@ -45,6 +47,9 @@ const updatedAtColumn = columnHelper.accessor("updated_at", {
 // Admin-Only Columns
 const recordTypeColumn = columnHelper.accessor("record_type", {
   header: "Tipo",
+  cell: (info) => (
+    <NullableCell value={info.getValue()} className="text-center" />
+  ),
   meta: {
     align: "center",
     variant: "select",
@@ -55,6 +60,9 @@ const recordTypeColumn = columnHelper.accessor("record_type", {
 
 const channelColumn = columnHelper.accessor("channel", {
   header: "Canal",
+  cell: (info) => (
+    <NullableCell value={info.getValue()} className="text-center" />
+  ),
   meta: {
     align: "center",
     variant: "multiSelect",
@@ -65,6 +73,9 @@ const channelColumn = columnHelper.accessor("channel", {
 
 const programColumn = columnHelper.accessor("program", {
   header: "Programa",
+  cell: (info) => (
+    <NullableCell value={info.getValue()} className="text-center" />
+  ),
   meta: {
     align: "center",
     variant: "multiSelect",
@@ -76,65 +87,39 @@ const programColumn = columnHelper.accessor("program", {
 // Agent-Only Columns
 const emailColumn = columnHelper.accessor("email", {
   header: "Correo",
+  cell: (info) => <NullableCell value={info.getValue()} />,
+  meta: {
+    align: "center",
+  },
 })
 
 const phoneColumn = columnHelper.accessor("phone", {
   header: "Teléfono",
+  cell: (info) => <NullableCell value={info.getValue()} />,
+  meta: {
+    align: "center",
+  },
 })
 
 const vacantColumn = columnHelper.accessor("job", {
   header: "ID de la Vacante",
+  cell: (info) => <NullableCell value={info.getValue()} />,
+  meta: {
+    align: "center",
+  },
 })
 
 // Shared Columns
 const commentsColumn = columnHelper.accessor("comments", {
   header: "Comentarios",
   cell: (info) => (
-    <div className="line-clamp-2 max-w-xs break-words text-muted-foreground">
-      {info.getValue() ?? "---"}
-    </div>
-  ),
-  meta: {
-    align: "center",
-  },
-})
-
-const actionsColumn = columnHelper.display({
-  id: "actions",
-  header: "",
-  cell: ({ row }) => (
-    <ActionDropdown
-      sections={[
-        {
-          title: "Cliente",
-          options: [
-            {
-              title: "Detalle del Cliente",
-              onSelect: () =>
-                alert(`Detalle del Cliente: ${row.original.name}`),
-            },
-            {
-              title: "Órdenes del Cliente",
-              onSelect: () =>
-                alert(`Órdenes del Cliente: ${row.original.name}`),
-            },
-          ],
-        },
-        {
-          title: "Extras",
-          options: [
-            {
-              title: "Generar Contrato",
-              onSelect: () => alert("Generar Contrato"),
-            },
-          ],
-        },
-      ]}
+    <NullableCell
+      value={info.getValue()}
+      className="line-clamp-2 max-w-xs break-words"
     />
   ),
   meta: {
     align: "center",
-    maxWidth: "60px",
   },
 })
 
@@ -181,7 +166,6 @@ export const getRegistrosColumns = ({
       channelColumn,
       programColumn,
       commentsColumn,
-      actionsColumn,
     ]
   }
 
@@ -192,7 +176,6 @@ export const getRegistrosColumns = ({
       channelColumn,
       programColumn,
       commentsColumn,
-      actionsColumn,
     ]
   }
 
@@ -203,9 +186,8 @@ export const getRegistrosColumns = ({
       emailColumn,
       phoneColumn,
       commentsColumn,
-      actionsColumn,
     ]
   }
 
-  return [...baseColumns, commentsColumn, actionsColumn]
+  return [...baseColumns, commentsColumn]
 }

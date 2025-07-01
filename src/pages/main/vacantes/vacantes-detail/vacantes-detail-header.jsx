@@ -5,6 +5,7 @@ import {
   DollarSignIcon,
   UsersIcon,
   BadgeInfoIcon,
+  Languages,
 } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
@@ -104,6 +105,7 @@ export const VacantesDetailHeader = ({
           {!translated && (
             <div className="mt-2 lg:mt-0">
               <Button onClick={onTranslate} isLoading={isLoadingTranslated}>
+                <Languages />
                 Traducir vacante
               </Button>
             </div>

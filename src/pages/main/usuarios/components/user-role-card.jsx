@@ -13,7 +13,7 @@ const UserRoleCard = ({ name, username, phone, role }) => {
     <div className="rounded-xl border bg-card p-3 shadow-sm transition hover:shadow-md">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between gap-2">
-          <h2 className="break-words text-base font-semibold text-primary">
+          <h2 className="break-words text-base font-semibold">
             {name}
           </h2>
           <Badge className="capitalize">{role}</Badge>

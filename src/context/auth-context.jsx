@@ -2,8 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import PropTypes from "prop-types"
 import React, { createContext, useState, useEffect } from "react"
 import FullScreenLoader from "@/components/customs/full-screen-loader"
-import { Roles } from "@/constants/appConstants"
-import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useCurrentUser } from "@/hooks/queries/useUser"
 import { loginUser, logout as logoutUser } from "@/services/authService"
 
@@ -19,9 +17,7 @@ export const AuthProvider = ({ children }) => {
     isLoading: isUserLoading,
   } = useCurrentUser({ enabled: !!token })
 
-  const codex = useCodexData({ enabled: !!token })
-
-  const loading = isUserLoading || codex?.isLoading
+  const loading = isUserLoading
 
   const loginMutation = useMutation({
     mutationFn: loginUser,

@@ -101,7 +101,7 @@ const DialogHeaderCustom = ({
   return (
     <div
       className={cn(
-        "sticky top-0 z-10 -mx-6 flex h-16 items-center gap-2 border-b bg-background px-6",
+        "sticky top-0 z-10 -mx-6 flex h-14 items-center gap-1 border-b bg-background px-4 sm:px-6",
         className
       )}
       {...props}
@@ -114,7 +114,7 @@ const DialogHeaderCustom = ({
               iconBgClass
             )}
           >
-            <Icon className="h-5 w-5" />
+            <Icon className="size-5" />
           </div>
           <div className="h-6 w-0.5 bg-border" />
         </div>
@@ -122,19 +122,15 @@ const DialogHeaderCustom = ({
 
       <div className="flex-1">
         <DialogTitle asChild>
-          <h3 className="text-xl font-semibold leading-tight tracking-tight dark:text-white">
+          <h1 className="text-sm font-semibold leading-tight tracking-tight dark:text-white sm:text-xl">
             {title}
-          </h3>
+          </h1>
         </DialogTitle>
       </div>
 
       <DialogClose asChild>
-        <Button
-          variant="secondary"
-          size="bigIcon"
-          className="rounded-full"
-        >
-          <X className="h-8 w-8" />
+        <Button variant="secondary" size="icon" className="rounded-full">
+          <X className="size-4" />
         </Button>
       </DialogClose>
     </div>
@@ -142,6 +138,55 @@ const DialogHeaderCustom = ({
 }
 
 DialogHeaderCustom.displayName = "DialogHeaderCustom"
+
+const DialogFooterCustom = ({
+  className,
+  cancelLabel = "Cancelar",
+  cancelVariant = "outline",
+  onCancel,
+  actionLabel,
+  actionVariant = "default",
+  actionDisabled = false,
+  isLoading = false,
+  onAction,
+  actionProps = {},
+}) => {
+  return (
+    <div
+      className={cn(
+        "-pb-2 -mx-6 -mb-4 flex flex-col gap-2 border-t bg-background px-6 py-2  sm:flex-row sm:justify-end sm:gap-2 sm:py-0 sm:pt-3",
+        className
+      )}
+    >
+      <DialogClose asChild>
+        <Button
+          size="lg"
+          variant={cancelVariant}
+          onClick={onCancel}
+          className="w-full sm:w-auto"
+        >
+          {cancelLabel}
+        </Button>
+      </DialogClose>
+
+      <Button
+        size="lg"
+        variant={actionVariant}
+        onClick={onAction}
+        disabled={actionDisabled}
+        isLoading={isLoading}
+        className="w-full sm:w-auto"
+        {...actionProps}
+      >
+        {actionLabel}
+      </Button>
+    </div>
+  )
+}
+
+DialogFooterCustom.displayName = "DialogFooterCustom"
+
+export { DialogFooterCustom }
 
 export {
   Dialog,

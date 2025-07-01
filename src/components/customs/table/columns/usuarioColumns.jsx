@@ -4,6 +4,7 @@ import React from "react"
 import UsuarioCell from "../cells/usuario-cell"
 import { Button } from "@/components/ui"
 import { Badge } from "@/components/ui/badge"
+import NullableCell from "../cells/nullable-cell"
 
 const columnHelper = createColumnHelper()
 
@@ -18,34 +19,44 @@ export const getUsuarioColumns = (onEditClick, isAgent = false) => {
       },
     }),
     columnHelper.accessor("phone", {
-      header: "Télefono",
+      header: "Teléfono",
+      cell: (info) => <NullableCell value={info.getValue()} />,
       meta: { align: "center" },
     }),
     columnHelper.accessor("agent_type", {
       header: "Tipo de Agente",
+      cell: ({ getValue }) => {
+        const value = getValue()
+        return value ? (
+          <Badge variant="outline">{value.toUpperCase()}</Badge>
+        ) : (
+          <NullableCell value={null} />
+        )
+      },
       meta: { align: "center" },
-      cell: ({ getValue }) => (
-        <Badge variant="outline">{getValue().toUpperCase()}</Badge>
-      ),
     }),
     columnHelper.accessor("active", {
       header: "Activo",
+      cell: ({ getValue }) => {
+        const active = getValue()
+        if (typeof active !== "boolean") return <NullableCell value={null} />
+        return (
+          <div
+            className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full border ${
+              active
+                ? "border-green-500 bg-green-100 text-green-700"
+                : "border-red-500 bg-red-100 text-red-700"
+            }`}
+          >
+            {active ? (
+              <Check className="h-4 w-4" strokeWidth={2.5} />
+            ) : (
+              <X className="h-4 w-4" strokeWidth={2.5} />
+            )}
+          </div>
+        )
+      },
       meta: { align: "center" },
-      cell: ({ getValue }) => (
-        <div
-          className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full border ${
-            getValue()
-              ? "border-green-500 bg-green-100 text-green-700"
-              : "border-red-500 bg-red-100 text-red-700"
-          }`}
-        >
-          {getValue() ? (
-            <Check className="h-4 w-4" strokeWidth={2.5} />
-          ) : (
-            <X className="h-4 w-4" strokeWidth={2.5} />
-          )}
-        </div>
-      ),
     }),
   ]
 

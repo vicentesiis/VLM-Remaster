@@ -13,7 +13,7 @@ export const RegistrosDetail = () => {
 
   return (
     <PageLayout
-      title="Registro:"
+      title="Registro"
       subtitle={registro ? registro.name : isLoading ? "Cargando..." : ""}
     >
       <WithStatusState isLoading={isLoading} isError={isError}>

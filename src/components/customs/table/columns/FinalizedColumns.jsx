@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
-import { formatDate } from "@/lib"
+import { formatDate } from "@/utils"
 import StatusBadge from "../../badge/status-badge"
 
 const columnHelper = createColumnHelper()

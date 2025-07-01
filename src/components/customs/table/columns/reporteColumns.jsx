@@ -3,7 +3,7 @@ import { Banknote, CreditCard, DownloadIcon } from "lucide-react"
 import React from "react"
 import PaymentStatusBadge from "../../badge/payment-status-badge"
 import { Button } from "@/components/ui"
-import { formatDate } from "@/lib"
+import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
 
 const columnHelper = createColumnHelper()

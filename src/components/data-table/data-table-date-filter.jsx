@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
-import { formatDate } from "@/lib/format"
+import { formatDate } from "@/utils"
 
 function getIsDateRange(value) {
   return value && typeof value === "object" && !Array.isArray(value)

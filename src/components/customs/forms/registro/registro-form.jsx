@@ -12,8 +12,8 @@ import {
   dateOfBirthField,
   nationalityField,
   stateField,
-  passportField,
-  curpField,
+  documentField,
+  documentTypeField,
   jobField,
   programField,
   channelField,
@@ -26,8 +26,8 @@ import {
   dateOfBirthSchema,
   nationalitySchema,
   stateSchema,
-  curpSchema,
-  passportSchema,
+  documentSchema,
+  documentTypeSchema,
   jobSchema,
   programSchema,
   channelSchema,
@@ -44,8 +44,8 @@ export const formSchema = z.object({
   date_of_birth: dateOfBirthSchema,
   nationality: nationalitySchema,
   state: stateSchema,
-  curp: curpSchema,
-  passport: passportSchema,
+  document: documentSchema,
+  document_type: documentTypeSchema,
   job: jobSchema,
   program: programSchema,
   channel: channelSchema,
@@ -53,19 +53,23 @@ export const formSchema = z.object({
 })
 
 const RegistroForm = forwardRef(
-  ({ onSubmit, defaultValues, isEdit = false }, ref) => {
+  ({ onSubmit, defaultValues, isEdit = false, vacantId }, ref) => {
     const form = useForm({
       resolver: zodResolver(formSchema),
       defaultValues: {
         name: "",
         email: "",
         phone: "",
-        date_of_birth: defaultValues?.date_of_birth ?? new Date(),
+        date_of_birth: defaultValues?.date_of_birth ?? new Date("2000-01-02"),
         nationality: "méxico",
         state: "",
-        curp: "",
-        passport: "",
-        job: "",
+        document: defaultValues?.passport || defaultValues?.curp || "",
+        document_type: defaultValues?.passport
+          ? "passport"
+          : defaultValues?.curp
+            ? "curp"
+            : "",
+        job: vacantId ?? "",
         program: "",
         channel: "",
         comments: "",
@@ -100,8 +104,14 @@ const RegistroForm = forwardRef(
       dateOfBirthField(),
       nationalityField(nacionalidadOptions),
       stateField(estadosOptions),
-      passportField({ disabled: !isAdmin && isEdit }),
-      curpField({ disabled: !isAdmin && isEdit }),
+      documentField({ disabled: isEdit }),
+      documentTypeField(
+        [
+          { label: "Pasaporte", value: "passport" },
+          { label: "CURP", value: "curp" },
+        ],
+        { disabled: isEdit }
+      ),
     ]
 
     const vacantInfoFields = [
@@ -138,6 +148,7 @@ RegistroForm.propTypes = {
   defaultValues: PropTypes.any,
   isEdit: PropTypes.bool,
   onSubmit: PropTypes.func,
+  vacantId: PropTypes.any,
 }
 
 RegistroForm.displayName = "RegistroForm"

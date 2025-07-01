@@ -4,11 +4,11 @@ import React, { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import RegistroForm from "../forms/registro/registro-form"
-import { Button, DialogHeaderCustom } from "@/components/ui"
+import { Button, DialogFooterCustom, DialogHeaderCustom } from "@/components/ui"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateRecord, useUpdateRecord } from "@/hooks/queries/useRecord"
 
-const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
+const RegistroDialog = ({ trigger, mode = "add", recordToEdit, vacantId }) => {
   const formRef = useRef()
   const [open, setOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -30,14 +30,20 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
   })
 
   const handleSubmit = async (data) => {
+    const payload = {
+      ...data,
+      passport: data.document_type === "passport" ? data.document : "",
+      curp: data.document_type === "curp" ? data.document : "",
+    }
+
+    delete payload.document
+    delete payload.document_type
+
     try {
       setIsSubmitting(true)
       const response = isEdit
-        ? await updateRecord({
-            ...data,
-            id: recordToEdit.id,
-          })
-        : await createRecord(data)
+        ? await updateRecord({ ...payload, id: recordToEdit.id })
+        : await createRecord(payload)
 
       const publicId = response.data.public_id
 
@@ -67,7 +73,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="h-full overflow-y-auto bg-gray-100 dark:bg-gray-950 sm:max-h-[calc(100vh-60px)] sm:max-w-7xl 2xl:max-h-[calc(100vh-170px)]">
+      <DialogContent className="h-full overflow-y-auto bg-gray-100 dark:bg-zinc-800 sm:max-w-7xl 2xl:max-h-[calc(100vh-150px)]">
         <DialogHeaderCustom
           icon={icon}
           title={title}
@@ -79,16 +85,15 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit }) => {
           onSubmit={handleSubmit}
           defaultValues={recordToEdit}
           isEdit={isEdit}
+          vacantId={vacantId}
         />
 
-        <Button
-          className="text-md sticky bottom-0 float-right ml-auto sm:mr-8"
-          variant={buttonVariant}
+        <DialogFooterCustom
+          actionLabel={buttonText}
+          actionVariant={buttonVariant}
           isLoading={isSubmitting}
-          onClick={() => formRef.current?.submit()}
-        >
-          {buttonText}
-        </Button>
+          onAction={() => formRef.current?.submit()}
+        />
       </DialogContent>
     </Dialog>
   )
@@ -98,6 +103,7 @@ RegistroDialog.propTypes = {
   mode: PropTypes.string,
   recordToEdit: PropTypes.any,
   trigger: PropTypes.any,
+  vacantId: PropTypes.any,
 }
 
 export default RegistroDialog

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
 import VacantesDetailHeader from "./vacantes-detail-header"
-import VacantesDetailInfo from "./vacantes-detail-info"
+import VacantesDetailInfo from "./vacantes-detail-info/vacantes-detail-info"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import {
@@ -34,7 +34,7 @@ export const VacantesDetail = () => {
 
   return (
     <PageLayout
-      title="Vacante:"
+      title="Vacante"
       subtitle={
         currentVacant ? currentVacant.id : currentLoading ? "Cargando..." : ""
       }

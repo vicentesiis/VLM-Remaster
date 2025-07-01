@@ -18,7 +18,7 @@ IconBadge.propTypes = {
   className: PropTypes.any,
   icon: PropTypes.any,
   title: PropTypes.any,
-  variant: PropTypes.string
+  variant: PropTypes.string,
 }
 
 export default IconBadge
