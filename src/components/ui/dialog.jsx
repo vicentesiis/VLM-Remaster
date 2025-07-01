@@ -146,7 +146,6 @@ const DialogFooterCustom = ({
   onCancel,
   actionLabel,
   actionVariant = "default",
-  actionDisabled = false,
   isLoading = false,
   onAction,
   actionProps = {},
@@ -154,7 +153,7 @@ const DialogFooterCustom = ({
   return (
     <div
       className={cn(
-        "-pb-2 -mx-6 -mb-4 flex flex-col gap-2 border-t bg-background px-6 py-2  sm:flex-row sm:justify-end sm:gap-2 sm:py-0 sm:pt-3",
+        "-pb-2 -mx-6 -mb-4 flex flex-col gap-2 border-t bg-background px-6 py-2 sm:flex-row sm:justify-end sm:gap-2 sm:py-0 sm:pt-3",
         className
       )}
     >
@@ -173,7 +172,6 @@ const DialogFooterCustom = ({
         size="lg"
         variant={actionVariant}
         onClick={onAction}
-        disabled={actionDisabled}
         isLoading={isLoading}
         className="w-full sm:w-auto"
         {...actionProps}

@@ -1,3 +1,5 @@
+import { NEXT_STATUS_MAP, NEXT_STATUS_MAP_FOR_ADMIN } from "@/constants"
+
 export function toTitleCase(str) {
   if (typeof str !== "string") return ""
   return str
@@ -70,4 +72,10 @@ export const getYearOptions = (yearsBack = 6) => {
     const year = currentYear - i
     return { label: year.toString(), value: year.toString() }
   })
+}
+
+export const getNextStatuses = (currentStatus, isAdmin = false) => {
+  return (
+    (isAdmin ? NEXT_STATUS_MAP_FOR_ADMIN : NEXT_STATUS_MAP)[currentStatus] ?? []
+  )
 }

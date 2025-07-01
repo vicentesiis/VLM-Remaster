@@ -9,8 +9,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { AGENT_ALLOWED_STATUS_LIST, NEXT_STATUS_MAP } from "@/constants"
-import { RECORD_STATUSES_LABEL } from "@/constants/appConstants"
+import {
+  AGENT_ALLOWED_STATUS_LIST,
+  NEXT_STATUS_MAP,
+  NEXT_STATUS_MAP_FOR_ADMIN,
+  RECORD_STATUSES_LABEL,
+} from "@/constants"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { mapToOptions } from "@/utils/utils"
@@ -57,15 +61,17 @@ export function SelectUpdateRegistroStatus({ currentOption, onConfirm }) {
     }
   }
 
-  const nextStatuses = NEXT_STATUS_MAP[initial] ?? []
-
   const isDisabled = (status) => {
     if (isAdmin) {
-      return false
+      const adminNextStatuses = NEXT_STATUS_MAP_FOR_ADMIN[initial] ?? []
+      return !adminNextStatuses.includes(status)
     }
+
+    const nextStatuses = NEXT_STATUS_MAP[initial] ?? []
     const notInNext = !nextStatuses.includes(status)
     const agentNotAllowed =
       isAgent && !AGENT_ALLOWED_STATUS_LIST.includes(status)
+
     return notInNext || agentNotAllowed
   }
 
