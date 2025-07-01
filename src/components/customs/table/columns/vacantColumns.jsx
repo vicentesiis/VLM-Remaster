@@ -60,16 +60,6 @@ export const getVacantColumns = ({
         ],
       },
     }),
-    columnHelper.accessor("location_state_province", {
-      header: "Estado",
-      cell: (info) => <NullableCell value={info.getValue()} />,
-      meta: {
-        align: "center",
-        variant: "select",
-        label: "Estado",
-        options: provinceOptions,
-      },
-    }),
     columnHelper.accessor("category", {
       header: "Categoría",
       cell: (info) => <NullableCell value={info.getValue()} />,
@@ -78,6 +68,16 @@ export const getVacantColumns = ({
         variant: "select",
         label: "Categoría",
         options: mapToOptions(vacantCategories),
+      },
+    }),
+    columnHelper.accessor("location_state_province", {
+      header: "Estado",
+      cell: (info) => <NullableCell value={info.getValue()} />,
+      meta: {
+        align: "center",
+        variant: "select",
+        label: "Estado",
+        options: provinceOptions,
       },
     }),
     columnHelper.accessor("rate", {

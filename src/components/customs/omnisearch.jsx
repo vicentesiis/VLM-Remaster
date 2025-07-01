@@ -26,7 +26,7 @@ const options = [
     icon: <BriefcaseIcon className="mr-1 h-4 w-4" />,
   },
   {
-    label: "Ordenes",
+    label: "Pagos",
     value: "Ordenes",
     icon: <FileTextIcon className="mr-1 h-4 w-4" />,
   },
