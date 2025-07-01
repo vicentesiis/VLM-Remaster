@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
-import { Card, CardContent, Button } from "@/components/ui"
+import { Card, CardContent } from "@/components/ui"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGetFinalizedReport } from "@/hooks/queries/UseReports"
 import { useFinalizedReportTable } from "../hooks/useFinalizedTable"
@@ -17,26 +17,10 @@ const ReporteReporteRecordFinalizado = () => {
   const [searchTriggered, setSearchTriggered] = useState(false)
 
   const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
-    group_id: isAdmin ? group?.id || "" : "",
+    group_id: isAdmin ? "" : group?.id || "",
   })
 
-  const canSearch = !isAdmin || !!group?.id
-  const groupIdToSearch = isAdmin ? group?.id : values.group_id
-
-  const { data, isLoading, isError } = useGetFinalizedReport(
-    {
-      skip: 0,
-      limit: 100,
-      ...(groupIdToSearch ? { group_id: groupIdToSearch } : {}),
-    },
-    { enabled: searchTriggered && canSearch }
-  )
-
   const handleSearch = () => {
-    if (!canSearch) {
-      toast.error("No puedes hacer la búsqueda sin grupo asignado.")
-      return
-    }
     if (!isAdmin && !values.group_id) {
       toast.error("Selecciona un grupo antes de buscar.")
       return
@@ -44,10 +28,20 @@ const ReporteReporteRecordFinalizado = () => {
     setSearchTriggered(true)
   }
 
-  const records = data?.records_and_orders?.map(([record, orderCount]) => ({
-    ...record,
-    orderCount,
-  })) ?? []
+  const { data, isLoading, isError } = useGetFinalizedReport(
+    {
+      skip: 0,
+      limit: 100,
+      ...(isAdmin ? {} : { group_id: values.group_id }),
+    },
+    { enabled: searchTriggered }
+  )
+
+  const records =
+    data?.records_and_orders?.map(([record, orderCount]) => ({
+      ...record,
+      orderCount,
+    })) ?? []
 
   const { table } = useFinalizedReportTable(searchTriggered ? records : [])
 
@@ -59,17 +53,13 @@ const ReporteReporteRecordFinalizado = () => {
             title="Registros Finalizados"
             className="pb-6"
             actions={
-              <>
-                {!isAdmin && (
-                  <FilterToolbar
-                    filterConfig={[groupConfig]}
-                    values={values}
-                    onChange={onChange}
-                    context={{ groups: listOfGroups }}
-                  />
-                )}
-                <Button onClick={handleSearch}>Buscar</Button>
-              </>
+              <FilterToolbar
+                filterConfig={listOfGroups.length ? [groupConfig] : []}
+                values={values}
+                onChange={onChange}
+                context={{ groups: listOfGroups }}
+                onSearch={handleSearch}
+              />
             }
           />
           <WithStatusState
@@ -77,7 +67,9 @@ const ReporteReporteRecordFinalizado = () => {
             isError={isError}
             hasFetched={searchTriggered}
           >
-            {records.length > 0 && <DataTable table={table} hasFetched />}
+            {records.length > 0 && (
+              <DataTable table={table} hasFetched showPagination={false} />
+            )}
           </WithStatusState>
         </CardContent>
       </Card>

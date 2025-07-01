@@ -92,7 +92,7 @@ export const routes = [
       },
       {
         path: "auditoria-registros",
-        routeKey: "auditoriaDeRegistros",
+        routeKey: "reportesReporteVentaPorAgentePotencial",
         allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {

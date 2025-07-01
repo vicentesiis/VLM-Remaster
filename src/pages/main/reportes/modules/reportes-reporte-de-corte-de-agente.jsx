@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import PageLayout from "@/components/customs/page-layout/page-layout"
-import { userConfig } from "@/components/customs/filter/filter-config"
+import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import SectionHeader from "@/components/customs/section-header"
 import { Card, CardContent } from "@/components/ui"
@@ -38,12 +38,6 @@ export const ReporteReporteCorteAgente = () => {
   const orders = data?.data?.orders ?? []
   const { table } = useOrdersTable(orders)
 
-  const formatCurrency = (amount) =>
-    (amount / 100).toLocaleString("es-MX", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
-
   return (
     <PageLayout title="Reporte de Corte por Agente">
       <Card>
@@ -52,10 +46,16 @@ export const ReporteReporteCorteAgente = () => {
             title="Información del Agente"
             actions={
               <FilterToolbar
-                filterConfig={[userConfig]}
+                filterConfig={[
+                  ...(listOfGroups.length ? [groupConfig] : []),
+                  userConfig,
+                ]}
                 values={values}
                 onChange={onChange}
-                context={{ users: listOfUsers }}
+                context={{
+                  ...(listOfGroups.length ? { groups: listOfGroups } : {}),
+                  users: listOfUsers,
+                }}
                 onSearch={handleSearch}
               />
             }
@@ -65,10 +65,7 @@ export const ReporteReporteCorteAgente = () => {
             isError={isError}
             hasFetched={!!searchParams}
           >
-        
-  
-                <DataTable table={table} showPagination={false} hasFetched />
-           
+            <DataTable table={table} showPagination={false} hasFetched />
           </WithStatusState>
         </CardContent>
       </Card>

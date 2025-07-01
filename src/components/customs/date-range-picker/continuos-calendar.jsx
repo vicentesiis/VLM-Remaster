@@ -1,5 +1,6 @@
 "use client"
 
+import { Card } from "@/components/ui"
 import React, { useMemo, useRef } from "react"
 
 const daysOfWeek = [
@@ -62,7 +63,7 @@ export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
           const isDisabled = cellMonth < 0 || isFuture
 
           return (
-            <div
+            <Card 
               key={`${cellMonth}-${day}-${weekIndex}`}
               ref={(el) => {
                 dayRefs.current[index] = el
@@ -74,17 +75,15 @@ export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
                   ? undefined
                   : () => handleDayClick(day, usedMonth, parsedYear)
               }
-              className={`flex h-12 w-full flex-col items-center justify-center border border-slate-200 text-center text-sm font-medium sm:h-14 lg:h-16 ${
+              className={`flex h-12 w-full flex-col rounded-none  items-center justify-center border  text-center text-sm font-medium sm:h-14 lg:h-16 ${
                 isDisabled
-                  ? "cursor-not-allowed bg-slate-50 text-gray-300"
-                  : "cursor-pointer bg-white text-slate-800 hover:border-cyan-400"
+                  ? "cursor-not-allowed  opacity-55 "
+                  : "cursor-pointer hover:bg-accent"
               }`}
             >
               <span className="flex flex-col items-center text-center">
                 <span
-                  className={`text-base font-semibold ${
-                    isDisabled ? "text-gray-300" : ""
-                  }`}
+            
                 >
                   {day}
                 </span>
@@ -103,7 +102,7 @@ export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
                     return null
                   })()}
               </span>
-            </div>
+            </Card>
           )
         })}
       </div>
@@ -111,9 +110,8 @@ export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
   }, [parsedMonth, parsedYear, values])
 
   return (
-    <div className="no-scrollbar calendar-container max-h-full overflow-y-scroll rounded-t-2xl bg-white pb-10 text-slate-800 shadow-xl">
-      <div className="-top-px z-50 w-full rounded-t-2xl bg-white px-5 pt-7 sm:px-8 sm:pt-8">
-        <div className="mb-4 flex w-full items-center justify-center"></div>
+    <Card  className="no-scrollbar  max-h-full overflow-y-scroll rounded-2xl  pb-10">
+      <div className="-top-px z-50 w-full rounded-t-2xl  px-5 pt-7 sm:px-8 sm:pt-8">
         <div className="grid w-full grid-cols-7 justify-between text-slate-500">
           {daysOfWeek.map((day, index) => (
             <div
@@ -126,6 +124,6 @@ export const ContinuousCalendar = ({ onClick, values = {}, month, year }) => {
         </div>
       </div>
       <div className="w-full px-5 pt-4 sm:px-8 sm:pt-6">{generateCalendar}</div>
-    </div>
+    </Card>
   )
 }
