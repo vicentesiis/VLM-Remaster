@@ -1,3 +1,10 @@
+import { isBefore } from "date-fns"
+import {
+  NEXT_STATUS_MAP,
+  NEXT_STATUS_MAP_FOR_ADMIN,
+  PaymentStatuses,
+} from "@/constants"
+
 export function toTitleCase(str) {
   if (typeof str !== "string") return ""
   return str
@@ -86,3 +93,18 @@ export const mapVentasGlobalesToChartData = (data = {}) => [
   { title: "Noviembre", description: data.november ?? 0 },
   { title: "Diciembre", description: data.december ?? 0 },
 ]
+export const getNextStatuses = (currentStatus, isAdmin = false) => {
+  return (
+    (isAdmin ? NEXT_STATUS_MAP_FOR_ADMIN : NEXT_STATUS_MAP)[currentStatus] ?? []
+  )
+}
+
+export function shouldDisableVoucher(order, canCreateOrder) {
+  const isPaid = order.status === PaymentStatuses.PAID
+
+  const isExpired = order.expiration_date
+    ? isBefore(new Date(order.expiration_date), new Date())
+    : false
+
+  return (isPaid || isExpired) && canCreateOrder
+}

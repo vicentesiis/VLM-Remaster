@@ -6,6 +6,13 @@ const normalizeToEmptyString = (schema, errorMsg) =>
     schema.min(1, { message: errorMsg })
   )
 
+export const skipIfEmpty = (schema) =>
+  z.preprocess(
+    (val) =>
+      val === null || val === undefined || val === "" ? undefined : val,
+    schema.optional()
+  )
+
 export const nameSchema = z.preprocess(
   (val) => (val === null || val === undefined ? "" : val),
   z
@@ -17,9 +24,8 @@ export const nameSchema = z.preprocess(
     )
 )
 
-export const emailSchema = z.preprocess(
-  (val) => (val === null || val === undefined ? "" : val),
-  z.string().email({ message: "Correo electrónico inválido" })
+export const emailSchema = skipIfEmpty(
+  z.string().email("Correo inválido").optional()
 )
 
 export const phoneSchema = normalizeToEmptyString(
@@ -58,7 +64,7 @@ export const documentTypeSchema = normalizeToEmptyString(
   "El tipo de Documento es obligatorio"
 )
 
-export const jobSchema = z.string().optional()
+export const jobSchema = skipIfEmpty(z.string().optional())
 
 export const programSchema = normalizeToEmptyString(
   z.string(),
@@ -70,7 +76,7 @@ export const channelSchema = normalizeToEmptyString(
   "El canal es obligatorio"
 )
 
-export const commentsSchema = z.string().optional()
+export const commentsSchema = skipIfEmpty(z.string().optional())
 
 export const amountSchema = z.preprocess(
   (val) => {

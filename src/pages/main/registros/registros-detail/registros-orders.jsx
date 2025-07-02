@@ -8,10 +8,10 @@ import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 export const RegistrosOrders = ({ registro }) => {
   const { id: recordId, user } = registro
-  const { table, isLoading, isError } = useOrdersTable(recordId)
-
   const { id: currentUserId, isAgent } = useCurrentUser()
   const canCreateOrder = isAgent && currentUserId === user.id
+
+  const { table, isLoading, isError } = useOrdersTable(recordId, canCreateOrder)
 
   return (
     <Card>
@@ -26,7 +26,7 @@ export const RegistrosOrders = ({ registro }) => {
           isError={isError}
           hasFetched={true}
           showPagination={false}
-        ></DataTable>
+        />
       </CardContent>
     </Card>
   )

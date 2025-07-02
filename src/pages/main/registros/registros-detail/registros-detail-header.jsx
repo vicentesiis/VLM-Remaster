@@ -10,11 +10,12 @@ import React from "react"
 import { toast } from "sonner"
 import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
+import RecordDocumentDropdown from "@/components/customs/record-document-dropdown"
 import { SelectUpdateRegistroStatus } from "@/components/customs/select-update-registro-status"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { useUpdateRecordStatus } from "@/hooks/queries"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { formatDate } from "@/utils"
+import { formatCurrency, formatDate } from "@/utils"
 
 export const RegistrosDetailHeader = ({ registro }) => {
   const {
@@ -32,7 +33,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
   const canUpdateStatus = (currentUserId === user?.id && isAgent) || isAdmin
 
   const getBadges = () => {
-    const amount = (amount_owed ?? 0) / 100
+    const amount = formatCurrency(amount_owed)
 
     return [
       { title: public_id, icon: HashIcon },
@@ -43,9 +44,9 @@ export const RegistrosDetailHeader = ({ registro }) => {
       },
       { title: record_type && `Tipo: ${record_type}`, icon: BadgeInfoIcon },
       {
-        title: `Por pagar: $${amount}`,
+        title: `Por pagar: ${amount}`,
         icon: DollarSignIcon,
-        variant: amount > 0 ? "destructive" : "outline",
+        variant: amount_owed > 0 ? "destructive" : "outline",
       },
     ].filter((badge) => badge.title)
   }
@@ -94,10 +95,17 @@ export const RegistrosDetailHeader = ({ registro }) => {
             </div>
           </div>
           {canUpdateStatus && (
-            <SelectUpdateRegistroStatus
-              currentOption={status}
-              onConfirm={handleStatusUpdate}
-            />
+            <div className="flex flex-col gap-2 lg:flex-row lg:justify-between">
+              <RecordDocumentDropdown
+                registro={registro}
+                isAgent={isAgent}
+                canUpdateStatus={canUpdateStatus}
+              />
+              <SelectUpdateRegistroStatus
+                currentOption={status}
+                onConfirm={handleStatusUpdate}
+              />
+            </div>
           )}
         </div>
       </CardHeader>

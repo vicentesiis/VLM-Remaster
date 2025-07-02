@@ -11,4 +11,6 @@ export const apiClient = {
     axiosInstance.patch(url, data, config).then((res) => res.data),
   delete: (url, config = {}) =>
     axiosInstance.delete(url, config).then((res) => res.data),
+  getBlob: (url, config = {}) =>
+    axiosInstance.get(url, { ...config, responseType: "blob" }),
 }

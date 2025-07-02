@@ -44,6 +44,16 @@ const updatedAtColumn = columnHelper.accessor("updated_at", {
   },
 })
 
+const assignmentAtColumn = columnHelper.accessor("assignment_date", {
+  header: "Fecha de Asignación",
+  cell: (info) => (
+    <NullableCell value={formatDate(info.getValue())} className="text-center" />
+  ),
+  meta: {
+    align: "center",
+  },
+})
+
 // Admin-Only Columns
 const recordTypeColumn = columnHelper.accessor("record_type", {
   header: "Tipo",
@@ -85,13 +95,13 @@ const programColumn = columnHelper.accessor("program", {
 })
 
 // Agent-Only Columns
-const emailColumn = columnHelper.accessor("email", {
-  header: "Correo",
-  cell: (info) => <NullableCell value={info.getValue()} />,
-  meta: {
-    align: "center",
-  },
-})
+// const emailColumn = columnHelper.accessor("email", {
+//   header: "Correo",
+//   cell: (info) => <NullableCell value={info.getValue()} />,
+//   meta: {
+//     align: "center",
+//   },
+// })
 
 const phoneColumn = columnHelper.accessor("phone", {
   header: "Teléfono",
@@ -156,7 +166,12 @@ export const getRegistrosColumns = ({
   programColumn.meta.options = programs
   groupFilterColumn.meta.options = groups
 
-  const baseColumns = [nameColumn, statusColumn, updatedAtColumn]
+  const baseColumns = [
+    nameColumn,
+    statusColumn,
+    updatedAtColumn,
+    assignmentAtColumn,
+  ]
 
   if (isSuperAdmin) {
     return [
@@ -183,7 +198,7 @@ export const getRegistrosColumns = ({
     return [
       ...baseColumns,
       vacantColumn,
-      emailColumn,
+      // emailColumn,
       phoneColumn,
       commentsColumn,
     ]

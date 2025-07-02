@@ -26,7 +26,7 @@ const options = [
     icon: <BriefcaseIcon className="mr-1 h-4 w-4" />,
   },
   {
-    label: "Ordenes",
+    label: "Pagos",
     value: "Ordenes",
     icon: <FileTextIcon className="mr-1 h-4 w-4" />,
   },
@@ -61,7 +61,7 @@ export function OmniSearch() {
   }, [result])
 
   return (
-    <div className="w-full sm:w-[400px] hidden sm:block">
+    <div className="hidden w-full sm:block sm:w-[400px]">
       <div className="flex flex-col gap-2 rounded-md border border-input p-2 sm:flex-row sm:items-center sm:gap-0 sm:p-0">
         <Select defaultValue={selectedOption} onValueChange={setSelectedOption}>
           <SelectTrigger className="w-full border focus:ring-0 sm:w-[200px] sm:rounded-r-none sm:border-none">

@@ -159,9 +159,9 @@ export const Login = () => {
 
       {/* Logo */}
       <div className="absolute z-10 mt-8 flex items-center sm:ml-16 sm:mt-16">
-        <img src={logo} alt="Proyecto VLM" width={60} />
+        <img src={logo} alt="NorthEntry" width={60} />
         <H3 className="3xl:text-4xl text-xl font-normal md:text-3xl">
-          Sistema de Administración de Proyecto VLM
+          NorthEntry
         </H3>
       </div>
 

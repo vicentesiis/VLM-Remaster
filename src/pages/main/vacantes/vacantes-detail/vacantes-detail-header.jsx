@@ -6,12 +6,15 @@ import {
   UsersIcon,
   BadgeInfoIcon,
   Languages,
+  DownloadIcon,
 } from "lucide-react"
 import PropTypes from "prop-types"
-import React from "react"
+import React, { useState } from "react"
+import { toast } from "sonner"
 import IconBadge from "@/components/customs/badge/icon-badge"
 import { Badge, Button } from "@/components/ui"
 import { Card, CardHeader, CardTitle, CardSubTitle } from "@/components/ui/card"
+import { downloadVacantDetail } from "@/services/documentService"
 import { toTitleCase } from "@/utils"
 
 export const VacantesDetailHeader = ({
@@ -35,6 +38,19 @@ export const VacantesDetailHeader = ({
     end_date,
     translated,
   } = vacant
+
+  const [isDownloading, setIsDownloading] = useState(false)
+
+  const handleDownload = async () => {
+    try {
+      setIsDownloading(true)
+      await downloadVacantDetail(id)
+    } catch {
+      toast.error("Error al descargar el detalle de la vacante")
+    } finally {
+      setIsDownloading(false)
+    }
+  }
 
   const getBadges = () => {
     return [
@@ -102,14 +118,21 @@ export const VacantesDetailHeader = ({
           </div>
 
           {/* Button top-right */}
-          {!translated && (
-            <div className="mt-2 lg:mt-0">
+          <div className="mt-2 flex gap-2 lg:mt-0">
+            {!translated && (
               <Button onClick={onTranslate} isLoading={isLoadingTranslated}>
                 <Languages />
                 Traducir vacante
               </Button>
-            </div>
-          )}
+            )}
+
+            {translated && (
+              <Button onClick={handleDownload} isLoading={isDownloading}>
+                <DownloadIcon />
+                Descargar vacante
+              </Button>
+            )}
+          </div>
         </div>
       </CardHeader>
     </Card>
