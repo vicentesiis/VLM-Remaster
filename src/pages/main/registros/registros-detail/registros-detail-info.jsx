@@ -119,7 +119,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
                     <div className="flex flex-col gap-4 sm:flex-row sm:gap-16">
                       <PLead className="text-sm">{comments.label}:</PLead>
                       <ListStyle className="text-sm font-bold">
-                        {comments.value || "---"}
+                        {comments.value || "-"}
                       </ListStyle>
                     </div>
                   </div>

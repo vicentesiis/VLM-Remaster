@@ -41,7 +41,7 @@ export function OrderDescriptionDialog({ order, open, onOpenChange }) {
           <CardContent>
             <div className="grid gap-3 text-sm">
               <InfoRow label="ID del Registro">
-                <span className="font-mono">{public_id ?? "---"}</span>
+                <span className="font-mono">{public_id ?? "-"}</span>
               </InfoRow>
               <InfoRow label="Estatus">
                 <PaymentStatusBadge status={status} />
@@ -66,8 +66,8 @@ export function OrderDescriptionDialog({ order, open, onOpenChange }) {
                 <span className="font-semibold">{formatCurrency(amount)}</span>
               </InfoRow>
 
-              <InfoRow label="Referencia">{reference ?? "---"}</InfoRow>
-              <InfoRow label="CLABE">{clabe ?? "---"}</InfoRow>
+              <InfoRow label="Referencia">{reference ?? "-"}</InfoRow>
+              <InfoRow label="CLABE">{clabe ?? "-"}</InfoRow>
               <InfoRow label="Fecha de Pago">
                 {formatDate(payment_date)}
               </InfoRow>

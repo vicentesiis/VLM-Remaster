@@ -25,7 +25,7 @@ import {
 } from "@/services/documentService"
 
 export function RecordDocumentDropdown({ registro, isAgent, canUpdateStatus }) {
-  const { id: recordId, status } = registro
+  const { id: recordId, status, job } = registro
 
   const { data: ordersData } = useGetOrdersByRecord({
     record_id: recordId,
@@ -49,20 +49,22 @@ export function RecordDocumentDropdown({ registro, isAgent, canUpdateStatus }) {
     }
   }
 
+  const hasJob = Boolean(job)
+
   const canDownloadPreContract =
-    status === RecordStatuses.CONTRACT_GENERATED && canUpdateStatus
+    hasJob && status === RecordStatuses.CONTRACT_GENERATED && canUpdateStatus
 
   const canDownloadRegistration = useMemo(() => {
-    if (!isAgent || !canUpdateStatus) return false
+    if (!hasJob || !isAgent || !canUpdateStatus) return false
     return orders.some(
       (order) =>
         order.status === PaymentStatuses.CREATED ||
         order.status === PaymentStatuses.PENDING
     )
-  }, [orders, isAgent, canUpdateStatus])
+  }, [orders, hasJob, isAgent, canUpdateStatus])
 
-  const canDownloadApporval =
-    status === RecordStatuses.APPROVED && canUpdateStatus
+  const canDownloadApproval =
+    hasJob && status === RecordStatuses.APPROVED && canUpdateStatus
 
   return (
     <DropdownMenu>
@@ -94,7 +96,7 @@ export function RecordDocumentDropdown({ registro, isAgent, canUpdateStatus }) {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => handleDownload("approval")}
-          disabled={!canDownloadApporval || isDownloading}
+          disabled={!canDownloadApproval || isDownloading}
         >
           <StampIcon />
           Aprobación
