@@ -5,6 +5,7 @@ import NullableCell from "../cells/nullable-cell"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { Roles } from "@/constants"
 import { formatDate } from "@/utils"
+import { Badge } from "@/components/ui"
 
 const columnHelper = createColumnHelper()
 
@@ -44,15 +45,41 @@ const updatedAtColumn = columnHelper.accessor("updated_at", {
   },
 })
 
-const assignmentAtColumn = columnHelper.accessor("assignment_date", {
-  header: "Fecha de Asignación",
-  cell: (info) => (
-    <NullableCell value={formatDate(info.getValue())} className="text-center" />
-  ),
-  meta: {
-    align: "center",
-  },
-})
+const getAssignmentAtColumn = (title) =>
+  columnHelper.accessor("assignment_date", {
+    header: "Fecha de Asignación",
+    cell: (info) => {
+      const assignmentDate = info.getValue()
+
+      const date = new Date(assignmentDate)
+      const now = new Date()
+      const hoursDiff =
+        Math.abs(now.getTime() - date.getTime()) / (1000 * 60 * 60)
+
+      let variant = "neutral"
+      let label = formatDate(assignmentDate)
+
+      if (title === "Mis Leads") {
+        if (hoursDiff <= 12) {
+          variant = "success"
+        } else if (hoursDiff <= 24) {
+          variant = "warning"
+        } else {
+          variant = "error"
+        }
+
+        return (
+          <Badge variant={variant} className="w-full justify-center">
+            {label}
+          </Badge>
+        )
+      }
+      return <NullableCell value={label} className="text-center" />
+    },
+    meta: {
+      align: "center",
+    },
+  })
 
 // Admin-Only Columns
 const recordTypeColumn = columnHelper.accessor("record_type", {
@@ -93,15 +120,6 @@ const programColumn = columnHelper.accessor("program", {
     options: [],
   },
 })
-
-// Agent-Only Columns
-// const emailColumn = columnHelper.accessor("email", {
-//   header: "Correo",
-//   cell: (info) => <NullableCell value={info.getValue()} />,
-//   meta: {
-//     align: "center",
-//   },
-// })
 
 const phoneColumn = columnHelper.accessor("phone", {
   header: "Teléfono",
@@ -154,6 +172,7 @@ export const getRegistrosColumns = ({
   programs = [],
   recordStatuses = [],
   recordTypes = [],
+  title = "",
 }) => {
   const isAdmin = role === Roles.ADMIN
   const isSuperAdmin = role === Roles.SUPER_ADMIN
@@ -170,7 +189,7 @@ export const getRegistrosColumns = ({
     nameColumn,
     statusColumn,
     updatedAtColumn,
-    assignmentAtColumn,
+    getAssignmentAtColumn(title),
   ]
 
   if (isSuperAdmin) {

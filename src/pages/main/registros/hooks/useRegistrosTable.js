@@ -79,6 +79,7 @@ export const useRegistrosTable = (title) => {
         programs: programsOptions,
         recordStatuses: recordStatusesOptions,
         recordTypes: recordTypesOptions,
+        title,
       }),
     [role, groups, channels, programs, recordTypes, recordStatuses]
   )

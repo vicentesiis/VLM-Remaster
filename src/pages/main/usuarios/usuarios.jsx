@@ -41,7 +41,9 @@ const Usuarios = () => {
 
   const columns = getUsuarioColumns(handleEdit, isAgent)
 
-  const tableData = isAgent ? [leader, ...members].filter(Boolean) : members
+  const tableData = isAgent
+    ? [leader, ...members].filter(Boolean).filter((user) => user.active)
+    : members
 
   const table = useReactTable({
     data: tableData,

@@ -127,9 +127,8 @@ export const ReassignLeaderDialog = ({ currentLeaderName }) => {
             variant="default"
             isLoading={isSubmitting}
             onClick={handleConfirm}
-            disabled={!selectedUserId || !selectedAgentType || isSubmitting}
           >
-            {isSubmitting ? "Asignando..." : "Confirmar"}
+            Confirmar
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
