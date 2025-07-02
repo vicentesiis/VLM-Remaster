@@ -184,27 +184,64 @@ export const NEXT_STATUS_MAP = {
     RecordStatuses.CONTRACT_GENERATED,
     RecordStatuses.FIX_CONTRACT,
   ],
+  [RecordStatuses.CREATED]: [], // not handled for agents
 }
 
 // Admin transitions
 export const NEXT_STATUS_MAP_FOR_ADMIN = {
   [RecordStatuses.CREATED]: Object.values(RecordStatuses),
-  ...NEXT_STATUS_MAP,
+
+  [RecordStatuses.ASSIGNED]: NEXT_STATUS_MAP[RecordStatuses.ASSIGNED],
+
+  [RecordStatuses.PENDING_INFO]: NEXT_STATUS_MAP[RecordStatuses.PENDING_INFO],
+
+  [RecordStatuses.GENERATE_JOBS]: [
+    RecordStatuses.CREATED,
+    RecordStatuses.ASSIGNED,
+    ...NEXT_STATUS_MAP[RecordStatuses.GENERATE_JOBS],
+  ],
+
+  [RecordStatuses.JOBS_GENERATED]:
+    NEXT_STATUS_MAP[RecordStatuses.JOBS_GENERATED],
+
+  [RecordStatuses.REGENERATE_JOBS]:
+    NEXT_STATUS_MAP[RecordStatuses.REGENERATE_JOBS],
+
+  [RecordStatuses.GENERATE_CONTRACT]: [
+    RecordStatuses.CREATED,
+    RecordStatuses.ASSIGNED,
+    RecordStatuses.PENDING_INFO,
+    RecordStatuses.CONTRACT_GENERATED,
+    RecordStatuses.FINALIZED,
+    RecordStatuses.INACTIVE,
+  ],
+
   [RecordStatuses.CONTRACT_GENERATED]: [
     ...NEXT_STATUS_MAP[RecordStatuses.CONTRACT_GENERATED],
     RecordStatuses.PENDING_APPROVAL,
   ],
+
+  [RecordStatuses.FIX_CONTRACT]: NEXT_STATUS_MAP[RecordStatuses.FIX_CONTRACT],
+
   [RecordStatuses.PENDING_APPROVAL]: [
     RecordStatuses.CONTRACT_GENERATED,
     RecordStatuses.APPROVED,
   ],
+
   [RecordStatuses.APPROVED]: [RecordStatuses.SELECTING_LEAVE_DATE],
+
   [RecordStatuses.SELECTING_LEAVE_DATE]: [RecordStatuses.LEAVE_DATE_SELECTED],
+
   [RecordStatuses.LEAVE_DATE_SELECTED]: [RecordStatuses.LEAVE_DATE_CONFIRMED],
+
   [RecordStatuses.LEAVE_DATE_CONFIRMED]: [
     RecordStatuses.FINALIZED,
     RecordStatuses.INACTIVE,
   ],
+
+  [RecordStatuses.FINALIZED]: NEXT_STATUS_MAP[RecordStatuses.FINALIZED],
+
+  [RecordStatuses.INACTIVE]: NEXT_STATUS_MAP[RecordStatuses.INACTIVE],
 }
 
 export const months = [
