@@ -55,7 +55,7 @@ export function RecordDocumentDropdown({ registro, isAgent, canUpdateStatus }) {
     hasJob && status === RecordStatuses.CONTRACT_GENERATED && canUpdateStatus
 
   const canDownloadRegistration = useMemo(() => {
-    if (!hasJob || !isAgent || !canUpdateStatus) return false
+    if (!isAgent || !canUpdateStatus) return false
     return orders.some(
       (order) =>
         order.status === PaymentStatuses.CREATED ||
