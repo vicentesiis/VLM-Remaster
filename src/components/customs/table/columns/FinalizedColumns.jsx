@@ -2,6 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
 import { formatDate } from "@/utils"
 import StatusBadge from "../../badge/status-badge"
+import NullableCell from "../cells/nullable-cell"
 
 const columnHelper = createColumnHelper()
 
@@ -9,30 +10,39 @@ export const getFinalizedReportColumns = () => {
   return [
     columnHelper.accessor("name", {
       header: "Registro",
-      cell: ({ getValue }) => <span>{getValue()}</span>,
+      cell: (info) => <NullableCell value={info.getValue()} />,
+      meta: { align: "center" },
     }),
     columnHelper.accessor("job", {
       header: "Agente",
-      cell: ({ getValue }) => <span>{getValue() ?? "Sin asignar"}</span>,
+      cell: (info) => <NullableCell value={info.getValue()} />,
+      meta: { align: "center" },
     }),
     columnHelper.accessor("orderCount", {
       header: "Pagos",
-      cell: ({ getValue }) => <span>{getValue()}</span>,
+      cell: (info) => <NullableCell value={info.getValue()} />,
       meta: { align: "center" },
     }),
     columnHelper.accessor("exit_date", {
       header: "Fecha de salida",
-      cell: ({ getValue }) => (
-        <span>{getValue() ? formatDate(getValue()) : "-"}</span>
-      ),
+      cell: (info) => {
+        const date = info.getValue()
+        return <NullableCell value={date ? formatDate(date) : null} />
+      },
+      meta: { align: "center" },
     }),
     columnHelper.accessor("phone", {
       header: "Teléfono",
-      cell: ({ getValue }) => <span>{getValue()}</span>,
+      cell: (info) => <NullableCell value={info.getValue()} />,
+      meta: { align: "center" },
     }),
     columnHelper.accessor("updated_at", {
       header: "Fecha de finalización",
-      cell: ({ getValue }) => <span>{formatDate(getValue())}</span>,
+      cell: (info) => {
+        const date = info.getValue()
+        return <NullableCell value={date ? formatDate(date) : null} />
+      },
+      meta: { align: "center" },
     }),
     columnHelper.accessor("status", {
       header: "Estatus",
@@ -41,8 +51,8 @@ export const getFinalizedReportColumns = () => {
     }),
     columnHelper.accessor("contacted", {
       header: "Contactado",
-      cell: ({ getValue }) => {
-        const value = getValue()
+      cell: (info) => {
+        const value = info.getValue()
         return (
           <span
             className={

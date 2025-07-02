@@ -85,7 +85,7 @@ export const useGetGroupSalesReport = (
 }
 export const useGetAgentCutOff = ({ agent_id }, options = {}) => {
   return useQuery({
-    queryKey: ["agentCutOff", agent_id],
+    queryKey: ["agent-cut-off", agent_id],
     queryFn: () =>
       reportApi
         .getAgentCutOff({
@@ -107,12 +107,17 @@ export const useGetTasks = (options = {}) => {
 }
 
 export const useGetFinalizedReport = (
-  { skip, limit  },
+  { skip, limit, group_id }, 
   options = {}
 ) => {
   return useQuery({
-    queryKey: ["finalizedReport", skip, limit],
-    queryFn: () => reportApi.getFinalizedReport({ skip, limit }),
+    queryKey: ["finalizedReport", skip, limit, group_id],
+    queryFn: () =>
+      reportApi.getFinalizedReport({
+        skip,
+        limit,
+        group_id,
+      }),
     ...options,
   })
 }

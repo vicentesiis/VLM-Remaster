@@ -2,6 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table"
 import { Banknote, CreditCard, DownloadIcon } from "lucide-react"
 import React from "react"
 import PaymentStatusBadge from "../../badge/payment-status-badge"
+import NullableCell from "../cells/nullable-cell"
 import { Button } from "@/components/ui"
 import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
@@ -28,14 +29,19 @@ export const getReportColumns = () => {
       maxWidth: "60px",
     },
   })
+
   return [
-columnHelper.accessor("user.username", {
-    id: "username",
-    header: "Usuario",
-    cell: (info) => info.getValue() ?? "No aplica",
-    meta: { align: "center" },
-  }),
-    columnHelper.accessor("provider_order_id", { header: "ID del Proveedor" }),
+    columnHelper.accessor("user.username", {
+      id: "username",
+      header: "Usuario",
+      cell: (info) => <NullableCell value={info.getValue()} />,
+      meta: { align: "center" },
+    }),
+    columnHelper.accessor("provider_order_id", {
+      header: "ID del Proveedor",
+      cell: (info) => <NullableCell value={info.getValue()} />,
+      meta: { align: "center" },
+    }),
     columnHelper.accessor("status", {
       header: "Estatus",
       cell: (info) => <PaymentStatusBadge status={info.getValue()} />,
@@ -61,29 +67,31 @@ columnHelper.accessor("user.username", {
             </div>
           )
         }
-        return <span className="text-muted-foreground">-</span>
+        return <NullableCell value={null} />
       },
       meta: { align: "center" },
     }),
     columnHelper.accessor("amount", {
       header: "Cantidad",
-      cell: (info) => formatCurrency(info.getValue()),
-      meta: {
-        align: "center",
+      cell: (info) => {
+        const value = info.getValue()
+        return <NullableCell value={value ? formatCurrency(value) : null} />
       },
+      meta: { align: "center" },
     }),
     columnHelper.accessor("clabe", {
       header: "CLABE",
-      cell: (info) => info.getValue() ?? "No aplica",
+      cell: (info) => <NullableCell value={info.getValue()} />,
       meta: { align: "center" },
     }),
     columnHelper.accessor("created_at", {
       header: "Fecha de Creación",
-      cell: (info) => formatDate(info.getValue()),
+      cell: (info) => {
+        const value = info.getValue()
+        return <NullableCell value={value ? formatDate(value) : null} />
+      },
       meta: { align: "center" },
     }),
-
     voucherColumn,
   ]
 }
-

@@ -63,16 +63,12 @@ export const ReportesReporteDeRegistros = () => {
   )
 
   const chartData = Array.isArray(data?.daily_registrations)
-    ? data.daily_registrations.map((registro) => ({
-        title: format(new Date(registro.date), "MMM d", { locale: es }),
-        description: registro.amount_of_registrations ?? 0,
-        formatted: new Intl.NumberFormat("es-MX", {
-          style: "currency",
-          currency: "MXN",
-          maximumFractionDigits: 0,
-        }).format(registro.amount_of_registrations ?? 0),
-      }))
-    : []
+  ? data.daily_registrations.map((registro) => ({
+      title: format(new Date(registro.date), "MMM d", { locale: es }),
+      description: registro.amount_of_registrations ?? 0, 
+      formatted: String(registro.amount_of_registrations ?? 0),
+    }))
+  : []
 
   return (
     <PageLayout title="Reporte de Registros por Agente">

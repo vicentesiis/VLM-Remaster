@@ -1,72 +1,56 @@
-import React, { useState } from "react"
+import React from "react"
 import PageLayout from "@/components/customs/page-layout/page-layout"
-import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import SectionHeader from "@/components/customs/section-header"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import { Card, CardContent } from "@/components/ui"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { useGetAgentCutOff } from "@/hooks/queries/UseReports"
-import { WithStatusState } from "@/components/customs/status-state/with-status-state"
-import { toast } from "sonner"
 import { DataTable } from "@/components/data-table"
-import { useOrdersTable } from "../../registros/registros-detail/hooks/useOrdersTable"
+import { useCorteTable } from "../hooks/useCorteTable"
 
 export const ReporteReporteCorteAgente = () => {
-  const [searchParams, setSearchParams] = useState(null)
-  const { isAdmin, group } = useCurrentUser()
-
-  const { values, onChange, listOfUsers, listOfGroups } =
-    useGroupAndMembersFilter({
-      group_id: isAdmin ? group?.id || "" : "",
-      user_id: "",
-    })
-
-  const handleSearch = () => {
-    if (!values.user_id) {
-      toast.error("El agente es requerido")
-      return
-    }
-
-    setSearchParams({ agent_id: values.user_id })
-  }
-
-  const { data, isLoading, isError } = useGetAgentCutOff(searchParams ?? {}, {
-    enabled: !!searchParams,
-  })
-
-  const orders = data?.data?.orders ?? []
-  const { table } = useOrdersTable(orders)
-
+  const {
+    table,
+    isFetching,
+    isError,
+    isFetched,
+    values,
+    onChange,
+    listOfUsers,
+    listOfGroups,
+    filterConfig,
+    handleSearch,
+    showFilters,
+  } = useCorteTable()
   return (
     <PageLayout title="Reporte de Corte por Agente">
       <Card>
         <CardContent>
           <SectionHeader
             title="Información del Agente"
+            className="pb-6"
             actions={
-              <FilterToolbar
-                filterConfig={[
-                  ...(listOfGroups.length ? [groupConfig] : []),
-                  userConfig,
-                ]}
-                values={values}
-                onChange={onChange}
-                context={{
-                  ...(listOfGroups.length ? { groups: listOfGroups } : {}),
-                  users: listOfUsers,
-                }}
-                onSearch={handleSearch}
-              />
+              showFilters && (
+                <FilterToolbar
+                  filterConfig={filterConfig}
+                  values={values}
+                  onChange={onChange}
+                  context={{
+                    ...(listOfGroups.length ? { groups: listOfGroups } : {}),
+                    users: listOfUsers,
+                  }}
+                  onSearch={handleSearch}
+                  isLoading={isFetching}
+                />
+              )
             }
           />
-          <WithStatusState
-            isLoading={isLoading}
+
+          <DataTable
+            table={table}
+            isLoading={isFetching}
             isError={isError}
-            hasFetched={!!searchParams}
-          >
-            <DataTable table={table} showPagination={false} hasFetched />
-          </WithStatusState>
+            hasFetched={isFetched}
+            showPagination={false}
+          />
         </CardContent>
       </Card>
     </PageLayout>

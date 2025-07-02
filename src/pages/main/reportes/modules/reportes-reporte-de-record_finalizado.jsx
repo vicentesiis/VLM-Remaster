@@ -1,49 +1,26 @@
-import React, { useState } from "react"
+import React from "react"
+import { toast } from "sonner"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
-import { Card, CardContent } from "@/components/ui"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { useGetFinalizedReport } from "@/hooks/queries/UseReports"
-import { useFinalizedReportTable } from "../hooks/useFinalizedTable"
-import { DataTable } from "@/components/data-table"
-import { WithStatusState } from "@/components/customs/status-state/with-status-state"
-import { toast } from "sonner"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import { Card, CardContent } from "@/components/ui"
+import { DataTable } from "@/components/data-table"
+import { useFinalizedReportTable } from "../hooks/useFinalizedTable"
 import { groupConfig } from "@/components/customs/filter/filter-config"
 
 const ReporteReporteRecordFinalizado = () => {
-  const { isAdmin, group } = useCurrentUser()
-  const [searchTriggered, setSearchTriggered] = useState(false)
-
-  const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
-    group_id: isAdmin ? "" : group?.id || "",
-  })
-
-  const handleSearch = () => {
-    if (!isAdmin && !values.group_id) {
-      toast.error("Selecciona un grupo antes de buscar.")
-      return
-    }
-    setSearchTriggered(true)
-  }
-
-  const { data, isLoading, isError } = useGetFinalizedReport(
-    {
-      skip: 0,
-      limit: 100,
-      ...(isAdmin ? {} : { group_id: values.group_id }),
-    },
-    { enabled: searchTriggered }
-  )
-
-  const records =
-    data?.records_and_orders?.map(([record, orderCount]) => ({
-      ...record,
-      orderCount,
-    })) ?? []
-
-  const { table } = useFinalizedReportTable(searchTriggered ? records : [])
+  const {
+    table,
+    isFetching,
+    isError,
+    isFetched,
+    showFilters,
+    values,
+    onChange,
+    listOfGroups,
+    isSuperAdmin,
+    handleSearch,
+  } = useFinalizedReportTable()
 
   return (
     <PageLayout title="Reporte de Registros Finalizados">
@@ -53,24 +30,26 @@ const ReporteReporteRecordFinalizado = () => {
             title="Registros Finalizados"
             className="pb-6"
             actions={
-              <FilterToolbar
-                filterConfig={listOfGroups.length ? [groupConfig] : []}
-                values={values}
-                onChange={onChange}
-                context={{ groups: listOfGroups }}
-                onSearch={handleSearch}
-              />
+              showFilters && (
+                <FilterToolbar
+                  filterConfig={listOfGroups.length ? [groupConfig] : []}
+                  values={values}
+                  onChange={onChange}
+                  context={{ groups: listOfGroups }}
+                  onSearch={handleSearch}
+                  isLoading={isFetching}
+                />
+              )
             }
           />
-          <WithStatusState
-            isLoading={isLoading}
+
+          <DataTable
+            table={table}
+            isLoading={isFetching}
             isError={isError}
-            hasFetched={searchTriggered}
-          >
-            {records.length > 0 && (
-              <DataTable table={table} hasFetched showPagination={false} />
-            )}
-          </WithStatusState>
+            hasFetched={isFetched}
+            showPagination={false}
+          />
         </CardContent>
       </Card>
     </PageLayout>

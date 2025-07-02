@@ -15,7 +15,7 @@ import { useCodexData } from "@/hooks/queries"
 import { useGetGroupSalesReport } from "@/hooks/queries/UseReports"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import CalendarPage from "@/components/customs/date-range-picker/calendar"
-import { mapToOptions } from "@/utils"
+import { formatCurrency, mapToOptions } from "@/utils"
 import { useReportTable } from "../hooks/useReportsTable"
 import { DataTable } from "@/components/data-table"
 import { toast } from "sonner"
@@ -26,12 +26,6 @@ const formatMonthYear = (year, month) =>
   new Date(year, month - 1).toLocaleDateString("es-MX", {
     month: "long",
     year: "numeric",
-  })
-
-const formatCurrency = (amount) =>
-  (amount / 100).toLocaleString("es-MX", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
   })
 
 export const ReportesReporteVentalMensual = () => {
@@ -151,7 +145,7 @@ export const ReportesReporteVentalMensual = () => {
             }
             extra={
               data?.total_sales != null
-                ? `Total vendido: $${formatCurrency(data.total_sales)}`
+                ? `Total vendido: ${formatCurrency(data.total_sales)}`
                 : ""
             }
             className="pb-6"

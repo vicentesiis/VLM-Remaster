@@ -224,17 +224,3 @@ export const months = [
   { label: "Noviembre", value: "11" },
   { label: "Diciembre", value: "12" },
 ]
-export const mapVentasGlobalesToChartData = (data = {}) => [
-  { title: "Enero", description: data.january ?? 0 },
-  { title: "Febrero", description: data.february ?? 0 },
-  { title: "Marzo", description: data.march ?? 0 },
-  { title: "Abril", description: data.april ?? 0 },
-  { title: "Mayo", description: data.may ?? 0 },
-  { title: "Junio", description: data.june ?? 0 },
-  { title: "Julio", description: data.july ?? 0 },
-  { title: "Agosto", description: data.august ?? 0 },
-  { title: "Septiembre", description: data.september ?? 0 },
-  { title: "Octubre", description: data.october ?? 0 },
-  { title: "Noviembre", description: data.november ?? 0 },
-  { title: "Diciembre", description: data.december ?? 0 },
-]

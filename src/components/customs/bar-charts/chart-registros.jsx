@@ -1,18 +1,10 @@
 import React from "react"
 import { BarChart } from "@/components/ui/bar-chart"
 import { useIsSmallScreen } from "@/hooks"
+import { formatCurrency } from "@/utils"
 
 export const ChartRegistros = ({ data = [], onValueChange, formatAsCurrency = false }) => {
   const isSmallScreen = useIsSmallScreen()
-
-  const valueFormatter = formatAsCurrency
-  ? (number) =>
-      new Intl.NumberFormat("es-MX", {
-        style: "currency",
-        currency: "MXN",
-        maximumFractionDigits: 0,
-      }).format(number / 100)
-  : undefined
 
   const chartData = data.map((item) => ({
     date: item.title,
@@ -29,10 +21,13 @@ export const ChartRegistros = ({ data = [], onValueChange, formatAsCurrency = fa
         yAxisWidth={70}
         layout={isSmallScreen ? "vertical" : "horizontal"}
         onValueChange={onValueChange}
-        valueFormatter={valueFormatter}
+        valueFormatter={
+          formatAsCurrency
+            ? formatCurrency 
+            : (val) => String(val)
+        }
       />
     </div>
   )
 }
-
 export default ChartRegistros
