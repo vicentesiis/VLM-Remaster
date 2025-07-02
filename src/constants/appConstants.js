@@ -161,6 +161,7 @@ export const NEXT_STATUS_MAP = {
     RecordStatuses.PENDING_INFO,
     RecordStatuses.GENERATE_CONTRACT,
     RecordStatuses.FIX_CONTRACT,
+    RecordStatuses.PENDING_APPROVAL,
   ],
   [RecordStatuses.FIX_CONTRACT]: [
     RecordStatuses.PENDING_INFO,
@@ -224,7 +225,6 @@ export const NEXT_STATUS_MAP_FOR_ADMIN = {
   [RecordStatuses.FIX_CONTRACT]: NEXT_STATUS_MAP[RecordStatuses.FIX_CONTRACT],
 
   [RecordStatuses.PENDING_APPROVAL]: [
-    RecordStatuses.CONTRACT_GENERATED,
     RecordStatuses.APPROVED,
   ],
 
