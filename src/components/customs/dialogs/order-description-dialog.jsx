@@ -24,9 +24,11 @@ export function OrderDescriptionDialog({ order, open, onOpenChange }) {
     expiration_date,
     created_at,
     record,
+    user,
   } = order
 
   const { public_id } = record ?? {}
+  const { name } = user ?? {}
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -43,6 +45,7 @@ export function OrderDescriptionDialog({ order, open, onOpenChange }) {
               <InfoRow label="ID del Registro">
                 <span className="font-mono">{public_id ?? "-"}</span>
               </InfoRow>
+              <InfoRow label="Agente">{name ?? "-"}</InfoRow>
               <InfoRow label="Estatus">
                 <PaymentStatusBadge status={status} />
               </InfoRow>

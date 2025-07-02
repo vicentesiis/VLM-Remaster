@@ -61,10 +61,10 @@ export function OmniSearch() {
   }, [result])
 
   return (
-    <div className="hidden w-full sm:block sm:w-[400px]">
+    <div className="hidden w-full sm:block sm:w-[400px] lg:w-[500px]">
       <div className="flex flex-col gap-2 rounded-md border border-input p-2 sm:flex-row sm:items-center sm:gap-0 sm:p-0">
         <Select defaultValue={selectedOption} onValueChange={setSelectedOption}>
-          <SelectTrigger className="w-full border focus:ring-0 sm:w-[200px] sm:rounded-r-none sm:border-none">
+          <SelectTrigger className="w-full border focus:ring-0 sm:w-[120px] sm:rounded-r-none sm:border-none">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -82,7 +82,15 @@ export function OmniSearch() {
         <div className="relative w-full sm:w-[400px]">
           <Input
             ref={inputRef}
-            placeholder={isFocused ? "Ingresa el ID" : "Buscar por ID..."}
+            placeholder={
+              selectedOption === "Ordenes"
+                ? isFocused
+                  ? "Ingresa el número de la referencia"
+                  : "Buscar por referencia..."
+                : isFocused
+                  ? "Ingresa el ID"
+                  : "Buscar por ID..."
+            }
             value={searchQuery}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}

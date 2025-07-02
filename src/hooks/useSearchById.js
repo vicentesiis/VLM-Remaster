@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import { toast } from "sonner"
 import { useGetRecordById } from "@/hooks/queries"
-import { useGetOrderById } from "@/hooks/queries/useOrder"
+import { useGetOrderBySearch } from "@/hooks/queries/useOrder"
 import { useGetVacantbyId } from "@/hooks/queries/useVacants"
 
 async function handleSearchByType({ type, query, refetchers }) {
@@ -64,7 +64,7 @@ export function useSearchById(defaultOption = "Registros") {
     data: orderData,
     refetch: refetchOrder,
     isFetching: isFetchingOrder,
-  } = useGetOrderById({ order_id: searchQuery }, { enabled: false })
+  } = useGetOrderBySearch(searchQuery, { enabled: false })
 
   const handleSearchClick = async () => {
     const response = await handleSearchByType({
