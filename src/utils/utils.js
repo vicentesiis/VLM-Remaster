@@ -30,12 +30,14 @@ export function formatDate(date, opts = {}) {
   if (!date) return ""
 
   try {
-    return new Intl.DateTimeFormat("es-MX", {
+    const formatted = new Intl.DateTimeFormat("es-MX", {
       month: opts.month ?? "short",
       day: opts.day ?? "numeric",
       year: opts.year ?? "numeric",
       ...opts,
     }).format(new Date(date))
+
+    return toTitleCase(formatted)
   } catch (_err) {
     return ""
   }
