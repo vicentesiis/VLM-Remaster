@@ -1,8 +1,8 @@
 import { Banknote, CreditCard, FileText } from "lucide-react"
+import PropTypes from "prop-types"
 import React from "react"
 import PaymentStatusBadge from "../badge/payment-status-badge"
 import { Card, CardContent } from "@/components/ui"
-import { Badge } from "@/components/ui/badge"
 import {
   Dialog,
   DialogContent,
@@ -14,88 +14,84 @@ import { formatCurrency } from "@/utils"
 export function OrderDescriptionDialog({ order, open, onOpenChange }) {
   if (!order) return null
 
+  const {
+    status,
+    payment_method,
+    amount,
+    reference,
+    clabe,
+    payment_date,
+    expiration_date,
+    created_at,
+    record,
+  } = order
+
+  const { public_id } = record ?? {}
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeaderCustom
           icon={FileText}
-          title={"Detalle de la orden"}
-          iconBgClass={"bg-green-600"}
+          title="Detalle de la orden"
+          iconBgClass="bg-green-600"
         />
 
         <Card>
           <CardContent>
             <div className="grid gap-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">ID del Proveedor</span>
-                <span className="font-mono">{order.provider_order_id}</span>
-              </div>
+              <InfoRow label="ID del Registro">
+                <span className="font-mono">{public_id ?? "---"}</span>
+              </InfoRow>
+              <InfoRow label="Estatus">
+                <PaymentStatusBadge status={status} />
+              </InfoRow>
 
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Estatus</span>
-                <PaymentStatusBadge status={order.status} />
-              </div>
+              <InfoRow label="Método de Pago">
+                {payment_method === "cash" && (
+                  <>
+                    <Banknote className="h-4 w-4 text-primary" />
+                    Efectivo
+                  </>
+                )}
+                {payment_method === "spei" && (
+                  <>
+                    <CreditCard className="h-4 w-4 text-primary" />
+                    SPEI
+                  </>
+                )}
+              </InfoRow>
 
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Método de Pago</span>
-                <span className="flex items-center gap-1">
-                  {order.payment_method === "cash" && (
-                    <>
-                      <Banknote className="h-4 w-4 text-primary" />
-                      Efectivo
-                    </>
-                  )}
-                  {order.payment_method === "spei" && (
-                    <>
-                      <CreditCard className="h-4 w-4 text-primary" />
-                      SPEI
-                    </>
-                  )}
-                </span>
-              </div>
+              <InfoRow label="Cantidad">
+                <span className="font-semibold">{formatCurrency(amount)}</span>
+              </InfoRow>
 
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Cantidad</span>
-                <span className="font-semibold">
-                  {formatCurrency(order.amount)}
-                </span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Referencia</span>
-                <span>{order.reference ?? "---"}</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">CLABE</span>
-                <span>{order.clabe ?? "---"}</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Fecha de Pago</span>
-                <span>{formatDate(order.payment_date)}</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Expira</span>
-                <span>{formatDate(order.expiration_date)}</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Creada</span>
-                <span>{formatDate(order.created_at)}</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Pagado al Usuario</span>
-                <Badge variant={order.paid_to_user ? "default" : "warning"}>
-                  {order.paid_to_user ? "Sí" : "No"}
-                </Badge>
-              </div>
+              <InfoRow label="Referencia">{reference ?? "---"}</InfoRow>
+              <InfoRow label="CLABE">{clabe ?? "---"}</InfoRow>
+              <InfoRow label="Fecha de Pago">
+                {formatDate(payment_date)}
+              </InfoRow>
+              <InfoRow label="Expira">{formatDate(expiration_date)}</InfoRow>
+              <InfoRow label="Creada">{formatDate(created_at)}</InfoRow>
             </div>
           </CardContent>
         </Card>
       </DialogContent>
     </Dialog>
+  )
+}
+
+OrderDescriptionDialog.propTypes = {
+  onOpenChange: PropTypes.any,
+  open: PropTypes.any,
+  order: PropTypes.any,
+}
+
+function InfoRow({ label, children }) {
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <span className="text-muted-foreground">{label}</span>
+      <span className="flex items-center gap-1">{children}</span>
+    </div>
   )
 }

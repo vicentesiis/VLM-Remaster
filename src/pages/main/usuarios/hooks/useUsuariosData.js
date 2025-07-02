@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { toast } from "sonner"
 import { useGetGroupById, useGetGroups } from "@/hooks/queries"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
@@ -32,7 +32,14 @@ export function useUsuariosData() {
     { enabled: !!shouldFetch }
   )
 
-  const members = response?.data?.members ?? []
+  const rawMembers = response?.data?.members ?? []
+
+  const members = useMemo(() => {
+    if (isAgent) {
+      return rawMembers.filter((user) => user.active)
+    }
+    return rawMembers
+  }, [rawMembers, isAgent])
   const admin = response?.data?.admin ?? {}
   const leader = response?.data?.leader ?? {}
 

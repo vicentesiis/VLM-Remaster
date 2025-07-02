@@ -85,13 +85,13 @@ const programColumn = columnHelper.accessor("program", {
 })
 
 // Agent-Only Columns
-const emailColumn = columnHelper.accessor("email", {
-  header: "Correo",
-  cell: (info) => <NullableCell value={info.getValue()} />,
-  meta: {
-    align: "center",
-  },
-})
+// const emailColumn = columnHelper.accessor("email", {
+//   header: "Correo",
+//   cell: (info) => <NullableCell value={info.getValue()} />,
+//   meta: {
+//     align: "center",
+//   },
+// })
 
 const phoneColumn = columnHelper.accessor("phone", {
   header: "Teléfono",
@@ -183,7 +183,7 @@ export const getRegistrosColumns = ({
     return [
       ...baseColumns,
       vacantColumn,
-      emailColumn,
+      // emailColumn,
       phoneColumn,
       commentsColumn,
     ]
