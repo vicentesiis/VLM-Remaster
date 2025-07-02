@@ -44,6 +44,16 @@ const updatedAtColumn = columnHelper.accessor("updated_at", {
   },
 })
 
+const assignmentAtColumn = columnHelper.accessor("assignment_date", {
+  header: "Fecha de Asignación",
+  cell: (info) => (
+    <NullableCell value={formatDate(info.getValue())} className="text-center" />
+  ),
+  meta: {
+    align: "center",
+  },
+})
+
 // Admin-Only Columns
 const recordTypeColumn = columnHelper.accessor("record_type", {
   header: "Tipo",
@@ -156,7 +166,12 @@ export const getRegistrosColumns = ({
   programColumn.meta.options = programs
   groupFilterColumn.meta.options = groups
 
-  const baseColumns = [nameColumn, statusColumn, updatedAtColumn]
+  const baseColumns = [
+    nameColumn,
+    statusColumn,
+    updatedAtColumn,
+    assignmentAtColumn,
+  ]
 
   if (isSuperAdmin) {
     return [
