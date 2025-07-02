@@ -30,9 +30,7 @@ export function SheetMenu() {
           >
             <Link to="/registros" className="flex items-center">
               <img src={logo} width={40} alt="Logo" />
-              <SheetTitle className="text-lg font-bold">
-                Proyecto VLM
-              </SheetTitle>
+              <SheetTitle className="text-lg font-bold">NorthEntry</SheetTitle>
             </Link>
           </Button>
         </SheetHeader>

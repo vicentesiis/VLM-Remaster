@@ -43,21 +43,21 @@ export const RECORD_STATUSES_LABEL = {
 }
 
 export const STATUS_TO_VARIANT_MAP = {
-  [RecordStatuses.CREATED]: "success",
+  [RecordStatuses.CREATED]: "info",
   [RecordStatuses.ASSIGNED]: "info",
   [RecordStatuses.PENDING_INFO]: "warning",
-  [RecordStatuses.GENERATE_JOBS]: "info",
-  [RecordStatuses.JOBS_GENERATED]: "info",
+  [RecordStatuses.GENERATE_JOBS]: "warning",
+  [RecordStatuses.JOBS_GENERATED]: "success",
   [RecordStatuses.REGENERATE_JOBS]: "warning",
-  [RecordStatuses.GENERATE_CONTRACT]: "info",
-  [RecordStatuses.CONTRACT_GENERATED]: "info",
+  [RecordStatuses.GENERATE_CONTRACT]: "warning",
+  [RecordStatuses.CONTRACT_GENERATED]: "success",
   [RecordStatuses.FIX_CONTRACT]: "warning",
   [RecordStatuses.PENDING_APPROVAL]: "warning",
   [RecordStatuses.APPROVED]: "success",
   [RecordStatuses.SELECTING_LEAVE_DATE]: "info",
   [RecordStatuses.LEAVE_DATE_SELECTED]: "info",
   [RecordStatuses.LEAVE_DATE_CONFIRMED]: "success",
-  [RecordStatuses.FINALIZED]: "success",
+  [RecordStatuses.FINALIZED]: "destructive",
   [RecordStatuses.INACTIVE]: "destructive",
 }
 
@@ -224,9 +224,7 @@ export const NEXT_STATUS_MAP_FOR_ADMIN = {
 
   [RecordStatuses.FIX_CONTRACT]: NEXT_STATUS_MAP[RecordStatuses.FIX_CONTRACT],
 
-  [RecordStatuses.PENDING_APPROVAL]: [
-    RecordStatuses.APPROVED,
-  ],
+  [RecordStatuses.PENDING_APPROVAL]: [RecordStatuses.APPROVED],
 
   [RecordStatuses.APPROVED]: [RecordStatuses.SELECTING_LEAVE_DATE],
 
