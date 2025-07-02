@@ -25,6 +25,36 @@ export const menuItems = [
     allowedRoutes: [Roles.ADMIN, Roles.AGENT],
   },
   {
+    title: "Registros",
+    to: "/registros/registros",
+    icon: ClipboardList,
+    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
+  },
+  {
+    title: "Clientes",
+    to: "/registros/clientes",
+    icon: UserCheck,
+    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
+  },
+  {
+    title: "Mis Leads",
+    to: "/registros/mis-leads",
+    icon: User,
+    allowedRoutes: [Roles.AGENT],
+  },
+  {
+    title: "Mis Clientes",
+    to: "/registros/mis-clientes",
+    icon: Handshake,
+    allowedRoutes: [Roles.AGENT],
+  },
+  {
+    title: "Mis Prospectos",
+    to: "/registros/mis-prospectos",
+    icon: UserSearch,
+    allowedRoutes: [Roles.AGENT],
+  },
+  {
     title: "Vacantes",
     to: "/vacantes",
     icon: Briefcase,
@@ -45,42 +75,6 @@ export const menuItems = [
 ]
 
 export const dropdownMenus = [
-  {
-    title: "Registros",
-    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
-    items: [
-      {
-        title: "Registros",
-        to: "/registros/registros",
-        icon: ClipboardList,
-        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
-      },
-      {
-        title: "Mis Prospectos",
-        to: "/registros/mis-prospectos",
-        icon: UserSearch,
-        allowedRoutes: [Roles.AGENT],
-      },
-      {
-        title: "Mis Leads",
-        to: "/registros/mis-leads",
-        icon: User,
-        allowedRoutes: [Roles.AGENT],
-      },
-      {
-        title: "Clientes",
-        to: "/registros/clientes",
-        icon: UserCheck,
-        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
-      },
-      {
-        title: "Mis Clientes",
-        to: "/registros/mis-clientes",
-        icon: Handshake,
-        allowedRoutes: [Roles.AGENT],
-      },
-    ],
-  },
   {
     title: "Reportes",
     allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
