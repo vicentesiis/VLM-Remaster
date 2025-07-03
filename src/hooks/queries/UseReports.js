@@ -29,3 +29,13 @@ export const useGetTasks = (options = {}) => {
     ...options,
   })
 }
+
+export const useGetReportsSalesAgent = (params, options = {}) => {
+  return useQuery({
+    queryKey: ["sales-by-agent", params],
+    queryFn: async () => {
+      return await reportApi.getReportsSalesAgent(params)
+    },
+    ...options,
+  })
+}
