@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import BigCalendar from "@/components/customs/big-calendar/big-calendar"
 import {
   groupConfig,
   monthConfig,
@@ -7,7 +8,6 @@ import {
 } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
-import SalesByDayCollapsible from "@/components/customs/sales-by-day-collapsible"
 import SectionHeader from "@/components/customs/section-header"
 import { Card, CardContent } from "@/components/ui"
 import { useGetReportsSalesAgent } from "@/hooks/queries/UseReports"
@@ -15,11 +15,13 @@ import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 
 export const ReportesReporteVentasPorAgente = () => {
-  const { isAgent, isLeader, isAdmin, isSuperAdmin, id } = useCurrentUser()
+  const { isAgent, id } = useCurrentUser()
 
   const today = new Date()
   const end_date = today.toISOString()
   const start_date = new Date("2025-06-01T00:00:00Z").toISOString()
+
+  const [reportData, setReportData] = useState(null)
 
   const params = {
     user_id: id,
@@ -27,29 +29,28 @@ export const ReportesReporteVentasPorAgente = () => {
     end_date,
   }
 
-  const { data, refetch } = useGetReportsSalesAgent(params, {
+  const { refetch } = useGetReportsSalesAgent(params, {
     enabled: false,
   })
 
   const title = isAgent ? "Ventas" : "Ventas por Agente"
-  const { values, onChange, listOfGroups, listOfUsers } =
-    useGroupAndMembersFilter({
-      group_id: "",
-      user_id: "",
-      month: "",
-      year: "",
-    })
 
-  const [reportData, setReportData] = useState(null)
+  const {
+    values, // contains: { group_id, user_id, month, year }
+    onChange,
+    listOfGroups,
+    listOfUsers,
+  } = useGroupAndMembersFilter({
+    group_id: "",
+    user_id: "",
+    month: "",
+    year: "",
+  })
 
   const handleSearch = async () => {
     const res = await refetch()
-    setReportData(res.data?.data)
+    setReportData(res.data?.data || null)
   }
-
-  useEffect(() => {
-    console.log("Updated reportData:", reportData)
-  }, [reportData])
 
   return (
     <PageLayout title={title}>
@@ -77,7 +78,13 @@ export const ReportesReporteVentasPorAgente = () => {
             }
           />
 
-          <SalesByDayCollapsible sales={reportData?.agent_daily_sales} />
+          {values.month && values.year && reportData?.agent_daily_sales && (
+            <BigCalendar
+              month={values.month}
+              year={values.year}
+              data={reportData.agent_daily_sales}
+            />
+          )}
         </CardContent>
       </Card>
     </PageLayout>
