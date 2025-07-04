@@ -25,3 +25,6 @@ export const createOrder = (data) => {
 
 export const handleOrderWebhook = (data) =>
   apiClient.post("/orders/order/events", data)
+
+export const getOrderBySearch = (params) =>
+  apiClient.get(`/orders/order/search`, { params })

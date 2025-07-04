@@ -41,3 +41,13 @@ export const useGetOrderById = (params, options = {}) => {
     ...options,
   })
 }
+
+export const useGetOrderBySearch = (term, options = {}) => {
+  return useQuery({
+    queryKey: ["orders-by-search", term],
+    queryFn: async () => {
+      return await orderApi.getOrderBySearch({ term: term })
+    },
+    ...options,
+  })
+}
