@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
+import { useSalesAgentReport } from "./hooks/useSalesAgentReport"
 import BigCalendar from "@/components/customs/big-calendar/big-calendar"
 import {
   groupConfig,
@@ -9,51 +10,38 @@ import {
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
+import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
-import { useGetReportsSalesAgent } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { getDateKey } from "@/utils/calendarUtils"
+import { formatCurrency } from "@/utils"
 
 export const ReportesReporteVentasPorAgente = () => {
   const { isAgent, id } = useCurrentUser()
 
-  const today = new Date()
-  const end_date = today.toISOString()
-  const start_date = new Date("2025-06-01T00:00:00Z").toISOString()
-
-  const [reportData, setReportData] = useState(null)
-
-  const params = {
-    user_id: id,
-    start_date,
-    end_date,
-  }
-
-  const { refetch } = useGetReportsSalesAgent(params, {
-    enabled: false,
+  const {
+    values: filters,
+    onChange,
+    listOfGroups,
+    listOfUsers,
+  } = useGroupAndMembersFilter({
+    group_id: "",
+    user_id: "",
+    month: "",
+    year: "",
   })
 
+  const {
+    handleSearch,
+    handleDayPressed,
+    reportData,
+    selectedDate,
+    selectedDayData,
+    table,
+    subtitle,
+  } = useSalesAgentReport({ filters, userId: id })
+
   const title = isAgent ? "Ventas" : "Ventas por Agente"
-
-  const { values, onChange, listOfGroups, listOfUsers } =
-    useGroupAndMembersFilter({
-      group_id: "",
-      user_id: "",
-      month: "",
-      year: "",
-    })
-
-  const handleSearch = async () => {
-    const res = await refetch()
-    setReportData(res.data?.data || null)
-  }
-
-  const [selectedDate, setSelectedDate] = useState(null)
-
-  const handleDayPressed = ({ date, data }) => {
-    setSelectedDate(getDateKey(date))
-  }
 
   return (
     <PageLayout title={title}>
@@ -70,25 +58,39 @@ export const ReportesReporteVentasPorAgente = () => {
                   monthConfig,
                   yearConfig,
                 ]}
-                values={values}
+                values={filters}
                 onChange={onChange}
-                context={{
-                  groups: listOfGroups,
-                  users: listOfUsers,
-                }}
+                context={{ groups: listOfGroups, users: listOfUsers }}
                 onSearch={handleSearch}
               />
             }
           />
 
-          {values.month && values.year && reportData?.agent_daily_sales && (
+          {filters.month && filters.year && reportData?.agent_daily_sales && (
             <BigCalendar
-              month={values.month}
-              year={values.year}
+              month={filters.month}
+              year={filters.year}
               data={reportData.agent_daily_sales}
               onClick={handleDayPressed}
               selectedDate={selectedDate}
             />
+          )}
+          {selectedDate && (
+            <div>
+              <SectionHeader
+                title="Ventas del:"
+                extraColor="text-primary/90"
+                extra={selectedDate}
+                subtitleColor="text-green-600 font-bold"
+                subtitle={subtitle}
+                className="whitespace-pre-line py-6"
+              />
+              <DataTable
+                table={table}
+                hasFetched={!!reportData}
+                showPagination={false}
+              />
+            </div>
           )}
         </CardContent>
       </Card>
