@@ -6,7 +6,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib"
 import { formatCurrency } from "@/utils"
 
-export const DayCell = ({ date, data, onClick, isOutsideMonth }) => {
+export const DayCell = ({
+  date,
+  data,
+  onClick,
+  isOutsideMonth,
+  isSelected,
+}) => {
   const day = date.getDate()
   const sales = data?.total_day_sales ?? 0
   const numberOfOrders = data?.total_day_orders ?? 0
@@ -15,11 +21,12 @@ export const DayCell = ({ date, data, onClick, isOutsideMonth }) => {
 
   return (
     <Card
-      onClick={!isOutsideMonth ? onClick : undefined}
+      onClick={!isOutsideMonth ? () => onClick?.({ date, data }) : undefined}
       className={cn(
         "w-full rounded-none transition-colors",
         isOutsideMonth && "cursor-not-allowed bg-black/10",
-        !isOutsideMonth && "cursor-pointer hover:bg-muted/50"
+        !isOutsideMonth && "cursor-pointer hover:bg-muted/50",
+        isSelected && !isOutsideMonth && "border-primary bg-primary/10"
       )}
     >
       <CardContent className="relative flex h-20 items-center justify-center !p-0">
@@ -34,12 +41,12 @@ export const DayCell = ({ date, data, onClick, isOutsideMonth }) => {
 
         {hasOrders && (
           <div className="absolute left-2 top-2">
-            <IconBadge title={numberOfOrders} icon={Wallet} variant="outline" />
+            <IconBadge title={numberOfOrders} icon={Wallet} variant="ghost" />
           </div>
         )}
 
         {sales > 0 && (
-          <div className="mt-1 text-center text-md font-semibold text-green-600">
+          <div className="text-md mt-1 text-center font-semibold text-green-600">
             {formatCurrency(sales)}
           </div>
         )}
@@ -53,6 +60,7 @@ DayCell.propTypes = {
   onClick: PropTypes.any,
   data: PropTypes.any,
   isOutsideMonth: PropTypes.any,
+  isSelected: PropTypes.any,
 }
 
 export default DayCell

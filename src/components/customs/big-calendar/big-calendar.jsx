@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import React, { useMemo } from "react"
 import BigCalendarHeader from "./big-calendar-header"
 import DayCell from "./day-cell"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import {
   parseMonthYear,
   getCalendarWeeks,
@@ -10,12 +10,14 @@ import {
   isFutureDate,
 } from "@/utils/calendarUtils"
 
-export const BigCalendar = ({ onClick, data = {}, month, year }) => {
+export const BigCalendar = ({
+  onClick,
+  data = {},
+  month,
+  year,
+  selectedDate,
+}) => {
   const { zeroBasedMonth, numericYear } = parseMonthYear(month, year)
-
-  const handleDayClick = () => {
-    console.log("handleDayClick")
-  }
 
   const dataMap = useMemo(() => {
     if (!Array.isArray(data)) return {}
@@ -28,7 +30,7 @@ export const BigCalendar = ({ onClick, data = {}, month, year }) => {
   }, [data])
 
   const calendarWeeks = useMemo(() => {
-    const { weeks, today } = getCalendarWeeks(zeroBasedMonth, numericYear)
+    const { weeks } = getCalendarWeeks(zeroBasedMonth, numericYear)
 
     return weeks.map((week, weekIndex) => (
       <div className="flex w-full" key={`week-${weekIndex}`}>
@@ -46,14 +48,15 @@ export const BigCalendar = ({ onClick, data = {}, month, year }) => {
               key={`${month}-${day}-${weekIndex}`}
               date={date}
               data={data}
-              onClick={handleDayClick}
+              onClick={onClick}
               isOutsideMonth={isOutsideMonth}
+              isSelected={getDateKey(date) === selectedDate}
             />
           )
         })}
       </div>
     ))
-  }, [zeroBasedMonth, numericYear, dataMap])
+  }, [zeroBasedMonth, numericYear, dataMap, selectedDate])
 
   return (
     <Card className="rounded-md rounded-b-none">
@@ -68,6 +71,7 @@ BigCalendar.propTypes = {
   onClick: PropTypes.any,
   data: PropTypes.any,
   year: PropTypes.any,
+  selectedDate: PropTypes.any,
 }
 
 export default BigCalendar

@@ -13,6 +13,7 @@ import { Card, CardContent } from "@/components/ui"
 import { useGetReportsSalesAgent } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
+import { getDateKey } from "@/utils/calendarUtils"
 
 export const ReportesReporteVentasPorAgente = () => {
   const { isAgent, id } = useCurrentUser()
@@ -35,21 +36,23 @@ export const ReportesReporteVentasPorAgente = () => {
 
   const title = isAgent ? "Ventas" : "Ventas por Agente"
 
-  const {
-    values, // contains: { group_id, user_id, month, year }
-    onChange,
-    listOfGroups,
-    listOfUsers,
-  } = useGroupAndMembersFilter({
-    group_id: "",
-    user_id: "",
-    month: "",
-    year: "",
-  })
+  const { values, onChange, listOfGroups, listOfUsers } =
+    useGroupAndMembersFilter({
+      group_id: "",
+      user_id: "",
+      month: "",
+      year: "",
+    })
 
   const handleSearch = async () => {
     const res = await refetch()
     setReportData(res.data?.data || null)
+  }
+
+  const [selectedDate, setSelectedDate] = useState(null)
+
+  const handleDayPressed = ({ date, data }) => {
+    setSelectedDate(getDateKey(date))
   }
 
   return (
@@ -83,6 +86,8 @@ export const ReportesReporteVentasPorAgente = () => {
               month={values.month}
               year={values.year}
               data={reportData.agent_daily_sales}
+              onClick={handleDayPressed}
+              selectedDate={selectedDate}
             />
           )}
         </CardContent>
