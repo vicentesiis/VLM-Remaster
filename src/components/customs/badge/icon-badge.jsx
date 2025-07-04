@@ -7,7 +7,7 @@ const IconBadge = ({ title, icon: Icon, variant = "outline", className }) => {
   return (
     <div className={cn("flex flex-wrap items-center gap-3", className)}>
       <Badge variant={variant} className="rounded-full pl-[3px] text-[13px]">
-        <Icon className="mr-1 size-4" />
+        <Icon className="mx-1 size-4" />
         {title}
       </Badge>
     </div>

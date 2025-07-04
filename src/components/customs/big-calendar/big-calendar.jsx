@@ -31,11 +31,13 @@ export const BigCalendar = ({ onClick, data = {}, month, year }) => {
     const { weeks, today } = getCalendarWeeks(zeroBasedMonth, numericYear)
 
     return weeks.map((week, weekIndex) => (
-      <div className="flex h-20 w-full" key={`week-${weekIndex}`}>
+      <div className="flex w-full" key={`week-${weekIndex}`}>
         {week.map(({ day, month }) => {
           const usedMonth = month < 0 ? zeroBasedMonth : month
           const date = new Date(numericYear, usedMonth, day)
-          const isDisabled = month < 0 || isFutureDate(date)
+
+          const isOutsideMonth = month < 0
+          const isDisabled = isOutsideMonth || isFutureDate(date)
 
           const data = !isDisabled ? dataMap[getDateKey(date)] : null
 
@@ -45,6 +47,7 @@ export const BigCalendar = ({ onClick, data = {}, month, year }) => {
               date={date}
               data={data}
               onClick={handleDayClick}
+              isOutsideMonth={isOutsideMonth}
             />
           )
         })}
@@ -53,7 +56,7 @@ export const BigCalendar = ({ onClick, data = {}, month, year }) => {
   }, [zeroBasedMonth, numericYear, dataMap])
 
   return (
-    <Card className="rounded-b-none">
+    <Card className="rounded-md rounded-b-none">
       <BigCalendarHeader />
       {calendarWeeks}
     </Card>
