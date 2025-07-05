@@ -34,7 +34,8 @@ export const useGetReportsSalesAgent = (params, options = {}) => {
   return useQuery({
     queryKey: ["sales-by-agent", params],
     queryFn: async () => {
-      return await reportApi.getReportsSalesAgent(params)
+      const res = await reportApi.getReportsSalesAgent(params)
+      return res.data
     },
     ...options,
   })

@@ -32,7 +32,7 @@ export const DayCell = ({
       <CardContent className="relative flex h-20 items-center justify-center !p-0">
         <span
           className={cn(
-            "absolute right-2 top-2 rounded-full px-1 py-0.5 text-xs font-semibold",
+            "absolute right-2 top-2 w-5 rounded-full py-0.5 text-center text-xs font-semibold",
             hasOrders ? "bg-primary text-white" : "text-muted-foreground"
           )}
         >
