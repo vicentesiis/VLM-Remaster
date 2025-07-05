@@ -49,23 +49,5 @@ export const getFinalizedReportColumns = () => {
       cell: (info) => <StatusBadge status={info.getValue()} />,
       meta: { align: "center" },
     }),
-    columnHelper.accessor("contacted", {
-      header: "Contactado",
-      cell: (info) => {
-        const value = info.getValue()
-        return (
-          <span
-            className={
-              value
-                ? "font-semibold text-green-600"
-                : "font-semibold text-red-500"
-            }
-          >
-            {value ? "Sí" : "No"}
-          </span>
-        )
-      },
-      meta: { align: "center" },
-    }),
   ]
 }

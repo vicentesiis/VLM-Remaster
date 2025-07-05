@@ -1,11 +1,12 @@
-import { useState, useEffect, useMemo } from "react"
-import { toast } from "sonner"
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { useGetAgentCutOff } from "@/hooks/queries/UseReports"
 import { getOrdersColumns } from "@/components/customs/table/columns/orderColumns"
 import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
+import { useState, useEffect, useMemo, useCallback } from "react"
+import { toast } from "sonner"
+import { downloadAgentCutOff } from "@/hooks/queries/UseReports"// ajústalo si está en otra ruta
 
 export const useCorteTable = () => {
   const { isAdmin, group } = useCurrentUser()
@@ -18,8 +19,8 @@ export const useCorteTable = () => {
 
   const selectedUserId = values.user_id
   const [searchTriggered, setSearchTriggered] = useState(false)
+  const [isDownloading, setIsDownloading] = useState(false)
 
- 
   useEffect(() => {
     setSearchTriggered(false)
   }, [selectedUserId])
@@ -31,6 +32,25 @@ export const useCorteTable = () => {
     }
     setSearchTriggered(true)
   }
+
+  const handleDownloadCutOff = useCallback(async () => {
+    if (!selectedUserId) {
+      toast.error("Selecciona un agente para descargar el corte")
+      return
+    }
+
+    setIsDownloading(true)
+    try {
+      await downloadAgentCutOff(selectedUserId)
+      toast.success("Corte descargado correctamente")
+    } catch (error) {
+      toast.error("Hubo un error al descargar el corte")
+      console.error("Error downloading cut-off", error)
+    } finally {
+      setIsDownloading(false)
+    }
+  }, [selectedUserId])
+  console.log(selectedUserId)
 
   const {
     data,
@@ -56,11 +76,10 @@ export const useCorteTable = () => {
     ...(listOfGroups.length ? [groupConfig] : []),
     userConfig,
   ]
-  console.log("🔍 Raw data:", data)
-  console.log("📦 Orders:", orders)
-    return {
+
+  return {
     table,
-    isFetching: searchTriggered && isFetching, 
+    isFetching: searchTriggered && isFetching,
     isError,
     isFetched: showTableData,
     values,
@@ -70,5 +89,7 @@ export const useCorteTable = () => {
     filterConfig,
     handleSearch,
     showFilters: true,
+    handleDownloadCutOff,
+    isDownloading,
   }
 }

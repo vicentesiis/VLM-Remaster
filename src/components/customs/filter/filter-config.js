@@ -32,6 +32,13 @@ export const yearConfig = {
   options: getYearOptions(3),
   required: true,
 }
+export const channelConfig = {
+  key: "channel",
+  label: "canal",
+  placeholder: "Selecciona un canal",
+  getOptions: (context) => context.channels,
+}
+
 export const record_type = {
   key: "record_type",
   label: "Tipo de Registro",

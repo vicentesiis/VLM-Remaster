@@ -1,0 +1,120 @@
+import { useState, useMemo, useEffect } from "react"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGetGroupSalesReport } from "@/hooks/queries/UseReports"
+import { getDateKey } from "@/utils/calendarUtils"
+import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
+import { getReportOrdersColumns } from "@/components/customs/table/columns/reportOrdersColumns"
+import { formatCurrency } from "@/utils"
+
+export const useSalesMonthlyReport = ({ filters }) => {
+  const { isAdmin, group, id: userId } = useCurrentUser()
+  const [appliedFilters, setAppliedFilters] = useState(null)
+  const [selectedDate, setSelectedDate] = useState(null)
+
+  const queryParams = useMemo(() => {
+    if (!appliedFilters?.year || !appliedFilters?.month || !appliedFilters?.channel) return null
+
+    const { year, month, channel, group_id } = appliedFilters
+    const startDate = new Date(+year, +month - 1, 1)
+    const endDate = new Date(+year, +month, 0)
+
+    return {
+      start_date: startDate.toISOString(),
+      end_date: endDate.toISOString(),
+      calendarMonth: +month - 1,
+      calendarYear: +year,
+      channel,
+      ...(isAdmin ? {} : { group_id }),
+    }
+  }, [appliedFilters])
+
+  const {
+    data,
+    refetch,
+    isFetching,
+    isError,
+    isFetched,
+  } = useGetGroupSalesReport(queryParams ?? {}, {
+    enabled: false,
+  })
+
+  const handleSearch = () => {
+    const { year, month, channel, group_id } = filters
+    if (!year || !month || !channel || (!isAdmin && !group_id)) return
+    setAppliedFilters(filters)
+    setSelectedDate(null)
+  }
+
+  useEffect(() => {
+    if (!appliedFilters) return
+    refetch()
+  }, [appliedFilters, refetch])
+
+  const ventas = data?.group_daily_sales ?? []
+
+  const calendarData = useMemo(() => {
+    return ventas
+      .filter((v) => v.date)
+      .map((v) => ({
+        date: v.date, // string tipo "2025-07-05"
+        total_day_sales: v.total_day_sales,
+        total_day_orders: v.total_day_orders,
+      }))
+  }, [ventas])
+
+  const handleDayPressed = ({ date }) => {
+    setSelectedDate(getDateKey(date))
+  }
+
+  const selectedDayData = useMemo(() => {
+    return (
+      ventas.find((v) => getDateKey(new Date(v.date)) === selectedDate) ?? {}
+    )
+  }, [ventas, selectedDate])
+
+  const subtitle = useMemo(() => {
+    if (!selectedDayData?.total_day_sales && !selectedDayData?.total_day_orders) return null
+
+    return `Total del día: ${formatCurrency(selectedDayData.total_day_sales || 0)}\nÓrdenes: ${selectedDayData.total_day_orders || 0}`
+  }, [selectedDayData])
+
+  const totalSalesString = useMemo(() => {
+    if (!data) return null
+    return `Total mes: ${formatCurrency(data.total_sales || 0)}`
+  }, [data])
+
+  const monthSelected = useMemo(() => {
+    const { month, year } = appliedFilters || {}
+    if (!month || !year) return null
+
+    const date = new Date(Number(year), Number(month) - 1)
+    return new Intl.DateTimeFormat("es-MX", {
+      month: "long",
+      year: "numeric",
+    }).format(date)
+  }, [appliedFilters])
+
+  const columns = useMemo(() => getReportOrdersColumns(), [])
+  const table = useReactTable({
+    data: selectedDayData?.orders || [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  })
+
+  return {
+    appliedFilters,
+    handleSearch,
+    handleDayPressed,
+    reportData: data,
+    selectedDate,
+    selectedDayData,
+    isFetching,
+    isError,
+    isIdle: !isFetched,
+    table,
+    subtitle,
+    totalSalesString,
+    monthSelected,
+    calendarData: calendarData,
+  }
+}
