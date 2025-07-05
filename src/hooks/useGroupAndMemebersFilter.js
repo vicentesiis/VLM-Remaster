@@ -5,13 +5,18 @@ import { useFiltersState } from "@/hooks/useFiltersState"
 import { mapToOptions } from "@/utils"
 
 export function useGroupAndMembersFilter(initialFilterValues) {
-  const { isSuperAdmin, isAdmin, group: adminGroup } = useCurrentUser()
+  const {
+    isSuperAdmin,
+    isAdmin,
+    isLeader,
+    group: adminGroup,
+  } = useCurrentUser()
 
   const groupsQuery = useGetGroups({ enabled: isSuperAdmin })
 
   const groupByIdQuery = useGetGroupById(
     { group_searchable_id: adminGroup?.id, with_members: true },
-    { enabled: isAdmin && !!adminGroup?.id }
+    { enabled: (isAdmin || isLeader) && !!adminGroup?.id }
   )
 
   const { values, onChange, reset } = useFiltersState(initialFilterValues)
@@ -27,7 +32,7 @@ export function useGroupAndMembersFilter(initialFilterValues) {
       return mapToOptions(selectedGroup?.members || [])
     }
 
-    if (isAdmin) {
+    if (isAdmin || isLeader) {
       return mapToOptions(groupByIdQuery.data?.data?.members || [])
     }
 
@@ -35,6 +40,7 @@ export function useGroupAndMembersFilter(initialFilterValues) {
   }, [
     isSuperAdmin,
     isAdmin,
+    isLeader,
     groupsQuery.data,
     groupByIdQuery.data,
     values.group_id,

@@ -1,11 +1,12 @@
 import { Info, AlertTriangle, Search } from "lucide-react"
+import React from "react"
 import { TableCell, TableRow } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
 
 export function TableMessageCell({
   colSpan,
   message,
-  variant = "info", // "info" | "error" | "empty"
+  variant = "info",
   className,
   icon,
 }) {

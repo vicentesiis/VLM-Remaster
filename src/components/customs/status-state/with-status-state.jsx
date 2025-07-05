@@ -2,17 +2,17 @@ import PropTypes from "prop-types"
 import React from "react"
 import { StatusState } from "./status-state"
 
-export const WithStatusState = ({ isLoading , isError, hasFetched = true, children }) => {
-  if (isError) {
-    return <StatusState type="error" />
-  }
-
+export const WithStatusState = ({ isLoading, isIdle, isError, children }) => {
   if (isLoading) {
     return <StatusState type="loading" />
   }
 
-  if (!hasFetched) {
-    return <StatusState type="waiting" />
+  if (isIdle) {
+    return <StatusState type="idle" />
+  }
+
+  if (isError) {
+    return <StatusState type="error" />
   }
 
   return children
@@ -21,5 +21,6 @@ export const WithStatusState = ({ isLoading , isError, hasFetched = true, childr
 WithStatusState.propTypes = {
   isLoading: PropTypes.bool,
   isError: PropTypes.bool,
+  isIdle: PropTypes.bool,
   children: PropTypes.node.isRequired,
 }

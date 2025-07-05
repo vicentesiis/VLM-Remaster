@@ -135,3 +135,13 @@ export const useGetAgentPotentialSales = ({ agent_id }, options = {}) => {
     ...options,
   })
 }
+export const useGetReportsSalesAgent = (params, options = {}) => {
+  return useQuery({
+    queryKey: ["sales-by-agent", params],
+    queryFn: async () => {
+      const res = await reportApi.getReportsSalesAgent(params)
+      return res.data
+    },
+    ...options,
+  })
+}

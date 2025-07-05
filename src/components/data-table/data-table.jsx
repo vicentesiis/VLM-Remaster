@@ -79,7 +79,7 @@ export function DataTable({
             ) : !hasFetched ? (
               <TableMessageCell
                 colSpan={table.getAllColumns().length}
-                message="Esperando Búsqueda..."
+                message="Esperando búsqueda..."
                 variant="info"
               />
             ) : isError ? (
@@ -92,7 +92,7 @@ export function DataTable({
             ) : isEmpty ? (
               <TableMessageCell
                 colSpan={table.getAllColumns().length}
-                message="Sin Resultados."
+                message="Sin resultados."
                 variant="empty"
               />
             ) : (

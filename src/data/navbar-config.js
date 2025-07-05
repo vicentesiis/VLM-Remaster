@@ -62,7 +62,7 @@ export const menuItems = [
   },
   {
     title: "Ventas",
-    to: "/ventas",
+    to: "/reportes/ventas-por-agente",
     icon: TrendingUp,
     allowedRoutes: [Roles.AGENT],
   },
@@ -79,12 +79,6 @@ export const dropdownMenus = [
     title: "Reportes",
     allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
     items: [
-      {
-        title: "Reporte Personal",
-        to: "/reportes/reporte-personal",
-        icon: FileBarChart,
-        allowedRoutes: [Roles.AGENT],
-      },
       {
         title: "Ventas por agente",
         to: "/reportes/ventas-por-agente",
