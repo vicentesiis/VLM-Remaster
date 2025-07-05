@@ -6,6 +6,7 @@ export const groupConfig = {
   label: "Grupo",
   placeholder: "Selecciona un grupo",
   getOptions: (context) => context.groups,
+  required: true,
 }
 
 export const userConfig = {
@@ -13,6 +14,7 @@ export const userConfig = {
   label: "Usuario",
   placeholder: "Selecciona un usuario",
   getOptions: (context) => context.users,
+  required: true,
 }
 
 export const monthConfig = {
@@ -20,6 +22,7 @@ export const monthConfig = {
   label: "Mes",
   placeholder: "Selecciona un mes",
   options: months,
+  required: true,
 }
 
 export const yearConfig = {
@@ -27,11 +30,5 @@ export const yearConfig = {
   label: "Año",
   placeholder: "Selecciona un año",
   options: getYearOptions(3),
-}
-
-export const channelConfig = {
-  key: "channel",
-  label: "canal",
-  placeholder: "Selecciona un canal",
-  getOptions: (context) => context.channels,
+  required: true,
 }

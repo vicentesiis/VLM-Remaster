@@ -2,10 +2,19 @@ import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import { useEffect, useMemo, useState } from "react"
 import { getReportOrdersColumns } from "@/components/customs/table/columns/reportOrdersColumns"
 import { useGetReportsSalesAgent } from "@/hooks/queries/UseReports"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatCurrency } from "@/utils"
 import { getDateKey } from "@/utils/calendarUtils"
+import { toast } from "sonner"
 
-export const useSalesAgentReport = ({ filters, userId }) => {
+export const useSalesAgentReport = ({ filters }) => {
+  const {
+    isAgent,
+    isAdmin,
+    isLeader,
+    isSuperAdmin,
+    id: userId,
+  } = useCurrentUser()
   const [appliedFilters, setAppliedFilters] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
 
@@ -24,11 +33,11 @@ export const useSalesAgentReport = ({ filters, userId }) => {
     const endDate = endOfMonth > tomorrow ? tomorrow : endOfMonth
 
     return {
-      user_id: user_id || userId,
+      user_id: user_id ?? userId,
       start_date: startDate.toISOString(),
       end_date: endDate.toISOString(),
     }
-  }, [appliedFilters, userId])
+  }, [appliedFilters])
 
   const {
     data: reportData,
@@ -41,7 +50,6 @@ export const useSalesAgentReport = ({ filters, userId }) => {
   })
 
   const handleSearch = async () => {
-    if (!filters.month || !filters.year) return
     setAppliedFilters(filters)
     setSelectedDate(null)
   }

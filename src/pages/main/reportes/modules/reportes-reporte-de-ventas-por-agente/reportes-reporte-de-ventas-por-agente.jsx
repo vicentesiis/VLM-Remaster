@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { useSalesAgentReport } from "./hooks/useSalesAgentReport"
 import BigCalendar from "@/components/customs/big-calendar/big-calendar"
@@ -17,7 +18,7 @@ import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 
 export const ReportesReporteVentasPorAgente = () => {
-  const { isAgent, id } = useCurrentUser()
+  const { isAgent, isLeader, id: userId } = useCurrentUser()
 
   const {
     values: filters,
@@ -26,7 +27,7 @@ export const ReportesReporteVentasPorAgente = () => {
     listOfUsers,
   } = useGroupAndMembersFilter({
     group_id: "",
-    user_id: "",
+    user_id: isAgent && !isLeader ? userId : "",
     month: "",
     year: "",
   })
@@ -44,7 +45,7 @@ export const ReportesReporteVentasPorAgente = () => {
     subtitle,
     totalSalesString,
     monthSelected,
-  } = useSalesAgentReport({ filters, userId: id })
+  } = useSalesAgentReport({ filters })
 
   const title = isAgent ? "Ventas" : "Ventas por Agente"
 
@@ -58,9 +59,10 @@ export const ReportesReporteVentasPorAgente = () => {
             handleSearch={handleSearch}
             listOfGroups={listOfGroups}
             listOfUsers={listOfUsers}
-            isAgent={isAgent}
+            isAgent={isAgent && !isLeader}
             monthSelected={monthSelected}
             totalSalesString={totalSalesString}
+            isFetching={isFetching}
           />
 
           <WithStatusState
@@ -97,9 +99,10 @@ const HeaderSection = ({
   isAgent,
   monthSelected,
   totalSalesString,
+  isFetching,
 }) => (
   <SectionHeader
-    title="Mis Ventas"
+    title="Ventas"
     extra={monthSelected}
     subtitle={totalSalesString}
     className="pb-6"
@@ -115,10 +118,23 @@ const HeaderSection = ({
         onChange={onChange}
         context={{ groups: listOfGroups, users: listOfUsers }}
         onSearch={handleSearch}
+        isLoading={isFetching}
       />
     }
   />
 )
+
+HeaderSection.propTypes = {
+  filters: PropTypes.any,
+  handleSearch: PropTypes.any,
+  isAgent: PropTypes.any,
+  isFetching: PropTypes.any,
+  listOfGroups: PropTypes.any,
+  listOfUsers: PropTypes.any,
+  monthSelected: PropTypes.any,
+  onChange: PropTypes.any,
+  totalSalesString: PropTypes.any,
+}
 
 const CalendarSection = ({
   filters,
@@ -137,6 +153,13 @@ const CalendarSection = ({
       selectedDate={selectedDate}
     />
   )
+}
+
+CalendarSection.propTypes = {
+  filters: PropTypes.any,
+  handleDayPressed: PropTypes.any,
+  reportData: PropTypes.any,
+  selectedDate: PropTypes.any,
 }
 
 const SalesTableSection = ({ selectedDate, subtitle, reportData, table }) => {
@@ -160,6 +183,13 @@ const SalesTableSection = ({ selectedDate, subtitle, reportData, table }) => {
       />
     </div>
   )
+}
+
+SalesTableSection.propTypes = {
+  reportData: PropTypes.any,
+  selectedDate: PropTypes.any,
+  subtitle: PropTypes.any,
+  table: PropTypes.any,
 }
 
 export default ReportesReporteVentasPorAgente
