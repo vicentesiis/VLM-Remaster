@@ -1,19 +1,21 @@
 import {
   Briefcase,
-  ClipboardList,
   ShieldCheck,
-  CheckCircle,
   Globe,
-  Users,
-  FileBarChart,
-  TrendingUp,
   UserCheck,
-  BarChart2,
-  LineChart,
-  UserSearch,
   Handshake,
-  User,
-  Receipt,
+  CheckSquare,
+  FileText,
+  Users2,
+  Contact,
+  Target,
+  DollarSign,
+  UserCog,
+  NotebookText,
+  CalendarRange,
+  CheckCircle2,
+  Network,
+  ReceiptText,
 } from "lucide-react"
 import { Roles } from "@/constants"
 
@@ -21,25 +23,25 @@ export const menuItems = [
   {
     title: "Mis Tareas",
     to: "/tareas",
-    icon: ClipboardList,
+    icon: CheckSquare,
     allowedRoutes: [Roles.ADMIN, Roles.AGENT],
   },
   {
     title: "Registros",
     to: "/registros/registros",
-    icon: ClipboardList,
+    icon: FileText,
     allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
   },
   {
     title: "Clientes",
     to: "/registros/clientes",
-    icon: UserCheck,
+    icon: Users2,
     allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
   },
   {
     title: "Mis Leads",
     to: "/registros/mis-leads",
-    icon: User,
+    icon: Contact,
     allowedRoutes: [Roles.AGENT],
   },
   {
@@ -51,7 +53,7 @@ export const menuItems = [
   {
     title: "Mis Prospectos",
     to: "/registros/mis-prospectos",
-    icon: UserSearch,
+    icon: Target,
     allowedRoutes: [Roles.AGENT],
   },
   {
@@ -63,13 +65,13 @@ export const menuItems = [
   {
     title: "Ventas",
     to: "/reportes/ventas-por-agente",
-    icon: TrendingUp,
+    icon: DollarSign,
     allowedRoutes: [Roles.AGENT],
   },
   {
     title: "Usuarios",
     to: "/usuarios",
-    icon: Users,
+    icon: UserCog,
     allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
   },
 ]
@@ -82,19 +84,19 @@ export const dropdownMenus = [
       {
         title: "Ventas por agente",
         to: "/reportes/ventas-por-agente",
-        icon: BarChart2,
+        icon: UserCheck,
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         title: "Registros por agente",
         to: "/reportes/registros",
-        icon: ClipboardList,
+        icon: NotebookText,
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         title: "Ventas mensuales",
         to: "/reportes/ventas-mensuales",
-        icon: LineChart,
+        icon: CalendarRange,
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
@@ -106,7 +108,7 @@ export const dropdownMenus = [
       {
         title: "Control de finalizados",
         to: "/reportes/control-finalizados",
-        icon: CheckCircle,
+        icon: CheckCircle2,
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
@@ -118,16 +120,15 @@ export const dropdownMenus = [
       {
         title: "Ventas por Canal",
         to: "/reportes/ventas-canal",
-        icon: BarChart2,
+        icon: Network,
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         title: "Cortes por Agente",
         to: "/reportes/cortes-agente",
-        icon: Receipt,
+        icon: ReceiptText,
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
-      
     ],
   },
 ]

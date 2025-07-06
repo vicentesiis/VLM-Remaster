@@ -38,8 +38,8 @@ export const HeaderSection = ({
           filterConfig={[
             ...(listOfGroups.length ? [groupConfig] : []),
             !isAgent && userConfig,
-            monthConfig,
             yearConfig,
+            monthConfig,
           ]}
           values={filters}
           onChange={onChange}
