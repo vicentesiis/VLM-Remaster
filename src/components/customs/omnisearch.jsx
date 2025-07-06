@@ -1,5 +1,5 @@
 import { SearchIcon } from "lucide-react"
-import { UserIcon, BriefcaseIcon, FileTextIcon } from "lucide-react"
+import { Briefcase, ClipboardList, CreditCard } from "lucide-react"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { OrderDescriptionDialog } from "./dialogs/order-description-dialog"
@@ -18,17 +18,17 @@ const options = [
   {
     label: "Registros",
     value: "Registros",
-    icon: <UserIcon className="mr-1 h-4 w-4" />,
+    icon: <ClipboardList className="mr-1 h-4 w-4" />,
   },
   {
     label: "Vacantes",
     value: "Vacantes",
-    icon: <BriefcaseIcon className="mr-1 h-4 w-4" />,
+    icon: <Briefcase className="mr-1 h-4 w-4" />,
   },
   {
     label: "Pagos",
     value: "Ordenes",
-    icon: <FileTextIcon className="mr-1 h-4 w-4" />,
+    icon: <CreditCard className="mr-1 h-4 w-4" />,
   },
 ]
 
