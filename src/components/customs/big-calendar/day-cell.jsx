@@ -26,13 +26,13 @@ export const DayCell = ({
         "w-full rounded-none transition-colors",
         isOutsideMonth && "cursor-not-allowed bg-black/10",
         !isOutsideMonth && "cursor-pointer hover:bg-muted/50",
-        isSelected && !isOutsideMonth && "border-primary bg-primary/10"
+        isSelected && !isOutsideMonth && "border-primary bg-secondary/50"
       )}
     >
       <CardContent className="relative flex h-20 items-center justify-center !p-0">
         <span
           className={cn(
-            "absolute right-2 top-2 w-5 rounded-full py-0.5 text-center text-xs font-semibold",
+            "absolute right-2 top-2 w-6 rounded-full py-1 text-center text-xs",
             hasOrders ? "bg-primary text-white" : "text-muted-foreground"
           )}
         >
@@ -46,7 +46,7 @@ export const DayCell = ({
         )}
 
         {sales > 0 && (
-          <div className="text-md mt-1 text-center font-semibold text-green-600">
+          <div className="text-md mt-1 text-center font-semibold text-emerald-500">
             {formatCurrency(sales)}
           </div>
         )}

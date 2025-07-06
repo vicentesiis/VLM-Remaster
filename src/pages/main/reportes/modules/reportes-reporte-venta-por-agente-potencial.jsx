@@ -57,7 +57,6 @@ const ReportesReporteVentaPorAgentePotencial = () => {
         <CardContent>
           <SectionHeader
             title="Ventas Potenciales por Agente"
-            className="pb-6"
             actions={
               <FilterToolbar
                 filterConfig={[

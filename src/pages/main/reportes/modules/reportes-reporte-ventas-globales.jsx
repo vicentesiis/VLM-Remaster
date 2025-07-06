@@ -61,7 +61,6 @@ export const ReportesReporteVentasGlobales = () => {
         <CardContent>
           <SectionHeader
             title="Ventas Globales:"
-            className="pb-6"
             actions={
               <FilterToolbar
                 filterConfig={[

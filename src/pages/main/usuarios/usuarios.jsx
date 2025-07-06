@@ -58,10 +58,7 @@ const Usuarios = () => {
       <Card className="pt-4 sm:pt-0">
         <CardContent>
           <SectionHeader
-            title="Informacion del Grupo"
-            extra={groupName}
-            extraColor="text-primary"
-            className="pb-4"
+            title={groupName}
             actions={
               <div className="flex flex-wrap gap-2 sm:gap-4">
                 {isSuperAdmin && (

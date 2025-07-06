@@ -6,7 +6,10 @@ import { cn } from "@/lib/utils"
 const IconBadge = ({ title, icon: Icon, variant = "outline", className }) => {
   return (
     <div className={cn("flex flex-wrap items-center gap-3", className)}>
-      <Badge variant={variant} className="rounded-full pl-[3px] text-[13px]">
+      <Badge
+        variant={variant}
+        className="rounded-full pl-[3px] text-sm text-secondary-foreground"
+      >
         <Icon className="mx-1 size-4" />
         {title}
       </Badge>

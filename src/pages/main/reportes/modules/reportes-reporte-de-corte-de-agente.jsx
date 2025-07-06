@@ -31,7 +31,6 @@ export const ReporteReporteCorteAgente = () => {
         <CardContent>
           <SectionHeader
             title="Información del Agente"
-            className="pb-6"
             actions={
               showFilters && (
                 <div className="flex items-center gap-2">
@@ -51,7 +50,7 @@ export const ReporteReporteCorteAgente = () => {
                     disabled={!values.user_id || isDownloading}
                     variant="outline"
                   >
-                    <Download className="w-4 h-4 mr-2" />
+                    <Download className="mr-2 h-4 w-4" />
                     {isDownloading ? "Descargando..." : "Descargar Corte"}
                   </Button>
                 </div>

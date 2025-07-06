@@ -5,16 +5,9 @@ import { useGetReportsSalesAgent } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatCurrency } from "@/utils"
 import { getDateKey } from "@/utils/calendarUtils"
-import { toast } from "sonner"
 
 export const useSalesAgentReport = ({ filters }) => {
-  const {
-    isAgent,
-    isAdmin,
-    isLeader,
-    isSuperAdmin,
-    id: userId,
-  } = useCurrentUser()
+  const { id: userId } = useCurrentUser()
   const [appliedFilters, setAppliedFilters] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
 
@@ -72,31 +65,6 @@ export const useSalesAgentReport = ({ filters }) => {
     )
   }, [reportData, selectedDate])
 
-  const subtitle = useMemo(() => {
-    if (!selectedDayData?.total_day_sales && !selectedDayData?.total_day_orders)
-      return null
-
-    return `Total del día: ${formatCurrency(
-      selectedDayData.total_day_sales || 0
-    )}\nÓrdenes: ${selectedDayData.total_day_orders || 0}`
-  }, [selectedDayData])
-
-  const totalSalesString = useMemo(() => {
-    if (!reportData) return null
-    return `Total mes: ${formatCurrency(reportData.total_sales || 0)}`
-  }, [reportData])
-
-  const monthSelected = useMemo(() => {
-    const { month, year } = appliedFilters || {}
-    if (!month || !year) return null
-
-    const date = new Date(Number(year), Number(month) - 1)
-    return new Intl.DateTimeFormat("es-MX", {
-      month: "long",
-      year: "numeric",
-    }).format(date)
-  }, [appliedFilters])
-
   const columns = useMemo(() => getReportOrdersColumns(), [])
 
   const table = useReactTable({
@@ -116,8 +84,5 @@ export const useSalesAgentReport = ({ filters }) => {
     isError,
     isIdle: !isFetched,
     table,
-    subtitle,
-    totalSalesString,
-    monthSelected,
   }
 }

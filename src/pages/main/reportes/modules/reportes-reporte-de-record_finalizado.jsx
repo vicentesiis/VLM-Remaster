@@ -28,7 +28,6 @@ const ReporteReporteRecordFinalizado = () => {
         <CardContent>
           <SectionHeader
             title="Registros Finalizados"
-            className="pb-6"
             actions={
               showFilters && (
                 <FilterToolbar
