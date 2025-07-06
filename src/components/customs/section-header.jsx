@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils"
 
 const SectionHeader = ({ title, extra, subtitle, actions, className }) => {
   return (
-    <div className={cn("pb-6", className)}>
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+    <div className={cn("py-4 md:py-0 md:pb-6", className)}>
+      <div className="flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
           {title && (
             <h1 className="text-xl font-semibold text-foreground">{title}</h1>
@@ -18,12 +18,12 @@ const SectionHeader = ({ title, extra, subtitle, actions, className }) => {
         </div>
 
         {actions && (
-          <div className="flex flex-wrap gap-2 sm:gap-4">{actions}</div>
+          <div className="flex flex-col gap-2 lg:gap-4">{actions}</div>
         )}
       </div>
 
       {subtitle && (
-        <p className="text-sm text-muted-foreground sm:text-base">{subtitle}</p>
+        <p className="text-sm text-muted-foreground md:text-base">{subtitle}</p>
       )}
     </div>
   )

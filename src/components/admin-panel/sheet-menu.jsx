@@ -1,4 +1,4 @@
-import { MenuIcon, PanelsTopLeft } from "lucide-react"
+import { MenuIcon } from "lucide-react"
 import React from "react"
 import { Link } from "react-router-dom"
 import logo from "@/assets/logo.png"
@@ -21,14 +21,14 @@ export function SheetMenu() {
           <MenuIcon size={20} />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex h-full flex-col px-3 sm:w-72" side="left">
+      <SheetContent className="flex h-full w-72 flex-col px-3" side="left">
         <SheetHeader>
           <Button
             className="flex items-center justify-center pb-2 pt-1"
             variant="link"
             asChild
           >
-            <Link to="/registros" className="flex items-center">
+            <Link to="/registros" className="mr-auto flex">
               <img src={logo} width={40} alt="Logo" />
               <SheetTitle className="text-lg font-bold">NorthEntry</SheetTitle>
             </Link>

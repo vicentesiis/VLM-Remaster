@@ -6,13 +6,13 @@ import { UserNav } from "@/components/admin-panel/user-nav"
 export function NewNavbar({ title, subtitle }) {
   return (
     <header className="sticky top-0 z-30 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:shadow-secondary">
-      <div className="mx-4 flex h-14 items-center sm:mx-8">
-        <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-0">
+      <div className="mx-4 flex h-14 items-center md:mx-8">
+        <div className="flex items-center space-x-2 md:space-x-4 lg:space-x-0">
           <SheetMenu />
-          <div className="flex gap-1 sm:gap-2">
-            <h1 className="font-bold dark:text-white sm:text-xl">{title}</h1>
+          <div className="flex items-center gap-1 md:gap-2">
+            <h1 className="font-bold dark:text-white md:text-xl">{title}</h1>
             {subtitle && (
-              <p className="font-bold text-primary sm:text-xl">{subtitle}</p>
+              <p className="font-bold text-primary md:text-xl">{subtitle}</p>
             )}
           </div>
         </div>

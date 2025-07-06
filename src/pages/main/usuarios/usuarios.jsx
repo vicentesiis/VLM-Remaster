@@ -55,17 +55,17 @@ const Usuarios = () => {
 
   return (
     <PageLayout title={title}>
-      <Card className="pt-4 sm:pt-0">
+      <Card>
         <CardContent>
           <SectionHeader
             title={groupName}
             actions={
-              <div className="flex flex-wrap gap-2 sm:gap-4">
+              <div className="flex flex-col gap-2 sm:flex-row">
                 {isSuperAdmin && (
-                  <>
+                  <div className="flex justify-center gap-2">
                     <GroupDialog />
                     <UsuarioDialog />
-                  </>
+                  </div>
                 )}
                 {isAdmin && !isSuperAdmin && <UsuarioDialog />}
                 {isSuperAdmin && (

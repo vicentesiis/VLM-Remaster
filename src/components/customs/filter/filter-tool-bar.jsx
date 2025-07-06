@@ -28,11 +28,25 @@ const FilterToolbar = ({
       return
     }
 
+    const selectedMonth = Number(values.month)
+    const selectedYear = Number(values.year)
+    const now = new Date()
+    const currentMonth = now.getMonth() + 1
+    const currentYear = now.getFullYear()
+
+    const selectedDate = new Date(selectedYear, selectedMonth - 1)
+    const currentDate = new Date(currentYear, currentMonth - 1)
+
+    if (selectedDate > currentDate) {
+      toast.error("No puedes buscar una fecha futura.")
+      return
+    }
+
     onSearch()
   }
 
   return (
-    <div className="flex items-end gap-2 sm:flex-col lg:flex-row">
+    <div className="flex flex-col items-end gap-2 lg:flex-row">
       {filterConfig.map((config) => {
         if (!config) return null
         const options = config.getOptions

@@ -11,13 +11,17 @@ export const CalendarSection = ({
   if (!reportData?.agent_daily_sales) return null
 
   return (
-    <BigCalendar
-      month={filters.month}
-      year={filters.year}
-      data={reportData.agent_daily_sales}
-      onClick={handleDayPressed}
-      selectedDate={selectedDate}
-    />
+    <div className="overflow-x-auto lg:overflow-visible">
+      <div className="min-w-[700px]">
+        <BigCalendar
+          month={filters.month}
+          year={filters.year}
+          data={reportData.agent_daily_sales}
+          onClick={handleDayPressed}
+          selectedDate={selectedDate}
+        />
+      </div>
+    </div>
   )
 }
 

@@ -5,17 +5,15 @@ import { Badge } from "@/components/ui/badge"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 const UserRoleCard = ({ name, username, phone, role }) => {
-  const { isAdmin, isSuperAdmin } = useCurrentUser()
+  const { isAdmin } = useCurrentUser()
   const isLeader = role?.toLowerCase() === "lider"
-  const canReasingLeader = isLeader && (isAdmin || isSuperAdmin)
+  const canReasingLeader = isLeader && isAdmin
 
   return (
     <div className="rounded-xl border bg-card p-3 shadow-sm transition hover:shadow-md">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between gap-2">
-          <h2 className="break-words text-base font-semibold">
-            {name}
-          </h2>
+          <h2 className="break-words text-base font-semibold">{name}</h2>
           <Badge className="capitalize">{role}</Badge>
         </div>
 

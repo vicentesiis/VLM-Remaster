@@ -22,5 +22,5 @@ WithStatusState.propTypes = {
   isLoading: PropTypes.bool,
   isError: PropTypes.bool,
   isIdle: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any,
 }
