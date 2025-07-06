@@ -1,4 +1,5 @@
 import { Banknote, CreditCard } from "lucide-react"
+import { toTitleCase } from "@/utils"
 
 export const nameField = (config = {}) => ({
   name: "name",
@@ -6,6 +7,7 @@ export const nameField = (config = {}) => ({
   type: "input",
   autoComplete: "off",
   placeholder: "Nombre completo",
+  transform: (val) => toTitleCase(val),
   ...config,
 })
 
