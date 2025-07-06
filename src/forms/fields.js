@@ -60,6 +60,8 @@ export const documentField = (config = {}) => ({
   type: "input",
   autoComplete: "off",
   placeholder: "Pasaporte / CURP",
+  transform: (val) => val.toUpperCase(),
+  className: "uppercase",
   ...config,
 })
 

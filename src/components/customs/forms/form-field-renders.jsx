@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { cn } from "@/lib"
 
 export const renderFormField = (type, name, label, options, rest, form) => {
   switch (type) {
@@ -28,7 +29,20 @@ export const renderFormField = (type, name, label, options, rest, form) => {
             <FormItem>
               <FormLabel>{label}</FormLabel>
               <FormControl>
-                <Input {...field} {...rest} />
+                <Input
+                  {...field}
+                  {...rest}
+                  className={cn(rest.className)}
+                  onChange={(e) => {
+                    const rawValue = e.target.value
+                    const transformedValue =
+                      typeof rest.transform === "function"
+                        ? rest.transform(rawValue)
+                        : rawValue
+                    field.onChange(transformedValue)
+                  }}
+                  value={field.value ?? ""}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

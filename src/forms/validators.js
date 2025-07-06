@@ -18,6 +18,7 @@ export const nameSchema = z.preprocess(
   z
     .string()
     .min(1, { message: "El nombre es obligatorio" })
+    .max(50, { message: "El nombre debe tener menos de 50 caracteres" })
     .regex(
       /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?: [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+)*$/,
       "El nombre no permite caracteres especiales, números o espacios en blanco al inicio o final"
@@ -55,7 +56,9 @@ export const stateSchema = normalizeToEmptyString(
 )
 
 export const documentSchema = normalizeToEmptyString(
-  z.string(),
+  z
+    .string()
+    .max(15, { message: "El documento debe de tener menos de 15 caracteres" }),
   "El Documento es obligatorio"
 )
 
@@ -76,7 +79,14 @@ export const channelSchema = normalizeToEmptyString(
   "El canal es obligatorio"
 )
 
-export const commentsSchema = skipIfEmpty(z.string().optional())
+export const commentsSchema = skipIfEmpty(
+  z
+    .string()
+    .max(150, {
+      message: "El comentario debe de tener menos de 150 caracteres",
+    })
+    .optional()
+)
 
 export const amountSchema = z.preprocess(
   (val) => {
