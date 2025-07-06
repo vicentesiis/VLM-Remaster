@@ -1,18 +1,7 @@
-:root {
-  --primary-hue: 220;
-}
-
 .login-background {
-  background: linear-gradient(
-    315deg,
-    hsl(var(--primary-hue), 50%, 25%) 30%,
-    #4b5563 40%,
-     #374151 50%,
-     hsl(var(--primary-hue), 50%, 25%) 80%
-  );
-  animation: gradientShift 15s ease infinite;
-  background-size: 300% 300%;
-  background-attachment: fixed;
+  background: linear-gradient(300deg, #7e0000, #003060, #001932);
+  background-size: 200% 200%;
+  animation: gradientShift 12s ease-in-out infinite;
 }
 
 @keyframes gradientShift {
@@ -24,44 +13,5 @@
   }
   100% {
     background-position: 0% 50%;
-  }
-}
-
-.wave {
-  background: hsla(var(--primary), 0.08);
-  border-radius: 1000% 1000% 0 0;
-  position: fixed;
-  width: 200%;
-  height: 8em;
-  animation: waveMotion 10s ease-in-out infinite;
-  transform: translate3d(0, 0, 0);
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-}
-
-.wave:nth-of-type(2) {
-  bottom: -1.5em;
-  background: #4b5563;
-  opacity: 0.05;
-  animation: waveMotion 14s ease-in-out reverse infinite;
-}
-
-.wave:nth-of-type(3) {
-  bottom: -3em;
-  background: #374151;
-  opacity: 0.04;
-  animation: waveMotion 16s ease-in-out alternate infinite;
-}
-
-@keyframes waveMotion {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-20%);
-  }
-  100% {
-    transform: translateX(0);
   }
 }

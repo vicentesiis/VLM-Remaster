@@ -3,9 +3,9 @@ import React from "react"
 import StatusBadge from "../../badge/status-badge"
 import NullableCell from "../cells/nullable-cell"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
+import { Badge } from "@/components/ui"
 import { Roles } from "@/constants"
 import { formatDate } from "@/utils"
-import { Badge } from "@/components/ui"
 
 const columnHelper = createColumnHelper()
 
@@ -129,14 +129,6 @@ const phoneColumn = columnHelper.accessor("phone", {
   },
 })
 
-const vacantColumn = columnHelper.accessor("job", {
-  header: "ID de la Vacante",
-  cell: (info) => <NullableCell value={info.getValue()} />,
-  meta: {
-    align: "center",
-  },
-})
-
 // Shared Columns
 const commentsColumn = columnHelper.accessor("comments", {
   header: "Comentarios",
@@ -214,13 +206,7 @@ export const getRegistrosColumns = ({
   }
 
   if (isAgent) {
-    return [
-      ...baseColumns,
-      vacantColumn,
-      // emailColumn,
-      phoneColumn,
-      commentsColumn,
-    ]
+    return [...baseColumns, programColumn, phoneColumn, commentsColumn]
   }
 
   return [...baseColumns, commentsColumn]

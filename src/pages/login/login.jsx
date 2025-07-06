@@ -153,12 +153,9 @@ export const Login = () => {
 
   return (
     <section className="login-background relative h-screen overflow-hidden text-white">
-      <div className="wave" />
-      <div className="wave" />
-      <div className="wave" />
 
       {/* Logo */}
-      <div className="absolute z-10 mt-8 flex items-center sm:ml-16 sm:mt-16">
+      <div className="absolute z-10 mt-8 flex items-center gap-3 sm:ml-16 sm:mt-16">
         <img src={logo} alt="NorthEntry" width={60} />
         <H3 className="3xl:text-4xl text-xl font-normal md:text-3xl">
           NorthEntry

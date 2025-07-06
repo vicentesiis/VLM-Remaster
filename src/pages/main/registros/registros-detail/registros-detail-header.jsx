@@ -15,7 +15,7 @@ import { SelectUpdateRegistroStatus } from "@/components/customs/select-update-r
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { useUpdateRecordStatus } from "@/hooks/queries"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { formatCurrency, formatDate } from "@/utils"
+import { formatCurrency, formatDate, toTitleCase } from "@/utils"
 
 export const RegistrosDetailHeader = ({ registro }) => {
   const {
@@ -79,7 +79,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
         <div className="flex flex-col lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <CardTitle className="text-2xl">{name ?? "Sin nombre"}</CardTitle>
+              <CardTitle className="text-2xl">{toTitleCase(name ?? "Sin nombre")}</CardTitle>
               <StatusBadge status={status ?? "N/A"} />
             </div>
 

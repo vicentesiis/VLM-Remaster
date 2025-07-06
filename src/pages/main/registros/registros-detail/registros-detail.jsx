@@ -6,6 +6,7 @@ import RegistrosOrders from "./registros-orders"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { useGetRecordById } from "@/hooks/queries/useRecord"
+import { toTitleCase } from "@/utils"
 
 export const RegistrosDetail = () => {
   const { public_id } = useParams()
@@ -14,7 +15,9 @@ export const RegistrosDetail = () => {
   return (
     <PageLayout
       title="Registro"
-      subtitle={registro ? registro.name : isLoading ? "Cargando..." : ""}
+      subtitle={
+        registro ? toTitleCase(registro.name) : isLoading ? "Cargando..." : ""
+      }
     >
       <WithStatusState isLoading={isLoading} isError={isError}>
         <div className="mb-4 flex flex-col gap-4">
