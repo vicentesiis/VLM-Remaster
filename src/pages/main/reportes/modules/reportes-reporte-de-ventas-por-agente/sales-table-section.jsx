@@ -26,7 +26,7 @@ export const SalesTableSection = ({ selectedDate, selectedDayData, table }) => {
         title={formattedDate}
         extra={totalSales}
         subtitle={totalOrders}
-        className="whitespace-pre-line py-6"
+        className="mt-4"
       />
 
       <DataTable table={table} showPagination={false} hasFetched />
