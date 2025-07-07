@@ -34,6 +34,7 @@ export function formatDate(date, opts = {}) {
       month: opts.month ?? "short",
       day: opts.day ?? "numeric",
       year: opts.year ?? "numeric",
+      timeZone: "UTC",
       ...opts,
     }).format(new Date(date))
 

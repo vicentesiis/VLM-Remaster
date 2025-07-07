@@ -5,6 +5,7 @@ import { useGetReportsSalesAgent } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatCurrency } from "@/utils"
 import { getDateKey } from "@/utils/calendarUtils"
+import { parseISO } from "date-fns"
 
 export const useSalesAgentReport = ({ filters }) => {
   const { id: userId } = useCurrentUser()
@@ -59,9 +60,10 @@ export const useSalesAgentReport = ({ filters }) => {
 
   const selectedDayData = useMemo(() => {
     return (
-      reportData?.agent_daily_sales?.find(
-        (entry) => getDateKey(new Date(entry.date)) === selectedDate
-      ) ?? {}
+      reportData?.agent_daily_sales?.find((entry) => {
+        const entryDate = parseISO(entry.date) // keeps UTC
+        return getDateKey(entryDate) === selectedDate
+      }) ?? {}
     )
   }, [reportData, selectedDate])
 
