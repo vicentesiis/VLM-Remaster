@@ -19,12 +19,18 @@ export function formatMonthNYear(month, year) {
 export function formatLongMonthAndDay(dateStr) {
   if (!dateStr) return ""
 
-  const date = new Date(dateStr)
+  const [year, month, day] = dateStr.split("-").map(Number)
+  const date = new Date(year, month - 1, day)
 
-  const day = new Intl.DateTimeFormat("es-MX", { day: "numeric" }).format(date)
-  const month = new Intl.DateTimeFormat("es-MX", { month: "long" }).format(date)
+  const dayFormated = new Intl.DateTimeFormat("es-MX", {
+    day: "numeric",
+  }).format(date)
+  const monthFormated = new Intl.DateTimeFormat("es-MX", {
+    month: "long",
+  }).format(date)
 
-  const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1)
+  const capitalizedMonth =
+    monthFormated.charAt(0).toUpperCase() + monthFormated.slice(1)
 
-  return `${day} de ${capitalizedMonth}`
+  return `${dayFormated} de ${capitalizedMonth}`
 }
