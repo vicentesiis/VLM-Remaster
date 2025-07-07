@@ -98,7 +98,7 @@ export const routes = [
       {
         path: "ventas-globales",
         routeKey: "reportesReporteVentasGlobales",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
+        allowedRoles: [Roles.SUPER_ADMIN],
       },
       {
         path: "ventas-canal",

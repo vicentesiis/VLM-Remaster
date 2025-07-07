@@ -18,15 +18,20 @@ import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import { es } from "date-fns/locale"
 import { toast } from "sonner"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
+import { getCurrentMonthYear } from "@/utils"
+import { formatIfExists } from "@/utils/reportFormatters"
 export const ReportesReporteDeRegistros = () => {
   const [searchParams, setSearchParams] = useState(null)
   const { isAdmin, group } = useCurrentUser()
+
+  const { month, year } = getCurrentMonthYear()
+
   const { values, onChange, listOfGroups, listOfUsers } =
     useGroupAndMembersFilter({
       group_id: isAdmin ? group?.id || "" : "",
       user_id: "",
-      month: "",
-      year: "",
+      month: month,
+      year: year,
       record_type: "",
     })
 
@@ -55,48 +60,64 @@ export const ReportesReporteDeRegistros = () => {
     setSearchParams({ user_id, start_date, end_date, record_type })
   }
 
-  const { data, isLoading, isError } = useGetAgentRegistrations(
+  const { data, isFetching, isFetched, isError } = useGetAgentRegistrations(
     searchParams ?? {},
     {
       enabled: !!searchParams,
     }
   )
 
-  const chartData = Array.isArray(data?.daily_registrations)
-  ? data.daily_registrations.map((registro) => ({
-      title: format(new Date(registro.date), "MMM d", { locale: es }),
-      description: registro.amount_of_registrations ?? 0, 
-      formatted: String(registro.amount_of_registrations ?? 0),
-    }))
-  : []
+  const dailyRegistrations = data?.daily_registrations
+
+  const chartData = Array.isArray(dailyRegistrations)
+    ? dailyRegistrations.map((registro) => ({
+        title: format(new Date(registro.date), "MMM d", { locale: es }),
+        description: registro.amount_of_registrations ?? 0,
+        formatted: String(registro.amount_of_registrations ?? 0),
+      }))
+    : []
+
+  const totalRegistration = Array.isArray(dailyRegistrations)
+    ? dailyRegistrations.reduce((sum, item) => {
+        const value = Number(item?.amount_of_registrations) || 0
+        return sum + value
+      }, 0)
+    : null
+
+  const totalRegistrationInfo = formatIfExists(
+    totalRegistration,
+    (n) => `${n} Registros`
+  )
 
   return (
-    <PageLayout title="Reporte de Registros por Agente">
+    <PageLayout title="Registros por Agente">
       <Card>
         <CardContent>
           <SectionHeader
-            title="Información del Grupo:"
+            title={data?.username ?? ""}
+            subtitle={totalRegistrationInfo ?? ""}
             actions={
               <FilterToolbar
                 filterConfig={[
                   ...(listOfGroups.length ? [groupConfig] : []),
                   userConfig,
-                  monthConfig,
-                  yearConfig,
                   record_type,
+                  yearConfig,
+                  monthConfig,
                 ]}
                 values={values}
                 onChange={onChange}
                 context={{ groups: listOfGroups, users: listOfUsers }}
+                isLoading={isFetching}
                 onSearch={handleSearch}
               />
             }
           />
         </CardContent>
         <WithStatusState
-          isLoading={isLoading}
+          isLoading={isFetching}
           isError={isError}
-          hasFetched={!!searchParams}
+          isIdle={!isFetched}
         >
           {data && <ChartRegistros data={chartData} />}
         </WithStatusState>

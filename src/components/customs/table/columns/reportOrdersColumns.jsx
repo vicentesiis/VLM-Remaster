@@ -26,7 +26,7 @@ export const getReportOrdersColumns = () => {
           <MainCell
             public_id={record.public_id}
             title={record.name}
-            path="/ventas-por-agente"
+            path="/detalle"
           />
         )
       },

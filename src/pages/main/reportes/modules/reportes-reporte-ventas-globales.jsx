@@ -11,7 +11,12 @@ import { Card, CardContent } from "@/components/ui"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { useCodexData } from "@/hooks/queries"
-import { mapVentasGlobalesToChartData, mapToOptions } from "@/utils"
+import {
+  mapVentasGlobalesToChartData,
+  mapToOptions,
+  getCurrentMonthYear,
+  formatCurrency,
+} from "@/utils"
 import { useGetVentasGlobales } from "@/hooks/queries/UseReports"
 import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import { toast } from "sonner"
@@ -24,9 +29,12 @@ export const ReportesReporteVentasGlobales = () => {
   const { channels } = useCodexData()
   const channelOptions = mapToOptions(channels.data)
   const { isAdmin, group } = useCurrentUser()
+
+  const { year } = getCurrentMonthYear()
+
   const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
     group_id: isAdmin ? group?.id || "" : "",
-    year: "",
+    year: year,
     channel: "",
   })
   const [searchParams, setSearchParams] = useState(null)
@@ -48,7 +56,7 @@ export const ReportesReporteVentasGlobales = () => {
     setSearchParams({ year, channel, group: group_id })
   }
 
-  const { data, isLoading, isError } = useGetVentasGlobales(
+  const { data, isFetched, isFetching, isError } = useGetVentasGlobales(
     searchParams ?? {},
     {
       enabled: !!searchParams,
@@ -56,11 +64,11 @@ export const ReportesReporteVentasGlobales = () => {
   )
   const chartData = data ? mapVentasGlobalesToChartData(data) : []
   return (
-    <PageLayout title="ReportesReporteVentasGlobales">
+    <PageLayout title="Ventas Globales">
       <Card>
         <CardContent>
           <SectionHeader
-            title="Ventas Globales:"
+            title={data ? formatCurrency(data?.total_sales) : ""}
             actions={
               <FilterToolbar
                 filterConfig={[
@@ -74,14 +82,15 @@ export const ReportesReporteVentasGlobales = () => {
                   groups: listOfGroups,
                   channels: channelOptions,
                 }}
+                isLoading={isFetching}
                 onSearch={handleSearch}
               />
             }
           />
           <WithStatusState
-            isLoading={isLoading}
+            isLoading={isFetching}
             isError={isError}
-            hasFetched={!!searchParams}
+            isIdle={!isFetched}
           >
             {data && (
               <ChartRegistros

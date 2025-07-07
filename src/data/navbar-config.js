@@ -115,7 +115,7 @@ export const dropdownMenus = [
         title: "Ventas globales",
         to: "/reportes/ventas-globales",
         icon: Globe,
-        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
+        allowedRoutes: [Roles.SUPER_ADMIN],
       },
       {
         title: "Ventas por Canal",

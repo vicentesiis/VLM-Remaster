@@ -8,7 +8,7 @@ export const ChartRegistros = ({ data = [], onValueChange, formatAsCurrency = fa
 
   const chartData = data.map((item) => ({
     date: item.title,
-    Ventas: item.description ?? 0,
+    Registros: item.description ?? 0,
   }))
 
   return (
@@ -17,7 +17,7 @@ export const ChartRegistros = ({ data = [], onValueChange, formatAsCurrency = fa
         className="h-[900px] cursor-pointer sm:h-[350px]"
         data={chartData}
         index="date"
-        categories={["Ventas"]}
+        categories={["Registros"]}
         yAxisWidth={70}
         layout={isSmallScreen ? "vertical" : "horizontal"}
         onValueChange={onValueChange}

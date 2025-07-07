@@ -15,7 +15,7 @@ import { Card, CardContent } from "@/components/ui"
 import { DataTable } from "@/components/data-table"
 import BigCalendar from "@/components/customs/big-calendar/big-calendar"
 import { months } from "@/constants"
-import { mapToOptions } from "@/utils"
+import { getCurrentMonthYear, mapToOptions } from "@/utils"
 import { useCodexData } from "@/hooks/queries"
 import { useSalesMonthlyReport } from "./reportes-reporte-de-ventas-por-agente/hooks/useVentasMensualReport"
 import { useLocation } from "react-router-dom"
@@ -42,9 +42,9 @@ const HeaderSection = ({
       <FilterToolbar
         filterConfig={[
           ...(listOfGroups.length ? [groupConfig] : []),
+          channelConfig,
           yearConfig,
           monthConfig,
-          channelConfig,
         ]}
         values={{
           ...filters,
@@ -147,6 +147,7 @@ export const ReportesReporteVentalMensual = () => {
   const channelOptions = mapToOptions(channels.data)
   const { state } = useLocation()
   const stateRef = useRef(state || {})
+  const { month, year } = getCurrentMonthYear()
 
   const {
     values: filters,
@@ -154,8 +155,8 @@ export const ReportesReporteVentalMensual = () => {
     listOfGroups,
   } = useGroupAndMembersFilter({
     group_id: isAdmin ? "" : stateRef.current.group_id || group?.id || "",
-    year: stateRef.current.year?.toString() || "",
-    month: stateRef.current.month?.toString() || "",
+    year: stateRef.current.year?.toString() || year,
+    month: stateRef.current.month?.toString() || month,
     channel: stateRef.current.channel || "",
   })
 
@@ -212,7 +213,7 @@ export const ReportesReporteVentalMensual = () => {
 
             <SalesTableSection
               selectedDate={selectedDate}
-              selectedDayData={selectedDayData} 
+              selectedDayData={selectedDayData}
               table={table}
             />
           </WithStatusState>

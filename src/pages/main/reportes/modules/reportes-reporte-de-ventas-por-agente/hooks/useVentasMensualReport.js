@@ -5,6 +5,7 @@ import { getDateKey } from "@/utils/calendarUtils"
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import { getReportOrdersColumns } from "@/components/customs/table/columns/reportOrdersColumns"
 import { formatCurrency } from "@/utils"
+import { formatMonthNYear } from "@/utils/reportFormatters"
 
 export const useSalesMonthlyReport = ({ filters }) => {
   const { isAdmin, group, id: userId } = useCurrentUser()
@@ -12,7 +13,12 @@ export const useSalesMonthlyReport = ({ filters }) => {
   const [selectedDate, setSelectedDate] = useState(null)
 
   const queryParams = useMemo(() => {
-    if (!appliedFilters?.year || !appliedFilters?.month || !appliedFilters?.channel) return null
+    if (
+      !appliedFilters?.year ||
+      !appliedFilters?.month ||
+      !appliedFilters?.channel
+    )
+      return null
 
     const { year, month, channel, group_id } = appliedFilters
     const startDate = new Date(+year, +month - 1, 1)
@@ -28,15 +34,10 @@ export const useSalesMonthlyReport = ({ filters }) => {
     }
   }, [appliedFilters])
 
-  const {
-    data,
-    refetch,
-    isFetching,
-    isError,
-    isFetched,
-  } = useGetGroupSalesReport(queryParams ?? {}, {
-    enabled: false,
-  })
+  const { data, refetch, isFetching, isError, isFetched } =
+    useGetGroupSalesReport(queryParams ?? {}, {
+      enabled: false,
+    })
 
   const handleSearch = () => {
     const { year, month, channel, group_id } = filters
@@ -73,25 +74,22 @@ export const useSalesMonthlyReport = ({ filters }) => {
   }, [ventas, selectedDate])
 
   const subtitle = useMemo(() => {
-    if (!selectedDayData?.total_day_sales && !selectedDayData?.total_day_orders) return null
+    if (!selectedDayData?.total_day_sales && !selectedDayData?.total_day_orders)
+      return null
 
     return `Total del día: ${formatCurrency(selectedDayData.total_day_sales || 0)}\nÓrdenes: ${selectedDayData.total_day_orders || 0}`
   }, [selectedDayData])
 
   const totalSalesString = useMemo(() => {
     if (!data) return null
-    return `Total mes: ${formatCurrency(data.total_sales || 0)}`
+    return formatCurrency(data.total_sales || 0)
   }, [data])
 
   const monthSelected = useMemo(() => {
     const { month, year } = appliedFilters || {}
     if (!month || !year) return null
 
-    const date = new Date(Number(year), Number(month) - 1)
-    return new Intl.DateTimeFormat("es-MX", {
-      month: "long",
-      year: "numeric",
-    }).format(date)
+    return formatMonthNYear(month, year)
   }, [appliedFilters])
 
   const columns = useMemo(() => getReportOrdersColumns(), [])
