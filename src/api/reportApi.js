@@ -22,4 +22,8 @@ export const getReportesGlobales = (params) =>
 export const getReportsSalesAgent = (params) =>
   apiClient.get("/reports/sales/agent", { params })
 
-export const postAgentCutOff = (params) => apiClient.getBlob("/reports/cut-off",{params})
+export const postAgentCutOff = (params) =>
+  apiClient.post("/reports/cut-off", null, {
+    params,
+    responseType: "blob",
+  })

@@ -115,3 +115,23 @@ export const downloadRecordApproval = async (recordID) => {
     throw error
   }
 }
+
+export const downloadAgentCutOff = async (agentId) => {
+  try {
+    const response = await reportApi.postAgentCutOff({ agent_id: agentId })
+    const blob = response.data || response
+    const url = URL.createObjectURL(blob)
+
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `cutoff-${agentId}.jpg` 
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+
+    URL.revokeObjectURL(url)
+  } catch (error) {
+    console.error("Error downloadAgentCutOff", error)
+    throw error
+  }
+}
