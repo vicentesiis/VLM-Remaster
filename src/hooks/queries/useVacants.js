@@ -5,7 +5,7 @@ import { toURLSearchParams } from "@/utils"
 export const useGetVacants = (filters, options = {}) => {
   const params = toURLSearchParams(filters)
   return useQuery({
-    queryKey: ["vacants"],
+    queryKey: ["vacants", filters],
     queryFn: async () => {
       return await vacantApi.getJobsByCriteria(params)
     },

@@ -43,9 +43,7 @@ export const ReportesReporteDeRegistros = () => {
         ? "El mes es necesario"
         : !year
           ? "El año es necesario"
-          : !record_type
-            ? "el tipo es necesario"
-            : ""
+          : ""
     if (error) {
       toast.error(error)
       return

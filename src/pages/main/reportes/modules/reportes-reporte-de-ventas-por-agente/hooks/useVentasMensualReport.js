@@ -13,12 +13,7 @@ export const useSalesMonthlyReport = ({ filters }) => {
   const [selectedDate, setSelectedDate] = useState(null)
 
   const queryParams = useMemo(() => {
-    if (
-      !appliedFilters?.year ||
-      !appliedFilters?.month ||
-      !appliedFilters?.channel
-    )
-      return null
+    if (!appliedFilters?.year || !appliedFilters?.month) return null
 
     const { year, month, channel, group_id } = appliedFilters
     const startDate = new Date(+year, +month - 1, 1)
@@ -40,8 +35,6 @@ export const useSalesMonthlyReport = ({ filters }) => {
     })
 
   const handleSearch = () => {
-    const { year, month, channel, group_id } = filters
-    if (!year || !month || !channel || (!isAdmin && !group_id)) return
     setAppliedFilters(filters)
     setSelectedDate(null)
   }

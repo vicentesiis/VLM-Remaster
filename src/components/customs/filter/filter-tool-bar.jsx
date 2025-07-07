@@ -49,9 +49,14 @@ const FilterToolbar = ({
     <div className="flex flex-col items-end gap-2 lg:flex-row">
       {filterConfig.map((config) => {
         if (!config) return null
-        const options = config.getOptions
+
+        const baseOptions = config.getOptions
           ? config.getOptions(context)
           : config.options
+
+        const options = !config.required
+          ? [{ label: "Todos", value: null }, ...(baseOptions ?? [])]
+          : baseOptions
 
         return (
           <LabeledSelect
