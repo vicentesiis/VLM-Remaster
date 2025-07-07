@@ -54,3 +54,22 @@ export const useUpdateUser = (options = {}) => {
     ...options,
   })
 }
+
+export const useUpdateUserRecordWeight = (options = {}) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({ user_searchable_id, record_weight }) =>
+      userApi.setUserRecordWeight({
+        user_searchable_id,
+        record_weight,
+      }),
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries(["group"])
+
+      if (options.onSuccess) {
+        options.onSuccess(data, variables, context)
+      }
+    },
+    ...options,
+  })
+}

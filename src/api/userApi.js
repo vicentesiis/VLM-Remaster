@@ -29,5 +29,10 @@ export const getUserClients = () => apiClient.get("/users/user/clients")
 export const setUserActiveState = (data) =>
   apiClient.post("/users/user/active", data)
 
-export const setUserRecordWeight = (data) =>
-  apiClient.post("/users/user/record_weight", data)
+export const setUserRecordWeight = ({ user_searchable_id, record_weight }) =>
+  apiClient.post("/users/user/record_weight", null, {
+    params: {
+      user_searchable_id,
+      record_weight,
+    },
+  })
