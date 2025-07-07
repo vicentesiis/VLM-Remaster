@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import {
   groupConfig,
   yearConfig,
@@ -18,8 +18,9 @@ import { months } from "@/constants"
 import { mapToOptions } from "@/utils"
 import { useCodexData } from "@/hooks/queries"
 import { useSalesMonthlyReport } from "./reportes-reporte-de-ventas-por-agente/hooks/useVentasMensualReport"
-import { useEffect, useRef } from "react"
 import { useLocation } from "react-router-dom"
+import { formatCurrency } from "@/utils"
+import { formatIfExists, formatLongMonthAndDay } from "@/utils/reportFormatters"
 
 const HeaderSection = ({
   filters,
@@ -28,13 +29,14 @@ const HeaderSection = ({
   listOfGroups,
   monthSelected,
   totalSalesString,
+  totalOrdersString,
   isFetching,
   channelOptions,
 }) => (
   <SectionHeader
-    title="Ventas por mes"
-    extra={monthSelected}
-    subtitle={totalSalesString}
+    title={monthSelected}
+    extra={totalSalesString}
+    subtitle={totalOrdersString}
     className="pb-6"
     actions={
       <FilterToolbar
@@ -78,23 +80,33 @@ const CalendarSection = ({
   )
 }
 
-const SalesTableSection = ({ selectedDate, subtitle, reportData, table }) => {
+const SalesTableSection = ({ selectedDate, selectedDayData, table }) => {
   if (!selectedDate) return null
+
+  const totalSales = formatIfExists(
+    selectedDayData?.total_day_sales,
+    formatCurrency
+  )
+
+  const totalOrders = formatIfExists(
+    selectedDayData?.total_day_orders,
+    (n) => `${n} Órdenes`
+  )
+
+  const formattedDate = formatLongMonthAndDay(selectedDate)
 
   return (
     <div>
       <SectionHeader
-        title="Ventas del"
-        extra={selectedDate}
-        extraColor="text-primary/90"
-        subtitle={subtitle}
-        subtitleColor="text-green-600 font-bold"
-        className="whitespace-pre-line py-6"
+        title={formattedDate}
+        extra={totalSales}
+        subtitle={totalOrders}
+        className="mt-4"
       />
 
       <DataTable
         table={table}
-        hasFetched={!!reportData}
+        hasFetched={!!table?.getRowModel().rows?.length}
         showPagination={false}
       />
     </div>
@@ -159,8 +171,12 @@ export const ReportesReporteVentalMensual = () => {
     table,
     subtitle,
     totalSalesString,
+    selectedDayData,
     monthSelected,
   } = useSalesMonthlyReport({ filters })
+
+  const totalOrdersString =
+    reportData?.total_orders > 0 ? `${reportData.total_orders} Órdenes` : ""
 
   return (
     <PageLayout title="Ventas por Mes">
@@ -173,6 +189,7 @@ export const ReportesReporteVentalMensual = () => {
             listOfGroups={listOfGroups}
             monthSelected={monthSelected}
             totalSalesString={totalSalesString}
+            totalOrdersString={totalOrdersString}
             isFetching={isFetching}
             channelOptions={channelOptions}
           />
@@ -195,8 +212,7 @@ export const ReportesReporteVentalMensual = () => {
 
             <SalesTableSection
               selectedDate={selectedDate}
-              subtitle={subtitle}
-              reportData={reportData}
+              selectedDayData={selectedDayData} 
               table={table}
             />
           </WithStatusState>

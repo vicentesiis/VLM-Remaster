@@ -6,7 +6,7 @@ import { getOrdersColumns } from "@/components/customs/table/columns/orderColumn
 import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
 import { useState, useEffect, useMemo, useCallback } from "react"
 import { toast } from "sonner"
-import { downloadAgentCutOff } from "@/hooks/queries/UseReports"// ajústalo si está en otra ruta
+import { downloadAgentCutOff } from "@/services/documentService"
 
 export const useCorteTable = () => {
   const { isAdmin, group } = useCurrentUser()
