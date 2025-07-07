@@ -5,6 +5,7 @@ import {
   getRegistrationDocument,
   getVoucherDocument,
 } from "@/api/documentApi"
+import * as reportApi from "@/api/reportApi"
 
 export const downloadVoucher = async (orderId) => {
   try {
