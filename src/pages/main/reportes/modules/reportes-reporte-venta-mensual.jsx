@@ -157,7 +157,7 @@ export const ReportesReporteVentalMensual = () => {
     group_id: isAdmin ? "" : stateRef.current.group_id || group?.id || "",
     year: stateRef.current.year?.toString() || year,
     month: stateRef.current.month?.toString() || month,
-    channel: stateRef.current.channel || "",
+    channel: stateRef.current.channel,
   })
 
   const {
