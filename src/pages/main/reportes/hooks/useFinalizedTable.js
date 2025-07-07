@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from "react"
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import { useGetFinalizedReport } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { getFinalizedReportColumns } from "@/components/customs/table/columns/finalizedColumns"
+import { getFinalizedReportColumns } from "@/components/customs/table/columns/FinalizedColumns"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { toast } from "sonner"
 
