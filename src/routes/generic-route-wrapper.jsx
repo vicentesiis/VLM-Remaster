@@ -18,7 +18,7 @@ import VacantesDetail from "@/pages/main/vacantes/vacantes-detail/vacantes-detai
 import ReporteReporteRecordFinalizado from "@/pages/main/reportes/modules/reportes-reporte-de-record_finalizado"
 
 const ReportePersonal = () => <>Reporte Personal</>
-const AuditoriaDeRegistros = () => <>Auditoria de Registros</>
+const VentasPotenciales = () => <>Ventas Potenciales</>
 const ControlDeFinalizados = () => <>Control de Finalizados</>
 const VentasPorCanal = () => <>Ventas por Canal</>
 const CortesPorAgente = () => <>Cortes por Agente</>
@@ -47,7 +47,7 @@ export const componentMap = {
   vacantes: Vacantes,
   vacantDetail: VacantesDetail,
   reportePersonal: ReportePersonal,
-  auditoriaDeRegistros: AuditoriaDeRegistros,
+  ventasPotenciales: VentasPotenciales,
   controlDeFinalizados: ControlDeFinalizados,
   ventasPorCanal: VentasPorCanal,
   cortesPorAgente: CortesPorAgente,
