@@ -26,6 +26,7 @@ const GeneralInfo = ({ vacant }) => {
     employer_email,
     employer_phone,
     url,
+    is_active,
   } = vacant
 
   return (
@@ -37,16 +38,18 @@ const GeneralInfo = ({ vacant }) => {
           <div>
             <strong>ID:</strong> {id}
           </div>
-          <RegistroDialog
-            mode="add"
-            vacantId={id}
-            trigger={
-              <Button variant="add" size="sm">
-                <UserPlusIcon className="size-6" />
-                Crear Registro
-              </Button>
-            }
-          />
+          {is_active && (
+            <RegistroDialog
+              mode="add"
+              vacantId={id}
+              trigger={
+                <Button variant="add" size="sm">
+                  <UserPlusIcon className="size-6" />
+                  Crear Registro
+                </Button>
+              }
+            />
+          )}
         </div>
         <div>
           <strong>Título original:</strong> {original_title}
