@@ -3,12 +3,17 @@ import { BarChart } from "@/components/ui/bar-chart"
 import { useIsSmallScreen } from "@/hooks"
 import { formatCurrency } from "@/utils"
 
-export const ChartRegistros = ({ data = [], onValueChange, formatAsCurrency = false }) => {
+export const ChartRegistros = ({
+  data = [],
+  onValueChange,
+  formatAsCurrency = false,
+  categoryName = "Registros", 
+}) => {
   const isSmallScreen = useIsSmallScreen()
 
   const chartData = data.map((item) => ({
     date: item.title,
-    Registros: item.description ?? 0,
+    [categoryName]: item.description ?? 0, // <- clave dinámica
   }))
 
   return (
@@ -17,7 +22,7 @@ export const ChartRegistros = ({ data = [], onValueChange, formatAsCurrency = fa
         className="h-[900px] cursor-pointer sm:h-[350px]"
         data={chartData}
         index="date"
-        categories={["Registros"]}
+        categories={[categoryName]} // <- también aquí
         yAxisWidth={70}
         layout={isSmallScreen ? "vertical" : "horizontal"}
         onValueChange={onValueChange}

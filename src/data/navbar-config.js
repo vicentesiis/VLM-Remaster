@@ -100,8 +100,8 @@ export const dropdownMenus = [
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
-        title: "Auditoría de registros",
-        to: "/reportes/auditoria-registros",
+        title: "Ventas Potenciales",
+        to: "/reportes/ventas-potenciales",
         icon: ShieldCheck,
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
@@ -117,12 +117,12 @@ export const dropdownMenus = [
         icon: Globe,
         allowedRoutes: [Roles.SUPER_ADMIN],
       },
-      {
-        title: "Ventas por Canal",
-        to: "/reportes/ventas-canal",
-        icon: Network,
-        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
-      },
+      // {
+      //   title: "Ventas por Canal",
+      //   to: "/reportes/ventas-canal",
+      //   icon: Network,
+      //   allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
+      // },
       {
         title: "Cortes por Agente",
         to: "/reportes/cortes-agente",

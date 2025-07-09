@@ -32,22 +32,12 @@ export const ReportesReporteDeRegistros = () => {
       user_id: "",
       month: month,
       year: year,
+      record_type: "",
     })
 
   const handleSearch = () => {
     const { user_id, month, year, record_type } = values
-    const error = !user_id
-      ? "El usuario es necesario"
-      : !month
-        ? "El mes es necesario"
-        : !year
-          ? "El año es necesario"
-          : ""
-    if (error) {
-      toast.error(error)
-      return
-    }
-
+    console.log(values)
     const start_date = `${year}-${month}-01T00:00:00`
     const end_date = format(
       endOfMonth(new Date(start_date)),
@@ -110,14 +100,14 @@ export const ReportesReporteDeRegistros = () => {
               />
             }
           />
+          <WithStatusState
+            isLoading={isFetching}
+            isError={isError}
+            isIdle={!isFetched}
+          >
+            {data && <ChartRegistros data={chartData} />}
+          </WithStatusState>
         </CardContent>
-        <WithStatusState
-          isLoading={isFetching}
-          isError={isError}
-          isIdle={!isFetched}
-        >
-          {data && <ChartRegistros data={chartData} />}
-        </WithStatusState>
       </Card>
     </PageLayout>
   )
