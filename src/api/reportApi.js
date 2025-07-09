@@ -19,7 +19,6 @@ export const getAgentPotentialSales = (params) =>
 export const getReportesGlobales = (params) =>
   apiClient.get("/reports/sales/global", { params })
 
-<<<<<<< Updated upstream
 export const getReportsSalesAgent = (params) =>
   apiClient.get("/reports/sales/agent", { params })
 
@@ -28,10 +27,3 @@ export const postAgentCutOff = (params) =>
     params,
     responseType: "blob",
   })
-=======
-export const getFinalizedReport = (params) => apiClient.get("/reports/records/finalized", {params})
-//funciona sin group_id siendo superAdmin
-export const getAgentPotentialSales = (params) => apiClient.get("/reports/sales/agent/potential", {params})
-
-export const postAgentCutOff = (params) => apiClient.getBlob("/reports/cut-off",{params})
->>>>>>> Stashed changes

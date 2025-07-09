@@ -31,20 +31,25 @@ export const ReportesReporteDeRegistros = () => {
       user_id: "",
       month: month,
       year: year,
-      record_type: null,
+      record_type: "",
     })
 
-  const handleSearch = () => {
-    const { user_id, month, year, record_type } = values
-    console.log(values)
-    const start_date = `${year}-${month}-01T00:00:00`
-    const end_date = format(
-      endOfMonth(new Date(start_date)),
-      "yyyy-MM-dd'T'23:59:59"
-    )
-
-    setSearchParams({ user_id, start_date, end_date, record_type })
-  }
+    const handleSearch = () => {
+      const { user_id, month, year, record_type } = values
+    
+      const start_date = `${year}-${month}-01T00:00:00`
+      const end_date = format(
+        endOfMonth(new Date(start_date)),
+        "yyyy-MM-dd'T'23:59:59"
+      )
+    
+      setSearchParams({
+        user_id,
+        start_date,
+        end_date,
+        record_type: record_type === "" || record_type === "todos" ? null : record_type,
+      })
+    }
 
   const { data, isFetching, isFetched, isError } = useGetAgentRegistrations(
     searchParams ?? {},

@@ -1,25 +1,25 @@
 import PropTypes from "prop-types"
 import React, { useEffect, useRef } from "react"
+import { useLocation } from "react-router-dom"
+import { useSalesMonthlyReport } from "./reportes-reporte-de-ventas-por-agente/hooks/useVentasMensualReport"
+import BigCalendar from "@/components/customs/big-calendar/big-calendar"
 import {
   groupConfig,
   yearConfig,
   monthConfig,
   channelConfig,
 } from "@/components/customs/filter/filter-config"
-import PageLayout from "@/components/customs/page-layout/page-layout"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
-import { Card, CardContent } from "@/components/ui"
 import { DataTable } from "@/components/data-table"
-import BigCalendar from "@/components/customs/big-calendar/big-calendar"
+import { Card, CardContent } from "@/components/ui"
 import { months } from "@/constants"
-import { getCurrentMonthYear, mapToOptions } from "@/utils"
 import { useCodexData } from "@/hooks/queries"
-import { useSalesMonthlyReport } from "./reportes-reporte-de-ventas-por-agente/hooks/useVentasMensualReport"
-import { useLocation } from "react-router-dom"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
+import { getCurrentMonthYear, mapToOptions } from "@/utils"
 import { formatCurrency } from "@/utils"
 import { formatIfExists, formatLongMonthAndDay } from "@/utils/reportFormatters"
 
@@ -139,20 +139,20 @@ SalesTableSection.propTypes = {
   table: PropTypes.any,
 }
 
-// eslint-disable-next-line react/prop-types
-export const NavigateSection = ({ filters, onSearch, listOfGroups }) => {
-  const { state } = useLocation()
-  const stateRef = useRef(state || {})
+const NavigateSection = ({ filters, listOfGroups, onSearch }) => {
   const autoLaunchedRef = useRef(false)
+  const stateRef = useRef({
+    year: filters.year,
+    month: filters.month,
+    channel: filters.channel,
+    group_id: filters.group_id,
+  })
 
   useEffect(() => {
     const s = stateRef.current
 
     const isValidSearch =
-      s.year &&
-      s.month &&
-      s.channel &&
-      s.group_id &&
+      s &&
       filters.year === String(s.year) &&
       filters.month === String(s.month) &&
       filters.channel === s.channel &&
@@ -165,8 +165,21 @@ export const NavigateSection = ({ filters, onSearch, listOfGroups }) => {
     }
   }, [filters, listOfGroups, onSearch])
 
-  return null
+  return null // si no tiene renderizado visible
 }
+
+// ✅ Definición de prop-types
+NavigateSection.propTypes = {
+  filters: PropTypes.shape({
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    channel: PropTypes.string.isRequired,
+    group_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  }).isRequired,
+  listOfGroups: PropTypes.array.isRequired,
+  onSearch: PropTypes.func.isRequired,
+}
+
 
 export const ReportesReporteVentalMensual = () => {
   const { isAdmin, group } = useCurrentUser()

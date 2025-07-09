@@ -1,12 +1,12 @@
+import { Download } from "lucide-react"
 import React from "react"
+import { useCorteTable } from "../hooks/useCorteTable"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
 import { Button } from "@/components/ui/button"
-import { Download } from "lucide-react"
-import { DataTable } from "@/components/data-table"
-import { useCorteTable } from "../hooks/useCorteTable"
 
 export const ReporteReporteCorteAgente = () => {
   const {
@@ -50,11 +50,7 @@ export const ReporteReporteCorteAgente = () => {
                     disabled={!values.user_id || isDownloading}
                     variant="outline"
                   >
-<<<<<<< Updated upstream
-                    <Download className="mr-2 h-4 w-4" />
-=======
                     <Download className="w-4 h-4 mr-2" />
->>>>>>> Stashed changes
                     {isDownloading ? "Descargando..." : "Descargar Corte"}
                   </Button>
                 </div>

@@ -1,16 +1,16 @@
 import React, { useState } from "react"
+import { toast } from "sonner"
+import { usePotencialTable } from "../hooks/usePotencialTable"
+import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
+import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
 import { useGetAgentPotentialSales } from "@/hooks/queries/UseReports"
-import { usePotencialTable } from "../hooks/usePotencialTable"
-import { DataTable } from "@/components/data-table"
-import { WithStatusState } from "@/components/customs/status-state/with-status-state"
-import { toast } from "sonner"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
-import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 
 const ReportesReporteVentaPorAgentePotencial = () => {
   const [searchParams, setSearchParams] = useState(null)

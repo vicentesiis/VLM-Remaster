@@ -1,12 +1,11 @@
 import React from "react"
-import { toast } from "sonner"
-import PageLayout from "@/components/customs/page-layout/page-layout"
-import SectionHeader from "@/components/customs/section-header"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
-import { Card, CardContent } from "@/components/ui"
-import { DataTable } from "@/components/data-table"
 import { useFinalizedReportTable } from "../hooks/useFinalizedTable"
 import { groupConfig } from "@/components/customs/filter/filter-config"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import PageLayout from "@/components/customs/page-layout/page-layout"
+import SectionHeader from "@/components/customs/section-header"
+import { DataTable } from "@/components/data-table"
+import { Card, CardContent } from "@/components/ui"
 
 const ReporteReporteRecordFinalizado = () => {
   const {
@@ -18,7 +17,6 @@ const ReporteReporteRecordFinalizado = () => {
     values,
     onChange,
     listOfGroups,
-    isSuperAdmin,
     handleSearch,
   } = useFinalizedReportTable()
 
