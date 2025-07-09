@@ -139,20 +139,20 @@ SalesTableSection.propTypes = {
   table: PropTypes.any,
 }
 
-const NavigateSection = ({ filters, listOfGroups, onSearch }) => {
+// eslint-disable-next-line react/prop-types
+export const NavigateSection = ({ filters, onSearch, listOfGroups }) => {
+  const { state } = useLocation()
+  const stateRef = useRef(state || {})
   const autoLaunchedRef = useRef(false)
-  const stateRef = useRef({
-    year: filters.year,
-    month: filters.month,
-    channel: filters.channel,
-    group_id: filters.group_id,
-  })
 
   useEffect(() => {
     const s = stateRef.current
 
     const isValidSearch =
-      s &&
+      s.year &&
+      s.month &&
+      s.channel &&
+      s.group_id &&
       filters.year === String(s.year) &&
       filters.month === String(s.month) &&
       filters.channel === s.channel &&
@@ -165,21 +165,8 @@ const NavigateSection = ({ filters, listOfGroups, onSearch }) => {
     }
   }, [filters, listOfGroups, onSearch])
 
-  return null // si no tiene renderizado visible
+  return null
 }
-
-// ✅ Definición de prop-types
-NavigateSection.propTypes = {
-  filters: PropTypes.shape({
-    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    channel: PropTypes.string.isRequired,
-    group_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  }).isRequired,
-  listOfGroups: PropTypes.array.isRequired,
-  onSearch: PropTypes.func.isRequired,
-}
-
 
 export const ReportesReporteVentalMensual = () => {
   const { isAdmin, group } = useCurrentUser()

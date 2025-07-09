@@ -4,6 +4,7 @@ import { useCorteTable } from "../hooks/useCorteTable"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
 import { Button } from "@/components/ui/button"
@@ -26,7 +27,7 @@ export const ReporteReporteCorteAgente = () => {
   } = useCorteTable()
 
   return (
-    <PageLayout title="Reporte de Corte por Agente">
+    <PageLayout title="Reporte de corte por agente">
       <Card>
         <CardContent>
           <SectionHeader
@@ -57,14 +58,20 @@ export const ReporteReporteCorteAgente = () => {
               )
             }
           />
-
-          <DataTable
-            table={table}
-            isLoading={isFetching}
-            isError={isError}
-            hasFetched={isFetched}
-            showPagination={false}
-          />
+ 
+           <WithStatusState
+              isLoading={isFetching}
+              isError={isError}
+              isIdle={!isFetched} 
+            >
+              <DataTable
+                table={table}
+                isLoading={isFetching}
+                isError={isError}
+                hasFetched
+                showPagination={false}
+              />
+            </WithStatusState>
         </CardContent>
       </Card>
     </PageLayout>

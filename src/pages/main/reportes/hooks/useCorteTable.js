@@ -1,11 +1,11 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { useGetAgentCutOff } from "@/hooks/queries/UseReports"
-import { getOrdersColumns } from "@/components/customs/table/columns/orderColumns"
-import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
 import { useState, useEffect, useMemo, useCallback } from "react"
 import { toast } from "sonner"
+import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
+import { getOrdersColumns } from "@/components/customs/table/columns/orderColumns"
+import { useGetAgentCutOff } from "@/hooks/queries/UseReports"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { downloadAgentCutOff } from "@/services/documentService"
 
 export const useCorteTable = () => {
@@ -81,7 +81,7 @@ export const useCorteTable = () => {
     table,
     isFetching: searchTriggered && isFetching,
     isError,
-    isFetched: showTableData,
+    isFetched:  showTableData,
     values,
     onChange,
     listOfUsers,

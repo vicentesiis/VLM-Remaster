@@ -4,6 +4,7 @@ import { groupConfig } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
 
@@ -21,7 +22,7 @@ const ReporteReporteRecordFinalizado = () => {
   } = useFinalizedReportTable()
 
   return (
-    <PageLayout title="Reporte de Registros Finalizados">
+    <PageLayout title="Reporte de registros finalizados">
       <Card>
         <CardContent>
           <SectionHeader
@@ -35,18 +36,23 @@ const ReporteReporteRecordFinalizado = () => {
                   context={{ groups: listOfGroups }}
                   onSearch={handleSearch}
                   isLoading={isFetching}
-                />
+                />  
               )
             }
           />
-
-          <DataTable
-            table={table}
+          <WithStatusState
             isLoading={isFetching}
             isError={isError}
-            hasFetched={isFetched}
-            showPagination={false}
-          />
+            isIdle={!isFetched} 
+          >
+            <DataTable
+              table={table}
+              isLoading={isFetching}
+              isError={isError}
+              hasFetched={isFetched}
+              showPagination={false}
+            />
+          </WithStatusState>
         </CardContent>
       </Card>
     </PageLayout>

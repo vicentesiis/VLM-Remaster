@@ -57,7 +57,7 @@ const ReportesReporteVentaPorAgentePotencial = () => {
       <Card>
         <CardContent>
           <SectionHeader
-            title="Ventas Potenciales por Agente"
+            title="Ventas potenciales por Agente"
             actions={
               <FilterToolbar
                 filterConfig={[
@@ -74,13 +74,13 @@ const ReportesReporteVentaPorAgentePotencial = () => {
               />
             }
           />
-          <WithStatusState
+           <WithStatusState
             isLoading={isFetching}
             isError={isError}
-            hasFetched={!searchParams}
-          >        
-          { data && <DataTable table={table} hasFetched showPagination={false} />}
-   </WithStatusState>
+            isIdle={!searchParams} 
+          >
+            {data && <DataTable table={table} hasFetched showPagination={false} />}
+          </WithStatusState>
  
         </CardContent>
       </Card>
