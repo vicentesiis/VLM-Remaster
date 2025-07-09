@@ -73,7 +73,8 @@ const ReportesReporteVentaPorAgentePotencial = () => {
               />
             }
           />
-          <WithStatusState
+
+        </CardContent>          <WithStatusState
             isLoading={isLoading}
             isError={isError}
             hasFetched={!!searchParams}
@@ -81,7 +82,6 @@ const ReportesReporteVentaPorAgentePotencial = () => {
           <DataTable table={table} hasFetched showPagination={false} />
   
           </WithStatusState>
-        </CardContent>
       </Card>
     </PageLayout>
   )

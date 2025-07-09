@@ -42,17 +42,6 @@ export const ReportesReporteVentasGlobales = () => {
   const handleSearch = () => {
     const { year, channel, group_id } = values
 
-    const error = !group_id
-      ? "El grupo es necesario"
-      : !year
-        ? "El year es necesario"
-        : !channel
-          ? "El channel es necesario"
-          : ""
-    if (error) {
-      toast.error(error)
-      return
-    }
     setSearchParams({ year, channel, group: group_id })
   }
 
@@ -96,6 +85,7 @@ export const ReportesReporteVentasGlobales = () => {
               <ChartRegistros
                 data={chartData}
                 formatAsCurrency={true}
+                categoryName="Ventas"
                 onValueChange={(item) => {
                   const monthObj = months.find(
                     (m) => m.label.toLowerCase() === item.date.toLowerCase()

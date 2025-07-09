@@ -58,8 +58,7 @@ export const useGetAgentRegistrations = (
           record_type,
         })
         .then((res) => res.data),
-    enabled: !!user_id && !!start_date && !!end_date,
-    record_type,
+    enabled: !!user_id && !!start_date && !!end_date && !!record_type,
     ...options,
   })
 }
