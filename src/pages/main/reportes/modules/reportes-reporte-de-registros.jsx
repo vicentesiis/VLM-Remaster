@@ -32,7 +32,7 @@ export const ReportesReporteDeRegistros = () => {
       user_id: "",
       month: month,
       year: year,
-      record_type: "",
+      record_type: null,
     })
 
   const handleSearch = () => {
