@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React, { useEffect, useRef } from "react"
 import {
   groupConfig,
@@ -61,6 +62,18 @@ const HeaderSection = ({
   />
 )
 
+HeaderSection.propTypes = {
+  channelOptions: PropTypes.any,
+  filters: PropTypes.any,
+  handleSearch: PropTypes.any,
+  isFetching: PropTypes.any,
+  listOfGroups: PropTypes.any,
+  monthSelected: PropTypes.any,
+  onChange: PropTypes.any,
+  totalOrdersString: PropTypes.any,
+  totalSalesString: PropTypes.any
+}
+
 const CalendarSection = ({
   filters,
   reportData,
@@ -78,6 +91,13 @@ const CalendarSection = ({
       selectedDate={selectedDate}
     />
   )
+}
+
+CalendarSection.propTypes = {
+  filters: PropTypes.any,
+  handleDayPressed: PropTypes.any,
+  reportData: PropTypes.any,
+  selectedDate: PropTypes.any
 }
 
 const SalesTableSection = ({ selectedDate, selectedDayData, table }) => {
@@ -113,6 +133,13 @@ const SalesTableSection = ({ selectedDate, selectedDayData, table }) => {
   )
 }
 
+SalesTableSection.propTypes = {
+  selectedDate: PropTypes.any,
+  selectedDayData: PropTypes.any,
+  table: PropTypes.any,
+}
+
+// eslint-disable-next-line react/prop-types
 export const NavigateSection = ({ filters, onSearch, listOfGroups }) => {
   const { state } = useLocation()
   const stateRef = useRef(state || {})
@@ -170,7 +197,6 @@ export const ReportesReporteVentalMensual = () => {
     reportData,
     selectedDate,
     table,
-    subtitle,
     totalSalesString,
     selectedDayData,
     monthSelected,

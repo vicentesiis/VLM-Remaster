@@ -8,7 +8,7 @@ import { formatCurrency } from "@/utils"
 import { formatMonthNYear } from "@/utils/reportFormatters"
 
 export const useSalesMonthlyReport = ({ filters }) => {
-  const { isAdmin, group, id: userId } = useCurrentUser()
+  const { isAdmin } = useCurrentUser()
   const [appliedFilters, setAppliedFilters] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
 

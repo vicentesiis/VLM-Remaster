@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { BarChart } from "@/components/ui/bar-chart"
 import { useIsSmallScreen } from "@/hooks"
@@ -34,5 +35,12 @@ export const ChartRegistros = ({
       />
     </div>
   )
+}
+
+ChartRegistros.propTypes = {
+  categoryName: PropTypes.any,
+  data: PropTypes.any,
+  formatAsCurrency: PropTypes.any,
+  onValueChange: PropTypes.any
 }
 export default ChartRegistros

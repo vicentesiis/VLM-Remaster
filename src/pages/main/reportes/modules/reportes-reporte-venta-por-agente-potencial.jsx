@@ -29,7 +29,8 @@ const ReportesReporteVentaPorAgentePotencial = () => {
     setSearchParams({ agent_id: values.user_id })
   }
 
-  const { data, isLoading, isError } = useGetAgentPotentialSales(searchParams ?? {}, {
+  const { data, isFetching, isError } = useGetAgentPotentialSales
+  (searchParams ?? {}, {
     enabled: !!searchParams,
   })
 
@@ -73,15 +74,15 @@ const ReportesReporteVentaPorAgentePotencial = () => {
               />
             }
           />
-
-        </CardContent>          <WithStatusState
-            isLoading={isLoading}
+          <WithStatusState
+            isLoading={isFetching}
             isError={isError}
-            hasFetched={!!searchParams}
-          >
-          <DataTable table={table} hasFetched showPagination={false} />
-  
-          </WithStatusState>
+            hasFetched={!searchParams}
+          >        
+          { data && <DataTable table={table} hasFetched showPagination={false} />}
+   </WithStatusState>
+ 
+        </CardContent>
       </Card>
     </PageLayout>
   )

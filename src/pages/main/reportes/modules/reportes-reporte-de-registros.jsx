@@ -1,4 +1,7 @@
+import { endOfMonth, format } from "date-fns"
+import { es } from "date-fns/locale"
 import React, { useState } from "react"
+import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import {
   groupConfig,
   monthConfig,
@@ -9,15 +12,11 @@ import {
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
-import { Card, CardContent, CardTitle } from "@/components/ui"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { endOfMonth, format } from "date-fns"
-import { useGetAgentRegistrations } from "@/hooks/queries/UseReports"
-import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
-import { es } from "date-fns/locale"
-import { toast } from "sonner"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
+import { Card, CardContent } from "@/components/ui"
+import { useGetAgentRegistrations } from "@/hooks/queries/UseReports"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { getCurrentMonthYear } from "@/utils"
 import { formatIfExists } from "@/utils/reportFormatters"
 export const ReportesReporteDeRegistros = () => {

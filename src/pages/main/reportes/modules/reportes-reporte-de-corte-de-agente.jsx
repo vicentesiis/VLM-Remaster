@@ -50,7 +50,11 @@ export const ReporteReporteCorteAgente = () => {
                     disabled={!values.user_id || isDownloading}
                     variant="outline"
                   >
+<<<<<<< Updated upstream
                     <Download className="mr-2 h-4 w-4" />
+=======
+                    <Download className="w-4 h-4 mr-2" />
+>>>>>>> Stashed changes
                     {isDownloading ? "Descargando..." : "Descargar Corte"}
                   </Button>
                 </div>
