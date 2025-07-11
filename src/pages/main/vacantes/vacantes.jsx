@@ -47,8 +47,8 @@ export const Vacantes = () => {
 
   return (
     <PageLayout title="Vacantes">
-      <Card className="pt-4 sm:pt-0">
-        <CardContent>
+      <Card>
+        <CardContent className="pt-4 sm:pt-4">
           <DataTable
             key={selectedCountry}
             table={table}

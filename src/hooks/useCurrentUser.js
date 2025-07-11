@@ -6,17 +6,16 @@ export const useCurrentUser = () => {
   const capabilities = RolesCapabilities[user.role] || {}
 
   const isLeader = user.agent_type === "leader"
-  const computedRole = isLeader ? "leader" : user.role
 
   return {
     user,
     group: user.group,
     id: user.id || null,
-    role: computedRole,
+    role: user.role,
     group: user.group || null,
-    isSuperAdmin: computedRole === Roles.SUPER_ADMIN,
-    isAdmin: computedRole === Roles.ADMIN,
-    isAgent: Roles.AGENT,
+    isSuperAdmin: user.role === Roles.SUPER_ADMIN,
+    isAdmin: user.role === Roles.ADMIN,
+    isAgent: user.role === Roles.AGENT,
     isLeader,
     ...capabilities,
   }

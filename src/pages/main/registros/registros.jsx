@@ -40,7 +40,7 @@ export const Registros = ({ title }) => {
   return (
     <PageLayout title={title}>
       <Card>
-        <CardContent className="pt-4">
+        <CardContent className="sm:pt-4 pt-4">
           <DataTable
             table={table}
             isLoading={isFetching}
