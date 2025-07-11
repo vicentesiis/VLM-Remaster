@@ -4,11 +4,11 @@ export const routes = [
   {
     path: "/tareas",
     routeKey: "tareas",
-    allowedRoles: [Roles.AGENT, Roles.ADMIN],
+    allowedRoles: [Roles.AGENT, Roles.LEADER, Roles.ADMIN],
   },
   {
     path: "/registros",
-    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT, Roles.LEADER],
     routeKey: "home",
     children: [
       {
@@ -19,12 +19,12 @@ export const routes = [
       {
         path: "mis-prospectos",
         routeKey: "misProspectos",
-        allowedRoles: [Roles.AGENT],
+        allowedRoles: [Roles.AGENT, Roles.LEADER],
       },
       {
         path: "mis-leads",
         routeKey: "misLeads",
-        allowedRoles: [Roles.AGENT],
+        allowedRoles: [Roles.AGENT, Roles.LEADER],
       },
       {
         path: "clientes",
@@ -34,56 +34,66 @@ export const routes = [
       {
         path: "detalle/:public_id",
         routeKey: "registroDetail",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+        allowedRoles: [
+          Roles.SUPER_ADMIN,
+          Roles.ADMIN,
+          Roles.AGENT,
+          Roles.LEADER,
+        ],
       },
       {
         path: "mis-clientes",
         routeKey: "misClientes",
-        allowedRoles: [Roles.AGENT],
+        allowedRoles: [Roles.AGENT, Roles.LEADER],
       },
     ],
   },
   {
     path: "/vacantes",
     routeKey: "vacantes",
-    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT, Roles.LEADER],
     children: [
       {
         path: "detalle/:id",
         routeKey: "vacantDetail",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+        allowedRoles: [
+          Roles.SUPER_ADMIN,
+          Roles.ADMIN,
+          Roles.AGENT,
+          Roles.LEADER,
+        ],
       },
     ],
   },
   {
     path: "/reportes/ventas-por-agente",
     routeKey: "reportesReporteVentasPorAgente",
-    allowedRoles: [Roles.AGENT, Roles.SUPER_ADMIN, Roles.ADMIN],
+    allowedRoles: [Roles.AGENT, Roles.LEADER, Roles.SUPER_ADMIN, Roles.ADMIN],
   },
   {
     path: "/usuarios",
     routeKey: "usuarios",
-    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT, Roles.LEADER],
   },
   {
     path: "/reportes",
     routeKey: "reportes",
-    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
+    allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
     children: [
       {
         path: "ventas-por-agente",
         routeKey: "reportesReporteVentasPorAgente",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "registros",
         routeKey: "reportesReporteDeRegistros",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
       },
       {
         path: "ventas-mensuales",
         routeKey: "reportesReporteVentalMensual",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
       },
       {
         path: "ventas-potenciales",

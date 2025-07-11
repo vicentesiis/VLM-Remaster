@@ -54,32 +54,34 @@ const Usuarios = () => {
   const title = isSuperAdmin ? "Usuarios por Grupo" : "Usuarios"
 
   return (
-    <PageLayout title={title}>
+    <PageLayout title={title} subtitle={groupName}>
       <Card>
         <CardContent>
-          <SectionHeader
-            title={groupName}
-            actions={
-              <div className="flex flex-col gap-2 sm:flex-row">
-                {isSuperAdmin && (
-                  <div className="flex justify-center gap-2">
-                    <GroupDialog />
+          {(isAdmin || isSuperAdmin) && (
+            <SectionHeader
+              actions={
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  {isSuperAdmin ? (
+                    <>
+                      <div className="flex justify-center gap-2">
+                        <GroupDialog />
+                        <UsuarioDialog />
+                      </div>
+                      <FilterToolbar
+                        filterConfig={[groupConfig]}
+                        values={values}
+                        onChange={onChange}
+                        context={{ groups: listOfGroups }}
+                        onSearch={handleSearch}
+                      />
+                    </>
+                  ) : (
                     <UsuarioDialog />
-                  </div>
-                )}
-                {isAdmin && !isSuperAdmin && <UsuarioDialog />}
-                {isSuperAdmin && (
-                  <FilterToolbar
-                    filterConfig={[groupConfig]}
-                    values={values}
-                    onChange={onChange}
-                    context={{ groups: listOfGroups }}
-                    onSearch={handleSearch}
-                  />
-                )}
-              </div>
-            }
-          />
+                  )}
+                </div>
+              }
+            />
+          )}
 
           {shouldFetch ? (
             <WithStatusState isLoading={isLoading} isError={isError}>

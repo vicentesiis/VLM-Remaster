@@ -24,7 +24,7 @@ export const menuItems = [
     title: "Mis Tareas",
     to: "/tareas",
     icon: CheckSquare,
-    allowedRoutes: [Roles.ADMIN, Roles.AGENT],
+    allowedRoutes: [Roles.ADMIN, Roles.AGENT, Roles.LEADER],
   },
   {
     title: "Registros",
@@ -42,44 +42,44 @@ export const menuItems = [
     title: "Mis Leads",
     to: "/registros/mis-leads",
     icon: Contact,
-    allowedRoutes: [Roles.AGENT],
+    allowedRoutes: [Roles.AGENT, Roles.LEADER],
   },
   {
     title: "Mis Clientes",
     to: "/registros/mis-clientes",
     icon: Handshake,
-    allowedRoutes: [Roles.AGENT],
+    allowedRoutes: [Roles.AGENT, Roles.LEADER],
   },
   {
     title: "Mis Prospectos",
     to: "/registros/mis-prospectos",
     icon: Target,
-    allowedRoutes: [Roles.AGENT],
+    allowedRoutes: [Roles.AGENT, Roles.LEADER],
   },
   {
     title: "Vacantes",
     to: "/vacantes",
     icon: Briefcase,
-    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT, Roles.LEADER],
   },
   {
     title: "Ventas",
     to: "/reportes/ventas-por-agente",
     icon: DollarSign,
-    allowedRoutes: [Roles.AGENT],
+    allowedRoutes: [Roles.AGENT, Roles.LEADER],
   },
   {
     title: "Usuarios",
     to: "/usuarios",
     icon: UserCog,
-    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT],
+    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT, Roles.LEADER],
   },
 ]
 
 export const dropdownMenus = [
   {
     title: "Reportes",
-    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
+    allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
     items: [
       {
         title: "Ventas por agente",
@@ -91,13 +91,13 @@ export const dropdownMenus = [
         title: "Registros por agente",
         to: "/reportes/registros",
         icon: NotebookText,
-        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
+        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
       },
       {
         title: "Ventas mensuales",
         to: "/reportes/ventas-mensuales",
         icon: CalendarRange,
-        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
+        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
       },
       {
         title: "Ventas Potenciales",
@@ -117,12 +117,6 @@ export const dropdownMenus = [
         icon: Globe,
         allowedRoutes: [Roles.SUPER_ADMIN],
       },
-      // {
-      //   title: "Ventas por Canal",
-      //   to: "/reportes/ventas-canal",
-      //   icon: Network,
-      //   allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
-      // },
       {
         title: "Cortes por Agente",
         to: "/reportes/cortes-agente",

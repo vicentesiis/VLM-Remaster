@@ -5,16 +5,19 @@ export const useCurrentUser = () => {
   const user = useAuth().user?.data || {}
   const capabilities = RolesCapabilities[user.role] || {}
 
+  const isLeader = user.agent_type === "leader"
+  const computedRole = isLeader ? "leader" : user.role
+
   return {
-    user: user,
+    user,
     group: user.group,
     id: user.id || null,
-    role: user.role || null,
+    role: computedRole,
     group: user.group || null,
-    isSuperAdmin: user.role === Roles.SUPER_ADMIN,
-    isAdmin: user.role === Roles.ADMIN,
-    isAgent: user.role === Roles.AGENT,
-    isLeader: user.agent_type === "leader",
+    isSuperAdmin: computedRole === Roles.SUPER_ADMIN,
+    isAdmin: computedRole === Roles.ADMIN,
+    isAgent: computedRole === Roles.AGENT,
+    isLeader,
     ...capabilities,
   }
 }

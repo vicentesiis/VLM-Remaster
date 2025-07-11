@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 
 const SectionHeader = ({ title, extra, subtitle, actions, className }) => {
   return (
-    <div className={cn("py-4 md:py-0 md:pb-6", className)}>
+    <div className={cn("py-2 md:py-0 md:pb-4", className)}>
       <div className="flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
           {title && (

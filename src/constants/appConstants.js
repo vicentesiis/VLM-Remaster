@@ -2,6 +2,7 @@ export const Roles = {
   SUPER_ADMIN: "super_admin",
   ADMIN: "admin",
   AGENT: "agent",
+  LEADER: "leader"
 }
 
 export const RecordStatuses = Object.freeze({

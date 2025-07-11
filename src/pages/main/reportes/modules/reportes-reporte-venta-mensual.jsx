@@ -142,7 +142,7 @@ export const NavigateSection = ({ filters, onSearch, listOfGroups }) => {
 }
 
 export const ReportesReporteVentalMensual = () => {
-  const { isAdmin, group } = useCurrentUser()
+  const { isAdmin, isLeader, group } = useCurrentUser()
   const { channels } = useCodexData()
   const channelOptions = mapToOptions(channels.data)
   const { state } = useLocation()
@@ -154,7 +154,10 @@ export const ReportesReporteVentalMensual = () => {
     onChange,
     listOfGroups,
   } = useGroupAndMembersFilter({
-    group_id: isAdmin ? "" : stateRef.current.group_id || group?.id || "",
+    group_id:
+      isAdmin || isLeader
+        ? null
+        : stateRef.current.group_id || group?.id || null,
     year: stateRef.current.year?.toString() || year,
     month: stateRef.current.month?.toString() || month,
     channel: stateRef.current.channel,

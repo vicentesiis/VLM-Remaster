@@ -35,7 +35,6 @@ export const componentMap = {
   ajustes: Ajustes,
   cuentas: Cuentas,
   registroDetail: RegistrosDetail,
-  info: <>asdf</>,
   reportesReporteDeRegistros: ReportesReporteDeRegistros,
   reportesReporteVentasPorAgente: ReportesReporteVentasPorAgente,
   reportesReporteVentalMensual: ReportesReporteVentalMensual,
