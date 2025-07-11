@@ -16,7 +16,7 @@ export const useCurrentUser = () => {
     group: user.group || null,
     isSuperAdmin: computedRole === Roles.SUPER_ADMIN,
     isAdmin: computedRole === Roles.ADMIN,
-    isAgent: computedRole === Roles.AGENT,
+    isAgent: Roles.AGENT,
     isLeader,
     ...capabilities,
   }

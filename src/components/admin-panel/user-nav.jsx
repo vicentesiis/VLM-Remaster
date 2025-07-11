@@ -21,7 +21,7 @@ import { formatCurrency } from "@/utils"
 
 export function UserNav() {
   const { logoutMutation } = useAuth()
-  const { user } = useCurrentUser()
+  const { user, isAgent } = useCurrentUser()
   const { isDark, toggleTheme } = useTheme()
   const { data } = useGetMyPotentialSales()
 
@@ -62,20 +62,21 @@ export function UserNav() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <TooltipWrapper>
-          <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">
-                Ventas por cobrar
-              </p>
-              <p className="text-xs leading-none text-muted-foreground">
-                {formatCurrency(data?.total_amount)}
-              </p>
-            </div>
-          </DropdownMenuLabel>
-        </TooltipWrapper>
-
-        <DropdownMenuSeparator />
+        {isAgent && (
+          <>
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">
+                  Ventas potencial
+                </p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {formatCurrency(data?.total_amount)}
+                </p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+          </>
+        )}
         <DropdownMenuGroup>
           <DropdownMenuItem onClick={toggleTheme}>
             {isDark ? (
