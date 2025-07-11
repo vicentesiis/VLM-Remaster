@@ -95,6 +95,7 @@ export const useGetAgentCutOff = ({ agent_id }, options = {}) => {
     ...options,
   })
 }
+
 export const useGetTasks = (options = {}) => {
   return useQuery({
     queryKey: ["tasks"],
@@ -106,7 +107,7 @@ export const useGetTasks = (options = {}) => {
 }
 
 export const useGetFinalizedReport = (
-  { skip, limit, group_id }, 
+  { skip, limit, group_id },
   options = {}
 ) => {
   return useQuery({
@@ -134,6 +135,17 @@ export const useGetAgentPotentialSales = ({ agent_id }, options = {}) => {
     ...options,
   })
 }
+
+export const useGetMyPotentialSales = (options = {}) => {
+  return useQuery({
+    queryKey: ["my-potential-sales"],
+    queryFn: async () => {
+      return await reportApi.getMyPotentialSales()
+    },
+    ...options,
+  })
+}
+
 export const useGetReportsSalesAgent = (params, options = {}) => {
   return useQuery({
     queryKey: ["sales-by-agent", params],
@@ -144,5 +156,3 @@ export const useGetReportsSalesAgent = (params, options = {}) => {
     ...options,
   })
 }
-
-

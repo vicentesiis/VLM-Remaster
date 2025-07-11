@@ -16,6 +16,10 @@ export const getFinalizedReport = (params) =>
 
 export const getAgentPotentialSales = (params) =>
   apiClient.get("/reports/sales/agent/potential", { params })
+
+export const getMyPotentialSales = () =>
+  apiClient.get("/reports/my-potential-sales")
+
 export const getReportesGlobales = (params) =>
   apiClient.get("/reports/sales/global", { params })
 

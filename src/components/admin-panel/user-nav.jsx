@@ -1,7 +1,7 @@
-import { LayoutGrid, LogOut, Moon, Sun, User } from "lucide-react"
+import { LogOut, Moon, Sun } from "lucide-react"
 import React from "react"
-import { Link } from "react-router-dom"
 
+import TooltipWrapper from "../customs/tooltip-wrapper"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -13,20 +13,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider,
-} from "@/components/ui/tooltip"
+import { useGetMyPotentialSales } from "@/hooks/queries/UseReports"
 import { useAuth } from "@/hooks/useAuth"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useTheme } from "@/hooks/useTheme"
+import { formatCurrency } from "@/utils"
 
 export function UserNav() {
   const { logoutMutation } = useAuth()
   const { user } = useCurrentUser()
   const { isDark, toggleTheme } = useTheme()
+  const { data } = useGetMyPotentialSales()
 
   const getAvatarInitials = (fullName) => {
     if (!fullName) return ""
@@ -64,6 +61,20 @@ export function UserNav() {
             </p>
           </div>
         </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <TooltipWrapper>
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">
+                Ventas por cobrar
+              </p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {formatCurrency(data?.total_amount)}
+              </p>
+            </div>
+          </DropdownMenuLabel>
+        </TooltipWrapper>
+
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem onClick={toggleTheme}>
