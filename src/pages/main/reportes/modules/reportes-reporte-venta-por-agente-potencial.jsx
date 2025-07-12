@@ -8,7 +8,10 @@ import { DataTable } from "@/components/data-table"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { toast } from "sonner"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
-import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
+import {
+  userConfig,
+  groupConfig,
+} from "@/components/customs/filter/filter-config"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 
@@ -16,10 +19,11 @@ const ReportesReporteVentaPorAgentePotencial = () => {
   const [searchParams, setSearchParams] = useState(null)
   const { isAdmin, group } = useCurrentUser()
 
-  const { values, onChange, listOfUsers, listOfGroups } = useGroupAndMembersFilter({
-    group_id: isAdmin ? group?.id || "" : "",
-    user_id: "",
-  })
+  const { values, onChange, listOfUsers, listOfGroups } =
+    useGroupAndMembersFilter({
+      group_id: isAdmin ? group?.id || "" : "",
+      user_id: "",
+    })
 
   const handleSearch = () => {
     if (!values.user_id) {
@@ -29,9 +33,12 @@ const ReportesReporteVentaPorAgentePotencial = () => {
     setSearchParams({ agent_id: values.user_id })
   }
 
-  const { data, isLoading, isError } = useGetAgentPotentialSales(searchParams ?? {}, {
-    enabled: !!searchParams,
-  })
+  const { data, isLoading, isError } = useGetAgentPotentialSales(
+    searchParams ?? {},
+    {
+      enabled: !!searchParams,
+    }
+  )
 
   const records =
     data?.records?.flatMap((record) => {
@@ -52,7 +59,7 @@ const ReportesReporteVentaPorAgentePotencial = () => {
   const { table } = usePotencialTable(records)
 
   return (
-    <PageLayout title="Reporte Venta Potencial por Agente">
+    <PageLayout title="Ventas potenciales">
       <Card>
         <CardContent>
           <SectionHeader
@@ -73,15 +80,14 @@ const ReportesReporteVentaPorAgentePotencial = () => {
               />
             }
           />
-
-        </CardContent>          <WithStatusState
-            isLoading={isLoading}
-            isError={isError}
-            hasFetched={!!searchParams}
-          >
+        </CardContent>{" "}
+        <WithStatusState
+          isLoading={isLoading}
+          isError={isError}
+          hasFetched={!!searchParams}
+        >
           <DataTable table={table} hasFetched showPagination={false} />
-  
-          </WithStatusState>
+        </WithStatusState>
       </Card>
     </PageLayout>
   )

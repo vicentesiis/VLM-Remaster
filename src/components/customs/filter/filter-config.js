@@ -47,4 +47,5 @@ export const record_type = {
     { label: "Lead", value: "lead" },
     { label: "Prospect", value: "prospect" },
   ],
+  required: true,
 }

@@ -11,11 +11,9 @@ export function useUsuariosData() {
   const [selectedGroupId, setSelectedGroupId] = useState(
     isSuperAdmin ? null : initialGroupId
   )
-  const [hasSearched, setHasSearched] = useState(false)
 
   const shouldFetch =
-    (isSuperAdmin && hasSearched && selectedGroupId) ||
-    (!isSuperAdmin && selectedGroupId)
+    (isSuperAdmin && selectedGroupId) || (!isSuperAdmin && selectedGroupId)
 
   const groups = useGetGroups({ enabled: isSuperAdmin })
 
@@ -26,7 +24,10 @@ export function useUsuariosData() {
   const {
     data: response,
     isLoading,
+    isFetching,
+    isFetched,
     isError,
+    refetch,
   } = useGetGroupById(
     { group_searchable_id: selectedGroupId, with_members: true },
     { enabled: !!shouldFetch }
@@ -55,18 +56,12 @@ export function useUsuariosData() {
     groupName: groupName,
     selectedGroupId,
     setSelectedGroupId,
-    hasSearched,
-    setHasSearched,
     shouldFetch,
     values,
     onChange,
     handleSearch: () => {
-      if (!values.group_id) {
-        toast.error("El Grupo es necesario para la búsqueda")
-        return
-      }
       setSelectedGroupId(values.group_id)
-      setHasSearched(true)
+      refetch()
     },
     listOfGroups,
     members,
@@ -74,5 +69,7 @@ export function useUsuariosData() {
     leader,
     isLoading,
     isError,
+    isFetching,
+    isFetched,
   }
 }

@@ -155,9 +155,7 @@ export const ReportesReporteVentalMensual = () => {
     listOfGroups,
   } = useGroupAndMembersFilter({
     group_id:
-      isAdmin || isLeader
-        ? null
-        : stateRef.current.group_id || group?.id || null,
+      isAdmin || isLeader ? null : stateRef.current.group_id || group?.id || "",
     year: stateRef.current.year?.toString() || year,
     month: stateRef.current.month?.toString() || month,
     channel: stateRef.current.channel,
@@ -183,7 +181,7 @@ export const ReportesReporteVentalMensual = () => {
     reportData?.total_orders > 0 ? `${reportData.total_orders} Órdenes` : ""
 
   return (
-    <PageLayout title="Ventas por Mes">
+    <PageLayout title="Ventas mensuales">
       <Card>
         <CardContent>
           <HeaderSection

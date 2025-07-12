@@ -1,4 +1,8 @@
+import { useQueryClient } from "@tanstack/react-query"
+import { endOfMonth, format } from "date-fns"
+import { es } from "date-fns/locale"
 import React, { useState } from "react"
+import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import {
   groupConfig,
   monthConfig,
@@ -9,22 +13,20 @@ import {
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
-import { Card, CardContent, CardTitle } from "@/components/ui"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { endOfMonth, format } from "date-fns"
-import { useGetAgentRegistrations } from "@/hooks/queries/UseReports"
-import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
-import { es } from "date-fns/locale"
-import { toast } from "sonner"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
+import { Card, CardContent } from "@/components/ui"
+import { useGetAgentRegistrations } from "@/hooks/queries/UseReports"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { getCurrentMonthYear } from "@/utils"
 import { formatIfExists } from "@/utils/reportFormatters"
+
 export const ReportesReporteDeRegistros = () => {
   const [searchParams, setSearchParams] = useState(null)
   const { isAdmin, group } = useCurrentUser()
 
   const { month, year } = getCurrentMonthYear()
+  const queryClient = useQueryClient()
 
   const { values, onChange, listOfGroups, listOfUsers } =
     useGroupAndMembersFilter({
@@ -32,7 +34,7 @@ export const ReportesReporteDeRegistros = () => {
       user_id: "",
       month: month,
       year: year,
-      record_type: null,
+      record_type: "",
     })
 
   const handleSearch = () => {
@@ -43,6 +45,10 @@ export const ReportesReporteDeRegistros = () => {
       endOfMonth(new Date(start_date)),
       "yyyy-MM-dd'T'23:59:59"
     )
+
+    queryClient.invalidateQueries({
+      queryKey: ["agentRegistrationsReport"],
+    })
 
     setSearchParams({ user_id, start_date, end_date, record_type })
   }

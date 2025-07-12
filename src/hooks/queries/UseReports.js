@@ -19,6 +19,7 @@ export const useGetVentasGlobales = (
     ...options,
   })
 }
+
 export const useGetAgentSales = (
   { user_id, start_date, end_date },
   options = {}
@@ -37,6 +38,7 @@ export const useGetAgentSales = (
     ...options,
   })
 }
+
 export const useGetAgentRegistrations = (
   { user_id, start_date, end_date, record_type },
   options = {}
@@ -62,6 +64,7 @@ export const useGetAgentRegistrations = (
     ...options,
   })
 }
+
 export const useGetGroupSalesReport = (
   { start_date, end_date, group_id, channel },
   options = {}
@@ -82,6 +85,7 @@ export const useGetGroupSalesReport = (
     ...options,
   })
 }
+
 export const useGetAgentCutOff = ({ agent_id }, options = {}) => {
   return useQuery({
     queryKey: ["agent-cut-off", agent_id],

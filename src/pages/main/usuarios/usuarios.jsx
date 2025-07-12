@@ -27,8 +27,9 @@ const Usuarios = () => {
     members,
     admin,
     leader,
-    isLoading,
     isError,
+    isFetching,
+    isFetched,
   } = useUsuariosData()
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -73,6 +74,7 @@ const Usuarios = () => {
                         onChange={onChange}
                         context={{ groups: listOfGroups }}
                         onSearch={handleSearch}
+                        isLoading={isFetching}
                       />
                     </>
                   ) : (
@@ -82,22 +84,25 @@ const Usuarios = () => {
               }
             />
           )}
-
-          {shouldFetch ? (
-            <WithStatusState isLoading={isLoading} isError={isError}>
+          <WithStatusState
+            isLoading={isFetching}
+            isError={isError}
+            isIdle={!isFetched}
+          >
+            {shouldFetch ? (
               <div className="flex flex-col gap-4 sm:flex-row">
                 {!isAgent && <GroupResponsible admin={admin} leader={leader} />}
 
                 <DataTable
                   table={table}
-                  isLoading={isLoading}
+                  isLoading={isFetching}
                   isError={isError}
                   hasFetched={true}
                   showPagination={false}
                 />
               </div>
-            </WithStatusState>
-          ) : null}
+            ) : null}
+          </WithStatusState>
         </CardContent>
       </Card>
 

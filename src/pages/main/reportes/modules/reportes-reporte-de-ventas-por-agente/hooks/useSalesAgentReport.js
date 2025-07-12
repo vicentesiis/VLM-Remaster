@@ -1,16 +1,17 @@
+import { useQueryClient } from "@tanstack/react-query"
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
+import { parseISO } from "date-fns"
 import { useEffect, useMemo, useState } from "react"
 import { getReportOrdersColumns } from "@/components/customs/table/columns/reportOrdersColumns"
 import { useGetReportsSalesAgent } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { formatCurrency } from "@/utils"
 import { getDateKey } from "@/utils/calendarUtils"
-import { parseISO } from "date-fns"
 
 export const useSalesAgentReport = ({ filters }) => {
   const { id: userId } = useCurrentUser()
   const [appliedFilters, setAppliedFilters] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
+  const queryClient = useQueryClient()
 
   const queryParams = useMemo(() => {
     if (!appliedFilters?.month || !appliedFilters?.year) return null
@@ -44,11 +45,13 @@ export const useSalesAgentReport = ({ filters }) => {
   })
 
   const handleSearch = async () => {
+    queryClient.invalidateQueries({
+      queryKey: ["sales-by-agent"],
+    })
     setAppliedFilters(filters)
     setSelectedDate(null)
   }
 
-  // Refetch whenever appliedFilters is set
   useEffect(() => {
     if (!appliedFilters) return
     refetch()
@@ -61,7 +64,7 @@ export const useSalesAgentReport = ({ filters }) => {
   const selectedDayData = useMemo(() => {
     return (
       reportData?.agent_daily_sales?.find((entry) => {
-        const entryDate = parseISO(entry.date) // keeps UTC
+        const entryDate = parseISO(entry.date)
         return getDateKey(entryDate) === selectedDate
       }) ?? {}
     )
