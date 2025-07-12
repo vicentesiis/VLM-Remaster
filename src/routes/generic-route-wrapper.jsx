@@ -5,17 +5,18 @@ import Ajustes from "@/pages/main/ajustes/ajustes"
 import Cuentas from "@/pages/main/ajustes/modules/cuentas"
 import Registros from "@/pages/main/registros/registros"
 import RegistrosDetail from "@/pages/main/registros/registros-detail/registros-detail"
+import ReporteReporteCorteAgente from "@/pages/main/reportes/modules/reportes-reporte-de-corte-de-agente"
+import ReporteReporteRecordFinalizado from "@/pages/main/reportes/modules/reportes-reporte-de-record_finalizado"
 import ReportesReporteDeRegistros from "@/pages/main/reportes/modules/reportes-reporte-de-registros"
 import ReportesReporteVentasPorAgente from "@/pages/main/reportes/modules/reportes-reporte-de-ventas-por-agente/reportes-reporte-de-ventas-por-agente"
 import ReportesReporteVentalMensual from "@/pages/main/reportes/modules/reportes-reporte-venta-mensual"
-import ReportesReporteVentasGlobales from "@/pages/main/reportes/modules/reportes-reporte-ventas-globales"
-import ReporteReporteCorteAgente  from "@/pages/main/reportes/modules/reportes-reporte-de-corte-de-agente"
 import ReportesReporteVentaPorAgentePotencial from "@/pages/main/reportes/modules/reportes-reporte-venta-por-agente-potencial"
+import ReportesReporteVentasActivasPorCobrar from "@/pages/main/reportes/modules/reportes-reporte-ventas-activas-por-cobrar"
+import ReportesReporteVentasGlobales from "@/pages/main/reportes/modules/reportes-reporte-ventas-globales"
 import Reportes from "@/pages/main/reportes/reportes"
 import Usuarios from "@/pages/main/usuarios/usuarios"
 import Vacantes from "@/pages/main/vacantes/vacantes"
 import VacantesDetail from "@/pages/main/vacantes/vacantes-detail/vacantes-detail"
-import ReporteReporteRecordFinalizado from "@/pages/main/reportes/modules/reportes-reporte-de-record_finalizado"
 
 const ReportePersonal = () => <>Reporte Personal</>
 const VentasPotenciales = () => <>Ventas Potenciales</>
@@ -39,9 +40,11 @@ export const componentMap = {
   reportesReporteVentasPorAgente: ReportesReporteVentasPorAgente,
   reportesReporteVentalMensual: ReportesReporteVentalMensual,
   reportesReporteVentasGlobales: ReportesReporteVentasGlobales,
-  reporteReporteRecordFinalizado : ReporteReporteRecordFinalizado,
+  reporteReporteRecordFinalizado: ReporteReporteRecordFinalizado,
   reportesReporteCorteAgente: ReporteReporteCorteAgente,
-  reportesReporteVentaPorAgentePotencial : ReportesReporteVentaPorAgentePotencial,
+  reportesReporteVentaPorAgentePotencial:
+    ReportesReporteVentaPorAgentePotencial,
+  reportesReporteVentasActivasPorCobrar: ReportesReporteVentasActivasPorCobrar,
   reportes: Reportes,
   vacantes: Vacantes,
   vacantDetail: VacantesDetail,

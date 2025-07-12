@@ -21,7 +21,7 @@ export const useRegistrosTable = (title) => {
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 })
 
   const parsedParams = useMemo(() => {
-    if (title === "Mis Tareas") {
+    if (title === "Tareas") {
       return null
     }
 
@@ -44,7 +44,7 @@ export const useRegistrosTable = (title) => {
   // CHOOSE THE QUERY BASED ON TITLE
   let recordQuery
 
-  if (title === "Mis Tareas") {
+  if (title === "Tareas") {
     recordQuery = useGetTasks()
   } else if (isAgent) {
     recordQuery = useGetRecordsByUser(parsedParams)
@@ -85,7 +85,7 @@ export const useRegistrosTable = (title) => {
   )
 
   const tableData = useMemo(() => {
-    if (title === "Mis Tareas") {
+    if (title === "Tareas") {
       return data?.data?.tasks ?? []
     }
     return data?.data ?? []
@@ -129,6 +129,6 @@ export const useRegistrosTable = (title) => {
     setPagination,
     refetch,
     isSuperAdmin,
-    showFilters: title !== "Mis Tareas",
+    showFilters: title !== "Tareas",
   }
 }

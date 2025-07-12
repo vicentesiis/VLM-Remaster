@@ -12,11 +12,11 @@ export const getParsedRecordParams = (
     limit: pagination.pageSize,
   }
 
-  if (title === "Clientes" || title === "Mis Clientes") {
+  if (title === "Clientes" || title === "Clientes") {
     params.is_client = true
   }
 
-  if (title === "Mis Prospectos") {
+  if (title === "Prospectos") {
     params.is_client = false
   }
 
@@ -85,9 +85,9 @@ function applyRoleFilters(params, filters, title, userId, currentRole) {
 }
 
 function applyAgentTitleLogic(params, title) {
-  if (title === "Mis Prospectos") {
+  if (title === "Prospectos") {
     params.record_type = "prospect"
-  } else if (title === "Mis Leads") {
+  } else if (title === "Leads") {
     params.record_type = "lead"
   }
 }

@@ -3,18 +3,18 @@ export const componentPropsMap = {
     title: "Registros",
   },
   misProspectos: {
-    title: "Mis Prospectos",
+    title: "Prospectos",
   },
   misLeads: {
-    title: "Mis Leads",
+    title: "Leads",
   },
   misClientes: {
-    title: "Mis Clientes",
+    title: "Clientes",
   },
   clientes: {
     title: "Clientes",
   },
   tareas: {
-    title: "Mis Tareas",
+    title: "Tareas",
   },
 }

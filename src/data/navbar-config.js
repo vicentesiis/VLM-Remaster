@@ -21,7 +21,7 @@ import { Roles } from "@/constants"
 
 export const menuItems = [
   {
-    title: "Mis Tareas",
+    title: "Tareas",
     to: "/tareas",
     icon: CheckSquare,
     allowedRoutes: [Roles.ADMIN, Roles.AGENT, Roles.LEADER],
@@ -39,19 +39,19 @@ export const menuItems = [
     allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
   },
   {
-    title: "Mis Leads",
+    title: "Leads",
     to: "/registros/mis-leads",
     icon: Contact,
     allowedRoutes: [Roles.AGENT, Roles.LEADER],
   },
   {
-    title: "Mis Clientes",
+    title: "Clientes",
     to: "/registros/mis-clientes",
     icon: Handshake,
     allowedRoutes: [Roles.AGENT, Roles.LEADER],
   },
   {
-    title: "Mis Prospectos",
+    title: "Prospectos",
     to: "/registros/mis-prospectos",
     icon: Target,
     allowedRoutes: [Roles.AGENT, Roles.LEADER],
@@ -65,6 +65,12 @@ export const menuItems = [
   {
     title: "Ventas",
     to: "/reportes/ventas-por-agente",
+    icon: DollarSign,
+    allowedRoutes: [Roles.AGENT, Roles.LEADER],
+  },
+  {
+    title: "Ventas activas por cobrar",
+    to: "/reportes/ventas-activas-por-cobrar",
     icon: DollarSign,
     allowedRoutes: [Roles.AGENT, Roles.LEADER],
   },
@@ -100,9 +106,15 @@ export const dropdownMenus = [
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
       },
       {
-        title: "Ventas Potenciales",
+        title: "Ventas potenciales",
         to: "/reportes/ventas-potenciales",
         icon: ShieldCheck,
+        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
+      },
+      {
+        title: "Ventas activas por cobrar",
+        to: "/reportes/ventas-activas-por-cobrar",
+        icon: DollarSign,
         allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {

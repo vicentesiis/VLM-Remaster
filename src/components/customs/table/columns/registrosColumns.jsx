@@ -59,7 +59,7 @@ const getAssignmentAtColumn = (title) =>
       let variant = "neutral"
       let label = formatDate(assignmentDate)
 
-      if (title === "Mis Leads") {
+      if (title === "Leads") {
         if (hoursDiff <= 12) {
           variant = "success"
         } else if (hoursDiff <= 24) {
