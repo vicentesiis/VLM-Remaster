@@ -17,6 +17,12 @@ export const getFinalizedReport = (params) =>
 export const getAgentPotentialSales = (params) =>
   apiClient.get("/reports/sales/agent/potential", { params })
 
+export const getActiveSalesReceivable = (params) =>
+  apiClient.get("/reports/collections/user", { params })
+
+export const getActiveSalesReceivableByGroup = (params) =>
+  apiClient.get("/reports/collections/group", { params })
+
 export const getMyPotentialSales = () =>
   apiClient.get("/reports/my-potential-sales")
 

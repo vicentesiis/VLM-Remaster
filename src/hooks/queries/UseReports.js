@@ -156,3 +156,25 @@ export const useGetReportsSalesAgent = (params, options = {}) => {
     ...options,
   })
 }
+
+export const useGetActiveSalesReceivable = (params, options = {}) => {
+  return useQuery({
+    queryKey: ["sales-receivable", params],
+    queryFn: async () => {
+      const res = await reportApi.getActiveSalesReceivable(params)
+      return res.data
+    },
+    ...options,
+  })
+}
+
+export const useGetActiveSalesReceivableByGroup = (params, options = {}) => {
+  return useQuery({
+    queryKey: ["sales-receivable-group", params],
+    queryFn: async () => {
+      const res = await reportApi.getActiveSalesReceivableByGroup(params)
+      return res.data
+    },
+    ...options,
+  })
+}

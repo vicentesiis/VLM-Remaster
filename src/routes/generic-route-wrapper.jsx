@@ -11,7 +11,7 @@ import ReportesReporteDeRegistros from "@/pages/main/reportes/modules/reportes-r
 import ReportesReporteVentasPorAgente from "@/pages/main/reportes/modules/reportes-reporte-de-ventas-por-agente/reportes-reporte-de-ventas-por-agente"
 import ReportesReporteVentalMensual from "@/pages/main/reportes/modules/reportes-reporte-venta-mensual"
 import ReportesReporteVentaPorAgentePotencial from "@/pages/main/reportes/modules/reportes-reporte-venta-por-agente-potencial"
-import ReportesReporteVentasActivasPorCobrar from "@/pages/main/reportes/modules/reportes-reporte-ventas-activas-por-cobrar"
+import ReportesReporteVentasActivasPorCobrar from "@/pages/main/reportes/modules/reportes-reporte-ventas-activas-por-cobrar/reportes-reporte-ventas-activas-por-cobrar"
 import ReportesReporteVentasGlobales from "@/pages/main/reportes/modules/reportes-reporte-ventas-globales"
 import Reportes from "@/pages/main/reportes/reportes"
 import Usuarios from "@/pages/main/usuarios/usuarios"
