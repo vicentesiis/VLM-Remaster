@@ -25,7 +25,7 @@ export const SalesReceivableCard = ({
     <Card>
       <CardContent>
         <SectionHeader
-          title={!isAgent ? `${username}` : "Total a cobrar"}
+          title={!isAgent ? `${username}:` : "Total a cobrar:"}
           extra={formatCurrency(total_to_be_collected)}
         />
         <DataTable table={table} hasFetched showPagination={false} />

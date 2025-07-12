@@ -3,16 +3,22 @@ import {
   useGetActiveSalesReceivableByGroup,
 } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 
 export const useSalesReceivable = () => {
-  const { isSuperAdmin, isAdmin, isAgent, user } = useCurrentUser()
+  const { isSuperAdmin, isAdmin, group, user } = useCurrentUser()
+
+  const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
+    group_id: isSuperAdmin ? "" : group?.id || "",
+  })
 
   let salesQuery
 
   if (isSuperAdmin || isAdmin) {
-    salesQuery = useGetActiveSalesReceivableByGroup({
-      group_id: "7d57f432-f831-43cd-9fcc-bd85ce51a7c4",
-    })
+    salesQuery = useGetActiveSalesReceivableByGroup(
+      { group_id: isSuperAdmin ? values?.group_id : group?.id || "" },
+      { enabled: !isSuperAdmin }
+    )
   } else {
     salesQuery = useGetActiveSalesReceivable({
       user_id: user?.id,
@@ -20,6 +26,10 @@ export const useSalesReceivable = () => {
   }
 
   const { data, isFetched, isFetching, isError, refetch } = salesQuery
+
+  const handleSearch = async () => {
+    await refetch()
+  }
 
   const normalizedData = (() => {
     if (!data) return []
@@ -48,6 +58,9 @@ export const useSalesReceivable = () => {
     isFetched,
     isFetching,
     isError,
-    refetch,
+    values,
+    onChange,
+    listOfGroups,
+    handleSearch,
   }
 }
