@@ -35,7 +35,7 @@ export const ReportesReporteVentasGlobales = () => {
   const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
     group_id: isAdmin ? group?.id || "" : "",
     year: year,
-    channel: "",
+    channel: undefined,
   })
   const [searchParams, setSearchParams] = useState(null)
 

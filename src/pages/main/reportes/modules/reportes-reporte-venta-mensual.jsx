@@ -158,8 +158,8 @@ export const ReportesReporteVentalMensual = () => {
       isAdmin || isLeader ? null : stateRef.current.group_id || group?.id || "",
     year: stateRef.current.year?.toString() || year,
     month: stateRef.current.month?.toString() || month,
-    channel: stateRef.current.channel,
-  })
+    channel: stateRef.current.channel ?? undefined,
+      })
 
   const {
     appliedFilters,

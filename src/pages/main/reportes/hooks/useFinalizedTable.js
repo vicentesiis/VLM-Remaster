@@ -65,6 +65,5 @@ export const useFinalizedReportTable = () => {
     listOfGroups,
     isSuperAdmin,
     handleSearch,
-    data,
   }
 }
