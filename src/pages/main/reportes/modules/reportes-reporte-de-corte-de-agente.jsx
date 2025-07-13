@@ -1,12 +1,13 @@
+import { Download } from "lucide-react"
 import React from "react"
+import { useCorteTable } from "../hooks/useCorteTable"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
 import { Button } from "@/components/ui/button"
-import { Download } from "lucide-react"
-import { DataTable } from "@/components/data-table"
-import { useCorteTable } from "../hooks/useCorteTable"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 
 export const ReporteReporteCorteAgente = () => {
   const {
@@ -26,11 +27,11 @@ export const ReporteReporteCorteAgente = () => {
   } = useCorteTable()
 
   return (
-    <PageLayout title="Reporte de Corte por Agente">
+    <PageLayout title="Corte por agente">
       <Card>
         <CardContent>
           <SectionHeader
-            title="Información del Agente"
+            // title="Información del Agente"
             actions={
               showFilters && (
                 <div className="flex items-center gap-2">
@@ -49,22 +50,29 @@ export const ReporteReporteCorteAgente = () => {
                     onClick={handleDownloadCutOff}
                     disabled={!values.user_id || isDownloading}
                     variant="outline"
+                    isLoading={isDownloading}
                   >
-                    <Download className="mr-2 h-4 w-4" />
-                    {isDownloading ? "Descargando..." : "Descargar Corte"}
+                    <Download />
+                    Generar corte
                   </Button>
                 </div>
               )
             }
           />
 
-          <DataTable
-            table={table}
+          <WithStatusState
             isLoading={isFetching}
             isError={isError}
-            hasFetched={isFetched}
-            showPagination={false}
-          />
+            isIdle={!isFetched}
+          >
+            <DataTable
+              table={table}
+              isLoading={isFetching}
+              isError={isError}
+              hasFetched={isFetched}
+              showPagination={false}
+            />
+          </WithStatusState>
         </CardContent>
       </Card>
     </PageLayout>

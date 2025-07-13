@@ -1,21 +1,25 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { useGetAgentCutOff } from "@/hooks/queries/UseReports"
-import { getOrdersColumns } from "@/components/customs/table/columns/orderColumns"
-import { userConfig, groupConfig } from "@/components/customs/filter/filter-config"
 import { useState, useEffect, useMemo, useCallback } from "react"
 import { toast } from "sonner"
+import {
+  userConfig,
+  groupConfig,
+} from "@/components/customs/filter/filter-config"
+import { getOrdersColumns } from "@/components/customs/table/columns/orderColumns"
+import { useGetAgentCutOff } from "@/hooks/queries/UseReports"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { downloadAgentCutOff } from "@/services/documentService"
 
 export const useCorteTable = () => {
   const { isAdmin, group } = useCurrentUser()
   const isSuperAdmin = isAdmin
 
-  const { values, onChange, listOfUsers, listOfGroups } = useGroupAndMembersFilter({
-    group_id: isSuperAdmin ? "" : group?.id || "",
-    user_id: "",
-  })
+  const { values, onChange, listOfUsers, listOfGroups } =
+    useGroupAndMembersFilter({
+      group_id: isSuperAdmin ? "" : group?.id || "",
+      user_id: "",
+    })
 
   const selectedUserId = values.user_id
   const [searchTriggered, setSearchTriggered] = useState(false)
@@ -26,10 +30,6 @@ export const useCorteTable = () => {
   }, [selectedUserId])
 
   const handleSearch = () => {
-    if (!selectedUserId) {
-      toast.error("El agente es requerido")
-      return
-    }
     setSearchTriggered(true)
   }
 
@@ -50,14 +50,8 @@ export const useCorteTable = () => {
       setIsDownloading(false)
     }
   }, [selectedUserId])
-  console.log(selectedUserId)
 
-  const {
-    data,
-    isFetching,
-    isError,
-    isFetched,
-  } = useGetAgentCutOff(
+  const { data, isFetching, isError, isFetched } = useGetAgentCutOff(
     { agent_id: selectedUserId },
     { enabled: searchTriggered && !!selectedUserId }
   )

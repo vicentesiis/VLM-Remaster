@@ -1,15 +1,11 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import { Banknote, CreditCard } from "lucide-react"
-import React, { useState } from "react"
-import { toast } from "sonner"
-import PaymentStatusBadge from "../../badge/payment-status-badge"
+import React from "react"
+import { MainCell } from "../cells"
 import NullableCell from "../cells/nullable-cell"
-import VoucherButton from "../cells/voucher-button-cell"
-import { downloadVoucher } from "@/services/documentService"
+import UsuarioCell from "../cells/usuario-cell"
 import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
-import { MainCell } from "../cells"
-import UsuarioCell from "../cells/usuario-cell"
 
 const columnHelper = createColumnHelper()
 
@@ -47,16 +43,6 @@ export const getReportOrdersColumns = () => {
       meta: { align: "left" },
     }),
 
-    // Fecha de Creación
-    // columnHelper.accessor("created_at", {
-    //   header: "Fecha de Creación",
-    //   cell: (info) => {
-    //     const date = info.getValue()
-    //     return <NullableCell value={date ? formatDate(date) : null} />
-    //   },
-    //   meta: { align: "center" },
-    // }),
-
     // Cantidad
     columnHelper.accessor("amount", {
       header: "Cantidad",
@@ -92,20 +78,6 @@ export const getReportOrdersColumns = () => {
       },
       meta: { align: "center" },
     }),
-
-    // CLABE
-    // columnHelper.accessor("clabe", {
-    //   header: "CLABE",
-    //   cell: (info) => <NullableCell value={info.getValue()} />,
-    //   meta: { align: "center" },
-    // }),
-
-    // Referencia
-    // columnHelper.accessor("reference", {
-    //   header: "Referencia",
-    //   cell: (info) => <NullableCell value={info.getValue()} />,
-    //   meta: { align: "center" },
-    // }),
 
     // Fecha de Pago
     columnHelper.accessor("payment_date", {

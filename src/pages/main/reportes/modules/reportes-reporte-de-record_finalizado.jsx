@@ -1,12 +1,12 @@
 import React from "react"
-import { toast } from "sonner"
-import PageLayout from "@/components/customs/page-layout/page-layout"
-import SectionHeader from "@/components/customs/section-header"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
-import { Card, CardContent } from "@/components/ui"
-import { DataTable } from "@/components/data-table"
 import { useFinalizedReportTable } from "../hooks/useFinalizedTable"
 import { groupConfig } from "@/components/customs/filter/filter-config"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import PageLayout from "@/components/customs/page-layout/page-layout"
+import SectionHeader from "@/components/customs/section-header"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
+import { DataTable } from "@/components/data-table"
+import { Card, CardContent } from "@/components/ui"
 
 const ReporteReporteRecordFinalizado = () => {
   const {
@@ -18,16 +18,15 @@ const ReporteReporteRecordFinalizado = () => {
     values,
     onChange,
     listOfGroups,
-    isSuperAdmin,
     handleSearch,
+    data,
   } = useFinalizedReportTable()
 
   return (
-    <PageLayout title="Reporte de Registros Finalizados">
+    <PageLayout title="Control de finalizados">
       <Card>
         <CardContent>
           <SectionHeader
-            title="Registros Finalizados"
             actions={
               showFilters && (
                 <FilterToolbar
@@ -42,13 +41,19 @@ const ReporteReporteRecordFinalizado = () => {
             }
           />
 
-          <DataTable
-            table={table}
+          <WithStatusState
             isLoading={isFetching}
             isError={isError}
-            hasFetched={isFetched}
-            showPagination={false}
-          />
+            isIdle={!isFetched}
+          >
+            <DataTable
+              table={table}
+              isLoading={isFetching}
+              isError={isError}
+              hasFetched={isFetched}
+              showPagination={false}
+            />
+          </WithStatusState>
         </CardContent>
       </Card>
     </PageLayout>

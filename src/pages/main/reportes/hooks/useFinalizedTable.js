@@ -29,12 +29,7 @@ export const useFinalizedReportTable = () => {
     setSearchTriggered(true)
   }
 
-  const {
-    data,
-    isFetching,
-    isError,
-    isFetched,
-  } = useGetFinalizedReport(
+  const { data, isFetching, isError, isFetched } = useGetFinalizedReport(
     {
       skip: 0,
       limit: 100,
@@ -61,7 +56,7 @@ export const useFinalizedReportTable = () => {
 
   return {
     table,
-    isFetching: searchTriggered && isFetching, 
+    isFetching: searchTriggered && isFetching,
     isError,
     isFetched: showTableData,
     showFilters: true,
@@ -70,5 +65,6 @@ export const useFinalizedReportTable = () => {
     listOfGroups,
     isSuperAdmin,
     handleSearch,
+    data,
   }
 }

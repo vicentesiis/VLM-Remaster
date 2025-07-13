@@ -1,26 +1,61 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
-import { formatDate } from "@/utils"
-import StatusBadge from "../../badge/status-badge"
+import { MainCell } from "../cells"
 import NullableCell from "../cells/nullable-cell"
+import { formatCurrency, formatDate } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
 export const getFinalizedReportColumns = () => {
   return [
-    columnHelper.accessor("name", {
-      header: "Registro",
-      cell: (info) => <NullableCell value={info.getValue()} />,
+    columnHelper.accessor((row) => row.record?.public_id, {
+      id: "registro",
+      header: "Cliente",
+      cell: ({ row }) => {
+        console.log("FinalizedColumns row", row.original)
+        const record = row.original
+        if (!record?.public_id) return <NullableCell value={null} />
+
+        return (
+          <MainCell
+            public_id={record.public_id}
+            title={record.name}
+            path="/detalle"
+          />
+        )
+      },
+      meta: { align: "left" },
+    }),
+    columnHelper.accessor("amount_owed", {
+      header: "Cantidad (?)",
+      cell: (info) => {
+        const amount = info.getValue()
+        return <NullableCell value={amount ? formatCurrency(amount) : null} />
+      },
       meta: { align: "center" },
     }),
-    columnHelper.accessor("job", {
-      header: "Agente",
-      cell: (info) => <NullableCell value={info.getValue()} />,
+    columnHelper.accessor("created_at", {
+      header: "Fecha de creación",
+      cell: (info) => {
+        const date = info.getValue()
+        return <NullableCell value={date ? formatDate(date) : null} />
+      },
       meta: { align: "center" },
     }),
-    columnHelper.accessor("orderCount", {
-      header: "Pagos",
-      cell: (info) => <NullableCell value={info.getValue()} />,
+    columnHelper.accessor("assignment_date", {
+      header: "Fecha de asignación",
+      cell: (info) => {
+        const date = info.getValue()
+        return <NullableCell value={date ? formatDate(date) : null} />
+      },
+      meta: { align: "center" },
+    }),
+    columnHelper.accessor("end_date", {
+      header: "Fecha de finalización",
+      cell: (info) => {
+        const date = info.getValue()
+        return <NullableCell value={date ? formatDate(date) : null} />
+      },
       meta: { align: "center" },
     }),
     columnHelper.accessor("exit_date", {
@@ -29,24 +64,6 @@ export const getFinalizedReportColumns = () => {
         const date = info.getValue()
         return <NullableCell value={date ? formatDate(date) : null} />
       },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("phone", {
-      header: "Teléfono",
-      cell: (info) => <NullableCell value={info.getValue()} />,
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("updated_at", {
-      header: "Fecha de finalización",
-      cell: (info) => {
-        const date = info.getValue()
-        return <NullableCell value={date ? formatDate(date) : null} />
-      },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("status", {
-      header: "Estatus",
-      cell: (info) => <StatusBadge status={info.getValue()} />,
       meta: { align: "center" },
     }),
   ]

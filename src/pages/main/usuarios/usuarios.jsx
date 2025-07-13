@@ -84,25 +84,19 @@ const Usuarios = () => {
               }
             />
           )}
-          <WithStatusState
-            isLoading={isFetching}
-            isError={isError}
-            isIdle={!isFetched}
-          >
-            {shouldFetch ? (
-              <div className="flex flex-col gap-4 sm:flex-row">
-                {!isAgent && <GroupResponsible admin={admin} leader={leader} />}
+          {shouldFetch ? (
+            <div className="flex flex-col gap-4 sm:flex-row">
+              {!isAgent && <GroupResponsible admin={admin} leader={leader} />}
 
-                <DataTable
-                  table={table}
-                  isLoading={isFetching}
-                  isError={isError}
-                  hasFetched={true}
-                  showPagination={false}
-                />
-              </div>
-            ) : null}
-          </WithStatusState>
+              <DataTable
+                table={table}
+                isLoading={isFetching}
+                isError={isError}
+                hasFetched={true}
+                showPagination={false}
+              />
+            </div>
+          ) : null}
         </CardContent>
       </Card>
 
