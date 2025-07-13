@@ -1,24 +1,24 @@
 import React, { useEffect, useRef } from "react"
+import { useLocation } from "react-router-dom"
+import { useSalesMonthlyReport } from "./reportes-reporte-de-ventas-por-agente/hooks/useVentasMensualReport"
+import BigCalendar from "@/components/customs/big-calendar/big-calendar"
 import {
   groupConfig,
   yearConfig,
   monthConfig,
   channelConfig,
 } from "@/components/customs/filter/filter-config"
-import PageLayout from "@/components/customs/page-layout/page-layout"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
-import { Card, CardContent } from "@/components/ui"
 import { DataTable } from "@/components/data-table"
-import BigCalendar from "@/components/customs/big-calendar/big-calendar"
+import { Card, CardContent } from "@/components/ui"
 import { months } from "@/constants"
-import { getCurrentMonthYear, mapToOptions } from "@/utils"
 import { useCodexData } from "@/hooks/queries"
-import { useSalesMonthlyReport } from "./reportes-reporte-de-ventas-por-agente/hooks/useVentasMensualReport"
-import { useLocation } from "react-router-dom"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
+import { getCurrentMonthYear, mapToOptions } from "@/utils"
 import { formatCurrency } from "@/utils"
 import { formatIfExists, formatLongMonthAndDay } from "@/utils/reportFormatters"
 
@@ -158,8 +158,8 @@ export const ReportesReporteVentalMensual = () => {
       isAdmin || isLeader ? null : stateRef.current.group_id || group?.id || "",
     year: stateRef.current.year?.toString() || year,
     month: stateRef.current.month?.toString() || month,
-    channel: stateRef.current.channel,
-  })
+    channel: stateRef.current.channel ?? undefined,
+      })
 
   const {
     appliedFilters,

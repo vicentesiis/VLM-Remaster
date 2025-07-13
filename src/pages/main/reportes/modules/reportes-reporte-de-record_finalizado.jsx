@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useFinalizedReportTable } from "../hooks/useFinalizedTable"
 import { groupConfig } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
@@ -8,7 +8,11 @@ import { WithStatusState } from "@/components/customs/status-state/with-status-s
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
 
+import { useCurrentUser } from "@/hooks/useCurrentUser"
+
 const ReporteReporteRecordFinalizado = () => {
+  const { isAdmin } = useCurrentUser()
+
   const {
     table,
     isFetching,
@@ -19,8 +23,13 @@ const ReporteReporteRecordFinalizado = () => {
     onChange,
     listOfGroups,
     handleSearch,
-    data,
   } = useFinalizedReportTable()
+
+  useEffect(() => {
+    if (isAdmin) {
+      handleSearch()
+    }
+  }, [isAdmin, handleSearch])
 
   return (
     <PageLayout title="Control de finalizados">
@@ -28,7 +37,7 @@ const ReporteReporteRecordFinalizado = () => {
         <CardContent>
           <SectionHeader
             actions={
-              showFilters && (
+              !isAdmin && showFilters && (
                 <FilterToolbar
                   filterConfig={listOfGroups.length ? [groupConfig] : []}
                   values={values}
