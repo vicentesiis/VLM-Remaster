@@ -1,19 +1,20 @@
 import React, { useState } from "react"
-import PageLayout from "@/components/customs/page-layout/page-layout"
-import SectionHeader from "@/components/customs/section-header"
-import { Card, CardContent } from "@/components/ui"
-import { useGetAgentPotentialSales } from "@/hooks/queries/UseReports"
-import { usePotencialTable } from "../hooks/usePotencialTable"
-import { DataTable } from "@/components/data-table"
-import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { toast } from "sonner"
-import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import { usePotencialTable } from "../hooks/usePotencialTable"
 import {
   userConfig,
   groupConfig,
 } from "@/components/customs/filter/filter-config"
-import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
+import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
+import PageLayout from "@/components/customs/page-layout/page-layout"
+import SectionHeader from "@/components/customs/section-header"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
+import { DataTable } from "@/components/data-table"
+import { Card, CardContent } from "@/components/ui"
+import { useGetAgentPotentialSales } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
+import { formatCurrency } from "@/utils"
 
 const ReportesReporteVentaPorAgentePotencial = () => {
   const [searchParams, setSearchParams] = useState(null)
@@ -33,37 +34,28 @@ const ReportesReporteVentaPorAgentePotencial = () => {
     setSearchParams({ agent_id: values.user_id })
   }
 
-  const { data, isLoading, isError } = useGetAgentPotentialSales(
+  const { data, isFetching, isError, isFetched } = useGetAgentPotentialSales(
     searchParams ?? {},
     {
       enabled: !!searchParams,
     }
   )
 
-  const records =
-    data?.records?.flatMap((record) => {
-      if (!record.orders || record.orders.length === 0) return []
-
-      return [
-        {
-          clientId: record.public_id,
-          clientName: record.name,
-          agent: record.job,
-          orderIds: record.orders.map((o) => o.id),
-          expirationDates: record.orders.map((o) => o.expiration_date),
-          totalAmount: record.orders.reduce((acc, o) => acc + o.amount, 0),
-        },
-      ]
-    }) ?? []
-
-  const { table } = usePotencialTable(records)
+  const { table } = usePotencialTable(data?.records)
 
   return (
     <PageLayout title="Ventas potenciales">
       <Card>
         <CardContent>
           <SectionHeader
-            title="Ventas Potenciales por Agente"
+            title={
+              isFetched
+                ? formatCurrency(data?.total_potential_sales || 0)
+                : undefined
+            }
+            subtitle={
+              isFetched ? `Registros: ${data?.records?.length ?? 0}` : undefined
+            }
             actions={
               <FilterToolbar
                 filterConfig={[
@@ -80,14 +72,14 @@ const ReportesReporteVentaPorAgentePotencial = () => {
               />
             }
           />
-        </CardContent>{" "}
-        <WithStatusState
-          isLoading={isLoading}
-          isError={isError}
-          hasFetched={!!searchParams}
-        >
-          <DataTable table={table} hasFetched showPagination={false} />
-        </WithStatusState>
+          <WithStatusState
+            isLoading={isFetching}
+            isError={isError}
+            isIdle={!isFetched}
+          >
+            <DataTable table={table} hasFetched showPagination={false} />
+          </WithStatusState>
+        </CardContent>
       </Card>
     </PageLayout>
   )

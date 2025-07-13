@@ -23,7 +23,7 @@ const FilterToolbar = ({
 
     if (missing.length > 0) {
       toast.error(
-        `Por favor selecciona ${missing.join(" y ")} antes de buscar.`
+        `Selecciona ${missing.join(" y ")} antes de buscar.`
       )
       return
     }
