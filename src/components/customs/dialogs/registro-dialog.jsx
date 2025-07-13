@@ -32,6 +32,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit, vacantId }) => {
   const handleSubmit = async (data) => {
     const payload = {
       ...data,
+      credit: data.credit ? data.credit * 100 : undefined,
       passport: data.document_type === "passport" ? data.document : "",
       curp: data.document_type === "curp" ? data.document : "",
     }

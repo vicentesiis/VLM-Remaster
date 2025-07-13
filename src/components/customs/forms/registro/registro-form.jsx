@@ -18,6 +18,7 @@ import {
   programField,
   channelField,
   commentsField,
+  creditField,
 } from "@/forms/fields"
 import {
   nameSchema,
@@ -32,6 +33,7 @@ import {
   programSchema,
   channelSchema,
   commentsSchema,
+  creditSchema,
 } from "@/forms/validators"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
@@ -50,6 +52,7 @@ export const formSchema = z.object({
   program: programSchema,
   channel: channelSchema,
   comments: commentsSchema,
+  credit: creditSchema,
 })
 
 const RegistroForm = forwardRef(
@@ -114,9 +117,15 @@ const RegistroForm = forwardRef(
       ),
     ]
 
+    const programValue = form.watch("program")
+    const initialProgram = defaultValues?.program
+
+    const programHasChanged = programValue && programValue !== initialProgram
+
     const vacantInfoFields = [
       jobField(),
       programField(programaOptions, { disabled: !isAdmin && isEdit }),
+      ...(isEdit && programHasChanged ? [creditField()] : []),
       channelField(channelOptions, { disabled: !isAdmin && isEdit }),
       commentsField(),
     ]

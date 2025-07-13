@@ -182,3 +182,12 @@ export const groupNameField = (config = {}) => ({
   placeholder: "Nombre del Grupo",
   ...config,
 })
+
+export const creditField = (config = {}) => ({
+  name: "credit",
+  label: "Cantidad a tomar a cuenta",
+  type: "currency",
+  placeholder: "Min $500 - Max $10,000",
+  maxLength: 7,
+  ...config,
+})
