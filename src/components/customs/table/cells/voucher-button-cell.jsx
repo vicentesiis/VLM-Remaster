@@ -3,9 +3,13 @@ import PropTypes from "prop-types"
 import React from "react"
 import { Button } from "@/components/ui"
 import { shouldDisableVoucher } from "@/utils"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 
 export function VoucherButton({ order, canCreateOrder, onClick, isLoading }) {
-  const disabled = shouldDisableVoucher(order, canCreateOrder) || isLoading
+  const { isSuperAdmin } = useCurrentUser()
+
+  const disabled =
+    isSuperAdmin || shouldDisableVoucher(order, canCreateOrder) || isLoading
 
   const handleClick = () => {
     if (!disabled) onClick?.(order)

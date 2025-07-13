@@ -4,9 +4,9 @@ import SalesReceivableCard from "./sales-receivable-card"
 import { groupConfig } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatCurrency } from "@/utils"
-import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 
 const ReportesReporteVentasActivasPorCobrar = () => {
   const { isAgent, isSuperAdmin } = useCurrentUser()

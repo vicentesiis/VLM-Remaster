@@ -1,16 +1,18 @@
-import { useState, useMemo, useEffect } from "react"
-import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { useGetGroupSalesReport } from "@/hooks/queries/UseReports"
-import { getDateKey } from "@/utils/calendarUtils"
+import { useQueryClient } from "@tanstack/react-query"
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
+import { useState, useMemo, useEffect } from "react"
 import { getReportOrdersColumns } from "@/components/customs/table/columns/reportOrdersColumns"
+import { useGetGroupSalesReport } from "@/hooks/queries/UseReports"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatCurrency } from "@/utils"
+import { getDateKey } from "@/utils/calendarUtils"
 import { formatMonthNYear } from "@/utils/reportFormatters"
 
 export const useSalesMonthlyReport = ({ filters }) => {
-  const { isAdmin, group, id: userId } = useCurrentUser()
+  const { isAdmin } = useCurrentUser()
   const [appliedFilters, setAppliedFilters] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
+  const queryClient = useQueryClient()
 
   const queryParams = useMemo(() => {
     if (!appliedFilters?.year || !appliedFilters?.month) return null
@@ -50,7 +52,7 @@ export const useSalesMonthlyReport = ({ filters }) => {
     return ventas
       .filter((v) => v.date)
       .map((v) => ({
-        date: v.date, // string tipo "2025-07-05"
+        date: v.date,
         total_day_sales: v.total_day_sales,
         total_day_orders: v.total_day_orders,
       }))

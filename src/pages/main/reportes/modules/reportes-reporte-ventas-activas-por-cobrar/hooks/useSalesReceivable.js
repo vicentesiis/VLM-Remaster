@@ -9,16 +9,17 @@ export const useSalesReceivable = () => {
   const { isSuperAdmin, isAdmin, group, user } = useCurrentUser()
 
   const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
-    group_id: isSuperAdmin ? "" : group?.id || "",
+    group_id: "",
   })
 
   let salesQuery
 
   if (isSuperAdmin || isAdmin) {
-    salesQuery = useGetActiveSalesReceivableByGroup(
-      { group_id: isSuperAdmin ? values?.group_id : group?.id || "" },
-      { enabled: !isSuperAdmin }
-    )
+    const params = isSuperAdmin ? { group_id: values?.group_id } : undefined
+
+    salesQuery = useGetActiveSalesReceivableByGroup(params, {
+      enabled: isSuperAdmin ? !!values?.group_id : true,
+    })
   } else {
     salesQuery = useGetActiveSalesReceivable({
       user_id: user?.id,

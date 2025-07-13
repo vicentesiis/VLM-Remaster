@@ -171,7 +171,6 @@ export const ReportesReporteVentalMensual = () => {
     reportData,
     selectedDate,
     table,
-    subtitle,
     totalSalesString,
     selectedDayData,
     monthSelected,

@@ -9,12 +9,26 @@ import { downloadVoucher } from "@/services/documentService"
 import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
 import { MainCell } from "../cells"
+import UsuarioCell from "../cells/usuario-cell"
 
 const columnHelper = createColumnHelper()
 
 export const getReportOrdersColumns = () => {
   const columns = [
     // Registro column
+    columnHelper.display({
+      id: "usuario",
+      header: "Usuario",
+      cell: ({ row }) => {
+        const user = row.original.user
+
+        if (!user?.username && !user?.name) {
+          return <NullableCell value={null} />
+        }
+
+        return <UsuarioCell name={user.name} username={user.username} />
+      },
+    }),
     columnHelper.accessor((row) => row.record?.public_id, {
       id: "registro",
       header: "Cliente",
@@ -52,7 +66,7 @@ export const getReportOrdersColumns = () => {
       },
       meta: { align: "center" },
     }),
-    
+
     // Método de Pago
     columnHelper.accessor("payment_method", {
       header: "Método de Pago",
