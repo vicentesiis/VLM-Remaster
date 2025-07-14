@@ -187,7 +187,7 @@ export const creditField = (config = {}) => ({
   name: "credit",
   label: "Cantidad a tomar a cuenta",
   type: "currency",
-  placeholder: "Min $500 - Max $10,000",
-  maxLength: 7,
+  placeholder: "Min $0 - Max $3,879",
+  maxLength: 5,
   ...config,
 })

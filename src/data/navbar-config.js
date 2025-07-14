@@ -14,8 +14,8 @@ import {
   NotebookText,
   CalendarRange,
   CheckCircle2,
-  Network,
   ReceiptText,
+  HandCoins,
 } from "lucide-react"
 import { Roles } from "@/constants"
 
@@ -71,7 +71,7 @@ export const menuItems = [
   {
     title: "Ventas activas por cobrar",
     to: "/reportes/ventas-activas-por-cobrar",
-    icon: DollarSign,
+    icon: HandCoins,
     allowedRoutes: [Roles.AGENT, Roles.LEADER],
   },
   {

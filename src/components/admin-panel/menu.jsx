@@ -17,10 +17,10 @@ import { getSidebarMenu } from "@/utils/getSidebarMenu"
 
 export function Menu({ isOpen }) {
   const location = useLocation()
-  const { role } = useCurrentUser()
+  const { role, isLeader } = useCurrentUser()
   const pathname = location.pathname
 
-  const menuList = getSidebarMenu(role, pathname)
+  const menuList = getSidebarMenu(role, pathname, isLeader)
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">

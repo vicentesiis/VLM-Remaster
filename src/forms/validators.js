@@ -132,7 +132,7 @@ export const creditSchema = z
     },
     z
       .number({ required_error: "El monto es obligatorio" })
-      .min(500, { message: "El monto mínimo es $500" })
-      .max(10000, { message: "El monto máximo es $10,000" })
+      .min(0, { message: "El monto mínimo es $0" })
+      .max(3879, { message: "El monto máximo es $3,879" })
   )
   .optional()

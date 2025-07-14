@@ -1,11 +1,18 @@
 import { Roles } from "@/constants"
 import { dropdownMenus, menuItems } from "@/data"
 
-export function getSidebarMenu(role, pathname) {
+export function getSidebarMenu(role, pathname, isLeader = false) {
+  const isAllowed = (allowedRoles) => {
+    if (!allowedRoles) return true
+    return allowedRoles.some(
+      (allowed) => allowed === role || (allowed === Roles.LEADER && isLeader)
+    )
+  }
+
   const getFirstSegment = (path) => path.split("/")[1] || ""
 
   const baseMenus = menuItems
-    .filter((item) => item.allowedRoutes.includes(role))
+    .filter((item) => isAllowed(item.allowedRoutes))
     .map((item) => ({
       label: item.title,
       href: item.to,
@@ -14,10 +21,10 @@ export function getSidebarMenu(role, pathname) {
     }))
 
   const dropdowns = dropdownMenus
-    .filter((group) => group.allowedRoutes.includes(role))
+    .filter((group) => isAllowed(group.allowedRoutes))
     .map((group) => {
       const submenus = group.items
-        .filter((item) => item.allowedRoutes.includes(role))
+        .filter((item) => isAllowed(item.allowedRoutes))
         .map((item) => ({
           label: item.title,
           href: item.to,

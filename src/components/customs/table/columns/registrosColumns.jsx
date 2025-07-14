@@ -51,6 +51,10 @@ const getAssignmentAtColumn = (title) =>
     cell: (info) => {
       const assignmentDate = info.getValue()
 
+      if (!assignmentDate) {
+        return <NullableCell className="text-center" />
+      }
+
       const date = new Date(assignmentDate)
       const now = new Date()
       const hoursDiff =
