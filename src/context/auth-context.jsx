@@ -13,25 +13,19 @@ export const AuthProvider = ({ children }) => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  console.log("AuthProvider token:", token)
-
   const {
     data: user,
     isError,
     isLoading: isUserLoading,
-    error,
   } = useCurrentUser({ enabled: !!token })
 
   useEffect(() => {
-    if (
-      isError &&
-      (error?.response?.status === 401 || error?.response?.status === 404)
-    ) {
+    if (isError) {
       localStorage.removeItem("access_token")
       setToken(null)
       navigate("/login")
     }
-  }, [isError, error, navigate])
+  }, [isError, navigate])
 
   const loading = isUserLoading
 
