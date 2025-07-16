@@ -58,7 +58,7 @@ export const stateSchema = normalizeToEmptyString(
 export const documentSchema = normalizeToEmptyString(
   z
     .string()
-    .max(15, { message: "El documento debe de tener menos de 15 caracteres" }),
+    .max(20, { message: "El documento debe de tener menos de 20 caracteres" }),
   "El Documento es obligatorio"
 )
 
