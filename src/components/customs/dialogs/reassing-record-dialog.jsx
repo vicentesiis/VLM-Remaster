@@ -123,7 +123,6 @@ export const ReassingRecordDialog = ({ record }) => {
         </AlertDialogHeader>
 
         <div className="space-y-4">
-          {/* Record Information */}
           <div className="space-y-2">
             <div>
               <span className="text-sm font-medium text-muted-foreground">

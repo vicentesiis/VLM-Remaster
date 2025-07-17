@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
-import PropTypes from "prop-types"
-import { toast } from "sonner"
 import { Users2 } from "lucide-react"
+import PropTypes from "prop-types"
+import React, { useState, useEffect } from "react"
+import { toast } from "sonner"
 
 import {
   AlertDialog,
@@ -24,10 +24,19 @@ const UpdateGroupPhoneDialog = ({ groupId }) => {
 
   useEffect(() => {
     setCurrentGroupId(groupId)
-    setPhone("") 
-  }, [groupId])
+    setPhone("")
+  }, [groupId, open])
 
-  const { mutateAsync, isLoading } = UseUpdateGroupPhone({
+  const handlePhoneChange = (e) => {
+    const value = e.target.value
+    const numbersOnly = value.replace(/\D/g, "")
+
+    if (numbersOnly.length <= 10) {
+      setPhone(numbersOnly)
+    }
+  }
+
+  const { mutateAsync, isPending: isLoading } = UseUpdateGroupPhone({
     onSuccess: () => {
       toast.success("Teléfono actualizado correctamente")
       setOpen(false)
@@ -36,17 +45,15 @@ const UpdateGroupPhoneDialog = ({ groupId }) => {
   })
 
   const handleSubmit = async () => {
-    if (!phone.trim()) {
-      toast.error("Ingresa un teléfono válido")
-      return
-    }
     if (!currentGroupId) {
       toast.error("No se encontró el id del grupo")
       return
     }
+
     try {
       await mutateAsync({ group_id: currentGroupId, new_phone: phone })
     } catch (error) {
+      console.error("Error updating phone:", error)
     }
   }
 
@@ -64,21 +71,25 @@ const UpdateGroupPhoneDialog = ({ groupId }) => {
           <AlertDialogTitle>Actualizar teléfono del grupo</AlertDialogTitle>
         </AlertDialogHeader>
 
-        <Input
-          placeholder="Nuevo número de teléfono"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          disabled={isLoading}
-        />
+        <div className="space-y-2">
+          <Input
+            type="tel"
+            placeholder="Nuevo número de teléfono (10 dígitos)"
+            value={phone}
+            onChange={handlePhoneChange}
+            disabled={isLoading}
+            maxLength={10}
+          />
+        </div>
 
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isLoading}>Cancelar</AlertDialogCancel>
           <Button
             onClick={handleSubmit}
-            disabled={isLoading || !phone.trim()}
+            disabled={isLoading || phone.length !== 10}
             isLoading={isLoading}
           >
-            {isLoading ? "Actualizando..." : "Actualizar Teléfono"}
+            Actualizar Teléfono
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
