@@ -67,7 +67,7 @@ export const useCorteTable = () => {
     }
   
     if (orders.length === 0) {
-      toast.error("Este agente ya no tiene órdenes pendientes por cortar.")
+      toast.error("Este agente ya no tiene órdenes pendientes por cortar")
       return
     }
   

@@ -21,13 +21,8 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit, vacantId }) => {
   const buttonVariant = isEdit ? "edit" : "add"
   const iconBgClass = isEdit ? "bg-orange-600" : "bg-green-600"
 
-  const { mutateAsync: createRecord } = useCreateRecord({
-    onError: () => toast.error("Error al crear el registro"),
-  })
-
-  const { mutateAsync: updateRecord } = useUpdateRecord({
-    onError: () => toast.error("Error al actualizar el registro"),
-  })
+  const { mutateAsync: createRecord } = useCreateRecord()
+  const { mutateAsync: updateRecord } = useUpdateRecord()
 
   const handleSubmit = async (data) => {
     const payload = {
@@ -59,6 +54,11 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit, vacantId }) => {
       }
     } catch (err) {
       console.error("Error:", err)
+
+      const message =
+        err?.response?.data?.detail || "Ocurrió un error inesperado."
+
+      toast.error(message)
     } finally {
       setIsSubmitting(false)
     }

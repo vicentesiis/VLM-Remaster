@@ -2,7 +2,7 @@ export const Roles = {
   SUPER_ADMIN: "super_admin",
   ADMIN: "admin",
   AGENT: "agent",
-  LEADER: "leader"
+  LEADER: "leader",
 }
 
 export const RecordStatuses = Object.freeze({
@@ -71,7 +71,7 @@ export const RolesCapabilities = {
   },
   [Roles.ADMIN]: {
     canManageRecords: true,
-    canCreateOrders: true,
+    canCreateOrders: false,
     canDeleteUsers: false,
     canViewReports: true,
   },

@@ -6,7 +6,7 @@ import { useGetVacantbyId } from "@/hooks/queries/useVacants"
 
 async function handleSearchByType({ type, query, refetchers }) {
   if (!query) {
-    toast.error("Ingresa un ID válido para buscar.")
+    toast.error("Ingresa un ID válido para buscar")
     return null
   }
 
@@ -31,12 +31,12 @@ async function handleSearchByType({ type, query, refetchers }) {
       }
 
       default:
-        toast.error("Tipo de búsqueda no soportado.")
+        toast.error("Tipo de búsqueda no soportado")
         return null
     }
   } catch (error) {
     const message =
-      error?.response?.data?.detail || "Ocurrió un error en la búsqueda."
+      error?.response?.data?.detail || "Ocurrió un error en la búsqueda"
     toast.error(message)
     return null
   }

@@ -2,14 +2,17 @@ import { DownloadIcon } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
 import { Button } from "@/components/ui"
-import { shouldDisableVoucher } from "@/utils"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { shouldDisableVoucher } from "@/utils"
 
 export function VoucherButton({ order, canCreateOrder, onClick, isLoading }) {
-  const { isSuperAdmin } = useCurrentUser()
+  const { isSuperAdmin, isAdmin } = useCurrentUser()
 
   const disabled =
-    isSuperAdmin || shouldDisableVoucher(order, canCreateOrder) || isLoading
+    isSuperAdmin ||
+    isAdmin ||
+    shouldDisableVoucher(order, canCreateOrder) ||
+    isLoading
 
   const handleClick = () => {
     if (!disabled) onClick?.(order)

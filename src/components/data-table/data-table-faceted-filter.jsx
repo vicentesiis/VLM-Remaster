@@ -106,7 +106,7 @@ export function DataTableFacetedFilter(
         <Command>
           <CommandInput placeholder={title} />
           <CommandList className="max-h-full">
-            <CommandEmpty>Sin Resultados.</CommandEmpty>
+            <CommandEmpty>Sin Resultados</CommandEmpty>
             <CommandGroup className="max-h-[18.75rem] overflow-y-auto overflow-x-hidden">
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value);

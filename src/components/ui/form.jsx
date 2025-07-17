@@ -22,12 +22,11 @@ const useFormField = () => {
   const itemContext = React.useContext(FormItemContext)
   const { formState } = useFormContext()
 
-  // Ensure formState is defined
   if (!formState) {
     throw new Error("useFormContext has not been initialized properly.")
   }
 
-  const error = formState.errors?.[fieldContext.name] // This is how you access the specific field error
+  const error = formState.errors?.[fieldContext.name]
 
   if (!fieldContext) {
     throw new Error("useFormField should be used within <FormField>")

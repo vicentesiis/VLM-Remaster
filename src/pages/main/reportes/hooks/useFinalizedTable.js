@@ -23,7 +23,7 @@ export const useFinalizedReportTable = () => {
 
   const handleSearch = () => {
     if (!isSuperAdmin && !selectedGroupId) {
-      toast.error("Selecciona un grupo antes de buscar.")
+      toast.error("Selecciona un grupo antes de buscar")
       return
     }
     setSearchTriggered(true)

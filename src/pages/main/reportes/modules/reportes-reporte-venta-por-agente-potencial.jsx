@@ -28,7 +28,7 @@ const ReportesReporteVentaPorAgentePotencial = () => {
 
   const handleSearch = () => {
     if (!values.user_id) {
-      toast.error("Selecciona un agente antes de buscar.")
+      toast.error("Selecciona un agente antes de buscar")
       return
     }
     setSearchParams({ agent_id: values.user_id })

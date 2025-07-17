@@ -85,14 +85,14 @@ export function DataTable({
             ) : isError ? (
               <TableMessageCell
                 colSpan={table.getAllColumns().length}
-                message="Ocurrió un error al cargar los datos."
+                message="Ocurrió un error al cargar los datos"
                 className="text-destructive"
                 variant="error"
               />
             ) : isEmpty ? (
               <TableMessageCell
                 colSpan={table.getAllColumns().length}
-                message="Sin resultados."
+                message="Sin resultados"
                 variant="empty"
               />
             ) : (
