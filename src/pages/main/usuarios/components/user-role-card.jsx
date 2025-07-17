@@ -28,6 +28,7 @@ const UserRoleCard = ({ name, username, phone, role }) => {
           {canReasingLeader && (
             <ReassignLeaderDialog currentLeaderName={name} />
           )}
+          
         </div>
       </div>
     </div>

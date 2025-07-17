@@ -13,6 +13,8 @@ import { getUsuarioColumns } from "@/components/customs/table/columns/usuarioCol
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
 
+import UpdateGroupPhoneDialog from "@/components/customs/dialogs/update-phone-dialog"
+
 const Usuarios = () => {
   const {
     isAdmin,
@@ -30,6 +32,7 @@ const Usuarios = () => {
     isError,
     isFetching,
     isFetched,
+    selectedGroupId,
   } = useUsuariosData()
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -66,7 +69,9 @@ const Usuarios = () => {
                     <>
                       <div className="flex justify-center gap-2">
                         <GroupDialog />
-                        <UsuarioDialog />
+                        {shouldFetch && (
+                          <UpdateGroupPhoneDialog groupId={selectedGroupId} />
+                        )}
                       </div>
                       <FilterToolbar
                         filterConfig={[groupConfig]}
@@ -84,9 +89,16 @@ const Usuarios = () => {
               }
             />
           )}
+
           {shouldFetch ? (
             <div className="flex flex-col gap-4 sm:flex-row">
-              {!isAgent && <GroupResponsible admin={admin} leader={leader} />}
+              {!isAgent && (
+                <GroupResponsible
+                  admin={admin}
+                  leader={leader}
+                  group={selectedGroupId}
+                />
+              )}
 
               <DataTable
                 table={table}
