@@ -94,6 +94,24 @@ export const useUpdateRecordStatus = (options = {}) => {
   })
 }
 
+export const useReassignRecord = (options = {}) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: recordApi.reassignRecord,
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries(["records-by-user"])
+      queryClient.invalidateQueries(["records-by-criteria"])
+      queryClient.invalidateQueries(["record-by-id"])
+
+      if (options.onSuccess) {
+        options.onSuccess(data, variables, context)
+      }
+    },
+    ...options,
+  })
+}
+
 export const getRecordByIdQueryKey = (searchable_id) => [
   "record-by-id",
   searchable_id,

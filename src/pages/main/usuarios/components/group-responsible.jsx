@@ -18,7 +18,7 @@ export const GroupResponsible = ({ admin, leader }) => {
 
         <div className="relative">
           <UserRoleCard {...leader} role="lider" />
-          {!leader?.active && (
+          {typeof leader?.active === "boolean" && !leader.active && (
             <div className="absolute -right-2 -top-2">
               <ActiveStatusBadge isActive={false} />
             </div>

@@ -29,15 +29,16 @@ export const RegistrosDetailHeader = ({ registro }) => {
     updated_at,
   } = registro
 
-  const { id: currentUserId, isAgent, isAdmin } = useCurrentUser()
+  const { id: currentUserId, isAgent, isAdmin, isSuperAdmin } = useCurrentUser()
   const canUpdateStatus = (currentUserId === user?.id && isAgent) || isAdmin
+  const canReassingRecord = isSuperAdmin || isAdmin
 
   const getBadges = () => {
     const amount = formatCurrency(amount_owed)
 
     return [
       { title: public_id, icon: HashIcon },
-      { title: `Agente: ${user?.name ?? "N/A"}`, icon: UserIcon },
+      { title: `Agente: ${user?.name ?? "-"}`, icon: UserIcon },
       {
         title: updated_at && `Última actualización: ${formatDate(updated_at)}`,
         icon: CalendarIcon,
@@ -79,8 +80,10 @@ export const RegistrosDetailHeader = ({ registro }) => {
         <div className="flex flex-col lg:flex-row lg:justify-between">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <CardTitle className="text-2xl">{toTitleCase(name ?? "Sin nombre")}</CardTitle>
-              <StatusBadge status={status ?? "N/A"} />
+              <CardTitle className="text-2xl">
+                {toTitleCase(name ?? "Sin nombre")}
+              </CardTitle>
+              <StatusBadge status={status ?? "-"} />
             </div>
 
             <div className="flex flex-wrap gap-2">

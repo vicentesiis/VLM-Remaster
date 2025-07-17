@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
 import React from "react"
+import ReassingRecordDialog from "@/components/customs/dialogs/reassing-record-dialog"
 import RegistroDialog from "@/components/customs/dialogs/registro-dialog"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
@@ -30,11 +31,12 @@ export const RegistrosDetailInfo = ({ registro }) => {
     job,
   } = registro
 
-  const { id: currentUserId, isAgent, isAdmin } = useCurrentUser()
+  const { id: currentUserId, isAgent, isAdmin, isSuperAdmin } = useCurrentUser()
   const canUpdateRecord = (currentUserId === user?.id && isAgent) || isAdmin
+  const canReassingRecord = isAdmin || isSuperAdmin
 
   const formatDate = (isoDate) =>
-    isoDate ? new Date(isoDate).toLocaleDateString("es-MX") : "N/A"
+    isoDate ? new Date(isoDate).toLocaleDateString("es-MX") : "-"
 
   const sections = [
     {
@@ -75,9 +77,12 @@ export const RegistrosDetailInfo = ({ registro }) => {
 
   return (
     <Card className="relative">
-      {canUpdateRecord && (
-        <div className="absolute right-0 z-10 sm:right-4 sm:top-4">
-          <RegistroDialog mode="edit" recordToEdit={registro} />
+      {(canUpdateRecord || canReassingRecord) && (
+        <div className="absolute right-0 z-10 space-x-4 sm:right-4 sm:top-4">
+          {canReassingRecord && <ReassingRecordDialog record={registro} />}
+          {canUpdateRecord && (
+            <RegistroDialog mode="edit" recordToEdit={registro} />
+          )}
         </div>
       )}
       <CardContent className="flex flex-col gap-4 px-4 py-6 sm:px-8">
@@ -106,7 +111,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
                       >
                         <PLead className="text-sm">{detail.label}:</PLead>
                         <ListStyle className="text-sm font-bold">
-                          {detail.value || "N/A"}
+                          {detail.value || "-"}
                         </ListStyle>
                       </div>
                     ))}

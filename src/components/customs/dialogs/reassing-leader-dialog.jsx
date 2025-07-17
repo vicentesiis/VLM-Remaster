@@ -1,4 +1,3 @@
-import { Shuffle } from "lucide-react"
 import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
 import { toast } from "sonner"
@@ -92,7 +91,7 @@ export const ReassignLeaderDialog = ({ currentLeaderName }) => {
             </p>
             <LabeledSelect
               labelName="Nuevo Líder"
-              placeholder="Selecciona un usuario"
+              placeholder="Selecciona un agente"
               options={userOptions}
               value={selectedUserId}
               onValueChange={setSelectedUserId}
@@ -127,6 +126,7 @@ export const ReassignLeaderDialog = ({ currentLeaderName }) => {
             variant="default"
             isLoading={isSubmitting}
             onClick={handleConfirm}
+            disabled={isSubmitting || !selectedUserId || !selectedAgentType}
           >
             Confirmar
           </Button>

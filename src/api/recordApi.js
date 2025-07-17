@@ -30,3 +30,12 @@ export const updateRecordStatus = ({ searchable_id, new_status }) =>
       new_status,
     },
   })
+
+export const reassignRecord = ({ record_id, user_id }) => {
+  return apiClient.patch("/records/record/user", null, {
+    params: {
+      record_id,
+      user_id,
+    },
+  })
+}

@@ -14,7 +14,7 @@ export const useCurrentUser = () => {
     user,
     id: user.id || null,
     group: user.group || null,
-    role: user.role, // stays "agent"
+    role: user.role,
     isSuperAdmin: user.role === Roles.SUPER_ADMIN,
     isAdmin: user.role === Roles.ADMIN,
     isAgent: user.role === Roles.AGENT,
