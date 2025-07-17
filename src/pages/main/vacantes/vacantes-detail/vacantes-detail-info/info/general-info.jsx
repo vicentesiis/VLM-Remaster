@@ -6,6 +6,7 @@ import { Button } from "@/components/ui"
 import { CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { H3 } from "@/components/ui/typography"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatDate, toTitleCase } from "@/utils"
 
 const GeneralInfo = ({ vacant }) => {
@@ -29,6 +30,8 @@ const GeneralInfo = ({ vacant }) => {
     is_active,
   } = vacant
 
+  const { isSuperAdmin, isAdmin } = useCurrentUser()
+
   return (
     <div>
       <H3 className="text-xl">Información General</H3>
@@ -38,7 +41,7 @@ const GeneralInfo = ({ vacant }) => {
           <div>
             <strong>ID:</strong> {id}
           </div>
-          {is_active && (
+          {is_active && !isSuperAdmin && !isAdmin && (
             <RegistroDialog
               mode="add"
               vacantId={id}

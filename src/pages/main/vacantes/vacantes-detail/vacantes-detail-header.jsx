@@ -14,6 +14,7 @@ import { toast } from "sonner"
 import IconBadge from "@/components/customs/badge/icon-badge"
 import { Badge, Button } from "@/components/ui"
 import { Card, CardHeader, CardTitle, CardSubTitle } from "@/components/ui/card"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { downloadVacantDetail } from "@/services/documentService"
 import { toTitleCase } from "@/utils"
 
@@ -38,6 +39,8 @@ export const VacantesDetailHeader = ({
     end_date,
     translated,
   } = vacant
+
+  const { isSuperAdmin, isAdmin } = useCurrentUser()
 
   const [isDownloading, setIsDownloading] = useState(false)
 
@@ -126,7 +129,7 @@ export const VacantesDetailHeader = ({
               </Button>
             )}
 
-            {translated && (
+            {translated && !isSuperAdmin && !isAdmin && (
               <Button onClick={handleDownload} isLoading={isDownloading}>
                 <DownloadIcon />
                 Descargar vacante

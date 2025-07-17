@@ -23,7 +23,7 @@ const VacantDetails = ({ vacant }) => {
             {responsibilities?.length > 0 && (
               <div>
                 <h4 className="font-semibold">Responsabilidades</h4>
-                <ul className="list-inside list-disc text-md text-gray-700">
+                <ul className="text-md list-inside list-disc text-gray-700">
                   {responsibilities.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}
@@ -33,7 +33,7 @@ const VacantDetails = ({ vacant }) => {
             {requirements?.length > 0 && (
               <div>
                 <h4 className="font-semibold">Requisitos</h4>
-                <ul className="list-inside list-disc text-md text-gray-700">
+                <ul className="text-md list-inside list-disc text-gray-700">
                   {requirements.map((item, idx) => (
                     <li key={idx}>{item}</li>
                   ))}
@@ -47,7 +47,6 @@ const VacantDetails = ({ vacant }) => {
               <p className="text-lg text-gray-500">
                 Esta vacante aún no ha sido traducida.
               </p>
-              {/* Optional: add translate button here */}
             </div>
           </div>
         )}

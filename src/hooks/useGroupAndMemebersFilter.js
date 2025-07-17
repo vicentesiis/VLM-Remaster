@@ -29,11 +29,27 @@ export function useGroupAndMembersFilter(initialFilterValues) {
       const selectedGroup = groupsQuery.data?.data?.find(
         (g) => g.id === values.group_id
       )
-      return mapToOptions(selectedGroup?.members || [])
+
+      const members = selectedGroup?.members || []
+      const leader = selectedGroup?.leader
+
+      const allUsers = leader
+        ? [leader, ...members.filter((m) => m.id !== leader.id)]
+        : members
+
+      return mapToOptions(allUsers)
     }
 
     if (isAdmin || isLeader) {
-      return mapToOptions(groupByIdQuery.data?.data?.members || [])
+      const groupData = groupByIdQuery.data?.data
+      const members = groupData?.members || []
+      const leader = groupData?.leader
+
+      const allUsers = leader
+        ? [leader, ...members.filter((m) => m.id !== leader.id)]
+        : members
+
+      return mapToOptions(allUsers)
     }
 
     return []
