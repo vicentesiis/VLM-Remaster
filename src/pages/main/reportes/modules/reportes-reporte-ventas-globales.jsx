@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import {
   groupConfig,
   yearConfig,
@@ -7,22 +9,19 @@ import {
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
+import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { Card, CardContent } from "@/components/ui"
+import { months } from "@/constants"
+import { useCodexData } from "@/hooks/queries"
+import { useGetVentasGlobales } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { useCodexData } from "@/hooks/queries"
 import {
   mapVentasGlobalesToChartData,
   mapToOptions,
   getCurrentMonthYear,
   formatCurrency,
 } from "@/utils"
-import { useGetVentasGlobales } from "@/hooks/queries/UseReports"
-import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
-import { toast } from "sonner"
-import { WithStatusState } from "@/components/customs/status-state/with-status-state"
-import { useNavigate } from "react-router-dom"
-import { months } from "@/constants"
 
 export const ReportesReporteVentasGlobales = () => {
   const navigate = useNavigate()

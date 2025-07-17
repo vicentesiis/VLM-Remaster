@@ -4,12 +4,15 @@ import ActiveStatusBadge from "@/components/customs/badge/active-status-badge"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import UserRoleCard from "@/pages/main/usuarios/components/user-role-card"
 
-export const GroupResponsible = ({ admin, leader }) => {
-  const { isAgent } = useCurrentUser()
 
+export const GroupResponsible = ({ admin, leader, group }) => {
+  const { isAgent } = useCurrentUser()
+  console.log(group)
   return (
     <div className="flex flex-col gap-2 sm:w-[270px]">
       <div className="flex flex-col gap-4">
+        
+
         {!isAgent && (
           <div className="relative">
             <UserRoleCard {...admin} role="admin" />
@@ -32,6 +35,7 @@ export const GroupResponsible = ({ admin, leader }) => {
 GroupResponsible.propTypes = {
   admin: PropTypes.any,
   leader: PropTypes.any,
+  group: PropTypes.object, // 👈 agregamos esta prop
 }
 
 export default GroupResponsible

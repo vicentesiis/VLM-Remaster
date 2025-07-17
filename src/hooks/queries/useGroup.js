@@ -55,3 +55,19 @@ export const useCreateGroup = (options = {}) => {
     ...options,
   })
 }
+
+export const UseUpdateGroupPhone = (options = {}) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: groupApi.UpdateGroupPhone,
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries(["groups"])
+
+      if (options.onSuccess) {
+        options.onSuccess(data, variables, context)
+      }
+    },
+    ...options,
+  })
+}  

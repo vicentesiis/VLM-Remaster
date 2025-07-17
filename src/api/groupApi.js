@@ -17,3 +17,11 @@ export const reassignGroupLeader = (params) => {
 
 export const assignAccountToGroup = (data) =>
   apiClient.post("/groups/assign-account", data)
+
+export const UpdateGroupPhone = ({ group_id, new_phone }) =>
+  apiClient.patch("/groups/group/update_phone", null, {
+    params: {
+      group_id,
+      new_phone,
+    },
+  })
