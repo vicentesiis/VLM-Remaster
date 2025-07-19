@@ -30,11 +30,17 @@ export function DataTablePagination({
       )}
       {...props}
     >
-      {table.options.total != null &&  (
-        <div className="flex-1 text-sm text-muted-foreground">
-          Total: <span className="font-medium">{table.options.total}</span> resultados
-        </div>
-      )}
+      <div className="flex-1 text-sm text-muted-foreground">
+        {table.options.meta?.total != null &&
+          table.options.meta?.hasFetched && (
+            <div className="flex-1 text-sm text-muted-foreground">
+              Total:{" "}
+              <span className="font-medium">{table.options.meta.total}</span>{" "}
+              resultados
+            </div>
+          )}{" "}
+      </div>
+
       <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
         <div className="flex items-center space-x-2">
           <p className="whitespace-nowrap text-sm font-medium">

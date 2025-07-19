@@ -51,8 +51,10 @@ export const useVacantsTable = () => {
     manualPagination: true,
     pageCount: Math.ceil((data?.total ?? 0) / pagination.pageSize),
     getCoreRowModel: getCoreRowModel(),
-    total: data?.total ?? 0,
-
+    meta: {
+      total: data?.total ?? 0,
+      hasFetched: isFetched,
+    },
     initialState: {
       columnVisibility: {
         country: false,

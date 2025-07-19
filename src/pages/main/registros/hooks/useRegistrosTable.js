@@ -101,7 +101,10 @@ export const useRegistrosTable = (title) => {
     manualPagination: true,
     pageCount: Math.ceil((data?.total || 0) / pagination.pageSize),
     initialState: { columnVisibility: { group_id: false } },
-    total: data?.total ?? 0,
+    meta: {
+      total: data?.total ?? 0,
+      hasFetched: isFetched,
+    },
   })
 
   useEffect(() => {
