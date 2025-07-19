@@ -29,17 +29,23 @@ export function mapToOptions(input, labelFn = toTitleCase) {
 export function formatDate(date, opts = {}) {
   if (!date) return ""
 
+  const showTime = opts.showTime ?? false
+
   try {
     const formatted = new Intl.DateTimeFormat("es-MX", {
       month: opts.month ?? "short",
       day: opts.day ?? "numeric",
       year: opts.year ?? "numeric",
+      ...(showTime && {
+        hour: opts.hour ?? "2-digit",
+        minute: opts.minute ?? "2-digit",
+      }),
       timeZone: "UTC",
       ...opts,
     }).format(new Date(date))
 
-    return toTitleCase(formatted)
-  } catch (_err) {
+    return formatted
+  } catch (err) {
     return ""
   }
 }

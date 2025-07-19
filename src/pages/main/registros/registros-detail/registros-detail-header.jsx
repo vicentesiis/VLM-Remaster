@@ -40,7 +40,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
       { title: public_id, icon: HashIcon },
       { title: `Agente: ${user?.name ?? "-"}`, icon: UserIcon },
       {
-        title: updated_at && `Última actualización: ${formatDate(updated_at)}`,
+        title: updated_at && `Última actualización: ${formatDate(updated_at, {showTime: true})}`,
         icon: CalendarIcon,
       },
       { title: record_type && `Tipo: ${record_type}`, icon: BadgeInfoIcon },
