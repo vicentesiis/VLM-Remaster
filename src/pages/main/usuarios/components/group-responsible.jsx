@@ -5,9 +5,8 @@ import { useCurrentUser } from "@/hooks/useCurrentUser"
 import UserRoleCard from "@/pages/main/usuarios/components/user-role-card"
 
 
-export const GroupResponsible = ({ admin, leader, group }) => {
+export const GroupResponsible = ({ admin, leader }) => {
   const { isAgent } = useCurrentUser()
-  console.log(group)
   return (
     <div className="flex flex-col gap-2 sm:w-[270px]">
       <div className="flex flex-col gap-4">

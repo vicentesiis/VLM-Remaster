@@ -56,7 +56,6 @@ const Usuarios = () => {
   })
 
   const title = isSuperAdmin ? "Usuarios por Grupo" : "Usuarios"
-
   return (
     <PageLayout title={title} subtitle={groupName}>
       <Card>

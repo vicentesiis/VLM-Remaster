@@ -13,7 +13,7 @@ export const ChartRegistros = ({
 
   const chartData = data.map((item) => ({
     date: item.title,
-    [categoryName]: item.description ?? 0, // <- clave dinámica
+    [categoryName]: item.description ?? 0,  
   }))
 
   return (
@@ -22,7 +22,7 @@ export const ChartRegistros = ({
         className="h-[900px] cursor-pointer sm:h-[350px]"
         data={chartData}
         index="date"
-        categories={[categoryName]} // <- también aquí
+        categories={[categoryName]} 
         yAxisWidth={70}
         layout={isSmallScreen ? "vertical" : "horizontal"}
         onValueChange={onValueChange}

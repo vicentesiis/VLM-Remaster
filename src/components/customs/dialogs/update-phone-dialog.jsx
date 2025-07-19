@@ -15,17 +15,28 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { UseUpdateGroupPhone } from "@/hooks/queries"
+import { useGetGroupById, UseUpdateGroupPhone } from "@/hooks/queries"
 
 const UpdateGroupPhoneDialog = ({ groupId }) => {
   const [open, setOpen] = useState(false)
   const [phone, setPhone] = useState("")
   const [currentGroupId, setCurrentGroupId] = useState(groupId)
+  const [currentPhone, setCurrentPhone] = useState("")
 
+  const { data: groupData } = useGetGroupById(
+    { group_searchable_id: groupId },
+    { enabled: !!groupId }
+  )
   useEffect(() => {
     setCurrentGroupId(groupId)
     setPhone("")
   }, [groupId, open])
+
+  useEffect(() => {
+    if (groupData?.data?.phone) {
+      setCurrentPhone(groupData.data.phone) // <- ACTUALIZA TELÉFONO ACTUAL
+    }
+  }, [groupData])
 
   const handlePhoneChange = (e) => {
     const value = e.target.value
@@ -39,6 +50,7 @@ const UpdateGroupPhoneDialog = ({ groupId }) => {
   const { mutateAsync, isPending: isLoading } = UseUpdateGroupPhone({
     onSuccess: () => {
       toast.success("Teléfono actualizado correctamente")
+      setCurrentPhone(phone)
       setOpen(false)
     },
     onError: () => toast.error("Error al actualizar teléfono"),
@@ -71,7 +83,11 @@ const UpdateGroupPhoneDialog = ({ groupId }) => {
           <AlertDialogTitle>Actualizar teléfono del grupo</AlertDialogTitle>
         </AlertDialogHeader>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
+          <span className="text-sm font-medium text-muted-foreground">
+            Numero actual:{" "}
+            <span className="font-semibold text-primary">{currentPhone}</span>
+          </span>
           <Input
             type="tel"
             placeholder="Nuevo número de teléfono (10 dígitos)"
