@@ -102,6 +102,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
             </div>
             <div className="mt-2 flex items-center gap-2">
               <Button
+                size="sm"
                 variant="add"
                 onClick={() => {
                   const phoneNumber = registro?.phone?.replace(/\D/g, "")
