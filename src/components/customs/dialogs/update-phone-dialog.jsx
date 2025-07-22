@@ -1,7 +1,7 @@
-import { Users2 } from "lucide-react"
-import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
+import PropTypes from "prop-types"
 import { toast } from "sonner"
+import { Users2 } from "lucide-react"
 
 import {
   AlertDialog,
@@ -15,58 +15,38 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { useGetGroupById, UseUpdateGroupPhone } from "@/hooks/queries"
+import { UseUpdateGroupPhone } from "@/hooks/queries"
 
 const UpdateGroupPhoneDialog = ({ groupId }) => {
   const [open, setOpen] = useState(false)
   const [phone, setPhone] = useState("")
   const [currentGroupId, setCurrentGroupId] = useState(groupId)
-  const [currentPhone, setCurrentPhone] = useState("")
 
-  const { data: groupData } = useGetGroupById(
-    { group_searchable_id: groupId },
-    { enabled: !!groupId }
-  )
   useEffect(() => {
     setCurrentGroupId(groupId)
     setPhone("")
-  }, [groupId, open])
+  }, [groupId])
 
-  useEffect(() => {
-    if (groupData?.data?.phone) {
-      setCurrentPhone(groupData.data.phone) // <- ACTUALIZA TELÉFONO ACTUAL
-    }
-  }, [groupData])
-
-  const handlePhoneChange = (e) => {
-    const value = e.target.value
-    const numbersOnly = value.replace(/\D/g, "")
-
-    if (numbersOnly.length <= 10) {
-      setPhone(numbersOnly)
-    }
-  }
-
-  const { mutateAsync, isPending: isLoading } = UseUpdateGroupPhone({
+  const { mutateAsync, isLoading } = UseUpdateGroupPhone({
     onSuccess: () => {
       toast.success("Teléfono actualizado correctamente")
-      setCurrentPhone(phone)
       setOpen(false)
     },
     onError: () => toast.error("Error al actualizar teléfono"),
   })
 
   const handleSubmit = async () => {
+    if (!phone.trim()) {
+      toast.error("Ingresa un teléfono válido")
+      return
+    }
     if (!currentGroupId) {
       toast.error("No se encontró el id del grupo")
       return
     }
-
     try {
       await mutateAsync({ group_id: currentGroupId, new_phone: phone })
-    } catch (error) {
-      console.error("Error updating phone:", error)
-    }
+    } catch (error) {}
   }
 
   return (
@@ -83,29 +63,21 @@ const UpdateGroupPhoneDialog = ({ groupId }) => {
           <AlertDialogTitle>Actualizar teléfono del grupo</AlertDialogTitle>
         </AlertDialogHeader>
 
-        <div className="space-y-4">
-          <span className="text-sm font-medium text-muted-foreground">
-            Numero actual:{" "}
-            <span className="font-semibold text-primary">{currentPhone}</span>
-          </span>
-          <Input
-            type="tel"
-            placeholder="Nuevo número de teléfono (10 dígitos)"
-            value={phone}
-            onChange={handlePhoneChange}
-            disabled={isLoading}
-            maxLength={10}
-          />
-        </div>
+        <Input
+          placeholder="Nuevo número de teléfono"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          disabled={isLoading}
+        />
 
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isLoading}>Cancelar</AlertDialogCancel>
           <Button
             onClick={handleSubmit}
-            disabled={isLoading || phone.length !== 10}
+            disabled={isLoading || !phone.trim()}
             isLoading={isLoading}
           >
-            Actualizar Teléfono
+            {isLoading ? "Actualizando..." : "Actualizar Teléfono"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
