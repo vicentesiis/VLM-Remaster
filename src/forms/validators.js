@@ -82,8 +82,8 @@ export const channelSchema = normalizeToEmptyString(
 export const commentsSchema = skipIfEmpty(
   z
     .string()
-    .max(150, {
-      message: "El comentario debe de tener menos de 150 caracteres",
+    .max(250, {
+      message: "El comentario debe de tener menos de 250 caracteres",
     })
     .optional()
 )

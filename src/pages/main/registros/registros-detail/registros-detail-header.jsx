@@ -4,6 +4,7 @@ import {
   DollarSignIcon,
   BadgeInfoIcon,
   UserIcon,
+  MessageCircle,
 } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
@@ -16,6 +17,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { useUpdateRecordStatus } from "@/hooks/queries"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatCurrency, formatDate, toTitleCase } from "@/utils"
+import { Button } from "@/components/ui"
 
 export const RegistrosDetailHeader = ({ registro }) => {
   const {
@@ -40,7 +42,9 @@ export const RegistrosDetailHeader = ({ registro }) => {
       { title: public_id, icon: HashIcon },
       { title: `Agente: ${user?.name ?? "-"}`, icon: UserIcon },
       {
-        title: updated_at && `Última actualización: ${formatDate(updated_at, {showTime: true})}`,
+        title:
+          updated_at &&
+          `Última actualización: ${formatDate(updated_at, { showTime: true })}`,
         icon: CalendarIcon,
       },
       { title: record_type && `Tipo: ${record_type}`, icon: BadgeInfoIcon },
@@ -95,6 +99,27 @@ export const RegistrosDetailHeader = ({ registro }) => {
                   variant={getBadgeVariant(badge)}
                 />
               ))}
+            </div>
+            <div className="mt-2 flex items-center gap-2">
+              <Button
+                variant="add"
+                onClick={() => {
+                  const phoneNumber = registro?.phone?.replace(/\D/g, "")
+
+                  if (!phoneNumber) {
+                    toast.error("No hay número de teléfono disponible")
+                    return
+                  }
+                  const formattedPhone =
+                    phoneNumber.length === 10 ? `52${phoneNumber}` : phoneNumber
+                  const whatsappUrl = `https://wa.me/${formattedPhone}`
+
+                  window.open(whatsappUrl, "_blank", "noopener,noreferrer")
+                }}
+              >
+                <MessageCircle />
+                Enviar WhatsApp
+              </Button>
             </div>
           </div>
           {canUpdateStatus && (

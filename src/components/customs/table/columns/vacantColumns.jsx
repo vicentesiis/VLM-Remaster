@@ -29,6 +29,7 @@ export const getVacantColumns = ({
           <Link
             to={`/vacantes/detalle/${id}`}
             className="truncate font-mono text-primary hover:underline"
+            target="_blank"
           >
             {id}
           </Link>
