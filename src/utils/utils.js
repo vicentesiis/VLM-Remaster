@@ -40,7 +40,7 @@ export function formatDate(date, opts = {}) {
         hour: opts.hour ?? "2-digit",
         minute: opts.minute ?? "2-digit",
       }),
-      timeZone: "UTC",
+      timeZone: opts.timeZone ?? "America/Mexico_City",
       ...opts,
     }).format(new Date(date))
 

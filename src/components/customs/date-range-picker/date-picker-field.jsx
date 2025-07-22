@@ -1,4 +1,5 @@
 import { format, parseISO } from "date-fns"
+import { es } from "date-fns/locale"
 import { CalendarIcon } from "lucide-react"
 import React from "react"
 import { Button } from "@/components/ui/button"
@@ -15,6 +16,8 @@ const DatePickerField = ({
   onChange,
   placeholder = "Selecciona una fecha",
 }) => {
+  const [open, setOpen] = React.useState(false)
+
   const dateValue =
     typeof value === "string"
       ? parseISO(value)
@@ -22,8 +25,13 @@ const DatePickerField = ({
         ? value
         : null
 
+  const handleSelect = (date) => {
+    onChange(date)
+    setOpen(false)
+  }
+
   return (
-    <Popover modal={true}>
+    <Popover modal={true} open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -32,15 +40,19 @@ const DatePickerField = ({
             !value && "text-muted-foreground"
           )}
         >
-          {value ? format(value, "PPP") : <span>{placeholder}</span>}
+          {value ? (
+            format(value, "PPP", { locale: es })
+          ) : (
+            <span>{placeholder}</span>
+          )}
           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0" align="start">
+      <PopoverContent className="w-auto p-0" align="center">
         <Calendar
           mode="single"
           selected={dateValue}
-          onSelect={onChange}
+          onSelect={handleSelect}
           captionLayout="dropdown"
           fromYear={1900}
           toYear={new Date().getFullYear()}
@@ -48,6 +60,7 @@ const DatePickerField = ({
             date > new Date() || date < new Date("1900-01-01")
           }
           defaultMonth={dateValue || new Date()}
+          locale={es}
           initialFocus
         />
       </PopoverContent>

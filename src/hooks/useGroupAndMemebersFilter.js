@@ -33,9 +33,15 @@ export function useGroupAndMembersFilter(initialFilterValues) {
       const members = selectedGroup?.members || []
       const leader = selectedGroup?.leader
 
-      const allUsers = leader
-        ? [leader, ...members.filter((m) => m.id !== leader.id)]
-        : members
+      const activeMembers = members.filter((m) => m.active !== false)
+      const activeLeader = leader && leader.active !== false ? leader : null
+
+      const allUsers = activeLeader
+        ? [
+            activeLeader,
+            ...activeMembers.filter((m) => m.id !== activeLeader.id),
+          ]
+        : activeMembers
 
       return mapToOptions(allUsers)
     }
@@ -45,9 +51,15 @@ export function useGroupAndMembersFilter(initialFilterValues) {
       const members = groupData?.members || []
       const leader = groupData?.leader
 
-      const allUsers = leader
-        ? [leader, ...members.filter((m) => m.id !== leader.id)]
-        : members
+      const activeMembers = members.filter((m) => m.active !== false)
+      const activeLeader = leader && leader.active !== false ? leader : null
+
+      const allUsers = activeLeader
+        ? [
+            activeLeader,
+            ...activeMembers.filter((m) => m.id !== activeLeader.id),
+          ]
+        : activeMembers
 
       return mapToOptions(allUsers)
     }
