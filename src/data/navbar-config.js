@@ -109,7 +109,7 @@ export const dropdownMenus = [
         title: "Ventas potenciales",
         to: "/reportes/ventas-potenciales",
         icon: ShieldCheck,
-        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
+        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
       },
       {
         title: "Ventas activas por cobrar",

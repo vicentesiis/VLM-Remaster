@@ -17,7 +17,9 @@ export function NewNavbar({ title, subtitle }) {
           </div>
         </div>
         <div className="flex flex-1 items-center justify-end gap-4">
-          <OmniSearch />
+          <div className="hidden lg:block">
+            <OmniSearch />
+          </div>
           <UserNav />
         </div>
       </div>

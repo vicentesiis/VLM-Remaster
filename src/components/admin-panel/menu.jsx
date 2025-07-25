@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { useLocation } from "react-router-dom"
 
+import OmniSearch from "../customs/omnisearch"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
@@ -24,7 +25,10 @@ export function Menu({ isOpen }) {
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
-      <nav className="mt-8 h-full w-full">
+      <nav className="h-full w-full sm:mt-8">
+        <div className="mb-4 lg:hidden">
+          <OmniSearch />
+        </div>
         <ul className="flex min-h-[calc(100vh-48px-36px-16px-32px)] flex-col items-start space-y-1 px-2 lg:min-h-[calc(100vh-32px-40px-32px)]">
           {menuList.map(({ groupLabel, menus }, index) => (
             <li key={index} className={cn("w-full", groupLabel ? "pt-5" : "")}>
