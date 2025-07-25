@@ -67,8 +67,8 @@ export const ReportesReporteDeRegistros = () => {
   const chartData = Array.isArray(dailyRegistrations)
     ? dailyRegistrations.map((registro) => ({
         title: format(new Date(registro.date), "MMM d", { locale: es }),
-        description: registro.amount_of_registrations ?? 0,
-        description2: registro.amount_of_effective_contact ?? 0,
+        registrations: registro.amount_of_registrations ?? 0,
+        contacted: registro.amount_of_effective_contact ?? 0,
         formatted: String(registro.amount_of_registrations ?? 0),
       }))
     : []
