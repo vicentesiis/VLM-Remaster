@@ -6,6 +6,7 @@ import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { Badge } from "@/components/ui"
 import { Roles } from "@/constants"
 import { formatDate } from "@/utils"
+import { Check, X } from "lucide-react"
 
 const columnHelper = createColumnHelper()
 
@@ -147,6 +148,30 @@ const commentsColumn = columnHelper.accessor("comments", {
   },
 })
 
+const contactedColumn = columnHelper.accessor("contacted", {
+  header: "Contactado",
+  cell: ({ getValue }) => {
+    const contacted = getValue()
+    if (typeof contacted !== "boolean") return <NullableCell value={null} />
+    return (
+      <div
+        className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full border ${
+          contacted
+            ? "border-green-500 bg-green-100 text-green-700"
+            : "border-red-500 bg-red-100 text-red-700"
+        }`}
+      >
+        {contacted ? (
+          <Check className="h-4 w-4" strokeWidth={2.5} />
+        ) : (
+          <X className="h-4 w-4" strokeWidth={2.5} />
+        )}
+      </div>
+    )
+  },
+  meta: { align: "center" },
+})
+
 // Optional Group Filter
 const groupFilterColumn = columnHelper.accessor("group_id", {
   header: "Grupo",
@@ -195,6 +220,7 @@ export const getRegistrosColumns = ({
       recordTypeColumn,
       channelColumn,
       programColumn,
+      contactedColumn,
       commentsColumn,
     ]
   }
@@ -205,12 +231,19 @@ export const getRegistrosColumns = ({
       recordTypeColumn,
       channelColumn,
       programColumn,
+      contactedColumn,
       commentsColumn,
     ]
   }
 
   if (isAgent) {
-    return [...baseColumns, programColumn, phoneColumn, commentsColumn]
+    return [
+      ...baseColumns,
+      programColumn,
+      phoneColumn,
+      contactedColumn,
+      commentsColumn,
+    ]
   }
 
   return [...baseColumns, commentsColumn]

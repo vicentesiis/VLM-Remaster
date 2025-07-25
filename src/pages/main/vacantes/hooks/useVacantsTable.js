@@ -5,6 +5,7 @@ import { getParsedVacantParams } from "./getParsedVacantParams"
 import { getVacantColumns } from "@/components/customs/table/columns/vacantColumns"
 import { useCodexData } from "@/hooks/queries"
 import { useGetVacants } from "@/hooks/queries/useVacants"
+import { translateJobCategories } from "@/utils/utils"
 
 export const useVacantsTable = () => {
   const queryClient = useQueryClient()
@@ -26,12 +27,16 @@ export const useVacantsTable = () => {
   const { countryStates, vacantCategories } = useCodexData()
 
   const columns = useMemo(() => {
+    const translatedCategories = translateJobCategories(
+      vacantCategories?.data?.data ?? []
+    )
+
     return getVacantColumns({
       selectedCountry,
-      vacantCategories: vacantCategories?.data ?? [],
+      vacantCategories: translatedCategories,
       countryStates: countryStates?.data?.data ?? {},
     })
-  }, [selectedCountry, vacantCategories?.data, countryStates?.data?.data])
+  }, [selectedCountry, vacantCategories?.data?.data, countryStates?.data?.data])
 
   const { data, isFetched, isFetching, isError, refetch } = useGetVacants(
     parsedParams,

@@ -66,7 +66,7 @@ export const getVacantColumns = ({
         hidden: true,
         variant: "select",
         label: "Categoría",
-        options: mapToOptions(vacantCategories),
+        options: vacantCategories,
       },
     }),
     columnHelper.accessor("location_state_province", {
