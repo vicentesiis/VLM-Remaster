@@ -97,9 +97,8 @@ export const ReportesReporteDeRegistros = () => {
         <CardContent>
           <SectionHeader
             title={data?.username ?? ""}
-            subtitle={[totalRegistrationInfo, totalContactedInfo]
-              .filter(Boolean)
-              .join(" | ")}
+            subtitle={totalContactedInfo}
+            extra={totalRegistrationInfo}
             actions={
               <FilterToolbar
                 filterConfig={[
