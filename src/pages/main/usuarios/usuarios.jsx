@@ -3,17 +3,15 @@ import React, { useState } from "react"
 import GroupResponsible from "./components/group-responsible"
 import { useUsuariosData } from "./hooks/useUsuariosData"
 import GroupDialog from "@/components/customs/dialogs/group-dialog"
+import UpdateGroupPhoneDialog from "@/components/customs/dialogs/update-phone-dialog"
 import UsuarioDialog from "@/components/customs/dialogs/usuario-dialog"
 import { groupConfig } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import SectionHeader from "@/components/customs/section-header"
-import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { getUsuarioColumns } from "@/components/customs/table/columns/usuarioColumns"
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
-
-import UpdateGroupPhoneDialog from "@/components/customs/dialogs/update-phone-dialog"
 
 const Usuarios = () => {
   const {
@@ -31,8 +29,8 @@ const Usuarios = () => {
     leader,
     isError,
     isFetching,
-    isFetched,
     selectedGroupId,
+    response,
   } = useUsuariosData()
 
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -69,7 +67,7 @@ const Usuarios = () => {
                       <div className="flex justify-center gap-2">
                         <GroupDialog />
                         {shouldFetch && (
-                          <UpdateGroupPhoneDialog groupId={selectedGroupId} />
+                          <UpdateGroupPhoneDialog group={response?.data} />
                         )}
                       </div>
                       <FilterToolbar

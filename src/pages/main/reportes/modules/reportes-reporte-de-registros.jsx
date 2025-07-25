@@ -65,22 +65,31 @@ export const ReportesReporteDeRegistros = () => {
   const chartData = Array.isArray(dailyRegistrations)
     ? dailyRegistrations.map((registro) => ({
         title: format(new Date(registro.date), "MMM d", { locale: es }),
-        description: registro.amount_of_registrations ?? 0,
+        registrations: registro.amount_of_registrations ?? 0,
+        contacted: registro.amount_of_effective_contact ?? 0,
         formatted: String(registro.amount_of_registrations ?? 0),
       }))
     : []
 
-  const totalRegistration = Array.isArray(dailyRegistrations)
-    ? dailyRegistrations.reduce((sum, item) => {
-        const value = Number(item?.amount_of_registrations) || 0
-        return sum + value
-      }, 0)
-    : null
+  const sumField = (items, field) =>
+    Array.isArray(items)
+      ? items.reduce((sum, item) => sum + (Number(item?.[field]) || 0), 0)
+      : null
 
-  const totalRegistrationInfo = formatIfExists(
-    totalRegistration,
-    (n) => `${n} Registros`
+  const totalRegistration = sumField(
+    dailyRegistrations,
+    "amount_of_registrations"
   )
+  const totalContacted = sumField(
+    dailyRegistrations,
+    "amount_of_effective_contact"
+  )
+
+  const formatSummary = (value, label) =>
+    formatIfExists(value, (n) => `${n} ${label}`)
+
+  const totalRegistrationInfo = formatSummary(totalRegistration, "Registros")
+  const totalContactedInfo = formatSummary(totalContacted, "Contactados")
 
   return (
     <PageLayout title="Registros por Agente">
@@ -88,7 +97,8 @@ export const ReportesReporteDeRegistros = () => {
         <CardContent>
           <SectionHeader
             title={data?.username ?? ""}
-            subtitle={totalRegistrationInfo ?? ""}
+            subtitle={totalContactedInfo}
+            extra={totalRegistrationInfo}
             actions={
               <FilterToolbar
                 filterConfig={[

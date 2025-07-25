@@ -62,8 +62,7 @@ export const UseUpdateGroupPhone = (options = {}) => {
   return useMutation({
     mutationFn: groupApi.UpdateGroupPhone,
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries(["groups"])
-
+      queryClient.invalidateQueries(["group"])
       if (options.onSuccess) {
         options.onSuccess(data, variables, context)
       }
