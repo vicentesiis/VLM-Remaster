@@ -5,6 +5,7 @@ import {
   BadgeInfoIcon,
   UserIcon,
   MessageCircle,
+  ExternalLink,
 } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
@@ -13,11 +14,42 @@ import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import RecordDocumentDropdown from "@/components/customs/record-document-dropdown"
 import { SelectUpdateRegistroStatus } from "@/components/customs/select-update-registro-status"
+import { Button } from "@/components/ui"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { useUpdateRecordStatus } from "@/hooks/queries"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatCurrency, formatDate, toTitleCase } from "@/utils"
-import { Button } from "@/components/ui"
+
+// Constants
+const WHATSAPP_MESSAGE_TEMPLATE =
+  "Hola buen día {NOMBRE_REGISTRO} le saluda {NOMBRE_AGENTE} de AsesoriaLaboralMigratoria.com le escribo porque se registro con nosotros a través de {CANAL} y le interesa laborar en el extranjero. Le comparto su folio de registro: {ID_REGISTRO} le proporcionare mas información sobre nuestros servicios y algunas vacantes que tenemos disponibles para usted."
+
+// Utility functions
+const formatPhoneNumber = (phone) => {
+  const phoneNumber = phone?.replace(/\D/g, "")
+  return phoneNumber?.length === 10 ? `52${phoneNumber}` : phoneNumber
+}
+
+const createWhatsAppMessage = (registro) => {
+  const nombreRegistro = toTitleCase(registro?.name || "")
+  const nombreAgente = toTitleCase(registro?.user?.name || "Agente")
+  const canal = toTitleCase(registro?.channel || "nuestro sitio web")
+  const idRegistro = registro?.public_id || registro?.id || ""
+
+  return WHATSAPP_MESSAGE_TEMPLATE.replace("{NOMBRE_REGISTRO}", nombreRegistro)
+    .replace("{NOMBRE_AGENTE}", nombreAgente)
+    .replace("{CANAL}", canal)
+    .replace("{ID_REGISTRO}", idRegistro)
+}
+
+const createTrackingUrl = (registro) => {
+  const birthDate = new Date(registro.date_of_birth)
+  const day = birthDate.getDate()
+  const month = birthDate.getMonth() + 1
+  const year = birthDate.getFullYear()
+
+  return `https://statusvisas.com/seguimiento?public_id=${registro.public_id}&day=${day}&month=${month}&year=${year}`
+}
 
 export const RegistrosDetailHeader = ({ registro }) => {
   const {
@@ -31,10 +63,10 @@ export const RegistrosDetailHeader = ({ registro }) => {
     updated_at,
   } = registro
 
-  const { id: currentUserId, isAgent, isAdmin, isSuperAdmin } = useCurrentUser()
+  const { id: currentUserId, isAgent, isAdmin } = useCurrentUser()
   const canUpdateStatus = (currentUserId === user?.id && isAgent) || isAdmin
-  const canReassingRecord = isSuperAdmin || isAdmin
 
+  // Badge configuration
   const getBadges = () => {
     const amount = formatCurrency(amount_owed)
 
@@ -62,6 +94,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
     return "outline"
   }
 
+  // Status update functionality
   const { mutateAsync: updateRecord } = useUpdateRecordStatus({
     onError: () => toast.error("Error al actualizar el registro"),
   })
@@ -78,11 +111,50 @@ export const RegistrosDetailHeader = ({ registro }) => {
     }
   }
 
+  // WhatsApp functionality
+  const handleWhatsAppClick = () => {
+    const phoneNumber = formatPhoneNumber(registro?.phone)
+
+    if (!phoneNumber) {
+      toast.error("No hay número de teléfono disponible")
+      return
+    }
+
+    const message = createWhatsAppMessage(registro)
+    const encodedMessage = encodeURIComponent(message)
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer")
+  }
+
+  // Tracking functionality
+  const handleTrackingClick = () => {
+    if (!registro?.public_id) {
+      toast.error("No hay ID público disponible")
+      return
+    }
+
+    if (!registro?.date_of_birth) {
+      toast.error("No hay fecha de nacimiento disponible")
+      return
+    }
+
+    try {
+      const trackingUrl = createTrackingUrl(registro)
+      window.open(trackingUrl, "_blank", "noopener,noreferrer")
+    } catch (error) {
+      console.error("Error parsing birth date:", error)
+      toast.error("Error al procesar la fecha de nacimiento")
+    }
+  }
+
   return (
     <Card>
       <CardHeader>
         <div className="flex flex-col lg:flex-row lg:justify-between">
+          {/* Main Content Section */}
           <div className="flex flex-col gap-2">
+            {/* Title and Status */}
             <div className="flex items-center gap-2">
               <CardTitle className="text-2xl">
                 {toTitleCase(name ?? "Sin nombre")}
@@ -90,6 +162,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
               <StatusBadge status={status ?? "-"} />
             </div>
 
+            {/* Information Badges */}
             <div className="flex flex-wrap gap-2">
               {getBadges().map((badge, idx) => (
                 <IconBadge
@@ -100,29 +173,32 @@ export const RegistrosDetailHeader = ({ registro }) => {
                 />
               ))}
             </div>
+
+            {/* Action Buttons */}
             <div className="mt-2 flex items-center gap-2">
               <Button
                 size="sm"
                 variant="add"
-                onClick={() => {
-                  const phoneNumber = registro?.phone?.replace(/\D/g, "")
-
-                  if (!phoneNumber) {
-                    toast.error("No hay número de teléfono disponible")
-                    return
-                  }
-                  const formattedPhone =
-                    phoneNumber.length === 10 ? `52${phoneNumber}` : phoneNumber
-                  const whatsappUrl = `https://wa.me/${formattedPhone}`
-
-                  window.open(whatsappUrl, "_blank", "noopener,noreferrer")
-                }}
+                onClick={handleWhatsAppClick}
+                className="flex items-center gap-2"
               >
-                <MessageCircle />
+                <MessageCircle className="h-4 w-4" />
                 Enviar WhatsApp
+              </Button>
+
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={handleTrackingClick}
+                className="flex items-center gap-2"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Ruta de seguimiento
               </Button>
             </div>
           </div>
+
+          {/* Status Update Section */}
           {canUpdateStatus && (
             <div className="flex flex-col gap-2 lg:flex-row lg:justify-between">
               <RecordDocumentDropdown
