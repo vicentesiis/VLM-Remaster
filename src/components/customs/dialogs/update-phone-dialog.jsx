@@ -23,7 +23,7 @@ const UpdateGroupPhoneDialog = ({ group }) => {
     if (open) {
       setPhone("")  
     }
-  }, [open, group.phone])
+  }, [open, group?.phone])
 
   const { mutateAsync, isLoading } = UseUpdateGroupPhone({})
 
