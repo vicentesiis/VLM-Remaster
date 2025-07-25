@@ -89,7 +89,7 @@ export const ReportesReporteDeRegistros = () => {
     formatIfExists(value, (n) => `${n} ${label}`)
 
   const totalRegistrationInfo = formatSummary(totalRegistration, "Registros")
-  const totalContactedInfo = formatSummary(totalContacted, "Contactados")
+  const totalContactedInfo = formatSummary(totalContacted, "Contactacto efectivo")
 
   return (
     <PageLayout title="Registros por Agente">

@@ -29,7 +29,7 @@ export const useVacantsTable = () => {
   const columns = useMemo(() => {
     const translatedCategories = translateJobCategories(
       vacantCategories?.data?.data ?? []
-    )
+    ).sort((a, b) => a.label.localeCompare(b.label))
 
     return getVacantColumns({
       selectedCountry,

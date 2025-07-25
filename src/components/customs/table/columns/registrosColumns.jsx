@@ -149,7 +149,7 @@ const commentsColumn = columnHelper.accessor("comments", {
 })
 
 const contactedColumn = columnHelper.accessor("contacted", {
-  header: "Contactado",
+  header: "Contacto efectivo",
   cell: ({ getValue }) => {
     const contacted = getValue()
     if (typeof contacted !== "boolean") return <NullableCell value={null} />
