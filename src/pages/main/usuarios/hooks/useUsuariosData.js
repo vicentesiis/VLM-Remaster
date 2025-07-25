@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react"
-import { toast } from "sonner"
 import { useGetGroupById, useGetGroups } from "@/hooks/queries"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useFiltersState } from "@/hooks/useFiltersState"
@@ -20,7 +19,6 @@ export function useUsuariosData() {
   const listOfGroups = mapToOptions(groups.data)
 
   const { values, onChange } = useFiltersState({ group_id: "" })
-
   const {
     data: response,
     isLoading,
@@ -71,5 +69,6 @@ export function useUsuariosData() {
     isError,
     isFetching,
     isFetched,
+    response,
   }
 }

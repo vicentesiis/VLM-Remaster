@@ -3,7 +3,7 @@ import { BarChart } from "@/components/ui/bar-chart"
 import { useIsSmallScreen } from "@/hooks"
 import { formatCurrency } from "@/utils"
 
-export const ChartRegistros = ({
+export const ChartVentas = ({
   data = [],
   onValueChange,
   formatAsCurrency = false,
@@ -35,4 +35,4 @@ export const ChartRegistros = ({
     </div>
   )
 }
-export default ChartRegistros
+export default ChartVentas

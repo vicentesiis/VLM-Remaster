@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
+import { ChartVentas } from "@/components/customs/bar-charts/chart-ventas"
 import {
   groupConfig,
   yearConfig,
@@ -81,7 +81,7 @@ export const ReportesReporteVentasGlobales = () => {
             isIdle={!isFetched}
           >
             {data && (
-              <ChartRegistros
+              <ChartVentas
                 data={chartData}
                 formatAsCurrency={true}
                 categoryName="Ventas"
