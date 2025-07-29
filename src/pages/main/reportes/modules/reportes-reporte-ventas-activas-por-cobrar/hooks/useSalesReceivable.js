@@ -6,7 +6,7 @@ import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 
 export const useSalesReceivable = () => {
-  const { isSuperAdmin, isAdmin, group, user } = useCurrentUser()
+  const { isSuperAdmin, isAdmin, isLeader, user } = useCurrentUser()
 
   const { values, onChange, listOfGroups } = useGroupAndMembersFilter({
     group_id: "",
@@ -14,7 +14,7 @@ export const useSalesReceivable = () => {
 
   let salesQuery
 
-  if (isSuperAdmin || isAdmin) {
+  if (isSuperAdmin || isAdmin || isLeader) {
     const params = isSuperAdmin ? { group_id: values?.group_id } : undefined
 
     salesQuery = useGetActiveSalesReceivableByGroup(params, {
@@ -34,7 +34,7 @@ export const useSalesReceivable = () => {
 
   const normalizedData = (() => {
     if (!data) return []
-    if (isSuperAdmin || isAdmin) {
+    if (isSuperAdmin || isAdmin || isLeader) {
       return data.users
         .filter((user) => user.records?.length > 0)
         .map((user) => ({

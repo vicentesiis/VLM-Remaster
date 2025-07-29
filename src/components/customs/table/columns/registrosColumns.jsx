@@ -35,7 +35,7 @@ const statusColumn = columnHelper.accessor("status", {
 })
 
 const updatedAtColumn = columnHelper.accessor("updated_at", {
-  header: "Última Actualización",
+  header: "Última actualización",
   cell: (info) => (
     <NullableCell value={formatDate(info.getValue())} className="text-center" />
   ),
@@ -48,7 +48,7 @@ const updatedAtColumn = columnHelper.accessor("updated_at", {
 
 const getAssignmentAtColumn = (title) =>
   columnHelper.accessor("assignment_date", {
-    header: "Fecha de Asignación",
+    header: "Fecha de asignación",
     cell: (info) => {
       const assignmentDate = info.getValue()
 

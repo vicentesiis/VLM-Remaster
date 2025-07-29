@@ -13,7 +13,7 @@ export const SalesReceivableCard = ({
   total_to_be_collected,
   records,
 }) => {
-  const { isAgent } = useCurrentUser()
+  const { isLeader, isAdmin, isSuperAdmin } = useCurrentUser()
 
   const table = useReactTable({
     data: records,
@@ -25,7 +25,11 @@ export const SalesReceivableCard = ({
     <Card>
       <CardContent>
         <SectionHeader
-          title={!isAgent ? `${username}:` : "Total a cobrar:"}
+          title={
+            isLeader || isAdmin || isSuperAdmin
+              ? `Total de ${username}:`
+              : "Total a cobrar:"
+          }
           extra={formatCurrency(total_to_be_collected)}
         />
         <DataTable table={table} hasFetched showPagination={false} />

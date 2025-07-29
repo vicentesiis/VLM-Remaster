@@ -175,27 +175,29 @@ export const RegistrosDetailHeader = ({ registro }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="mt-2 flex items-center gap-2">
-              <Button
-                size="sm"
-                variant="add"
-                onClick={handleWhatsAppClick}
-                className="flex items-center gap-2"
-              >
-                <MessageCircle className="h-4 w-4" />
-                Enviar WhatsApp
-              </Button>
+            {isAgent && (
+              <div className="mt-2 flex items-center gap-2">
+                <Button
+                  size="sm"
+                  variant="add"
+                  onClick={handleWhatsAppClick}
+                  className="flex items-center gap-2"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Enviar WhatsApp
+                </Button>
 
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={handleTrackingClick}
-                className="flex items-center gap-2"
-              >
-                <ExternalLink className="h-4 w-4" />
-                Ruta de seguimiento
-              </Button>
-            </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleTrackingClick}
+                  className="flex items-center gap-2"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Ruta de seguimiento
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Status Update Section */}

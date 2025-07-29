@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { endOfMonth, format } from "date-fns"
-import { es } from "date-fns/locale"
 import React, { useState } from "react"
 import ChartRegistros from "@/components/customs/bar-charts/chart-registros"
 import {
@@ -18,7 +17,7 @@ import { Card, CardContent } from "@/components/ui"
 import { useGetAgentRegistrations } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { getCurrentMonthYear } from "@/utils"
+import { formatDate, getCurrentMonthYear } from "@/utils"
 import { formatIfExists } from "@/utils/reportFormatters"
 
 export const ReportesReporteDeRegistros = () => {
@@ -64,7 +63,11 @@ export const ReportesReporteDeRegistros = () => {
 
   const chartData = Array.isArray(dailyRegistrations)
     ? dailyRegistrations.map((registro) => ({
-        title: format(new Date(registro.date), "MMM d", { locale: es }),
+        title: formatDate(registro.date, {
+          month: "short",
+          day: "numeric",
+          timeZone: "America/Mexico_City",
+        }),
         registrations: registro.amount_of_registrations ?? 0,
         contacted: registro.amount_of_effective_contact ?? 0,
         formatted: String(registro.amount_of_registrations ?? 0),
@@ -89,7 +92,7 @@ export const ReportesReporteDeRegistros = () => {
     formatIfExists(value, (n) => `${n} ${label}`)
 
   const totalRegistrationInfo = formatSummary(totalRegistration, "Registros")
-  const totalContactedInfo = formatSummary(totalContacted, "Contactacto efectivo")
+  const totalContactedInfo = formatSummary(totalContacted, "Contacto efectivo")
 
   return (
     <PageLayout title="Registros por Agente">

@@ -103,7 +103,7 @@ export const routes = [
       {
         path: "ventas-activas-por-cobrar",
         routeKey: "reportesReporteVentasActivasPorCobrar",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
       },
       {
         path: "ventas-potenciales",
