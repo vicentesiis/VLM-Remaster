@@ -19,6 +19,7 @@ import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
 import { formatDate, getCurrentMonthYear } from "@/utils"
 import { formatIfExists } from "@/utils/reportFormatters"
+import { es } from "date-fns/locale"
 
 export const ReportesReporteDeRegistros = () => {
   const [searchParams, setSearchParams] = useState(null)
@@ -63,11 +64,7 @@ export const ReportesReporteDeRegistros = () => {
 
   const chartData = Array.isArray(dailyRegistrations)
     ? dailyRegistrations.map((registro) => ({
-        title: formatDate(registro.date, {
-          month: "short",
-          day: "numeric",
-          timeZone: "America/Mexico_City",
-        }),
+        title: format(new Date(registro.date), "MMM d", { locale: es }),
         registrations: registro.amount_of_registrations ?? 0,
         contacted: registro.amount_of_effective_contact ?? 0,
         formatted: String(registro.amount_of_registrations ?? 0),
@@ -89,10 +86,20 @@ export const ReportesReporteDeRegistros = () => {
   )
 
   const formatSummary = (value, label) =>
-    formatIfExists(value, (n) => `${n} ${label}`)
+    formatIfExists(value, (n) => `${label}: ${n}`)
+
+  const contactedPercentage =
+    totalRegistration > 0
+      ? ((totalContacted / totalRegistration) * 100).toFixed(1)
+      : null
 
   const totalRegistrationInfo = formatSummary(totalRegistration, "Registros")
   const totalContactedInfo = formatSummary(totalContacted, "Contacto efectivo")
+
+  const totalContactedInfoWithPercentage =
+    isFetched && contactedPercentage !== null
+      ? `${totalContactedInfo} (${contactedPercentage}%)`
+      : totalContactedInfo
 
   return (
     <PageLayout title="Registros por Agente">
@@ -100,7 +107,7 @@ export const ReportesReporteDeRegistros = () => {
         <CardContent>
           <SectionHeader
             title={data?.username ?? ""}
-            subtitle={totalContactedInfo}
+            subtitle={totalContactedInfoWithPercentage}
             extra={totalRegistrationInfo}
             actions={
               <FilterToolbar

@@ -8,7 +8,7 @@ export const ChartRegistros = ({
   onValueChange,
   formatAsCurrency = false,
   categoryName = "Registros", 
-  secondCategory = "Contactados"
+  secondCategory = "Contacto efectivo",
 }) => {
   const isSmallScreen = useIsSmallScreen()
 

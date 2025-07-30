@@ -175,8 +175,8 @@ export const RegistrosDetailHeader = ({ registro }) => {
             </div>
 
             {/* Action Buttons */}
-            {isAgent && (
-              <div className="mt-2 flex items-center gap-2">
+            <div className="mt-2 flex items-center gap-2">
+              {isAgent && (
                 <Button
                   size="sm"
                   variant="add"
@@ -186,18 +186,18 @@ export const RegistrosDetailHeader = ({ registro }) => {
                   <MessageCircle className="h-4 w-4" />
                   Enviar WhatsApp
                 </Button>
+              )}
 
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={handleTrackingClick}
-                  className="flex items-center gap-2"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  Ruta de seguimiento
-                </Button>
-              </div>
-            )}
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={handleTrackingClick}
+                className="flex items-center gap-2"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Ruta de seguimiento
+              </Button>
+            </div>
           </div>
 
           {/* Status Update Section */}
