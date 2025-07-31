@@ -21,7 +21,7 @@ export function SheetMenu() {
           <MenuIcon size={20} />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex h-full w-72 flex-col px-3" side="left">
+      <SheetContent className="w-100 flex h-full flex-col px-3" side="left">
         <SheetHeader>
           <Button
             className="flex items-center justify-center pb-2 pt-1"

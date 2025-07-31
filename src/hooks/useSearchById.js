@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { toast } from "sonner"
-import { useGetRecordById } from "@/hooks/queries"
+import { useGetRecordById, useGetRecordByTerm } from "@/hooks/queries"
 import { useGetOrderBySearch } from "@/hooks/queries/useOrder"
 import { useGetVacantbyId } from "@/hooks/queries/useVacants"
 
@@ -52,7 +52,7 @@ export function useSearchById(defaultOption = "Registros") {
     data: recordData,
     refetch: refetchRecord,
     isFetching: isFetchingRecord,
-  } = useGetRecordById(searchQuery, { enabled: false })
+  } = useGetRecordByTerm(searchQuery, { enabled: false })
 
   const {
     data: vacantData,

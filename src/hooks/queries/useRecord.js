@@ -14,6 +14,18 @@ export const useGetRecordById = (searchable_id, options = {}) => {
   })
 }
 
+export const useGetRecordByTerm = (searchable_term, options = {}) => {
+  return useQuery({
+    queryKey: ["record-by-term", searchable_term],
+    queryFn: async () => {
+      const res = await recordApi.getRecordByTerm({ searchable_term })
+      return res.data
+    },
+    enabled: !!searchable_term,
+    ...options,
+  })
+}
+
 export const useGetRecordsByUser = (params, options = {}) => {
   const searchParams = toURLSearchParams(params)
 

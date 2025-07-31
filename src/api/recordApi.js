@@ -3,6 +3,9 @@ import { apiClient } from "./apiClient"
 export const getRecordById = (params) =>
   apiClient.get("/records/record", { params })
 
+export const getRecordByTerm = (params) =>
+  apiClient.get("/records/search", { params })
+
 export const updateRecord = (data) => apiClient.put("/records/record", data)
 
 export const getRecordsByCriteria = (params) =>

@@ -61,10 +61,10 @@ export function OmniSearch() {
   }, [result])
 
   return (
-    <div className="w-full sm:block sm:w-[400px] lg:w-[500px]">
-      <div className="flex flex-col gap-2 rounded-md border border-input p-2 sm:flex-row sm:items-center sm:gap-0 sm:p-0">
+    <div className="w-full lg:block lg:w-[400px] xl:w-[500px]">
+      <div className="flex flex-col gap-2 rounded-md border border-input p-2 lg:flex-row lg:items-center lg:gap-0 lg:p-0">
         <Select defaultValue={selectedOption} onValueChange={setSelectedOption}>
-          <SelectTrigger className="w-full border focus:ring-0 sm:w-[120px] sm:rounded-r-none sm:border-none">
+          <SelectTrigger className="w-full border focus:ring-0 lg:w-[120px] lg:rounded-r-none lg:border-none">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -79,7 +79,7 @@ export function OmniSearch() {
           </SelectContent>
         </Select>
 
-        <div className="relative w-full sm:w-[400px]">
+        <div className="relative w-full lg:w-[400px]">
           <Input
             ref={inputRef}
             placeholder={
@@ -87,9 +87,13 @@ export function OmniSearch() {
                 ? isFocused
                   ? "Ingresa el número de la referencia"
                   : "Buscar por referencia..."
-                : isFocused
-                  ? "Ingresa el ID"
-                  : "Buscar por ID..."
+                : selectedOption === "Registros"
+                  ? isFocused
+                    ? "ID, email, teléfono, CURP o pasaporte"
+                    : "Buscar por identificador..."
+                  : isFocused
+                    ? "Ingresa el ID"
+                    : "Buscar por ID..."
             }
             value={searchQuery}
             onFocus={() => setIsFocused(true)}
@@ -101,7 +105,7 @@ export function OmniSearch() {
                 handleSearchClick()
               }
             }}
-            className="w-full border-0 pr-10 font-mono sm:rounded"
+            className="w-full border-0 pr-10 font-mono lg:rounded"
           />
 
           <Button
