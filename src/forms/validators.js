@@ -67,6 +67,16 @@ export const documentTypeSchema = normalizeToEmptyString(
   "El tipo de Documento es obligatorio"
 )
 
+export const exitdateTypeSchema = z.preprocess(
+  (val) => {
+    if (typeof val === "string" || typeof val === "number") {
+      const parsed = new Date(val)
+      return isNaN(parsed) ? undefined : parsed
+    }
+    return val
+  },
+  z.date({ required_error: "La fecha de salida es obligatoria" })
+)
 export const jobSchema = skipIfEmpty(z.string().optional())
 
 export const programSchema = normalizeToEmptyString(

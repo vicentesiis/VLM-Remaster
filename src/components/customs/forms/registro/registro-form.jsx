@@ -19,6 +19,7 @@ import {
   channelField,
   commentsField,
   creditField,
+  exitDate,
 } from "@/forms/fields"
 import {
   nameSchema,
@@ -34,6 +35,7 @@ import {
   channelSchema,
   commentsSchema,
   creditSchema,
+  exitdateTypeSchema,
 } from "@/forms/validators"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
@@ -48,6 +50,7 @@ export const formSchema = z.object({
   state: stateSchema,
   document: documentSchema,
   document_type: documentTypeSchema,
+  exit_date: exitdateTypeSchema,
   job: jobSchema,
   program: programSchema,
   channel: channelSchema,
@@ -72,6 +75,7 @@ const RegistroForm = forwardRef(
           : defaultValues?.curp
             ? "curp"
             : "",
+        exit_date: "",
         job: vacantId ?? "",
         program: "",
         channel: "",
@@ -115,6 +119,7 @@ const RegistroForm = forwardRef(
         ],
         { disabled: !isAdmin && isEdit }
       ),
+      ...(isAdmin ? [exitDate()] : []),
     ]
 
     const programValue = form.watch("program")

@@ -38,6 +38,14 @@ export const dateOfBirthField = (config = {}) => ({
   ...config,
 })
 
+export const exitDate = (config = {}) => ({
+  name: "exit_date",
+  label: "Fecha de Salida",
+  type: "date",
+  placeholder: "Selecciona la fecha de salida",
+  ...config,
+})
+
 export const nationalityField = (options, config = {}) => ({
   name: "nationality",
   label: "Nacionalidad",
