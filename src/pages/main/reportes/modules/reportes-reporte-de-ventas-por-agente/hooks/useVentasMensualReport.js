@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query"
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import { useState, useMemo, useEffect } from "react"
 import { getReportOrdersColumns } from "@/components/customs/table/columns/reportOrdersColumns"
@@ -12,7 +11,6 @@ export const useSalesMonthlyReport = ({ filters }) => {
   const { isAdmin } = useCurrentUser()
   const [appliedFilters, setAppliedFilters] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
-  const queryClient = useQueryClient()
 
   const queryParams = useMemo(() => {
     if (!appliedFilters?.year || !appliedFilters?.month) return null

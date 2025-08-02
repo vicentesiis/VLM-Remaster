@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table"
-import { Banknote, CreditCard } from "lucide-react"
+import { Banknote, Check, CreditCard, X } from "lucide-react"
 import React from "react"
 import { MainCell } from "../cells"
 import NullableCell from "../cells/nullable-cell"
@@ -11,7 +11,6 @@ const columnHelper = createColumnHelper()
 
 export const getReportOrdersColumns = () => {
   const columns = [
-    // Registro column
     columnHelper.display({
       id: "usuario",
       header: "Usuario",
@@ -43,7 +42,6 @@ export const getReportOrdersColumns = () => {
       meta: { align: "left" },
     }),
 
-    // Cantidad
     columnHelper.accessor("amount", {
       header: "Cantidad",
       cell: (info) => {
@@ -53,7 +51,6 @@ export const getReportOrdersColumns = () => {
       meta: { align: "center" },
     }),
 
-    // Método de Pago
     columnHelper.accessor("payment_method", {
       header: "Método de Pago",
       cell: ({ getValue }) => {
@@ -79,12 +76,34 @@ export const getReportOrdersColumns = () => {
       meta: { align: "center" },
     }),
 
-    // Fecha de Pago
     columnHelper.accessor("payment_date", {
       header: "Fecha de Pago",
       cell: (info) => {
         const date = info.getValue()
         return <NullableCell value={date ? formatDate(date) : null} />
+      },
+      meta: { align: "center" },
+    }),
+    columnHelper.accessor("paid_to_user", {
+      header: "Pagado a Agente",
+      cell: ({ getValue }) => {
+        const active = getValue()
+        if (typeof active !== "boolean") return <NullableCell value={null} />
+        return (
+          <div
+            className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full border ${
+              active
+                ? "border-green-500 bg-green-100 text-green-700"
+                : "border-red-500 bg-red-100 text-red-700"
+            }`}
+          >
+            {active ? (
+              <Check className="h-4 w-4" strokeWidth={2.5} />
+            ) : (
+              <X className="h-4 w-4" strokeWidth={2.5} />
+            )}
+          </div>
+        )
       },
       meta: { align: "center" },
     }),

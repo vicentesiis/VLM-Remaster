@@ -88,7 +88,6 @@ const RegistroForm = forwardRef(
       onSubmit?.(data)
     })
 
-    // Expose the submit method to parent
     useImperativeHandle(ref, () => ({
       submit: () => submitHandler(),
     }))
@@ -119,7 +118,7 @@ const RegistroForm = forwardRef(
         ],
         { disabled: !isAdmin && isEdit }
       ),
-      ...(isAdmin ? [exitDate()] : []),
+      ...(isEdit ? [exitDate()] : []),
     ]
 
     const programValue = form.watch("program")
