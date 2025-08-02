@@ -76,6 +76,11 @@ export const routes = [
     allowedRoles: [Roles.AGENT, Roles.LEADER, Roles.SUPER_ADMIN, Roles.ADMIN],
   },
   {
+    path: "/reportes/ventas-potenciales",
+    routeKey: "reportesReporteVentaPorAgentePotencial",
+    allowedRoles: [Roles.AGENT, Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
+  },
+  {
     path: "/usuarios",
     routeKey: "usuarios",
     allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.AGENT, Roles.LEADER],
@@ -108,7 +113,7 @@ export const routes = [
       {
         path: "ventas-potenciales",
         routeKey: "reportesReporteVentaPorAgentePotencial",
-        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
+        allowedRoles: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         path: "control-finalizados",

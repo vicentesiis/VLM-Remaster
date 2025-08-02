@@ -75,6 +75,12 @@ export const menuItems = [
     allowedRoutes: [Roles.AGENT, Roles.LEADER],
   },
   {
+    title: "Ventas potenciales",
+    to: "/reportes/ventas-potenciales",
+    icon: ShieldCheck,
+    allowedRoutes: [Roles.AGENT],
+  },
+  {
     title: "Usuarios",
     to: "/usuarios",
     icon: UserCog,
@@ -109,7 +115,7 @@ export const dropdownMenus = [
         title: "Ventas potenciales",
         to: "/reportes/ventas-potenciales",
         icon: ShieldCheck,
-        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN, Roles.LEADER],
+        allowedRoutes: [Roles.SUPER_ADMIN, Roles.ADMIN],
       },
       {
         title: "Ventas activas por cobrar",

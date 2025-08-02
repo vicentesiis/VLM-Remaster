@@ -18,7 +18,7 @@ import { formatCurrency } from "@/utils"
 
 const ReportesReporteVentaPorAgentePotencial = () => {
   const [searchParams, setSearchParams] = useState(null)
-  const { isAdmin, group } = useCurrentUser()
+  const { isAdmin, isAgent, isLeader, user, group } = useCurrentUser()
 
   const { values, onChange, listOfUsers, listOfGroups } =
     useGroupAndMembersFilter({
@@ -34,10 +34,16 @@ const ReportesReporteVentaPorAgentePotencial = () => {
     setSearchParams({ agent_id: values.user_id })
   }
 
+  const isRegularAgent = isAgent && !isLeader
+  const queryParams = isRegularAgent
+    ? { agent_id: user?.id }
+    : (searchParams ?? {})
+  const queryEnabled = isRegularAgent ? true : !!searchParams
+
   const { data, isFetching, isError, isFetched } = useGetAgentPotentialSales(
-    searchParams ?? {},
+    queryParams,
     {
-      enabled: !!searchParams,
+      enabled: queryEnabled,
     }
   )
 
@@ -57,25 +63,27 @@ const ReportesReporteVentaPorAgentePotencial = () => {
               isFetched ? `Registros: ${data?.records?.length ?? 0}` : undefined
             }
             actions={
-              <FilterToolbar
-                filterConfig={[
-                  ...(listOfGroups.length ? [groupConfig] : []),
-                  userConfig,
-                ]}
-                values={values}
-                onChange={onChange}
-                context={{
-                  ...(listOfGroups.length ? { groups: listOfGroups } : {}),
-                  users: listOfUsers,
-                }}
-                onSearch={handleSearch}
-              />
+              !isRegularAgent ? (
+                <FilterToolbar
+                  filterConfig={[
+                    ...(listOfGroups.length ? [groupConfig] : []),
+                    userConfig,
+                  ]}
+                  values={values}
+                  onChange={onChange}
+                  context={{
+                    ...(listOfGroups.length ? { groups: listOfGroups } : {}),
+                    users: listOfUsers,
+                  }}
+                  onSearch={handleSearch}
+                />
+              ) : null
             }
           />
           <WithStatusState
             isLoading={isFetching}
             isError={isError}
-            isIdle={!isFetched}
+            isIdle={!isRegularAgent && !isFetched}
           >
             <DataTable table={table} hasFetched showPagination={false} />
           </WithStatusState>

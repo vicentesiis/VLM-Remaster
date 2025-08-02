@@ -9,8 +9,6 @@ export function getSidebarMenu(role, pathname, isLeader = false) {
     )
   }
 
-  const getFirstSegment = (path) => path.split("/")[1] || ""
-
   const baseMenus = menuItems
     .filter((item) => isAllowed(item.allowedRoutes))
     .map((item) => ({
