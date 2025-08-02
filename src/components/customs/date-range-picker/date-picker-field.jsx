@@ -15,6 +15,7 @@ const DatePickerField = ({
   value,
   onChange,
   placeholder = "Selecciona una fecha",
+  disableRange = "future", // "future", "past", "none"
 }) => {
   const [open, setOpen] = React.useState(false)
 
@@ -28,6 +29,34 @@ const DatePickerField = ({
   const handleSelect = (date) => {
     onChange(date)
     setOpen(false)
+  }
+
+  const getDisabledFunction = () => {
+    const today = new Date()
+    const minDate = new Date("1900-01-01")
+
+    switch (disableRange) {
+      case "future":
+        return (date) => date > today || date < minDate
+      case "past":
+        return (date) => {
+          const dateOnly = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate()
+          )
+          const todayOnly = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+          )
+          return dateOnly < todayOnly || date < minDate
+        }
+      case "none":
+        return (date) => date < minDate
+      default:
+        return (date) => date > today || date < minDate
+    }
   }
 
   return (
@@ -55,10 +84,12 @@ const DatePickerField = ({
           onSelect={handleSelect}
           captionLayout="dropdown"
           fromYear={1900}
-          toYear={new Date().getFullYear()}
-          disabled={(date) =>
-            date > new Date() || date < new Date("1900-01-01")
+          toYear={
+            disableRange === "past"
+              ? new Date().getFullYear() + 10
+              : new Date().getFullYear()
           }
+          disabled={getDisabledFunction()}
           defaultMonth={dateValue || new Date()}
           locale={es}
           initialFocus

@@ -35,6 +35,7 @@ export const dateOfBirthField = (config = {}) => ({
   label: "Fecha de Nacimiento",
   type: "date",
   placeholder: "Selecciona la fecha de nacimiento",
+  disableRange: "future",
   ...config,
 })
 
@@ -43,6 +44,7 @@ export const exitDate = (config = {}) => ({
   label: "Fecha de Salida",
   type: "date",
   placeholder: "Selecciona la fecha de salida",
+  disableRange: "past",
   ...config,
 })
 

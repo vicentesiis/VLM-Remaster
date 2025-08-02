@@ -144,6 +144,7 @@ export const renderFormField = (type, name, label, options, rest, form) => {
                 <DatePickerField
                   value={field.value}
                   onChange={field.onChange}
+                  disableRange={rest?.disableRange || "future"}
                   showYearDropdown
                   scrollableYearDropdown
                   dateFormat="dd/MM/yyyy"

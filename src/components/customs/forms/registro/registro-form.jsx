@@ -35,7 +35,7 @@ import {
   channelSchema,
   commentsSchema,
   creditSchema,
-  exitdateTypeSchema,
+  exitDateTypeSchema,
 } from "@/forms/validators"
 import { useCodexData } from "@/hooks/queries/useCodexData"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
@@ -50,7 +50,7 @@ export const formSchema = z.object({
   state: stateSchema,
   document: documentSchema,
   document_type: documentTypeSchema,
-  exit_date: exitdateTypeSchema,
+  exit_date: exitDateTypeSchema,
   job: jobSchema,
   program: programSchema,
   channel: channelSchema,
@@ -85,6 +85,7 @@ const RegistroForm = forwardRef(
     })
 
     const submitHandler = form.handleSubmit((data) => {
+      console.log("RegistroForm data:", data)
       onSubmit?.(data)
     })
 
