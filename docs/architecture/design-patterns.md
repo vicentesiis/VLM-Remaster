@@ -1,4 +1,4 @@
-# 🎨 Optimized Design Patterns & Conventions
+# 🎨 Design Patterns & Conventions
 
 ## 📊 Overview
 
@@ -52,6 +52,205 @@ Refined design patterns for modern React web development, focusing on maintainab
 ├── 📁 ui/                    # UI kit components
 ├── 📁 lib/                   # Utilities
 └── 📁 config/                # Configuration
+```
+
+## 🧩 Component Structure
+
+### **1. Basic Component Structure**
+```jsx
+// ❌ Unorganized component
+const UserCard = ({ user, onEdit, onDelete, permissions }) => {
+  // Mixed concerns and no clear structure
+  const [isEditing, setIsEditing] = useState(false)
+  const { data } = useQuery(...)
+  
+  return (
+    <div>
+      {/* Everything mixed together */}
+    </div>
+  )
+}
+
+// ✅ Well-structured component
+const UserCard = ({ user, onEdit, onDelete }) => {
+  // 1. Hooks
+  const [isEditing, setIsEditing] = useState(false)
+  const { canEdit, canDelete } = usePermissions()
+  
+  // 2. Derived state
+  const displayName = useMemo(() => 
+    `${user.firstName} ${user.lastName}`, 
+    [user.firstName, user.lastName]
+  )
+  
+  // 3. Event handlers
+  const handleEdit = useCallback(() => {
+    setIsEditing(true)
+    onEdit?.(user.id)
+  }, [user.id, onEdit])
+  
+  const handleDelete = useCallback(() => {
+    if (confirm('Are you sure?')) {
+      onDelete?.(user.id)
+    }
+  }, [user.id, onDelete])
+  
+  // 4. Render logic
+  if (isEditing) {
+    return <UserEditForm user={user} onCancel={() => setIsEditing(false)} />
+  }
+  
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{displayName}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <UserDetails user={user} />
+      </CardContent>
+      <CardFooter>
+        {canEdit && <Button onClick={handleEdit}>Edit</Button>}
+        {canDelete && <Button onClick={handleDelete} variant="destructive">Delete</Button>}
+      </CardFooter>
+    </Card>
+  )
+}
+```
+
+### **2. Component File Organization**
+```jsx
+// 📁 components/UserCard/
+// ├── 📄 UserCard.jsx         # Main component
+// ├── 📄 UserCard.styles.js   # Styled components/styles
+// ├── 📄 UserCard.hooks.js    # Custom hooks
+// ├── 📄 UserCard.utils.js    # Utility functions
+// ├── 📄 UserCard.test.jsx    # Tests
+// └── 📄 index.js             # Public API
+
+// UserCard.jsx
+import { useUserCardLogic } from './UserCard.hooks'
+import { formatUserData } from './UserCard.utils'
+import * as S from './UserCard.styles'
+
+export const UserCard = ({ user, ...props }) => {
+  const { 
+    isEditing, 
+    handleEdit, 
+    handleDelete 
+  } = useUserCardLogic(user, props)
+  
+  const formattedUser = formatUserData(user)
+  
+  return (
+    <S.CardContainer>
+      <S.CardHeader>
+        {formattedUser.displayName}
+      </S.CardHeader>
+      {/* ... */}
+    </S.CardContainer>
+  )
+}
+
+```
+
+## 📐 Page Layout
+
+### **1. Standard Page Layout Structure**
+```jsx
+// ❌ Inconsistent page layouts
+const UsersPage = () => {
+  return (
+    <div>
+      <h1>Users</h1>
+      <UsersList />
+    </div>
+  )
+}
+
+// ✅ Consistent page layout pattern
+const UsersPage = () => {
+  return (
+    <PageLayout>
+      <PageHeader 
+        title="Users"
+        actions={<CreateUserButton />}
+      />
+      
+      <PageContent>
+        <PageFilters>
+          <SearchInput />
+          <RoleFilter />
+        </PageFilters>
+        
+        <PageMain>
+          <UsersTable />
+        </PageMain>
+        
+        <PageFooter>
+          <Pagination />
+        </PageFooter>
+      </PageContent>
+    </PageLayout>
+  )
+}
+```
+
+### **2. Layout Components**
+```jsx
+// Reusable layout components
+export const PageLayout = ({ children, sidebar }) => {
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      <div className="flex">
+        {sidebar && <Sidebar>{sidebar}</Sidebar>}
+        <main className="flex-1">
+          {children}
+        </main>
+      </div>
+    </div>
+  )
+}
+
+export const PageHeader = ({ 
+  title, 
+  description, 
+  breadcrumbs, 
+  actions 
+}) => {
+  return (
+    <header className="border-b">
+      <div className="container py-6">
+        {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+        
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold">{title}</h1>
+            {description && (
+              <p className="text-muted-foreground mt-2">
+                {description}
+              </p>
+            )}
+          </div>
+          
+          {actions && (
+            <div className="flex gap-2">
+              {actions}
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+  )
+}
+
+export const PageContent = ({ children, className }) => {
+  return (
+    <div className={cn("container py-6", className)}>
+      {children}
+    </div>
+  )
+}
 ```
 
 ## 🧩 Enhanced Component Patterns
@@ -204,17 +403,6 @@ const useUserManagement = () => {
     ...userActions,
     ...userFilters
   }
-}
-
-// ✅ Improved - separated concerns
-// Data fetching
-export const useUsersQuery = (params) => {
-  return useQuery({
-    queryKey: ['users', params],
-    queryFn: ({ queryKey }) => userApi.getUsers(queryKey[1]),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 10 * 60 * 1000    // 10 minutes
-  })
 }
 
 // Mutations
@@ -477,7 +665,7 @@ export const QueryErrorBoundary = ({ children }) => {
 }
 ```
 
-### **2. Design Tokens Pattern**
+### **3. Design Tokens Pattern**
 ```jsx
 // tailwind.config.js - Design system tokens
 module.exports = {
