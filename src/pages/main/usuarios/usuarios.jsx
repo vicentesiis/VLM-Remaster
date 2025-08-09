@@ -1,5 +1,5 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import React, { useState } from "react"
+import React, { useCallback, useMemo, useState } from "react"
 import GroupResponsible from "./components/group-responsible"
 import { useUsuariosData } from "./hooks/useUsuariosData"
 import GroupDialog from "@/components/customs/dialogs/group-dialog"
@@ -29,6 +29,7 @@ const Usuarios = () => {
     leader,
     isError,
     isFetching,
+    isFetched,
     selectedGroupId,
     response,
   } = useUsuariosData()
@@ -36,16 +37,21 @@ const Usuarios = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [userToEdit, setUserToEdit] = useState(null)
 
-  const handleEdit = (user) => {
+  const handleEdit = useCallback((user) => {
     setUserToEdit(user)
     setIsDialogOpen(true)
-  }
+  }, [])
 
-  const columns = getUsuarioColumns(handleEdit, isAgent)
+  const columns = useMemo(
+    () => getUsuarioColumns(handleEdit, isAgent),
+    [handleEdit, isAgent]
+  )
 
-  const tableData = isAgent
-    ? [leader, ...members].filter(Boolean).filter((user) => user.active)
-    : members
+  const tableData = useMemo(() => {
+    return isAgent
+      ? [leader, ...members].filter(Boolean).filter((user) => user.active)
+      : members
+  }, [isAgent, leader, members])
 
   const table = useReactTable({
     data: tableData,
@@ -53,59 +59,55 @@ const Usuarios = () => {
     getCoreRowModel: getCoreRowModel(),
   })
 
-  const title = isSuperAdmin ? "Usuarios por Grupo" : "Usuarios"
+  const actions = useMemo(() => (
+    <div className="flex flex-col gap-2 sm:flex-row">
+      {isSuperAdmin ? (
+        <>
+          <div className="flex justify-center gap-2">
+            <GroupDialog />
+            {shouldFetch && <UpdateGroupPhoneDialog group={response?.data} />}
+          </div>
+          <FilterToolbar
+            filterConfig={[groupConfig]}
+            values={values}
+            onChange={onChange}
+            context={{ groups: listOfGroups }}
+            onSearch={handleSearch}
+            isLoading={isFetching}
+          />
+        </>
+      ) : (
+        <UsuarioDialog />
+      )}
+    </div>
+  ), [isSuperAdmin, shouldFetch, response?.data, values, onChange, listOfGroups, handleSearch, isFetching])
+
+  const title = useMemo(() => (isSuperAdmin ? "Usuarios por Grupo" : "Usuarios"), [isSuperAdmin])
   return (
     <PageLayout title={title} subtitle={groupName}>
       <Card>
         <CardContent>
           {(isAdmin || isSuperAdmin) && (
-            <SectionHeader
-              actions={
-                <div className="flex flex-col gap-2 sm:flex-row">
-                  {isSuperAdmin ? (
-                    <>
-                      <div className="flex justify-center gap-2">
-                        <GroupDialog />
-                        {shouldFetch && (
-                          <UpdateGroupPhoneDialog group={response?.data} />
-                        )}
-                      </div>
-                      <FilterToolbar
-                        filterConfig={[groupConfig]}
-                        values={values}
-                        onChange={onChange}
-                        context={{ groups: listOfGroups }}
-                        onSearch={handleSearch}
-                        isLoading={isFetching}
-                      />
-                    </>
-                  ) : (
-                    <UsuarioDialog />
-                  )}
-                </div>
-              }
-            />
+            <SectionHeader actions={actions} />
           )}
 
-          {shouldFetch ? (
-            <div className="flex flex-col gap-4 sm:flex-row">
-              {!isAgent && (
-                <GroupResponsible
-                  admin={admin}
-                  leader={leader}
-                  group={selectedGroupId}
-                />
-              )}
-
-              <DataTable
-                table={table}
-                isLoading={isFetching}
-                isError={isError}
-                hasFetched={true}
-                showPagination={false}
+          <div className="flex flex-col gap-4 sm:flex-row">
+            {!isAgent && shouldFetch && (
+              <GroupResponsible
+                admin={admin}
+                leader={leader}
+                group={selectedGroupId}
               />
-            </div>
-          ) : null}
+            )}
+
+            <DataTable
+              table={table}
+              isLoading={shouldFetch ? isFetching : false}
+              isError={shouldFetch ? isError : false}
+              hasFetched={shouldFetch ? isFetched : false}
+              showPagination={false}
+            />
+          </div>
         </CardContent>
       </Card>
 
