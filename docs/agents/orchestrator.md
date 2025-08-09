@@ -48,7 +48,6 @@ For complex tasks requiring multiple perspectives:
 ## Context References
 Always reference these project files when responding:
 - rules.md: Project context and constraints
-- Current module: Usuarios/Registros/Reportes specific considerations
 - Documentation: Existing architecture and patterns
 
 ## Agent Switching Indicators

@@ -1,6 +1,6 @@
 import { SearchIcon } from "lucide-react"
 import PropTypes from "prop-types"
-import React from "react"
+import React, { useCallback } from "react"
 import { toast } from "sonner"
 import { useRegistrosTable } from "./hooks/useRegistrosTable"
 import PageLayout from "@/components/customs/page-layout/page-layout"
@@ -23,7 +23,7 @@ export const Registros = ({ title }) => {
     showFilters,
   } = useRegistrosTable(title)
 
-  const handleApplyFilters = () => {
+  const handleApplyFilters = useCallback(() => {
     if (
       isSuperAdmin &&
       !columnFilters.find((f) => f.id === "group_id")?.value
@@ -35,7 +35,7 @@ export const Registros = ({ title }) => {
     setAppliedFilters(columnFilters)
     setPagination((prev) => ({ ...prev, pageIndex: 0 }))
     requestAnimationFrame(() => refetch())
-  }
+  }, [isSuperAdmin, columnFilters, setAppliedFilters, setPagination, refetch])
 
   return (
     <PageLayout title={title}>

@@ -81,7 +81,7 @@ export const useRegistrosTable = (title) => {
         recordTypes: recordTypesOptions,
         title,
       }),
-    [role, groups, channels, programs, recordTypes, recordStatuses]
+    [role, groupsOptions, channelsOptions, programsOptions, recordTypesOptions, recordStatusesOptions, title]
   )
 
   const tableData = useMemo(() => {
@@ -112,7 +112,7 @@ export const useRegistrosTable = (title) => {
     if (cleared) {
       setAppliedFilters([])
       setPagination((prev) => ({ ...prev, pageIndex: 0 }))
-      refetch()
+      requestAnimationFrame(() => refetch())
     }
   }, [columnFilters, appliedFilters, refetch])
 

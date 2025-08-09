@@ -11,7 +11,7 @@ export const RegistrosOrders = ({ registro }) => {
   const { id: currentUserId, isAgent } = useCurrentUser()
   const canCreateOrder = isAgent && currentUserId === user.id
 
-  const { table, isLoading, isError } = useOrdersTable(recordId, canCreateOrder)
+  const { table, isLoading, isError, isFetched } = useOrdersTable(recordId, canCreateOrder)
 
   return (
     <Card>
@@ -24,7 +24,7 @@ export const RegistrosOrders = ({ registro }) => {
           table={table}
           isLoading={isLoading}
           isError={isError}
-          hasFetched={true}
+          hasFetched={isFetched}
           showPagination={false}
         />
       </CardContent>
