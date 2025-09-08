@@ -1,4 +1,4 @@
-import { Banknote, CreditCard } from "lucide-react"
+import { Banknote, CreditCard, MapPin } from "lucide-react"
 import { toTitleCase } from "@/utils"
 
 export const nameField = (config = {}) => ({
@@ -130,11 +130,33 @@ export const amountField = (config = {}) => ({
   ...config,
 })
 
-export const paymentMethodField = (config = {}) => ({
-  name: "payment_method",
-  label: "Método de Pago",
+export const countryField = (config = {}) => ({
+  name: "country",
+  label: "País",
   type: "radioCard",
   options: [
+    {
+      label: "México",
+      value: "mexico",
+      icon: MapPin,
+    },
+    {
+      label: "Colombia",
+      value: "colombia",
+      icon: MapPin,
+    },
+    {
+      label: "Guatemala",
+      value: "guatemala",
+      icon: MapPin,
+    },
+  ],
+  ...config,
+})
+
+// Country-specific payment method options
+const paymentMethodsByCountry = {
+  mexico: [
     {
       label: "Efectivo",
       value: "cash",
@@ -146,6 +168,37 @@ export const paymentMethodField = (config = {}) => ({
       icon: CreditCard,
     },
   ],
+  colombia: [
+    {
+      label: "Efectivo",
+      value: "cash",
+      icon: Banknote,
+    },
+    {
+      label: "Transferencia Bancaria",
+      value: "bank_transfer",
+      icon: CreditCard,
+    },
+  ],
+  guatemala: [
+    {
+      label: "Efectivo",
+      value: "cash",
+      icon: Banknote,
+    },
+    {
+      label: "Depósito Bancario",
+      value: "bank_deposit",
+      icon: CreditCard,
+    },
+  ],
+}
+
+export const paymentMethodField = (country, config = {}) => ({
+  name: "payment_method",
+  label: "Método de Pago",
+  type: "radioCard",
+  options: country ? paymentMethodsByCountry[country] || [] : [],
   ...config,
 })
 

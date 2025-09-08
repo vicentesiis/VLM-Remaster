@@ -12,11 +12,16 @@ import {
 } from "@/components/ui"
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateOrder } from "@/hooks/queries/useOrder"
+import { useGetRecordById } from "@/hooks/queries/useRecord"
 
 const OrderDialog = ({ trigger, recordId }) => {
   const formRef = useRef()
   const [open, setOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const { data: recordData } = useGetRecordById(recordId, {
+    enabled: !!recordId,
+  })
 
   const { mutateAsync: createOrder } = useCreateOrder({
     onError: () => toast.error("Error al crear la órden"),
@@ -59,7 +64,7 @@ const OrderDialog = ({ trigger, recordId }) => {
 
         <Card>
           <CardContent>
-            <OrderForm ref={formRef} onSubmit={handleSubmit} />
+            <OrderForm ref={formRef} onSubmit={handleSubmit} recordData={recordData} />
           </CardContent>
         </Card>
 

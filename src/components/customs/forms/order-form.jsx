@@ -1,21 +1,38 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import PropTypes from "prop-types"
-import React, { forwardRef, useImperativeHandle } from "react"
+import React, { forwardRef, useImperativeHandle, useEffect } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
 import { renderFormField } from "./form-field-renders"
 import { Form } from "@/components/ui/form"
-import { amountField, paymentMethodField } from "@/forms/fields"
-import { amountSchema, paymentMethodSchema } from "@/forms/validators"
+import { amountField, paymentMethodField, countryField } from "@/forms/fields"
+import { amountSchema, paymentMethodSchema, countrySchema } from "@/forms/validators"
 
-export const formSchema = z.object({
-  order_amount: amountSchema,
-  payment_method: paymentMethodSchema,
-})
+export const createFormSchema = (isFromMexico) => {
+  const baseSchema = {
+    order_amount: amountSchema,
+    payment_method: paymentMethodSchema,
+  }
 
-const OrderForm = forwardRef(({ onSubmit }, ref) => {
+  // Only require country field if record is not from Mexico
+  if (!isFromMexico) {
+    baseSchema.country = countrySchema
+  }
+
+  return z.object(baseSchema)
+}
+
+const OrderForm = forwardRef(({ onSubmit, recordData }, ref) => {
+  // Check if record is from Mexico (case insensitive)
+  const isFromMexico = recordData?.nationality?.toLowerCase() === 'méxico' || 
+                       recordData?.nationality?.toLowerCase() === 'mexico'
+
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(createFormSchema(isFromMexico)),
+    defaultValues: {
+      // If record is from Mexico, default country to mexico and hide the field
+      ...(isFromMexico && { country: 'mexico' }),
+    },
   })
 
   const submitHandler = form.handleSubmit((data) => {
@@ -27,7 +44,22 @@ const OrderForm = forwardRef(({ onSubmit }, ref) => {
     submit: () => submitHandler(),
   }))
 
-  const fields = [paymentMethodField(), amountField()]
+  // Watch the country field to conditionally show payment methods
+  const selectedCountry = form.watch("country")
+
+  // Reset payment method when country changes
+  useEffect(() => {
+    if (selectedCountry) {
+      form.setValue("payment_method", "")
+    }
+  }, [selectedCountry, form])
+
+  const fields = [
+    // Only show country field if record is not from Mexico
+    ...(!isFromMexico ? [countryField()] : []),
+    ...(selectedCountry ? [paymentMethodField(selectedCountry)] : []),
+    amountField(),
+  ]
 
   return (
     <FormProvider {...form}>
@@ -49,6 +81,7 @@ OrderForm.propTypes = {
   defaultValues: PropTypes.any,
   isEdit: PropTypes.bool,
   onSubmit: PropTypes.func,
+  recordData: PropTypes.object,
 }
 
 OrderForm.displayName = "OrderForm"

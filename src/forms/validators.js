@@ -118,6 +118,11 @@ export const paymentMethodSchema = normalizeToEmptyString(
   "El método de pago es obligatorio"
 )
 
+export const countrySchema = normalizeToEmptyString(
+  z.string(),
+  "El país es obligatorio"
+)
+
 export const usernameSchema = normalizeToEmptyString(
   z.string(),
   "El nombre de usuario es obligatorio"
