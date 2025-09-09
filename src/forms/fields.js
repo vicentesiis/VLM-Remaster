@@ -1,4 +1,5 @@
-import { Banknote, CreditCard, MapPin, Store, Landmark } from "lucide-react"
+import { MX, CO, GT} from 'country-flag-icons/react/3x2'
+import { Store, Landmark } from "lucide-react"
 import OxxoPayIcon from "@/assets/oxxo_logo.svg?react"
 import SPEIIcon from "@/assets/spei_icon.svg?react"
 import { toTitleCase } from "@/utils"
@@ -140,17 +141,17 @@ export const countryField = (config = {}) => ({
     {
       label: "México",
       value: "mexico",
-      icon: MapPin,
+      icon: MX,
     },
     {
       label: "Colombia",
       value: "colombia",
-      icon: MapPin,
+      icon: CO,
     },
     {
       label: "Guatemala",
       value: "guatemala",
-      icon: MapPin,
+      icon: GT,
     },
   ],
   ...config,
