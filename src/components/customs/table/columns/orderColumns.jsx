@@ -8,6 +8,9 @@ import VoucherButton from "../cells/voucher-button-cell"
 import { downloadVoucher } from "@/services/documentService"
 import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
+import OxxoPayIcon from "@/assets/oxxo_logo.svg?react"
+import SPEIIcon from "@/assets/spei_icon.svg?react"
+import { Store, Landmark } from "lucide-react"
 
 const columnHelper = createColumnHelper()
 
@@ -62,16 +65,32 @@ export const getOrdersColumns = (canCreateOrder) => {
         if (value === "cash") {
           return (
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <Banknote className="h-4 w-4" />
-              <span>Efectivo</span>
+              <OxxoPayIcon className="size-8" />
+              {/* <span>Oxxo Pay</span> */}
             </div>
           )
         }
         if (value === "spei") {
           return (
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <CreditCard className="h-4 w-4" />
-              <span>SPEI</span>
+              <SPEIIcon className="size-8" />
+              {/* <span>SPEI</span> */}
+            </div>
+          )
+        }
+        if (value === "store") {
+          return (
+            <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
+              <Store className="size-5" />
+              <span>Tienda</span>
+            </div>
+          )
+        }
+        if (value === "bank") {
+          return (
+            <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
+              <Landmark className="size-5" />
+              <span>Banco</span>
             </div>
           )
         }

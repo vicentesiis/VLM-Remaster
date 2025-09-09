@@ -28,7 +28,7 @@ const OrderForm = forwardRef(({ onSubmit, recordData }, ref) => {
   const form = useForm({
     resolver: zodResolver(createFormSchema(isFromMexico)),
     defaultValues: {
-      ...(isFromMexico && { country: 'mexico' }),
+      ...(isFromMexico && { country: 'méxico' }),
     },
   })
 
