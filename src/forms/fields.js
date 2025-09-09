@@ -140,7 +140,7 @@ export const countryField = (config = {}) => ({
   options: [
     {
       label: "México",
-      value: "mexico",
+      value: "méxico",
       icon: MX,
     },
     {
@@ -159,7 +159,7 @@ export const countryField = (config = {}) => ({
 
 // Country-specific payment method options
 const paymentMethodsByCountry = {
-  mexico: [
+  méxico: [
     {
       label: "Oxxo Pay",
       value: "cash",
