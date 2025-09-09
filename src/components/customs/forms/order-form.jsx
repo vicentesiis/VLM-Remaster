@@ -14,7 +14,6 @@ export const createFormSchema = (isFromMexico) => {
     payment_method: paymentMethodSchema,
   }
 
-  // Only require country field if record is not from Mexico
   if (!isFromMexico) {
     baseSchema.country = countrySchema
   }
@@ -23,14 +22,12 @@ export const createFormSchema = (isFromMexico) => {
 }
 
 const OrderForm = forwardRef(({ onSubmit, recordData }, ref) => {
-  // Check if record is from Mexico (case insensitive)
   const isFromMexico = recordData?.nationality?.toLowerCase() === 'méxico' || 
                        recordData?.nationality?.toLowerCase() === 'mexico'
 
   const form = useForm({
     resolver: zodResolver(createFormSchema(isFromMexico)),
     defaultValues: {
-      // If record is from Mexico, default country to mexico and hide the field
       ...(isFromMexico && { country: 'mexico' }),
     },
   })
@@ -39,15 +36,12 @@ const OrderForm = forwardRef(({ onSubmit, recordData }, ref) => {
     onSubmit?.(data)
   })
 
-  // Expose the submit method to parent
   useImperativeHandle(ref, () => ({
     submit: () => submitHandler(),
   }))
 
-  // Watch the country field to conditionally show payment methods
   const selectedCountry = form.watch("country")
 
-  // Reset payment method when country changes
   useEffect(() => {
     if (selectedCountry) {
       form.setValue("payment_method", "")
@@ -55,10 +49,9 @@ const OrderForm = forwardRef(({ onSubmit, recordData }, ref) => {
   }, [selectedCountry, form])
 
   const fields = [
-    // Only show country field if record is not from Mexico
     ...(!isFromMexico ? [countryField()] : []),
     ...(selectedCountry ? [paymentMethodField(selectedCountry)] : []),
-    amountField(),
+    ...(isFromMexico || selectedCountry ? [amountField()] : []),
   ]
 
   return (

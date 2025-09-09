@@ -1,4 +1,6 @@
-import { Banknote, CreditCard, MapPin } from "lucide-react"
+import { Banknote, CreditCard, MapPin, Store, Landmark } from "lucide-react"
+import OxxoPayIcon from "@/assets/oxxo_logo.svg?react"
+import SPEIIcon from "@/assets/spei_icon.svg?react"
 import { toTitleCase } from "@/utils"
 
 export const nameField = (config = {}) => ({
@@ -158,38 +160,48 @@ export const countryField = (config = {}) => ({
 const paymentMethodsByCountry = {
   mexico: [
     {
-      label: "Efectivo",
+      label: "Oxxo Pay",
       value: "cash",
-      icon: Banknote,
+      icon: OxxoPayIcon,
     },
     {
       label: "SPEI",
       value: "spei",
-      icon: CreditCard,
+      icon: SPEIIcon,
+    },
+    {
+      label: "Tienda",
+      value: "store",
+      icon: Store,
+    },
+    {
+      label: "Banco",
+      value: "bank",
+      icon: Landmark,
     },
   ],
   colombia: [
     {
-      label: "Efectivo",
-      value: "cash",
-      icon: Banknote,
+      label: "Tienda",
+      value: "store",
+      icon: Store,
     },
     {
-      label: "Transferencia Bancaria",
-      value: "bank_transfer",
-      icon: CreditCard,
+      label: "Banco",
+      value: "bank",
+      icon: Landmark,
     },
   ],
   guatemala: [
     {
-      label: "Efectivo",
-      value: "cash",
-      icon: Banknote,
+      label: "Tienda",
+      value: "store",
+      icon: Store,
     },
     {
-      label: "Depósito Bancario",
-      value: "bank_deposit",
-      icon: CreditCard,
+      label: "Banco",
+      value: "bank",
+      icon: Landmark,
     },
   ],
 }
