@@ -124,14 +124,37 @@ export const commentsField = (config = {}) => ({
   ...config,
 })
 
-export const amountField = (config = {}) => ({
-  name: "order_amount",
-  label: "Monto de la Órden",
-  type: "currency",
-  placeholder: "Min $500 - Max $10,000",
-  maxLength: 7,
-  ...config,
-})
+export const amountField = (country, config = {}) => {
+  const currencyConfig = {
+    méxico: { 
+      label: "Monto de la Órden (MXN)", 
+      symbol: "$", 
+      placeholder: "Min $500 - Max $10,000" 
+    },
+    colombia: { 
+      label: "Monto de la Órden (COP)", 
+      symbol: "$", 
+      placeholder: "Min $500 - Max $10,000" 
+    },
+    guatemala: { 
+      label: "Monto de la Órden (GTQ)", 
+      symbol: "Q", 
+      placeholder: "Min Q500 - Max Q10,000" 
+    }
+  }
+  
+  const selectedConfig = currencyConfig[country] || currencyConfig.méxico
+  
+  return {
+    name: "order_amount",
+    label: selectedConfig.label,
+    type: "currency",
+    placeholder: selectedConfig.placeholder,
+    currencySymbol: selectedConfig.symbol,
+    maxLength: 7,
+    ...config,
+  }
+}
 
 export const countryField = (config = {}) => ({
   name: "country",

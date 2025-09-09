@@ -48,10 +48,12 @@ const OrderForm = forwardRef(({ onSubmit, recordData }, ref) => {
     }
   }, [selectedCountry, form])
 
+  const currentCountry = isFromMexico ? 'méxico' : selectedCountry
+
   const fields = [
     ...(!isFromMexico ? [countryField()] : []),
     ...(selectedCountry ? [paymentMethodField(selectedCountry)] : []),
-    ...(isFromMexico || selectedCountry ? [amountField()] : []),
+    ...(isFromMexico || selectedCountry ? [amountField(currentCountry)] : []),
   ]
 
   return (

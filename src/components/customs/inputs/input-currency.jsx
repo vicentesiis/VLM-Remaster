@@ -5,7 +5,7 @@ import { NumericFormat } from "react-number-format"
 import { Input } from "@/components/ui/input"
 
 const InputCurrency = React.forwardRef(
-  ({ control, name, maxLength, ...props }, ref) => {
+  ({ control, name, maxLength, currencySymbol = "$", ...props }, ref) => {
     const {
       field: { onChange, value },
     } = useController({ name, control })
@@ -17,7 +17,7 @@ const InputCurrency = React.forwardRef(
         thousandSeparator=","
         allowNegative={false}
         allowLeadingZeros={false}
-        prefix="$"
+        prefix={currencySymbol}
         maxLength={maxLength}
         value={value}
         onValueChange={(values) => {
@@ -37,6 +37,7 @@ InputCurrency.propTypes = {
   control: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   maxLength: PropTypes.number,
+  currencySymbol: PropTypes.string,
 }
 
 export default InputCurrency
