@@ -1,6 +1,6 @@
-import { MX, CO, GT} from 'country-flag-icons/react/3x2'
+import { MX, CO, GT } from "country-flag-icons/react/3x2"
 import { Store, Landmark } from "lucide-react"
-import OxxoPayIcon from "@/assets/oxxo_logo.svg?react"
+import OxxoPayIcon from "@/assets/oxxo-pay.svg?react"
 import SPEIIcon from "@/assets/spei_icon.svg?react"
 import { toTitleCase } from "@/utils"
 
@@ -164,43 +164,45 @@ const paymentMethodsByCountry = {
       label: "Oxxo Pay",
       value: "cash",
       icon: OxxoPayIcon,
+      size: "w-20 h-10",
     },
     {
       label: "SPEI",
       value: "spei",
       icon: SPEIIcon,
+      size: "w-12 h-12",
     },
     {
-      label: "Tienda",
+      label: "Tiendas",
       value: "store",
       icon: Store,
     },
     {
-      label: "Banco",
+      label: "Bancos",
       value: "bank",
       icon: Landmark,
     },
   ],
   colombia: [
     {
-      label: "Tienda",
+      label: "Tiendas",
       value: "store",
       icon: Store,
     },
     {
-      label: "Banco",
+      label: "Bancos",
       value: "bank",
       icon: Landmark,
     },
   ],
   guatemala: [
     {
-      label: "Tienda",
+      label: "Tiendas",
       value: "store",
       icon: Store,
     },
     {
-      label: "Banco",
+      label: "Bancos",
       value: "bank",
       icon: Landmark,
     },

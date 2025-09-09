@@ -8,7 +8,7 @@ import VoucherButton from "../cells/voucher-button-cell"
 import { downloadVoucher } from "@/services/documentService"
 import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
-import OxxoPayIcon from "@/assets/oxxo_logo.svg?react"
+import OxxoPayIcon from "@/assets/oxxo-pay.svg?react"
 import SPEIIcon from "@/assets/spei_icon.svg?react"
 import { Store, Landmark } from "lucide-react"
 
@@ -65,7 +65,7 @@ export const getOrdersColumns = (canCreateOrder) => {
         if (value === "cash") {
           return (
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <OxxoPayIcon className="size-8" />
+              <OxxoPayIcon className="w-20 h-10" />
               {/* <span>Oxxo Pay</span> */}
             </div>
           )
@@ -73,7 +73,7 @@ export const getOrdersColumns = (canCreateOrder) => {
         if (value === "spei") {
           return (
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <SPEIIcon className="size-8" />
+              <SPEIIcon className="size-10" />
               {/* <span>SPEI</span> */}
             </div>
           )
@@ -81,16 +81,16 @@ export const getOrdersColumns = (canCreateOrder) => {
         if (value === "store") {
           return (
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <Store className="size-5" />
-              <span>Tienda</span>
+              {/* <Store className="size-5" /> */}
+              <span>Tiendas</span>
             </div>
           )
         }
         if (value === "bank") {
           return (
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <Landmark className="size-5" />
-              <span>Banco</span>
+              {/* <Landmark className="size-5" /> */}
+              <span>Bancos</span>
             </div>
           )
         }
