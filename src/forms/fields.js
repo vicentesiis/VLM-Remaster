@@ -1,6 +1,6 @@
 import { MX, CO, GT } from "country-flag-icons/react/3x2"
-import { Store, Landmark } from "lucide-react"
 import OxxoPayIcon from "@/assets/oxxo-pay.svg?react"
+import PayCashIcon from "@/assets/pay-cash.svg?react"
 import SPEIIcon from "@/assets/spei_icon.svg?react"
 import { toTitleCase } from "@/utils"
 
@@ -126,25 +126,25 @@ export const commentsField = (config = {}) => ({
 
 export const amountField = (country, config = {}) => {
   const currencyConfig = {
-    méxico: { 
-      label: "Monto de la Órden (MXN)", 
-      symbol: "$", 
-      placeholder: "Min $500 - Max $10,000" 
+    méxico: {
+      label: "Monto de la Órden (MXN)",
+      symbol: "$",
+      placeholder: "Min $500 - Max $10,000"
     },
-    colombia: { 
-      label: "Monto de la Órden (COP)", 
-      symbol: "$", 
-      placeholder: "Min $500 - Max $10,000" 
+    colombia: {
+      label: "Monto de la Órden (COP)",
+      symbol: "$",
+      placeholder: "Min $500 - Max $10,000"
     },
-    guatemala: { 
-      label: "Monto de la Órden (GTQ)", 
-      symbol: "Q", 
-      placeholder: "Min Q500 - Max Q10,000" 
+    guatemala: {
+      label: "Monto de la Órden (GTQ)",
+      symbol: "Q",
+      placeholder: "Min Q500 - Max Q10,000"
     }
   }
-  
+
   const selectedConfig = currencyConfig[country] || currencyConfig.méxico
-  
+
   return {
     name: "order_amount",
     label: selectedConfig.label,
@@ -196,38 +196,26 @@ const paymentMethodsByCountry = {
       size: "w-12 h-12",
     },
     {
-      label: "Tiendas",
-      value: "store",
-      icon: Store,
-    },
-    {
-      label: "Bancos",
+      label: "PayCash",
       value: "bank",
-      icon: Landmark,
+      icon: PayCashIcon,
+      size: "w-20 h-12",
     },
   ],
   colombia: [
     {
-      label: "Tiendas",
-      value: "store",
-      icon: Store,
-    },
-    {
-      label: "Bancos",
+      label: "PayCash",
       value: "bank",
-      icon: Landmark,
+      icon: PayCashIcon,
+      size: "w-20 h-12",
     },
   ],
   guatemala: [
     {
-      label: "Tiendas",
-      value: "store",
-      icon: Store,
-    },
-    {
-      label: "Bancos",
+      label: "PayCash",
       value: "bank",
-      icon: Landmark,
+      icon: PayCashIcon,
+      size: "w-20 h-12",
     },
   ],
 }

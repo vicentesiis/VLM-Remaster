@@ -1,16 +1,15 @@
 import { createColumnHelper } from "@tanstack/react-table"
-import { Banknote, CreditCard } from "lucide-react"
 import React, { useState } from "react"
 import { toast } from "sonner"
 import PaymentStatusBadge from "../../badge/payment-status-badge"
 import NullableCell from "../cells/nullable-cell"
 import VoucherButton from "../cells/voucher-button-cell"
+import OxxoPayIcon from "@/assets/oxxo-pay.svg?react"
+import PayCashIcon from "@/assets/pay-cash.svg?react"
+import SPEIIcon from "@/assets/spei_icon.svg?react"
 import { downloadVoucher } from "@/services/documentService"
 import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
-import OxxoPayIcon from "@/assets/oxxo-pay.svg?react"
-import SPEIIcon from "@/assets/spei_icon.svg?react"
-import { Store, Landmark } from "lucide-react"
 
 const columnHelper = createColumnHelper()
 
@@ -78,19 +77,10 @@ export const getOrdersColumns = (canCreateOrder) => {
             </div>
           )
         }
-        if (value === "store") {
-          return (
-            <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              {/* <Store className="size-5" /> */}
-              <span>Tiendas</span>
-            </div>
-          )
-        }
         if (value === "bank") {
           return (
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              {/* <Landmark className="size-5" /> */}
-              <span>Bancos</span>
+              <PayCashIcon className="w-20 h-10" />
             </div>
           )
         }
@@ -106,14 +96,14 @@ export const getOrdersColumns = (canCreateOrder) => {
       },
       meta: { align: "center" },
     }),
-    columnHelper.accessor("clabe", {
-      header: "CLABE",
-      cell: (info) => <NullableCell value={info.getValue()} />,
-      meta: { align: "center" },
-    }),
     columnHelper.accessor("reference", {
       header: "Referencia",
-      cell: (info) => <NullableCell value={info.getValue()} />,
+      cell: ({ row }) => {
+        const clabe = row.original.clabe
+        const reference = row.original.reference
+        const value = clabe || reference
+        return <NullableCell value={value} />
+      },
       meta: { align: "center" },
     }),
     columnHelper.accessor("payment_date", {
