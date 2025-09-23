@@ -85,7 +85,7 @@ export function RecordDocumentDropdown({ registro, isAgent, canUpdateStatus }) {
           disabled={!canDownloadRegistration || isDownloading}
         >
           <FileTextIcon />
-          Registración
+          Registro
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => handleDownload("precontract")}

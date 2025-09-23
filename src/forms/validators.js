@@ -58,7 +58,8 @@ export const stateSchema = normalizeToEmptyString(
 export const documentSchema = normalizeToEmptyString(
   z
     .string()
-    .max(20, { message: "El documento debe de tener menos de 20 caracteres" }),
+    .max(20, { message: "El documento debe de tener menos de 20 caracteres" })
+    .regex(/^\S+$/, "El documento no puede contener espacios en blanco"),
   "El Documento es obligatorio"
 )
 

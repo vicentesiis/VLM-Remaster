@@ -26,7 +26,7 @@ export const getFinalizedReportColumns = () => {
       meta: { align: "left" },
     }),
     columnHelper.accessor("amount_owed", {
-      header: "Cantidad (?)",
+      header: "Por pagar",
       cell: (info) => {
         const amount = info.getValue()
         return <NullableCell value={amount ? formatCurrency(amount) : null} />
