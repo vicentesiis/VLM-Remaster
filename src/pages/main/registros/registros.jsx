@@ -9,7 +9,7 @@ import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui"
 import { Card, CardContent } from "@/components/ui/card"
 
-export const Registros = ({ title }) => {
+export const Registros = ({ title, columnType }) => {
   const {
     table,
     isFetching,
@@ -21,7 +21,7 @@ export const Registros = ({ title }) => {
     refetch,
     isSuperAdmin,
     showFilters,
-  } = useRegistrosTable(title)
+  } = useRegistrosTable(title, columnType)
 
   const handleApplyFilters = useCallback(() => {
     if (
@@ -67,4 +67,5 @@ export default Registros
 
 Registros.propTypes = {
   title: PropTypes.string.isRequired,
+  columnType: PropTypes.string,
 }

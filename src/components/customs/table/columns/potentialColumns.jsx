@@ -12,7 +12,6 @@ export const usePotencialColumns = () => [
     id: "registro",
     header: "Cliente",
     cell: ({ row }) => {
-      console.log("Row data:", row.original)
       const record = row.original
       if (!record?.public_id) return <NullableCell value={null} />
 

@@ -12,7 +12,6 @@ export const getFinalizedReportColumns = () => {
       id: "registro",
       header: "Cliente",
       cell: ({ row }) => {
-        console.log("FinalizedColumns row", row.original)
         const record = row.original
         if (!record?.public_id) return <NullableCell value={null} />
 

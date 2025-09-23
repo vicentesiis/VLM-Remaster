@@ -1,7 +1,7 @@
 import { useReactTable, getCoreRowModel } from "@tanstack/react-table"
 import { useEffect, useMemo, useState } from "react"
 import { getParsedRecordParams } from "../utils/getParsedRecordParams"
-import { getRegistrosColumns } from "@/components/customs/table/columns/registrosColumns"
+import { getColumnsForComponent } from "@/components/customs/table/columns/columnResolver"
 import { RECORD_STATUSES_LABEL } from "@/constants/appConstants"
 import { useGetGroups } from "@/hooks/queries"
 import { useCodexData } from "@/hooks/queries/useCodexData"
@@ -11,9 +11,10 @@ import {
 } from "@/hooks/queries/useRecord"
 import { useGetTasks } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
+import { componentPropsMap } from "@/routes/route-props"
 import { mapToOptions } from "@/utils/utils"
 
-export const useRegistrosTable = (title) => {
+export const useRegistrosTable = (title, componentType = null) => {
   const { id: userId, role, isSuperAdmin, isAgent } = useCurrentUser()
 
   const [columnFilters, setColumnFilters] = useState([])
@@ -70,9 +71,38 @@ export const useRegistrosTable = (title) => {
   )
   const groupsOptions = mapToOptions(groups?.data)
 
+  // Determine component type for column resolution
+  const resolvedComponentType = useMemo(() => {
+    // If componentType is explicitly provided, use it
+    if (componentType) {
+      return componentType
+    }
+    
+    // Try to find component type from route configuration based on title
+    const routeEntry = Object.entries(componentPropsMap).find(
+      ([, props]) => props.title === title
+    )
+    
+    if (routeEntry) {
+      const [routeKey, props] = routeEntry
+      return props.columnType || routeKey
+    }
+    
+    // Fallback: derive from title
+    const titleToComponentMap = {
+      "Registros": "registros",
+      "Prospectos": "prospectos", 
+      "Leads": "leads",
+      "Clientes": "clientes",
+      "Tareas": "tareas"
+    }
+    
+    return titleToComponentMap[title] || "registros"
+  }, [title, componentType])
+
   const columns = useMemo(
-    () =>
-      getRegistrosColumns({
+    () => {
+      const columnOptions = {
         role,
         groups: groupsOptions,
         channels: channelsOptions,
@@ -80,8 +110,11 @@ export const useRegistrosTable = (title) => {
         recordStatuses: recordStatusesOptions,
         recordTypes: recordTypesOptions,
         title,
-      }),
-    [role, groupsOptions, channelsOptions, programsOptions, recordTypesOptions, recordStatusesOptions, title]
+      }
+      
+      return getColumnsForComponent(resolvedComponentType, columnOptions)
+    },
+    [resolvedComponentType, role, groupsOptions, channelsOptions, programsOptions, recordTypesOptions, recordStatusesOptions, title]
   )
 
   const tableData = useMemo(() => {

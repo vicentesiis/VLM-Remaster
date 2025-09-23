@@ -11,15 +11,13 @@ import {
   createCommentsColumn,
   createContactedColumn,
   createGroupFilterColumn,
-} from "./shared"
-import {
   applyRoleBasedColumns,
   injectDynamicOptions,
   createBaseColumns,
 } from "./shared"
 
 /**
- * Creates column configuration for Registros component (base/default configuration)
+ * Creates column configuration for Prospectos component
  * @param {Object} params - Column configuration parameters
  * @param {string} params.role - User role (ADMIN, SUPER_ADMIN, AGENT)
  * @param {Array} params.groups - Available groups for filtering
@@ -27,17 +25,17 @@ import {
  * @param {Array} params.programs - Available programs for filtering
  * @param {Array} params.recordStatuses - Available record statuses for filtering
  * @param {Array} params.recordTypes - Available record types for filtering
- * @param {string} params.title - Component title (defaults to "Registros")
- * @returns {Array} Array of column definitions for Registros component
+ * @param {string} params.title - Component title (defaults to "Prospectos")
+ * @returns {Array} Array of column definitions for Prospectos component
  */
-export const getRegistrosColumns = ({
+export const getProspectosColumns = ({
   role,
   groups = [],
   channels = [],
   programs = [],
   recordStatuses = [],
   recordTypes = [],
-  title = "Registros",
+  title = "Prospectos",
 }) => {
   // Create base columns that all roles can see
   const baseColumns = createBaseColumns(columnHelper, {
