@@ -87,7 +87,6 @@ export const createAssignmentDateColumn = (columnHelper, title = "") =>
       let label = formatDate(assignmentDate)
 
       if (title === "Leads") {
-        console.log(title)
         if (hoursDiff <= 12) {
           variant = "success"
         } else if (hoursDiff <= 24) {
