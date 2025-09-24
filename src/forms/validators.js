@@ -82,7 +82,12 @@ export const exitDateTypeSchema = z.preprocess(
   z.date().optional()
 )
 
-export const jobSchema = skipIfEmpty(z.string().optional())
+export const jobSchema = skipIfEmpty(
+  z
+    .string()
+    .regex(/^\S+$/, "El ID de la Vacante no puede contener espacios en blanco")
+    .optional()
+)
 
 export const programSchema = normalizeToEmptyString(
   z.string(),

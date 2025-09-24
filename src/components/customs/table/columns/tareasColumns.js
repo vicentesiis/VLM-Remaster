@@ -80,7 +80,6 @@ export const getTareasColumns = ({
     // Custom column set for ADMIN - exclude contacted, add amount_owed and nationality
     columns = [
       ...baseColumns,
-      availableColumns.recordTypeColumn,
       availableColumns.channelColumn,
       availableColumns.programColumn,
       availableColumns.amountOwedColumn,
