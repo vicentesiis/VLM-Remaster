@@ -2,7 +2,8 @@ import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
 import { MainCell } from "../cells"
 import NullableCell from "../cells/nullable-cell"
-import { formatCurrency, formatDate } from "@/utils"
+import { createAmountOwedColumn } from "./shared/commonColumns"
+import { formatDate } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
@@ -25,14 +26,7 @@ export const getFinalizedReportColumns = () => {
       },
       meta: { align: "left" },
     }),
-    columnHelper.accessor("amount_owed", {
-      header: "Por pagar",
-      cell: (info) => {
-        const amount = info.getValue()
-        return <NullableCell value={amount ? formatCurrency(amount) : null} />
-      },
-      meta: { align: "center" },
-    }),
+    createAmountOwedColumn(columnHelper),
     columnHelper.accessor("created_at", {
       header: "Fecha de creación",
       cell: (info) => {

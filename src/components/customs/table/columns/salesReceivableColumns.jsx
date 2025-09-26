@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
 import { MainCell } from "../cells"
 import NullableCell from "../cells/nullable-cell"
-import { formatCurrency } from "@/utils"
+import { createAmountOwedColumn } from "./shared/commonColumns"
 
 const columnHelper = createColumnHelper()
 
@@ -27,19 +27,10 @@ export const salesReceivableColumns = () => {
       size: 300,
       minSize: 200,
     }),
-    columnHelper.accessor("amount_owed", {
-      header: "Deuda",
-      cell: (info) => {
-        const amount = info.getValue()
-        return (
-          <NullableCell
-            value={amount ? formatCurrency(amount) : null}
-            className={"font-semibold text-red-600"}
-          />
-        )
-      },
-      meta: { align: "center" },
-    }),
+    {
+      ...createAmountOwedColumn(columnHelper),
+      header: "Por pagar",
+    },
   ]
 
   return columns

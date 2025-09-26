@@ -3,7 +3,7 @@ import React from "react"
 import StatusBadge from "../../badge/status-badge"
 import { MainCell } from "../cells"
 import NullableCell from "../cells/nullable-cell"
-import { formatCurrency } from "@/utils"
+import { createAmountOwedColumn, createStatusColumn, createRecordTypeColumn, createProgramColumn } from "./shared/commonColumns"
 
 const columnHelper = createColumnHelper()
 
@@ -26,54 +26,16 @@ export const usePotencialColumns = () => [
     meta: { align: "left" },
   }),
 
-  columnHelper.accessor("status", {
-    header: "Estatus",
-    cell: (info) => <StatusBadge status={info.getValue()} />,
-    meta: {
-      align: "center",
-      variant: "multiSelect",
-      label: "Estatus",
-      options: [],
-      maxWidth: "100px",
-    },
-  }),
+  createStatusColumn(columnHelper),
 
-  columnHelper.accessor("record_type", {
-    header: "Tipo",
-    cell: (info) => (
-      <NullableCell value={info.getValue()} className="text-center" />
-    ),
-    meta: {
-      align: "center",
-    },
-  }),
+  createRecordTypeColumn(columnHelper),
 
-  columnHelper.accessor("program", {
-    header: "Programa",
-    cell: (info) => (
-      <NullableCell value={info.getValue()} className="text-center" />
-    ),
-    meta: {
-      align: "center",
-      variant: "multiSelect",
-      label: "Programa",
-      options: [],
-    },
-  }),
+  createProgramColumn(columnHelper),
 
-  columnHelper.accessor("amount_owed", {
+  {
+    ...createAmountOwedColumn(columnHelper),
     header: "Cantidad potencial",
-    cell: (info) => {
-      const amount = info.getValue()
-      return (
-        <NullableCell
-          value={amount ? formatCurrency(amount) : null}
-          className={"font-semibold"}
-        />
-      )
-    },
-    meta: { align: "center" },
-  }),
+  },
   columnHelper.accessor((row) => row.orders?.length, {
     id: "orders",
     header: "Número de órdenes",
