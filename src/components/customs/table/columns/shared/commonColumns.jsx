@@ -1,13 +1,76 @@
 import { createColumnHelper } from "@tanstack/react-table"
-import { Check, X } from "lucide-react"
+import {
+  Check,
+  X,
+  DollarSignIcon,
+  UserCheck,
+  Target,
+  Facebook,
+  Instagram,
+  MessageCircle,
+  Send,
+  Music,
+  Mail,
+  Phone,
+  Globe,
+  MoreHorizontal,
+  Briefcase,
+  Contact
+} from "lucide-react"
 import React from "react"
+import IconBadge from "../../../badge/icon-badge"
 import StatusBadge from "../../../badge/status-badge"
 import NullableCell from "../../cells/nullable-cell"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { Badge } from "@/components/ui"
-import { formatDate } from "@/utils"
+import { formatCurrency, formatDate, toTitleCase } from "@/utils"
+import OxxoPayIcon from "@/assets/oxxo-pay.svg?react"
+import PayCashIcon from "@/assets/pay-cash.svg?react"
+import SPEIIcon from "@/assets/spei_icon.svg?react"
 
 const columnHelper = createColumnHelper()
+
+// Helper function to get channel icon and color
+const getChannelConfig = (channel) => {
+  const channelLower = channel?.toLowerCase()
+
+  switch (channelLower) {
+    case 'facebook':
+      return { icon: Facebook, variant: 'facebook' }
+    case 'instagram':
+      return { icon: Instagram, variant: 'instagram' }
+    case 'whatsapp':
+      return { icon: MessageCircle, variant: 'whatsapp' }
+    case 'telegram':
+      return { icon: Send, variant: 'telegram' }
+    case 'tiktok':
+      return { icon: Music, variant: 'tiktok' }
+    case 'email':
+      return { icon: Mail, variant: 'email' }
+    case 'phone':
+      return { icon: Phone, variant: 'phone' }
+    case 'web':
+      return { icon: Globe, variant: 'web' }
+    case 'other':
+      return { icon: MoreHorizontal, variant: 'other' }
+    default:
+      return { icon: Globe, variant: 'outline' }
+  }
+}
+
+// Helper function to get record type config
+const getRecordTypeConfig = (recordType) => {
+  const typeLower = recordType?.toLowerCase()
+
+  switch (typeLower) {
+    case 'lead':
+      return { icon: Contact, variant: 'warning' }
+    case 'prospect':
+      return { icon: Target, variant: 'success' }
+    default:
+      return { icon: UserCheck, variant: 'outline' }
+  }
+}
 
 /**
  * Creates a name column with MainCell component for navigation
@@ -116,9 +179,22 @@ export const createAssignmentDateColumn = (columnHelper, title = "") =>
 export const createRecordTypeColumn = (columnHelper) =>
   columnHelper.accessor("record_type", {
     header: "Tipo",
-    cell: (info) => (
-      <NullableCell value={info.getValue()} className="text-center" />
-    ),
+    cell: (info) => {
+      const recordType = info.getValue()
+      if (!recordType) return <NullableCell value={null} className="text-center" />
+
+      const { icon: Icon, variant } = getRecordTypeConfig(recordType)
+
+      return (
+        <div className="flex justify-center">
+          <IconBadge
+            title={toTitleCase(recordType)}
+            icon={Icon}
+            variant={variant}
+          />
+        </div>
+      )
+    },
     meta: {
       align: "center",
       variant: "select",
@@ -135,9 +211,22 @@ export const createRecordTypeColumn = (columnHelper) =>
 export const createChannelColumn = (columnHelper) =>
   columnHelper.accessor("channel", {
     header: "Canal",
-    cell: (info) => (
-      <NullableCell value={info.getValue()} className="text-center" />
-    ),
+    cell: (info) => {
+      const channel = info.getValue()
+      if (!channel) return <NullableCell value={null} className="text-center" />
+
+      const { icon: Icon, variant } = getChannelConfig(channel)
+
+      return (
+        <div className="flex justify-center">
+          <IconBadge
+            title={toTitleCase(channel)}
+            icon={Icon}
+            variant={variant}
+          />
+        </div>
+      )
+    },
     meta: {
       align: "center",
       variant: "multiSelect",
@@ -154,9 +243,18 @@ export const createChannelColumn = (columnHelper) =>
 export const createProgramColumn = (columnHelper) =>
   columnHelper.accessor("program", {
     header: "Programa",
-    cell: (info) => (
-      <NullableCell value={info.getValue()} className="text-center" />
-    ),
+    cell: (info) => {
+      const program = info.getValue()
+      if (!program) return <NullableCell value={null} className="text-center" />
+
+      return (
+        <div className="flex justify-center">
+          <Badge variant="outline">
+            {toTitleCase(program)}
+          </Badge>
+        </div>
+      )
+    },
     meta: {
       align: "center",
       variant: "multiSelect",
@@ -211,11 +309,10 @@ export const createContactedColumn = (columnHelper) =>
       if (typeof contacted !== "boolean") return <NullableCell value={null} />
       return (
         <div
-          className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full border ${
-            contacted
-              ? "border-green-500 bg-green-100 text-green-700"
-              : "border-red-500 bg-red-100 text-red-700"
-          }`}
+          className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full border ${contacted
+            ? "border-green-500 bg-green-100 text-green-700"
+            : "border-red-500 bg-red-100 text-red-700"
+            }`}
         >
           {contacted ? (
             <Check className="h-4 w-4" strokeWidth={2.5} />
@@ -258,14 +355,18 @@ export const createAmountOwedColumn = (columnHelper) =>
     cell: (info) => {
       const amount = info.getValue()
       if (amount == null) return <NullableCell value={null} className="text-center" />
-      
-      // Format as currency
-      const formattedAmount = new Intl.NumberFormat('es-MX', {
-        style: 'currency',
-        currency: 'MXN'
-      }).format(amount)
-      
-      return <NullableCell value={formattedAmount} className="text-center" />
+
+      const formattedAmount = formatCurrency(amount)
+
+      return (
+        <div className="flex justify-center">
+          <Badge
+            variant={amount > 0 ? "destructive" : "outline"}
+          >
+            {formattedAmount}
+          </Badge>
+        </div>
+      )
     },
     meta: {
       align: "center",
@@ -289,6 +390,58 @@ export const createNationalityColumn = (columnHelper) =>
       label: "Nacionalidad",
       options: [],
     },
+  })
+
+/**
+ * Creates an agent column for displaying assigned agent
+ * @param {Object} columnHelper - TanStack table column helper
+ * @returns {Object} Column definition
+ */
+export const createAgentColumn = (columnHelper) =>
+  columnHelper.accessor("agent", {
+    header: "Agente",
+    cell: (info) => (
+      <NullableCell value={info.getValue()} className="text-center" />
+    ),
+    meta: {
+      align: "center",
+    },
+  })
+
+/**
+ * Creates a payment method column with standardized icons
+ * @param {Object} columnHelper - TanStack table column helper
+ * @returns {Object} Column definition
+ */
+export const createPaymentMethodColumn = (columnHelper) =>
+  columnHelper.accessor("payment_method", {
+    header: "Método de Pago",
+    cell: ({ getValue }) => {
+      const value = getValue()
+      if (value === "cash") {
+        return (
+          <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
+            <OxxoPayIcon className="w-20 h-10" />
+          </div>
+        )
+      }
+      if (value === "spei") {
+        return (
+          <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
+            <SPEIIcon className="size-10" />
+          </div>
+        )
+      }
+      if (value === "bank") {
+        return (
+          <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
+            <PayCashIcon className="w-20 h-10" />
+          </div>
+        )
+      }
+      return <NullableCell value={null} />
+    },
+    meta: { align: "center" },
   })
 
 // Export the column helper for use in specific column files

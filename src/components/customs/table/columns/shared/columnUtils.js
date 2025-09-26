@@ -3,44 +3,149 @@ import { Roles } from "@/constants"
 /**
  * Applies role-based column filtering to a set of columns
  * @param {Array} baseColumns - Base columns that all roles can see
- * @param {string} role - User role (ADMIN, SUPER_ADMIN, AGENT)
+ * @param {string} role - User role (ADMIN, SUPER_ADMIN, AGENT, LEADER)
  * @param {Object} availableColumns - Object containing all available column definitions
- * @returns {Array} Filtered columns based on role
+ * @param {string} componentType - Type of component (registros, clientes, leads, prospectos, tareas)
+ * @returns {Array} Filtered columns based on role and component type
  */
-export const applyRoleBasedColumns = (baseColumns, role, availableColumns) => {
+export const applyRoleBasedColumns = (baseColumns, role, availableColumns, componentType = 'registros') => {
   const isAdmin = role === Roles.ADMIN
   const isSuperAdmin = role === Roles.SUPER_ADMIN
   const isAgent = role === Roles.AGENT
+  const isLeader = role === Roles.LEADER
 
-  if (isSuperAdmin) {
-    return [
-      availableColumns.groupFilterColumn,
-      ...baseColumns,
-      availableColumns.recordTypeColumn,
-      availableColumns.channelColumn,
-      availableColumns.programColumn,
-      availableColumns.contactedColumn,
-      availableColumns.commentsColumn,
-    ]
-  } else if (isAdmin) {
-    return [
-      ...baseColumns,
-      availableColumns.recordTypeColumn,
-      availableColumns.channelColumn,
-      availableColumns.programColumn,
-      availableColumns.contactedColumn,
-      availableColumns.commentsColumn,
-    ]
-  } else if (isAgent) {
-    return [
-      ...baseColumns,
-      availableColumns.programColumn,
-      availableColumns.phoneColumn,
-      availableColumns.contactedColumn,
-      availableColumns.commentsColumn,
-    ]
+  // Get base columns without assignment_date for specific cases
+  const getBaseColumnsWithoutAssignment = () => [
+    availableColumns.nameColumn || baseColumns.find(col => col.accessorKey === 'name'),
+    availableColumns.statusColumn || baseColumns.find(col => col.accessorKey === 'status'),
+    availableColumns.updatedAtColumn || baseColumns.find(col => col.accessorKey === 'updated_at'),
+  ].filter(Boolean)
+
+  if (isSuperAdmin || isAdmin) {
+    switch (componentType) {
+      case 'registros':
+        return [
+          ...(isSuperAdmin ? [availableColumns.groupFilterColumn] : []),
+          ...baseColumns,
+          availableColumns.recordTypeColumn,
+          availableColumns.channelColumn,
+          availableColumns.programColumn,
+          availableColumns.amountOwedColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+
+      case 'clientes':
+        return [
+          ...(isSuperAdmin ? [availableColumns.groupFilterColumn] : []),
+          ...baseColumns,
+          availableColumns.recordTypeColumn,
+          availableColumns.channelColumn,
+          availableColumns.programColumn,
+          availableColumns.amountOwedColumn,
+          // availableColumns.agentColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+
+      case 'leads':
+        // Leads keep current columns (ok as specified)
+        return [
+          ...(isSuperAdmin ? [availableColumns.groupFilterColumn] : []),
+          ...baseColumns,
+          availableColumns.recordTypeColumn,
+          availableColumns.channelColumn,
+          availableColumns.programColumn,
+          availableColumns.contactedColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+
+      case 'prospectos':
+        return [
+          ...(isSuperAdmin ? [availableColumns.groupFilterColumn] : []),
+          ...baseColumns,
+          availableColumns.recordTypeColumn,
+          availableColumns.channelColumn,
+          availableColumns.programColumn,
+          availableColumns.contactedColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+
+      case 'tareas':
+        return [
+          ...(isSuperAdmin ? [availableColumns.groupFilterColumn] : []),
+          ...baseColumns,
+          availableColumns.programColumn,
+          availableColumns.amountOwedColumn,
+          availableColumns.phoneColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+
+      default:
+        return [
+          ...(isSuperAdmin ? [availableColumns.groupFilterColumn] : []),
+          ...baseColumns,
+          availableColumns.recordTypeColumn,
+          availableColumns.channelColumn,
+          availableColumns.programColumn,
+          availableColumns.contactedColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+    }
+  } else if (isAgent || isLeader) {
+    switch (componentType) {
+      case 'tareas':
+        // For agents/leaders: Nombre, Status, Ultima actualización, Programa, Por pagar, Telefono, Coment
+        const baseWithoutAssignment = getBaseColumnsWithoutAssignment()
+        return [
+          ...baseWithoutAssignment,
+          availableColumns.programColumn,
+          availableColumns.amountOwedColumn,
+          availableColumns.phoneColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+
+      case 'clientes':
+        // For agents/leaders: Nombre, Status, Ultima actualización, Programa, Por pagar, Telefono, Coment
+        const clientesBaseWithoutAssignment = getBaseColumnsWithoutAssignment()
+        return [
+          ...clientesBaseWithoutAssignment,
+          availableColumns.programColumn,
+          availableColumns.amountOwedColumn,
+          availableColumns.phoneColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+
+      case 'prospectos':
+        // For agents/leaders: Nombre, Status, Ultima actualización, Programa, telefóno, Contacto efectivo, Coment
+        const prospectosBaseWithoutAssignment = getBaseColumnsWithoutAssignment()
+        return [
+          ...prospectosBaseWithoutAssignment,
+          availableColumns.programColumn,
+          availableColumns.phoneColumn,
+          availableColumns.contactedColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+
+      case 'leads':
+        // Leads keep current columns (ok as specified)
+        return [
+          ...baseColumns,
+          availableColumns.programColumn,
+          availableColumns.phoneColumn,
+          availableColumns.contactedColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+
+      default:
+        return [
+          ...baseColumns,
+          availableColumns.programColumn,
+          availableColumns.phoneColumn,
+          availableColumns.contactedColumn,
+          availableColumns.commentsColumn,
+        ].filter(Boolean)
+    }
   } else {
-    return [...baseColumns, availableColumns.commentsColumn]
+    return [...baseColumns, availableColumns.commentsColumn].filter(Boolean)
   }
 }
 
@@ -123,6 +228,5 @@ export const createBaseColumns = (columnHelper, commonColumns, title = "") => {
     commonColumns.createNameColumn(columnHelper),
     commonColumns.createStatusColumn(columnHelper),
     commonColumns.createUpdatedAtColumn(columnHelper),
-    commonColumns.createAssignmentDateColumn(columnHelper, title),
   ]
 }

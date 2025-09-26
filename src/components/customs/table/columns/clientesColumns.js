@@ -11,6 +11,8 @@ import {
   createCommentsColumn,
   createContactedColumn,
   createGroupFilterColumn,
+  createAmountOwedColumn,
+  createAgentColumn,
   applyRoleBasedColumns,
   injectDynamicOptions,
   createBaseColumns,
@@ -42,11 +44,13 @@ export const getClientesColumns = ({
     createNameColumn,
     createStatusColumn,
     createUpdatedAtColumn,
-    createAssignmentDateColumn,
   }, title)
 
   // Create all available column definitions
   const availableColumns = {
+    nameColumn: createNameColumn(columnHelper),
+    statusColumn: createStatusColumn(columnHelper),
+    updatedAtColumn: createUpdatedAtColumn(columnHelper),
     groupFilterColumn: createGroupFilterColumn(columnHelper),
     recordTypeColumn: createRecordTypeColumn(columnHelper),
     channelColumn: createChannelColumn(columnHelper),
@@ -54,10 +58,12 @@ export const getClientesColumns = ({
     phoneColumn: createPhoneColumn(columnHelper),
     contactedColumn: createContactedColumn(columnHelper),
     commentsColumn: createCommentsColumn(columnHelper),
+    amountOwedColumn: createAmountOwedColumn(columnHelper),
+    agentColumn: createAgentColumn(columnHelper),
   }
 
   // Apply role-based column filtering
-  const columns = applyRoleBasedColumns(baseColumns, role, availableColumns)
+  const columns = applyRoleBasedColumns(baseColumns, role, availableColumns, 'clientes')
 
   // Inject dynamic options into column meta properties
   const columnsWithOptions = injectDynamicOptions(columns, {

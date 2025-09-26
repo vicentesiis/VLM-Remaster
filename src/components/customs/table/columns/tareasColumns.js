@@ -13,6 +13,7 @@ import {
   createGroupFilterColumn,
   createAmountOwedColumn,
   createNationalityColumn,
+  createAgentColumn,
   applyRoleBasedColumns,
   injectDynamicOptions,
   createBaseColumns,
@@ -40,29 +41,19 @@ export const getTareasColumns = ({
   recordTypes = [],
   title = "Tareas",
 }) => {
-
-
-  // Create base columns - for ADMIN role, exclude assignment_date
-  let baseColumns
-  if (role === Roles.ADMIN) {
-    // Custom base columns for ADMIN - exclude assignment_date
-    baseColumns = [
-      createNameColumn(columnHelper),
-      createStatusColumn(columnHelper),
-      createUpdatedAtColumn(columnHelper),
-    ]
-  } else {
-    // Standard base columns for other roles
-    baseColumns = createBaseColumns(columnHelper, {
-      createNameColumn,
-      createStatusColumn,
-      createUpdatedAtColumn,
-      createAssignmentDateColumn,
-    }, title)
-  }
+  // Create base columns that all roles can see
+  const baseColumns = createBaseColumns(columnHelper, {
+    createNameColumn,
+    createStatusColumn,
+    createUpdatedAtColumn,
+    createAssignmentDateColumn,
+  }, title)
 
   // Create all available column definitions
   const availableColumns = {
+    nameColumn: createNameColumn(columnHelper),
+    statusColumn: createStatusColumn(columnHelper),
+    updatedAtColumn: createUpdatedAtColumn(columnHelper),
     groupFilterColumn: createGroupFilterColumn(columnHelper),
     recordTypeColumn: createRecordTypeColumn(columnHelper),
     channelColumn: createChannelColumn(columnHelper),
@@ -72,24 +63,11 @@ export const getTareasColumns = ({
     commentsColumn: createCommentsColumn(columnHelper),
     amountOwedColumn: createAmountOwedColumn(columnHelper),
     nationalityColumn: createNationalityColumn(columnHelper),
+    agentColumn: createAgentColumn(columnHelper),
   }
 
-  // Apply role-based column filtering with custom logic for ADMIN
-  let columns
-  if (role === Roles.ADMIN) {
-    // Custom column set for ADMIN - exclude contacted, add amount_owed and nationality
-    columns = [
-      ...baseColumns,
-      availableColumns.channelColumn,
-      availableColumns.programColumn,
-      availableColumns.amountOwedColumn,
-      availableColumns.nationalityColumn,
-      availableColumns.commentsColumn,
-    ]
-  } else {
-    // Use standard role-based filtering for other roles
-    columns = applyRoleBasedColumns(baseColumns, role, availableColumns)
-  }
+  // Apply role-based column filtering
+  const columns = applyRoleBasedColumns(baseColumns, role, availableColumns, 'tareas')
 
   // Inject dynamic options into column meta properties
   const columnsWithOptions = injectDynamicOptions(columns, {

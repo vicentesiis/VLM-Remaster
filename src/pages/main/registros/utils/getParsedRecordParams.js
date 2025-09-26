@@ -12,7 +12,7 @@ export const getParsedRecordParams = (
     limit: pagination.pageSize,
   }
 
-  if (title === "Clientes" || title === "Clientes") {
+  if (title === "Clientes") {
     params.is_client = true
   }
 

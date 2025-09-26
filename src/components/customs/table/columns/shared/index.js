@@ -21,6 +21,7 @@ export {
   createGroupFilterColumn,
   createAmountOwedColumn,
   createNationalityColumn,
+  createAgentColumn,
   columnHelper,
 } from './commonColumns.jsx'
 

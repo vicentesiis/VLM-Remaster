@@ -4,9 +4,7 @@ import { toast } from "sonner"
 import PaymentStatusBadge from "../../badge/payment-status-badge"
 import NullableCell from "../cells/nullable-cell"
 import VoucherButton from "../cells/voucher-button-cell"
-import OxxoPayIcon from "@/assets/oxxo-pay.svg?react"
-import PayCashIcon from "@/assets/pay-cash.svg?react"
-import SPEIIcon from "@/assets/spei_icon.svg?react"
+import { createPaymentMethodColumn } from "./shared/commonColumns"
 import { downloadVoucher } from "@/services/documentService"
 import { formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
@@ -57,37 +55,7 @@ export const getOrdersColumns = (canCreateOrder) => {
       cell: (info) => <PaymentStatusBadge status={info.getValue()} />,
       meta: { align: "center" },
     }),
-    columnHelper.accessor("payment_method", {
-      header: "Método de Pago",
-      cell: ({ getValue }) => {
-        const value = getValue()
-        if (value === "cash") {
-          return (
-            <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <OxxoPayIcon className="w-20 h-10" />
-              {/* <span>Oxxo Pay</span> */}
-            </div>
-          )
-        }
-        if (value === "spei") {
-          return (
-            <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <SPEIIcon className="size-10" />
-              {/* <span>SPEI</span> */}
-            </div>
-          )
-        }
-        if (value === "bank") {
-          return (
-            <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <PayCashIcon className="w-20 h-10" />
-            </div>
-          )
-        }
-        return <NullableCell value={null} />
-      },
-      meta: { align: "center" },
-    }),
+    createPaymentMethodColumn(columnHelper),
     columnHelper.accessor("amount", {
       header: "Cantidad",
       cell: (info) => {
