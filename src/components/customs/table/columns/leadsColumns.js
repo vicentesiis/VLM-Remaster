@@ -46,7 +46,6 @@ export const getLeadsColumns = ({
     createNameColumn,
     createStatusColumn,
     createUpdatedAtColumn,
-    createAssignmentDateColumn,
   }, title)
 
   // Create all available column definitions
@@ -54,6 +53,7 @@ export const getLeadsColumns = ({
     nameColumn: createNameColumn(columnHelper),
     statusColumn: createStatusColumn(columnHelper),
     updatedAtColumn: createUpdatedAtColumn(columnHelper),
+    assignmentDateColumn: createAssignmentDateColumn(columnHelper, title),
     groupFilterColumn: createGroupFilterColumn(columnHelper),
     recordTypeColumn: createRecordTypeColumn(columnHelper),
     channelColumn: createChannelColumn(columnHelper),

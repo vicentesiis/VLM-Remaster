@@ -129,6 +129,7 @@ export const applyRoleBasedColumns = (baseColumns, role, availableColumns, compo
         // Leads keep current columns (ok as specified)
         return [
           ...baseColumns,
+          availableColumns.assignmentDateColumn,
           availableColumns.programColumn,
           availableColumns.phoneColumn,
           availableColumns.contactedColumn,
