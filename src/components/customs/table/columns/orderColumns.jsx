@@ -57,10 +57,19 @@ export const getOrdersColumns = (canCreateOrder) => {
     }),
     createPaymentMethodColumn(columnHelper),
     columnHelper.accessor("amount", {
-      header: "Cantidad",
+      header: "Cantidad (USD)",
       cell: (info) => {
         const amount = info.getValue()
-        return <NullableCell value={amount ? formatCurrency(amount) : null} />
+        return <NullableCell value={amount ? `${formatCurrency(parseFloat(amount).toFixed(2))} USD` : null} />
+      },
+      meta: { align: "center" },
+    }),
+    columnHelper.accessor("amount_local", {
+      header: "Cantidad Local",
+      cell: ({ row }) => {
+        const { amount_local, currency } = row.original
+        const value = amount_local && currency ? `${formatCurrency(parseFloat(amount_local).toFixed(2))} ${currency}` : null
+        return <NullableCell value={value} />
       },
       meta: { align: "center" },
     }),

@@ -1,3 +1,4 @@
+import * as flags from "country-flag-icons/react/3x2"
 import {
   CalendarIcon,
   HashIcon,
@@ -23,6 +24,29 @@ import { formatCurrency, formatDate, toTitleCase } from "@/utils"
 // Constants
 const WHATSAPP_MESSAGE_TEMPLATE =
   "Hola buen día {NOMBRE_REGISTRO} le saluda {NOMBRE_AGENTE} de AsesoriaLaboralMigratoria.com le escribo porque se registro con nosotros a través de {CANAL} y le interesa laborar en el extranjero. Le comparto su folio de registro: {ID_REGISTRO} le proporcionare mas información sobre nuestros servicios y algunas vacantes que tenemos disponibles para usted."
+
+// Country mapping for flags
+const COUNTRY_FLAG_MAP = {
+  "argentina": "AR",
+  "belice": "BZ",
+  "bolivia": "BO",
+  "brasil": "BR",
+  "chile": "CL",
+  "colombia": "CO",
+  "costa rica": "CR",
+  "república dominicana": "DO",
+  "ecuador": "EC",
+  "el salvador": "SV",
+  "guatemala": "GT",
+  "honduras": "HN",
+  "méxico": "MX",
+  "nicaragua": "NI",
+  "panamá": "PA",
+  "paraguay": "PY",
+  "perú": "PE",
+  "uruguay": "UY",
+  "venezuela": "VE"
+}
 
 // Utility functions
 const formatPhoneNumber = (phone) => {
@@ -51,6 +75,17 @@ const createTrackingUrl = (registro) => {
   return `https://statusvisas.com/seguimiento?public_id=${registro.public_id}&day=${day}&month=${month}&year=${year}`
 }
 
+// Get country flag component
+const getCountryFlag = (nationality) => {
+  if (!nationality) return null
+
+  const countryCode = COUNTRY_FLAG_MAP[nationality.toLowerCase()]
+  if (!countryCode) return null
+
+  const FlagComponent = flags[countryCode]
+  return FlagComponent ? <FlagComponent className="h-8 w-10" /> : null
+}
+
 export const RegistrosDetailHeader = ({ registro }) => {
   const {
     id,
@@ -58,6 +93,8 @@ export const RegistrosDetailHeader = ({ registro }) => {
     status,
     record_type,
     amount_owed,
+    amount_owed_local,
+    currency,
     user,
     public_id,
     updated_at,
@@ -68,9 +105,11 @@ export const RegistrosDetailHeader = ({ registro }) => {
 
   // Badge configuration
   const getBadges = () => {
-    const amount = formatCurrency(amount_owed)
+    const amountUSD = formatCurrency(parseFloat(amount_owed || 0).toFixed(2))
+    const amountLocal = amount_owed_local && currency ?
+      `${formatCurrency(parseFloat(amount_owed_local).toFixed(2))} ${currency}` : null
 
-    return [
+    const badges = [
       { title: public_id, icon: HashIcon },
       { title: `Agente: ${user?.name ?? "-"}`, icon: UserIcon },
       {
@@ -81,11 +120,22 @@ export const RegistrosDetailHeader = ({ registro }) => {
       },
       { title: record_type && `Tipo: ${record_type}`, icon: BadgeInfoIcon },
       {
-        title: `Por pagar: ${amount}`,
+        title: `Por pagar (USD): ${amountUSD}`,
         icon: DollarSignIcon,
         variant: amount_owed > 0 ? "destructive" : "outline",
       },
-    ].filter((badge) => badge.title)
+    ]
+
+    // Add local currency badge if available
+    if (amountLocal) {
+      badges.push({
+        title: `Por pagar (Local): ${amountLocal}`,
+        icon: DollarSignIcon,
+        variant: amount_owed_local > 0 ? "destructive" : "outline",
+      })
+    }
+
+    return badges.filter((badge) => badge.title)
   }
 
   const getBadgeVariant = (badge) => {
@@ -153,9 +203,10 @@ export const RegistrosDetailHeader = ({ registro }) => {
       <CardHeader>
         <div className="flex flex-col lg:flex-row lg:justify-between">
           {/* Main Content Section */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 space-y-2">
             {/* Title and Status */}
             <div className="flex items-center gap-2">
+              {getCountryFlag(registro?.nationality)}
               <CardTitle className="text-2xl">
                 {toTitleCase(name ?? "Sin nombre")}
               </CardTitle>
