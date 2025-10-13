@@ -56,14 +56,6 @@ export const getOrdersColumns = (canCreateOrder) => {
       meta: { align: "center" },
     }),
     createPaymentMethodColumn(columnHelper),
-    columnHelper.accessor("amount", {
-      header: "Cantidad (USD)",
-      cell: (info) => {
-        const amount = info.getValue()
-        return <NullableCell value={amount ? `${formatCurrency(parseFloat(amount).toFixed(2))} USD` : null} />
-      },
-      meta: { align: "center" },
-    }),
     columnHelper.accessor("amount_local", {
       header: "Cantidad Local",
       cell: ({ row }) => {
@@ -73,6 +65,15 @@ export const getOrdersColumns = (canCreateOrder) => {
       },
       meta: { align: "center" },
     }),
+    columnHelper.accessor("amount", {
+      header: "Cantidad (USD)",
+      cell: (info) => {
+        const amount = info.getValue()
+        return <NullableCell value={amount ? `${formatCurrency(parseFloat(amount).toFixed(2))} USD` : null} />
+      },
+      meta: { align: "center" },
+    }),
+
     columnHelper.accessor("reference", {
       header: "Referencia",
       cell: ({ row }) => {

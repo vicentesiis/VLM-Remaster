@@ -23,6 +23,7 @@ export {
   createNationalityColumn,
   createAgentColumn,
   columnHelper,
+  createAmountOwedLocalColumn
 } from './commonColumns.jsx'
 
 // Export all column utility functions

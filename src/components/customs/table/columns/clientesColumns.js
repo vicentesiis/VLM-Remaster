@@ -3,7 +3,6 @@ import {
   createNameColumn,
   createStatusColumn,
   createUpdatedAtColumn,
-  createAssignmentDateColumn,
   createRecordTypeColumn,
   createChannelColumn,
   createProgramColumn,
@@ -16,6 +15,7 @@ import {
   applyRoleBasedColumns,
   injectDynamicOptions,
   createBaseColumns,
+  createAmountOwedLocalColumn
 } from "./shared"
 
 /**
@@ -58,6 +58,7 @@ export const getClientesColumns = ({
     phoneColumn: createPhoneColumn(columnHelper),
     contactedColumn: createContactedColumn(columnHelper),
     commentsColumn: createCommentsColumn(columnHelper),
+    amountOwedLocalColumn: createAmountOwedLocalColumn(columnHelper),
     amountOwedColumn: createAmountOwedColumn(columnHelper),
     agentColumn: createAgentColumn(columnHelper),
   }

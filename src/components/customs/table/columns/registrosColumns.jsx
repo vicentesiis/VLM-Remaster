@@ -13,6 +13,7 @@ import {
   createGroupFilterColumn,
   createAmountOwedColumn,
   createAgentColumn,
+  createAmountOwedLocalColumn
 } from "./shared"
 import {
   applyRoleBasedColumns,
@@ -61,6 +62,7 @@ export const getRegistrosColumns = ({
     phoneColumn: createPhoneColumn(columnHelper),
     contactedColumn: createContactedColumn(columnHelper),
     commentsColumn: createCommentsColumn(columnHelper),
+    amountOwedLocalColumn: createAmountOwedLocalColumn(columnHelper),
     amountOwedColumn: createAmountOwedColumn(columnHelper),
     agentColumn: createAgentColumn(columnHelper),
   }

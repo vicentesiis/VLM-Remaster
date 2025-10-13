@@ -21,12 +21,12 @@ import React from "react"
 import IconBadge from "../../../badge/icon-badge"
 import StatusBadge from "../../../badge/status-badge"
 import NullableCell from "../../cells/nullable-cell"
-import { MainCell } from "@/components/customs/table/cells/main-cell"
-import { Badge } from "@/components/ui"
-import { formatCurrency, formatDate, toTitleCase } from "@/utils"
 import OxxoPayIcon from "@/assets/oxxo-pay.svg?react"
 import PayCashIcon from "@/assets/pay-cash.svg?react"
 import SPEIIcon from "@/assets/spei_icon.svg?react"
+import { MainCell } from "@/components/customs/table/cells/main-cell"
+import { Badge } from "@/components/ui"
+import { formatCurrency, formatDate, toTitleCase } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
@@ -345,18 +345,50 @@ export const createGroupFilterColumn = (columnHelper) =>
   })
 
 /**
+* Creates a local amount owed column with currency display
+* @param {Object} columnHelper - TanStack table column helper
+* @returns {Object} Column definition
+*/
+export const createAmountOwedLocalColumn = (columnHelper) =>
+  columnHelper.accessor("amount_owed_local", {
+    header: "Por pagar",
+    cell: (info) => {
+      const amount = info.getValue()
+      const currency = info.row.original.currency
+
+      if (amount == null) return <NullableCell value={null} className="text-center" />
+
+      // Format as integer with currency symbol
+      const formattedAmount = `${amount.toLocaleString()} ${currency || ''} `
+
+      return (
+        <div className="flex justify-center">
+          <Badge
+            variant={amount > 0 ? "destructive" : "outline"}
+          >
+            {formattedAmount}
+          </Badge>
+        </div>
+      )
+    },
+    meta: {
+      align: "center",
+    },
+  })
+
+/**
  * Creates an amount owed column for admin users
  * @param {Object} columnHelper - TanStack table column helper
  * @returns {Object} Column definition
  */
 export const createAmountOwedColumn = (columnHelper) =>
   columnHelper.accessor("amount_owed", {
-    header: "Por pagar",
+    header: "Por pagar USD",
     cell: (info) => {
       const amount = info.getValue()
       if (amount == null) return <NullableCell value={null} className="text-center" />
 
-      const formattedAmount = formatCurrency(amount)
+      const formattedAmount = `${formatCurrency(amount)} USD`
 
       return (
         <div className="flex justify-center">

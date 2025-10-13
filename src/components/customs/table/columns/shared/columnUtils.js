@@ -30,6 +30,7 @@ export const applyRoleBasedColumns = (baseColumns, role, availableColumns, compo
           availableColumns.recordTypeColumn,
           availableColumns.channelColumn,
           availableColumns.programColumn,
+          availableColumns.amountOwedLocalColumn,
           availableColumns.amountOwedColumn,
           availableColumns.commentsColumn,
         ].filter(Boolean)
@@ -41,8 +42,8 @@ export const applyRoleBasedColumns = (baseColumns, role, availableColumns, compo
           availableColumns.recordTypeColumn,
           availableColumns.channelColumn,
           availableColumns.programColumn,
+          availableColumns.amountOwedLocalColumn,
           availableColumns.amountOwedColumn,
-          // availableColumns.agentColumn,
           availableColumns.commentsColumn,
         ].filter(Boolean)
 
@@ -74,6 +75,7 @@ export const applyRoleBasedColumns = (baseColumns, role, availableColumns, compo
           ...(isSuperAdmin ? [availableColumns.groupFilterColumn] : []),
           ...baseColumns,
           availableColumns.programColumn,
+          availableColumns.amountOwedLocalColumn,
           availableColumns.amountOwedColumn,
           availableColumns.phoneColumn,
           availableColumns.commentsColumn,
@@ -98,6 +100,7 @@ export const applyRoleBasedColumns = (baseColumns, role, availableColumns, compo
         return [
           ...baseWithoutAssignment,
           availableColumns.programColumn,
+          availableColumns.amountOwedLocalColumn,
           availableColumns.amountOwedColumn,
           availableColumns.phoneColumn,
           availableColumns.commentsColumn,
@@ -109,6 +112,7 @@ export const applyRoleBasedColumns = (baseColumns, role, availableColumns, compo
         return [
           ...clientesBaseWithoutAssignment,
           availableColumns.programColumn,
+          availableColumns.amountOwedLocalColumn,
           availableColumns.amountOwedColumn,
           availableColumns.phoneColumn,
           availableColumns.commentsColumn,

@@ -17,6 +17,7 @@ import {
   applyRoleBasedColumns,
   injectDynamicOptions,
   createBaseColumns,
+  createAmountOwedLocalColumn
 } from "./shared"
 import { Roles } from "@/constants"
 
@@ -61,6 +62,7 @@ export const getTareasColumns = ({
     phoneColumn: createPhoneColumn(columnHelper),
     contactedColumn: createContactedColumn(columnHelper),
     commentsColumn: createCommentsColumn(columnHelper),
+    amountOwedLocalColumn: createAmountOwedLocalColumn(columnHelper),
     amountOwedColumn: createAmountOwedColumn(columnHelper),
     nationalityColumn: createNationalityColumn(columnHelper),
     agentColumn: createAgentColumn(columnHelper),
