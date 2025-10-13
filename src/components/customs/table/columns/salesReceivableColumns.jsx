@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
 import { MainCell } from "../cells"
 import NullableCell from "../cells/nullable-cell"
-import { createAmountOwedColumn } from "./shared/commonColumns"
+import { createAmountOwedColumn, createAmountOwedLocalColumn } from "./shared/commonColumns"
 
 const columnHelper = createColumnHelper()
 
@@ -27,10 +27,9 @@ export const salesReceivableColumns = () => {
       size: 300,
       minSize: 200,
     }),
-    {
-      ...createAmountOwedColumn(columnHelper),
-      header: "Por pagar",
-    },
+    createAmountOwedLocalColumn(columnHelper),
+    createAmountOwedColumn(columnHelper),
+
   ]
 
   return columns

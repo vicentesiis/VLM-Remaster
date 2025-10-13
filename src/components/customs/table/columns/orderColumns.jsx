@@ -6,7 +6,7 @@ import NullableCell from "../cells/nullable-cell"
 import VoucherButton from "../cells/voucher-button-cell"
 import { createPaymentMethodColumn } from "./shared/commonColumns"
 import { downloadVoucher } from "@/services/documentService"
-import { formatDate } from "@/utils"
+import { formatCurrencyUSD, formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
 
 const columnHelper = createColumnHelper()
@@ -66,10 +66,10 @@ export const getOrdersColumns = (canCreateOrder) => {
       meta: { align: "center" },
     }),
     columnHelper.accessor("amount", {
-      header: "Cantidad (USD)",
+      header: "USD",
       cell: (info) => {
         const amount = info.getValue()
-        return <NullableCell value={amount ? `${formatCurrency(parseFloat(amount).toFixed(2))} USD` : null} />
+        return <NullableCell value={amount ? `${formatCurrencyUSD(parseFloat(amount).toFixed(2))}` : null} />
       },
       meta: { align: "center" },
     }),

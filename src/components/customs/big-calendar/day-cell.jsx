@@ -4,7 +4,7 @@ import React from "react"
 import IconBadge from "../badge/icon-badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib"
-import { formatCurrency } from "@/utils"
+import { formatCurrency, formatCurrencyUSD } from "@/utils"
 
 export const DayCell = ({
   date,
@@ -47,7 +47,7 @@ export const DayCell = ({
 
         {sales > 0 && (
           <div className="text-md mt-2 text-center font-semibold text-emerald-500">
-            {formatCurrency(sales)}
+            {formatCurrencyUSD(sales)}
           </div>
         )}
       </CardContent>

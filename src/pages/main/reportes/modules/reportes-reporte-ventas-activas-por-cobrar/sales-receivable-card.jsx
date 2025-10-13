@@ -6,7 +6,7 @@ import { salesReceivableColumns } from "@/components/customs/table/columns/sales
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { formatCurrency } from "@/utils"
+import { formatCurrencyUSD } from "@/utils"
 
 export const SalesReceivableCard = ({
   username,
@@ -30,7 +30,7 @@ export const SalesReceivableCard = ({
               ? `Total de ${username}:`
               : "Total a cobrar:"
           }
-          extra={formatCurrency(total_to_be_collected)}
+          extra={formatCurrencyUSD(total_to_be_collected)}
         />
         <DataTable table={table} hasFetched showPagination={false} />
       </CardContent>

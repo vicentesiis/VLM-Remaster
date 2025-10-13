@@ -5,7 +5,7 @@ import { MainCell } from "../cells"
 import NullableCell from "../cells/nullable-cell"
 import UsuarioCell from "../cells/usuario-cell"
 import { createPaymentMethodColumn } from "./shared/commonColumns"
-import { formatDate } from "@/utils"
+import { formatCurrencyUSD, formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
 
 const columnHelper = createColumnHelper()
@@ -43,11 +43,20 @@ export const getReportOrdersColumns = () => {
       meta: { align: "left" },
     }),
 
+    columnHelper.accessor("amount_local", {
+      header: "Cantidad Local",
+      cell: ({ row }) => {
+        const { amount_local, currency } = row.original
+        const value = amount_local && currency ? `${formatCurrency(parseFloat(amount_local).toFixed(2))} ${currency}` : null
+        return <NullableCell value={value} />
+      },
+      meta: { align: "center" },
+    }),
     columnHelper.accessor("amount", {
-      header: "Cantidad",
+      header: "USD",
       cell: (info) => {
         const amount = info.getValue()
-        return <NullableCell value={amount ? formatCurrency(amount) : null} />
+        return <NullableCell value={amount ? `${formatCurrencyUSD(parseFloat(amount).toFixed(2))}` : null} />
       },
       meta: { align: "center" },
     }),

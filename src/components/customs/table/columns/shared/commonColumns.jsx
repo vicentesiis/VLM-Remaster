@@ -26,7 +26,7 @@ import PayCashIcon from "@/assets/pay-cash.svg?react"
 import SPEIIcon from "@/assets/spei_icon.svg?react"
 import { MainCell } from "@/components/customs/table/cells/main-cell"
 import { Badge } from "@/components/ui"
-import { formatCurrency, formatDate, toTitleCase } from "@/utils"
+import { formatCurrency, formatCurrencyUSD, formatDate, toTitleCase } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
@@ -351,7 +351,7 @@ export const createGroupFilterColumn = (columnHelper) =>
 */
 export const createAmountOwedLocalColumn = (columnHelper) =>
   columnHelper.accessor("amount_owed_local", {
-    header: "Por pagar",
+    header: "Por pagar local",
     cell: (info) => {
       const amount = info.getValue()
       const currency = info.row.original.currency
@@ -359,14 +359,16 @@ export const createAmountOwedLocalColumn = (columnHelper) =>
       if (amount == null) return <NullableCell value={null} className="text-center" />
 
       // Format as integer with currency symbol
-      const formattedAmount = `${amount.toLocaleString()} ${currency || ''} `
+
+      const formattedAmount = formatCurrency(amount)
+      const amountFormated = `${formattedAmount} ${currency || ''} `
 
       return (
         <div className="flex justify-center">
           <Badge
             variant={amount > 0 ? "destructive" : "outline"}
           >
-            {formattedAmount}
+            {amountFormated}
           </Badge>
         </div>
       )
@@ -383,12 +385,12 @@ export const createAmountOwedLocalColumn = (columnHelper) =>
  */
 export const createAmountOwedColumn = (columnHelper) =>
   columnHelper.accessor("amount_owed", {
-    header: "Por pagar USD",
+    header: "USD",
     cell: (info) => {
       const amount = info.getValue()
       if (amount == null) return <NullableCell value={null} className="text-center" />
 
-      const formattedAmount = `${formatCurrency(amount)} USD`
+      const formattedAmount = formatCurrencyUSD(amount)
 
       return (
         <div className="flex justify-center">

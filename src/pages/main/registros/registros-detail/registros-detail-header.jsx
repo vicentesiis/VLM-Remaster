@@ -105,9 +105,9 @@ export const RegistrosDetailHeader = ({ registro }) => {
 
   // Badge configuration
   const getBadges = () => {
-    const amountUSD = formatCurrency(parseFloat(amount_owed || 0).toFixed(2))
+    const amountUSD = formatCurrency(parseFloat(amount_owed || 0))
     const amountLocal = amount_owed_local && currency ?
-      `${formatCurrency(parseFloat(amount_owed_local).toFixed(2))} ${currency}` : null
+      `${parseFloat(amount_owed_local).toFixed(2)} ${currency}` : null
 
     const badges = [
       { title: public_id, icon: HashIcon },

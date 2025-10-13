@@ -73,11 +73,20 @@ export function toURLSearchParams(params) {
 }
 
 export function formatCurrency(cents) {
-  return new Intl.NumberFormat("es-MX", {
+  return new Intl.NumberFormat({
     style: "currency",
-    currency: "MXN",
     minimumFractionDigits: 0,
   }).format(cents / 100)
+}
+
+export function formatCurrencyUSD(amount) {
+  const formatted = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: amount === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(amount)
+  return `${formatted} USD`
 }
 
 export const getYearOptions = (yearsBack = 6) => {

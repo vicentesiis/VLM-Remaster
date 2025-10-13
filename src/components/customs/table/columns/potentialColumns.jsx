@@ -3,7 +3,7 @@ import React from "react"
 import StatusBadge from "../../badge/status-badge"
 import { MainCell } from "../cells"
 import NullableCell from "../cells/nullable-cell"
-import { createAmountOwedColumn, createStatusColumn, createRecordTypeColumn, createProgramColumn } from "./shared/commonColumns"
+import { createAmountOwedColumn, createStatusColumn, createRecordTypeColumn, createProgramColumn, createAmountOwedLocalColumn } from "./shared/commonColumns"
 
 const columnHelper = createColumnHelper()
 
@@ -31,10 +31,13 @@ export const usePotencialColumns = () => [
   createRecordTypeColumn(columnHelper),
 
   createProgramColumn(columnHelper),
-
+  {
+    ...createAmountOwedLocalColumn(columnHelper),
+    header: "Cantidad potencial local",
+  },
   {
     ...createAmountOwedColumn(columnHelper),
-    header: "Cantidad potencial",
+    header: "USD",
   },
   columnHelper.accessor((row) => row.orders?.length, {
     id: "orders",

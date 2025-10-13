@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from "react"
 import { getReportOrdersColumns } from "@/components/customs/table/columns/reportOrdersColumns"
 import { useGetGroupSalesReport } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { formatCurrency } from "@/utils"
+import { formatCurrency, formatCurrencyUSD } from "@/utils"
 import { getDateKey } from "@/utils/calendarUtils"
 import { formatMonthNYear } from "@/utils/reportFormatters"
 
@@ -70,12 +70,12 @@ export const useSalesMonthlyReport = ({ filters }) => {
     if (!selectedDayData?.total_day_sales && !selectedDayData?.total_day_orders)
       return null
 
-    return `Total del día: ${formatCurrency(selectedDayData.total_day_sales || 0)}\nÓrdenes: ${selectedDayData.total_day_orders || 0}`
+    return `Total del día: ${formatCurrencyUSD(selectedDayData.total_day_sales || 0)}\nÓrdenes: ${selectedDayData.total_day_orders || 0}`
   }, [selectedDayData])
 
   const totalSalesString = useMemo(() => {
     if (!data) return null
-    return formatCurrency(data.total_sales || 0)
+    return formatCurrencyUSD(data.total_sales || 0)
   }, [data])
 
   const monthSelected = useMemo(() => {
