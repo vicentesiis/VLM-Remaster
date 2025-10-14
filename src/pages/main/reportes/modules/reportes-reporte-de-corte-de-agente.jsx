@@ -8,7 +8,7 @@ import { WithStatusState } from "@/components/customs/status-state/with-status-s
 import { DataTable } from "@/components/data-table"
 import { Card, CardContent } from "@/components/ui"
 import { Button } from "@/components/ui/button"
-import { formatCurrency } from "@/utils"
+import { formatCurrency, formatCurrencyUSD } from "@/utils"
 
 // 👉 Header separado para mostrar totales y filtro
 const HeaderSection = ({
@@ -27,7 +27,7 @@ const HeaderSection = ({
   isDownloading,
   orders,
 }) => {
-  const totalSales = `Total de ventas: ${formatCurrency(totalAmount)}`
+  const totalSales = `Total de ventas: ${formatCurrencyUSD(totalAmount)}`
   const totalOrdersString = `${totalOrders} Órdenes`
 
   return (

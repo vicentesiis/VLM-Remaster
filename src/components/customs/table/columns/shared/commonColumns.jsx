@@ -443,6 +443,71 @@ export const createAgentColumn = (columnHelper) =>
   })
 
 /**
+ * Creates a generic date column with formatting
+ * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key
+ * @param {string} header - The column header text
+ * @returns {Object} Column definition
+ */
+export const createDateColumn = (columnHelper, accessor, header) =>
+  columnHelper.accessor(accessor, {
+    header,
+    cell: (info) => {
+      const date = info.getValue()
+      return <NullableCell value={date ? formatDate(date) : null} className="text-center" />
+    },
+    meta: { align: "center" },
+  })
+
+/**
+ * Creates a generic amount column with currency formatting
+ * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key
+ * @param {string} header - The column header text
+ * @returns {Object} Column definition
+ */
+export const createAmountColumn = (columnHelper, accessor, header) =>
+  columnHelper.accessor(accessor, {
+    header,
+    cell: (info) => {
+      const amount = info.getValue()
+      return <NullableCell value={amount ? formatCurrency(amount) : null} className="text-center" />
+    },
+    meta: { align: "center" },
+  })
+
+/**
+ * Creates a generic text column with nullable cell
+ * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key
+ * @param {string} header - The column header text
+ * @returns {Object} Column definition
+ */
+export const createTextColumn = (columnHelper, accessor, header) =>
+  columnHelper.accessor(accessor, {
+    header,
+    cell: (info) => <NullableCell value={info.getValue()} className="text-center" />,
+    meta: { align: "center" },
+  })
+
+/**
+ * Creates a reference column that displays clabe or reference value
+ * @param {Object} columnHelper - TanStack table column helper
+ * @returns {Object} Column definition
+ */
+export const createReferenceColumn = (columnHelper) =>
+  columnHelper.accessor("reference", {
+    header: "Referencia",
+    cell: ({ row }) => {
+      const clabe = row.original.clabe
+      const reference = row.original.reference
+      const value = clabe || reference
+      return <NullableCell value={value} className="text-center" />
+    },
+    meta: { align: "center" },
+  })
+
+/**
  * Creates a payment method column with standardized icons
  * @param {Object} columnHelper - TanStack table column helper
  * @returns {Object} Column definition

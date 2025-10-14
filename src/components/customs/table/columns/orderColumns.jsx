@@ -4,7 +4,11 @@ import { toast } from "sonner"
 import PaymentStatusBadge from "../../badge/payment-status-badge"
 import NullableCell from "../cells/nullable-cell"
 import VoucherButton from "../cells/voucher-button-cell"
-import { createPaymentMethodColumn } from "./shared/commonColumns"
+import { 
+  createPaymentMethodColumn, 
+  createDateColumn, 
+  createReferenceColumn 
+} from "./shared/commonColumns"
 import { downloadVoucher } from "@/services/documentService"
 import { formatCurrencyUSD, formatDate } from "@/utils"
 import { formatCurrency } from "@/utils"
@@ -42,14 +46,7 @@ export const getOrdersColumns = (canCreateOrder) => {
     meta: { align: "center" },
   })
   return [
-    columnHelper.accessor("created_at", {
-      header: "Fecha de Creación",
-      cell: (info) => {
-        const date = info.getValue()
-        return <NullableCell value={date ? formatDate(date) : null} />
-      },
-      meta: { align: "center" },
-    }),
+    createDateColumn(columnHelper, "created_at", "Fecha de Creación"),
     columnHelper.accessor("status", {
       header: "Estatus",
       cell: (info) => <PaymentStatusBadge status={info.getValue()} />,
@@ -74,24 +71,8 @@ export const getOrdersColumns = (canCreateOrder) => {
       meta: { align: "center" },
     }),
 
-    columnHelper.accessor("reference", {
-      header: "Referencia",
-      cell: ({ row }) => {
-        const clabe = row.original.clabe
-        const reference = row.original.reference
-        const value = clabe || reference
-        return <NullableCell value={value} />
-      },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("payment_date", {
-      header: "Fecha de Pago",
-      cell: (info) => {
-        const date = info.getValue()
-        return <NullableCell value={date ? formatDate(date) : null} />
-      },
-      meta: { align: "center" },
-    }),
+    createReferenceColumn(columnHelper),
+    createDateColumn(columnHelper, "payment_date", "Fecha de Pago"),
 
     voucherColumn,
   ]
