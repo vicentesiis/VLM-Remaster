@@ -85,7 +85,7 @@ export function formatCurrencyUSD(amount) {
     currency: "USD",
     minimumFractionDigits: amount === 0 ? 0 : 2,
     maximumFractionDigits: 2,
-  }).format(amount)
+  }).format(amount / 100)
   return `${formatted} USD`
 }
 

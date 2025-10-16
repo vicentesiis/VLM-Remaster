@@ -361,7 +361,7 @@ export const createAmountOwedLocalColumn = (columnHelper) =>
       // Format as integer with currency symbol
 
       const formattedAmount = formatCurrency(amount)
-      const amountFormated = `${formattedAmount} ${currency || ''} `
+      const amountFormated = `${formattedAmount} ${currency.toUpperCase() || ''} `
 
       return (
         <div className="flex justify-center">
