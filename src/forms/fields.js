@@ -146,7 +146,7 @@ export const amountField = (country, config = {}) => {
   const selectedConfig = currencyConfig[country] || currencyConfig.méxico
 
   return {
-    name: "order_amount",
+    name: "order_amount_local",
     label: selectedConfig.label,
     type: "currency",
     placeholder: selectedConfig.placeholder,

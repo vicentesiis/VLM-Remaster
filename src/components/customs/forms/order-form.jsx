@@ -10,7 +10,7 @@ import { amountSchema, paymentMethodSchema, countrySchema } from "@/forms/valida
 
 export const createFormSchema = (isFromMexico) => {
   const baseSchema = {
-    order_amount: amountSchema,
+    order_amount_local: amountSchema,
     payment_method: paymentMethodSchema,
   }
 

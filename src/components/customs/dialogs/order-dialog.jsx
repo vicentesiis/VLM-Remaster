@@ -31,7 +31,7 @@ const OrderDialog = ({ trigger, recordId }) => {
     const data = {
       ...formData,
       record_id: recordId,
-      order_amount: Number(formData.order_amount) * 100,
+      order_amount_local: Number(formData.order_amount_local) * 100,
     }
     setIsSubmitting(true)
     try {
