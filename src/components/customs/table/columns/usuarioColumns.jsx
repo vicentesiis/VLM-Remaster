@@ -1,70 +1,27 @@
-import { createColumnHelper } from "@tanstack/react-table"
-import { Check, Pencil, X } from "lucide-react"
+import { Pencil } from "lucide-react"
 import React, { useState } from "react"
 import { toast } from "sonner"
 import TooltipWrapper from "../../tooltip-wrapper"
-import NullableCell from "../cells/nullable-cell"
-import UsuarioCell from "../cells/usuario-cell"
+import { 
+  columnHelper,
+  createPhoneColumn,
+  createUsuarioColumn,
+  createAgentTypeColumn,
+  createBooleanStatusColumn
+} from "./shared/commonColumns"
 import { Button, Checkbox } from "@/components/ui"
-import { Badge } from "@/components/ui/badge"
 import { useUpdateUserRecordWeight } from "@/hooks/queries"
-
-const columnHelper = createColumnHelper()
 
 export const getUsuarioColumns = (onEditClick, isAgent = false) => {
   const columns = [
-    columnHelper.display({
-      id: "usuario",
-      header: "Usuario",
-      cell: ({ row }) => {
-        const { username, name } = row.original
-        return <UsuarioCell name={name} username={username} />
-      },
-    }),
-    columnHelper.accessor("agent_type", {
-      header: "Tipo de Agente",
-      cell: ({ getValue }) => {
-        const value = getValue()
-        return value ? (
-          <Badge variant="outline">{value.toUpperCase()}</Badge>
-        ) : (
-          <NullableCell value={null} />
-        )
-      },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("phone", {
-      header: "Teléfono",
-      cell: (info) => <NullableCell value={info.getValue()} />,
-      meta: { align: "center" },
-    }),
+    createUsuarioColumn(columnHelper),
+    createAgentTypeColumn(columnHelper),
+    createPhoneColumn(columnHelper),
   ]
 
   if (!isAgent) {
     columns.push(
-      columnHelper.accessor("active", {
-        header: "Activo",
-        cell: ({ getValue }) => {
-          const active = getValue()
-          if (typeof active !== "boolean") return <NullableCell value={null} />
-          return (
-            <div
-              className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full border ${
-                active
-                  ? "border-green-500 bg-green-100 text-green-700"
-                  : "border-red-500 bg-red-100 text-red-700"
-              }`}
-            >
-              {active ? (
-                <Check className="h-4 w-4" strokeWidth={2.5} />
-              ) : (
-                <X className="h-4 w-4" strokeWidth={2.5} />
-              )}
-            </div>
-          )
-        },
-        meta: { align: "center", maxWidth: "40px" },
-      }),
+      createBooleanStatusColumn(columnHelper, "active", "Activo"),
       columnHelper.display({
         id: "actions",
         header: "Acciones",

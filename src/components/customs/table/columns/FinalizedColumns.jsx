@@ -1,63 +1,21 @@
-import { createColumnHelper } from "@tanstack/react-table"
-import React from "react"
-import { MainCell } from "../cells"
-import NullableCell from "../cells/nullable-cell"
-import { createAmountOwedColumn } from "./shared/commonColumns"
-import { formatDate } from "@/utils"
-
-const columnHelper = createColumnHelper()
+import { 
+  columnHelper,
+  createAmountOwedColumn,
+  createDateColumn,
+  createMainCellColumn
+} from "./shared/commonColumns"
 
 export const getFinalizedReportColumns = () => {
   return [
-    columnHelper.accessor((row) => row.record?.public_id, {
-      id: "registro",
-      header: "Cliente",
-      cell: ({ row }) => {
-        const record = row.original
-        if (!record?.public_id) return <NullableCell value={null} />
-
-        return (
-          <MainCell
-            public_id={record.public_id}
-            title={record.name}
-            path="/detalle"
-          />
-        )
-      },
-      meta: { align: "left" },
+    createMainCellColumn(columnHelper, "public_id", "Cliente", { 
+      nameField: "name", 
+      recordPath: "record", 
+      id: "registro" 
     }),
     createAmountOwedColumn(columnHelper),
-    columnHelper.accessor("created_at", {
-      header: "Fecha de creación",
-      cell: (info) => {
-        const date = info.getValue()
-        return <NullableCell value={date ? formatDate(date) : null} />
-      },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("assignment_date", {
-      header: "Fecha de asignación",
-      cell: (info) => {
-        const date = info.getValue()
-        return <NullableCell value={date ? formatDate(date) : null} />
-      },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("end_date", {
-      header: "Fecha de finalización",
-      cell: (info) => {
-        const date = info.getValue()
-        return <NullableCell value={date ? formatDate(date) : null} />
-      },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("exit_date", {
-      header: "Fecha de salida",
-      cell: (info) => {
-        const date = info.getValue()
-        return <NullableCell value={date ? formatDate(date) : null} />
-      },
-      meta: { align: "center" },
-    }),
+    createDateColumn(columnHelper, "created_at", "Fecha de creación"),
+    createDateColumn(columnHelper, "assignment_date", "Fecha de asignación"),
+    createDateColumn(columnHelper, "end_date", "Fecha de finalización"),
+    createDateColumn(columnHelper, "exit_date", "Fecha de salida"),
   ]
 }

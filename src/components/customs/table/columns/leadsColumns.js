@@ -1,6 +1,6 @@
 import {
   columnHelper,
-  createNameColumn,
+  createMainCellColumn,
   createStatusColumn,
   createUpdatedAtColumn,
   createAssignmentDateColumn,
@@ -43,17 +43,17 @@ export const getLeadsColumns = ({
   // The assignment date column will automatically use leads-specific logic
   // when title is "Leads" due to the implementation in createAssignmentDateColumn
   const baseColumns = createBaseColumns(columnHelper, {
-    createNameColumn,
+    createMainCellColumn,
     createStatusColumn,
     createUpdatedAtColumn,
   }, title)
 
   // Create all available column definitions
   const availableColumns = {
-    nameColumn: createNameColumn(columnHelper),
+    nameColumn: createMainCellColumn(columnHelper),
     statusColumn: createStatusColumn(columnHelper),
     updatedAtColumn: createUpdatedAtColumn(columnHelper),
-    assignmentDateColumn: createAssignmentDateColumn(columnHelper, title),
+    assignmentDateColumn: createAssignmentDateColumn(columnHelper, "assignment_date", "Fecha de asignación", title),
     groupFilterColumn: createGroupFilterColumn(columnHelper),
     recordTypeColumn: createRecordTypeColumn(columnHelper),
     channelColumn: createChannelColumn(columnHelper),

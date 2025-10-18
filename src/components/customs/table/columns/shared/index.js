@@ -8,7 +8,7 @@
 
 // Export all common column creation functions
 export {
-  createNameColumn,
+  createMainCellColumn,
   createStatusColumn,
   createUpdatedAtColumn,
   createAssignmentDateColumn,

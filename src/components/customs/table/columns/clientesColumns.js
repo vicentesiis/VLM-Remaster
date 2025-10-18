@@ -1,6 +1,6 @@
 import {
   columnHelper,
-  createNameColumn,
+  createMainCellColumn,
   createStatusColumn,
   createUpdatedAtColumn,
   createRecordTypeColumn,
@@ -41,14 +41,14 @@ export const getClientesColumns = ({
 }) => {
   // Create base columns that all roles can see
   const baseColumns = createBaseColumns(columnHelper, {
-    createNameColumn,
+    createNameColumn: createMainCellColumn,
     createStatusColumn,
     createUpdatedAtColumn,
   }, title)
 
   // Create all available column definitions
   const availableColumns = {
-    nameColumn: createNameColumn(columnHelper),
+    nameColumn: createMainCellColumn(columnHelper),
     statusColumn: createStatusColumn(columnHelper),
     updatedAtColumn: createUpdatedAtColumn(columnHelper),
     groupFilterColumn: createGroupFilterColumn(columnHelper),

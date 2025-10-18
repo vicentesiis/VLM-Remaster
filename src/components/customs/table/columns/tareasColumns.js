@@ -1,6 +1,6 @@
 import {
   columnHelper,
-  createNameColumn,
+  createMainCellColumn,
   createStatusColumn,
   createUpdatedAtColumn,
   createAssignmentDateColumn,
@@ -44,7 +44,7 @@ export const getTareasColumns = ({
 }) => {
   // Create base columns that all roles can see
   const baseColumns = createBaseColumns(columnHelper, {
-    createNameColumn,
+    createMainCellColumn,
     createStatusColumn,
     createUpdatedAtColumn,
     createAssignmentDateColumn,
@@ -52,7 +52,7 @@ export const getTareasColumns = ({
 
   // Create all available column definitions
   const availableColumns = {
-    nameColumn: createNameColumn(columnHelper),
+    nameColumn: createMainCellColumn(columnHelper),
     statusColumn: createStatusColumn(columnHelper),
     updatedAtColumn: createUpdatedAtColumn(columnHelper),
     groupFilterColumn: createGroupFilterColumn(columnHelper),

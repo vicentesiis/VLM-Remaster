@@ -230,7 +230,7 @@ export const validateColumnOptions = (options, requiredFields = []) => {
 export const createBaseColumns = (columnHelper, commonColumns, title = "") => {
   // Always create fresh columns to ensure title parameter is current
   return [
-    commonColumns.createNameColumn(columnHelper),
+    commonColumns.createNameColumn ? commonColumns.createNameColumn(columnHelper) : commonColumns.createMainCellColumn(columnHelper),
     commonColumns.createStatusColumn(columnHelper),
     commonColumns.createUpdatedAtColumn(columnHelper),
   ]

@@ -1,11 +1,12 @@
-import { createColumnHelper } from "@tanstack/react-table"
-import React from "react"
-import { Link } from "react-router-dom"
-import NullableCell from "../cells/nullable-cell"
-import { formatDate } from "@/utils"
-import { mapToOptions, toTitleCase } from "@/utils"
-
-const columnHelper = createColumnHelper()
+import { 
+  columnHelper,
+  createDateColumn,
+  createIdLinkColumn,
+  createTitleColumn,
+  createTextColumn,
+  createRateColumn
+} from "./shared/commonColumns"
+import { mapToOptions } from "@/utils"
 
 export const getVacantColumns = ({
   selectedCountry,
@@ -20,34 +21,9 @@ export const getVacantColumns = ({
     mapToOptions(countryStates[selected?.toUpperCase()]) || []
 
   return [
-    columnHelper.accessor("id", {
-      header: "ID",
-      meta: { align: "center", maxWidth: "100px" },
-      cell: (info) => {
-        const id = info.getValue()
-        return id ? (
-          <Link
-            to={`/vacantes/detalle/${id}`}
-            className="truncate font-mono text-primary hover:underline"
-            target="_blank"
-          >
-            {id}
-          </Link>
-        ) : (
-          <NullableCell value={null} />
-        )
-      },
-    }),
-    columnHelper.accessor("original_title", {
-      header: "Título Original",
-      cell: (info) => <NullableCell value={toTitleCase(info.getValue())} />,
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("title", {
-      header: "Título",
-      cell: (info) => <NullableCell value={info.getValue()} />,
-      meta: { align: "center" },
-    }),
+    createIdLinkColumn(columnHelper, "id", "ID", "/vacantes/detalle"),
+    createTitleColumn(columnHelper, "original_title", "Título Original", true),
+    createTitleColumn(columnHelper, "title", "Título"),
     columnHelper.accessor("country", {
       header: "País",
       meta: {
@@ -93,18 +69,10 @@ export const getVacantColumns = ({
       },
       meta: { align: "center" },
     }),
-    columnHelper.accessor("positions", {
-      header: "Posiciones",
-      cell: (info) => <NullableCell value={info.getValue()} />,
+    {
+      ...createTextColumn(columnHelper, "positions", "Posiciones"),
       meta: { align: "center", maxWidth: "70px" },
-    }),
-    columnHelper.accessor("end_date", {
-      header: "Vence",
-      cell: (info) => {
-        const date = info.getValue()
-        return <NullableCell value={date ? formatDate(date) : null} />
-      },
-      meta: { align: "center" },
-    }),
+    },
+    createDateColumn(columnHelper, "end_date", "Vence"),
   ]
 }

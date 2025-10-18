@@ -1,99 +1,27 @@
-import { createColumnHelper } from "@tanstack/react-table"
-import { Check, X } from "lucide-react"
-import React from "react"
-import { MainCell } from "../cells"
-import NullableCell from "../cells/nullable-cell"
-import UsuarioCell from "../cells/usuario-cell"
-import { createPaymentMethodColumn } from "./shared/commonColumns"
-import { formatCurrencyUSD, formatDate } from "@/utils"
-import { formatCurrency } from "@/utils"
-
-const columnHelper = createColumnHelper()
+import { 
+  columnHelper,
+  createPaymentMethodColumn,
+  createAmountLocalColumn,
+  createAmountColumn,
+  createDateColumn,
+  createUsuarioColumn,
+  createMainCellColumn,
+  createBooleanStatusColumn
+} from "./shared/commonColumns"
 
 export const getReportOrdersColumns = () => {
   const columns = [
-    columnHelper.display({
-      id: "usuario",
-      header: "Usuario",
-      cell: ({ row }) => {
-        const user = row.original.user
-
-        if (!user?.username && !user?.name) {
-          return <NullableCell value={null} />
-        }
-
-        return <UsuarioCell name={user.name} username={user.username} />
-      },
+    createUsuarioColumn(columnHelper, "Usuario", "name", "username", "user"),
+    createMainCellColumn(columnHelper, "public_id", "Cliente", { 
+      nameField: "name", 
+      recordPath: "record", 
+      id: "registro" 
     }),
-    columnHelper.accessor((row) => row.record?.public_id, {
-      id: "registro",
-      header: "Cliente",
-      cell: ({ row }) => {
-        const record = row.original.record
-        if (!record?.public_id) return <NullableCell value={null} />
-
-        return (
-          <MainCell
-            public_id={record.public_id}
-            title={record.name}
-            path="/detalle"
-          />
-        )
-      },
-      meta: { align: "left" },
-    }),
-
-    columnHelper.accessor("amount_local", {
-      header: "Cantidad Local",
-      cell: ({ row }) => {
-        const { amount_local, currency } = row.original
-        const value = amount_local && currency ? `${formatCurrency(parseFloat(amount_local).toFixed(2))} ${currency}` : null
-        return <NullableCell value={value} />
-      },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("amount", {
-      header: "USD",
-      cell: (info) => {
-        const amount = info.getValue()
-        return <NullableCell value={amount ? `${formatCurrencyUSD(parseFloat(amount).toFixed(2))}` : null} />
-      },
-      meta: { align: "center" },
-    }),
-
+    createAmountLocalColumn(columnHelper),
+    createAmountColumn(columnHelper, "amount", "USD", true),
     createPaymentMethodColumn(columnHelper),
-
-    columnHelper.accessor("payment_date", {
-      header: "Fecha de Pago",
-      cell: (info) => {
-        const date = info.getValue()
-        return <NullableCell value={date ? formatDate(date) : null} />
-      },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("paid_to_user", {
-      header: "Pagado a Agente",
-      cell: ({ getValue }) => {
-        const active = getValue()
-        if (typeof active !== "boolean") return <NullableCell value={null} />
-        return (
-          <div
-            className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full border ${
-              active
-                ? "border-green-500 bg-green-100 text-green-700"
-                : "border-red-500 bg-red-100 text-red-700"
-            }`}
-          >
-            {active ? (
-              <Check className="h-4 w-4" strokeWidth={2.5} />
-            ) : (
-              <X className="h-4 w-4" strokeWidth={2.5} />
-            )}
-          </div>
-        )
-      },
-      meta: { align: "center" },
-    }),
+    createDateColumn(columnHelper, "payment_date", "Fecha de Pago"),
+    createBooleanStatusColumn(columnHelper, "paid_to_user", "Pagado a Agente"),
   ]
 
   return columns
