@@ -3,8 +3,20 @@ import {
   NEXT_STATUS_MAP,
   NEXT_STATUS_MAP_FOR_ADMIN,
   PaymentStatuses,
+  CURRENCY_CONFIG,
+  JOB_CATEGORIES_MAP,
+  MONTH_NAMES,
 } from "@/constants"
 
+// ============================================================================
+// STRING UTILITIES
+// ============================================================================
+
+/**
+ * Converts a string to title case (first letter of each word capitalized)
+ * @param {string} str - The string to convert
+ * @returns {string} The title-cased string
+ */
 export function toTitleCase(str) {
   if (typeof str !== "string") return ""
   return str
@@ -14,6 +26,16 @@ export function toTitleCase(str) {
     .join(" ")
 }
 
+// ============================================================================
+// DATA TRANSFORMATION UTILITIES
+// ============================================================================
+
+/**
+ * Maps input data to options format for select components
+ * @param {Array|Object} input - Input data (array or object with data property)
+ * @param {Function} labelFn - Function to format labels (defaults to toTitleCase)
+ * @returns {Array} Array of {label, value} objects
+ */
 export function mapToOptions(input, labelFn = toTitleCase) {
   const list = Array.isArray(input)
     ? input
@@ -26,6 +48,44 @@ export function mapToOptions(input, labelFn = toTitleCase) {
     value: item.id ?? item,
   }))
 }
+
+/**
+ * Converts URL parameters object to URLSearchParams
+ * @param {Object} params - Parameters object
+ * @returns {URLSearchParams} URLSearchParams instance
+ */
+export function toURLSearchParams(params) {
+  const searchParams = new URLSearchParams()
+
+  if (!params || typeof params !== "object") {
+    return searchParams
+  }
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((v) => {
+        if (v !== undefined && v !== null) {
+          searchParams.append(key, v)
+        }
+      })
+    } else if (value !== undefined && value !== null) {
+      searchParams.set(key, value)
+    }
+  })
+
+  return searchParams
+}
+
+// ============================================================================
+// DATE & TIME UTILITIES
+// ============================================================================
+
+/**
+ * Formats a date using Mexican locale and timezone
+ * @param {string|Date} date - Date to format
+ * @param {Object} opts - Formatting options
+ * @returns {string} Formatted date string
+ */
 export function formatDate(date, opts = {}) {
   if (!date) return ""
 
@@ -50,46 +110,47 @@ export function formatDate(date, opts = {}) {
   }
 }
 
-export function toURLSearchParams(params) {
-  const searchParams = new URLSearchParams()
+/**
+ * Gets current month and year as zero-padded strings
+ * @returns {Object} Object with month and year properties
+ */
+export function getCurrentMonthYear() {
+  const now = new Date()
+  const month = String(now.getMonth() + 1).padStart(2, "0")
+  const year = String(now.getFullYear())
 
-  if (!params || typeof params !== "object") {
-    return searchParams
-  }
-
-  Object.entries(params).forEach(([key, value]) => {
-    if (Array.isArray(value)) {
-      value.forEach((v) => {
-        if (v !== undefined && v !== null) {
-          searchParams.append(key, v)
-        }
-      })
-    } else if (value !== undefined && value !== null) {
-      searchParams.set(key, value)
-    }
-  })
-
-  return searchParams
+  return { month, year }
 }
 
+/**
+ * Generates year options for dropdowns
+ * @param {number} yearsBack - Number of years to go back from current year
+ * @returns {Array} Array of {label, value} year options
+ */
+export function getYearOptions(yearsBack = 6) {
+  const currentYear = new Date().getFullYear()
+  return Array.from({ length: yearsBack }, (_, i) => {
+    const year = currentYear - i
+    return { label: year.toString(), value: year.toString() }
+  })
+}
+
+// ============================================================================
+// CURRENCY & FORMATTING UTILITIES
+// ============================================================================
+
+/**
+ * Formats currency amount from cents to display format
+ * @param {number} amount - Amount in cents
+ * @param {string} currency - Currency code (USD, MXN, etc.)
+ * @param {Object} options - Additional Intl.NumberFormat options
+ * @returns {string} Formatted currency string
+ */
 export function formatCurrency(amount, currency = "USD", options = {}) {
-  // Convert cents to currency units
   const value = amount / 100
-  
-  // Determine if we need decimals
   const needsDecimals = value % 1 !== 0
+  const config = CURRENCY_CONFIG[currency.toUpperCase()] || CURRENCY_CONFIG.USD
   
-  // Currency configuration mapping
-  const currencyConfig = {
-    USD: { locale: "en-US", symbol: "$" },
-    MXN: { locale: "es-MX", symbol: "$" },
-    COB: { locale: "en-US", symbol: "$" }, // Colombian Peso - using $ symbol
-    GT: { locale: "es-GT", symbol: "Q" }   // Guatemalan Quetzal
-  }
-  
-  const config = currencyConfig[currency.toUpperCase()] || currencyConfig.USD
-  
-  // Format the number without currency to get just the amount
   const formatted = new Intl.NumberFormat(config.locale, {
     minimumFractionDigits: needsDecimals ? 2 : 0,
     maximumFractionDigits: 2,
@@ -99,39 +160,51 @@ export function formatCurrency(amount, currency = "USD", options = {}) {
   return `${config.symbol}${formatted} ${currency.toUpperCase()}`
 }
 
+// ============================================================================
+// CHART & DATA VISUALIZATION UTILITIES
+// ============================================================================
 
-
-export const getYearOptions = (yearsBack = 6) => {
-  const currentYear = new Date().getFullYear()
-  return Array.from({ length: yearsBack }, (_, i) => {
-    const year = currentYear - i
-    return { label: year.toString(), value: year.toString() }
-  })
+/**
+ * Maps global sales data to chart format
+ * @param {Object} data - Sales data object with month properties
+ * @returns {Array} Array of chart data objects with title and description
+ */
+export function mapVentasGlobalesToChartData(data = {}) {
+  const monthKeys = [
+    'january', 'february', 'march', 'april', 'may', 'june',
+    'july', 'august', 'september', 'october', 'november', 'december'
+  ]
+  
+  return MONTH_NAMES.map((monthName, index) => ({
+    title: monthName,
+    description: data[monthKeys[index]] ?? 0,
+  }))
 }
 
-export const mapVentasGlobalesToChartData = (data = {}) => [
-  { title: "Enero", description: data.january ?? 0 },
-  { title: "Febrero", description: data.february ?? 0 },
-  { title: "Marzo", description: data.march ?? 0 },
-  { title: "Abril", description: data.april ?? 0 },
-  { title: "Mayo", description: data.may ?? 0 },
-  { title: "Junio", description: data.june ?? 0 },
-  { title: "Julio", description: data.july ?? 0 },
-  { title: "Agosto", description: data.august ?? 0 },
-  { title: "Septiembre", description: data.september ?? 0 },
-  { title: "Octubre", description: data.october ?? 0 },
-  { title: "Noviembre", description: data.november ?? 0 },
-  { title: "Diciembre", description: data.december ?? 0 },
-]
-export const getNextStatuses = (currentStatus, isAdmin = false) => {
+// ============================================================================
+// STATUS & WORKFLOW UTILITIES
+// ============================================================================
+
+/**
+ * Gets available next statuses based on current status and user role
+ * @param {string} currentStatus - Current record status
+ * @param {boolean} isAdmin - Whether user is admin
+ * @returns {Array} Array of available next statuses
+ */
+export function getNextStatuses(currentStatus, isAdmin = false) {
   return (
     (isAdmin ? NEXT_STATUS_MAP_FOR_ADMIN : NEXT_STATUS_MAP)[currentStatus] ?? []
   )
 }
 
+/**
+ * Determines if voucher should be disabled based on order status
+ * @param {Object} order - Order object
+ * @param {boolean} canCreateOrder - Whether user can create orders
+ * @returns {boolean} Whether voucher should be disabled
+ */
 export function shouldDisableVoucher(order, canCreateOrder) {
   const isPaid = order.status === PaymentStatuses.PAID
-
   const isExpired = order.expiration_date
     ? isBefore(new Date(order.expiration_date), new Date())
     : false
@@ -139,33 +212,15 @@ export function shouldDisableVoucher(order, canCreateOrder) {
   return (isPaid || isExpired) && canCreateOrder
 }
 
-export function getCurrentMonthYear() {
-  const now = new Date()
-  const month = String(now.getMonth() + 1).padStart(2, "0")
-  const year = String(now.getFullYear())
+// ============================================================================
+// JOB CATEGORY UTILITIES
+// ============================================================================
 
-  return { month, year }
-}
-
-export const JOB_CATEGORIES_MAP = {
-  "Management and Administration": "Gerencia y Administración",
-  "Business and Finance": "Negocios y Finanzas",
-  "Science and Technology": "Ciencia y Tecnología",
-  "Health and Care": "Salud y Cuidado",
-  "Education and Training": "Educación y Capacitación",
-  "Legal Social and Community Services":
-    "Servicios Jurídicos, Sociales y Comunitarios",
-  "Arts Culture and Entertainment": "Artes, Cultura y Entretenimiento",
-  "Sales and Retail": "Ventas y Comercio Minorista",
-  "Food Services and Hospitality": "Servicios de Alimentos y Hospitalidad",
-  "Trades Construction and Maintenance":
-    "Oficios, Construcción y Mantenimiento",
-  "Transport and Logistics": "Transporte y Logística",
-  "Agriculture and Natural Resources": "Agricultura y Recursos Naturales",
-  "Manufacturing and Production": "Manufactura y Producción",
-  "Other Services": "Otros Servicios",
-}
-
+/**
+ * Translates job categories from English to Spanish
+ * @param {Array} categories - Array of job categories
+ * @returns {Array} Array of translated category objects with label and value
+ */
 export function translateJobCategories(categories) {
   if (!Array.isArray(categories)) return []
 
