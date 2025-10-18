@@ -2,7 +2,7 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import { 
   createPaymentMethodColumn, 
-  createAmountOwedLocalColumn,
+  createAmountLocalColumn,
   createDateColumn,
   createAmountColumn,
   createReferenceColumn
@@ -13,7 +13,7 @@ const columnHelper = createColumnHelper()
 export const getCorteColumns = () => {
   return [
     createDateColumn(columnHelper, "created_at", "Fecha de Creación"),
-    createAmountOwedLocalColumn(columnHelper, "amount_local", "Cantidad local"),
+    createAmountLocalColumn(columnHelper),
     createAmountColumn(columnHelper, "amount", "Cantidad USD"),
     createReferenceColumn(columnHelper),
     createPaymentMethodColumn(columnHelper),

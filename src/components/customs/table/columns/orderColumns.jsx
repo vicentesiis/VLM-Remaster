@@ -1,17 +1,16 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import React, { useState } from "react"
 import { toast } from "sonner"
-import PaymentStatusBadge from "../../badge/payment-status-badge"
-import NullableCell from "../cells/nullable-cell"
 import VoucherButton from "../cells/voucher-button-cell"
-import { 
-  createPaymentMethodColumn, 
-  createDateColumn, 
-  createReferenceColumn 
+import {
+  createPaymentMethodColumn,
+  createDateColumn,
+  createReferenceColumn,
+  createAmountColumn,
+  createPaymentStatusColumn,
+  createAmountLocalColumn
 } from "./shared/commonColumns"
 import { downloadVoucher } from "@/services/documentService"
-import { formatCurrencyUSD, formatDate } from "@/utils"
-import { formatCurrency } from "@/utils"
 
 const columnHelper = createColumnHelper()
 
@@ -47,33 +46,12 @@ export const getOrdersColumns = (canCreateOrder) => {
   })
   return [
     createDateColumn(columnHelper, "created_at", "Fecha de Creación"),
-    columnHelper.accessor("status", {
-      header: "Estatus",
-      cell: (info) => <PaymentStatusBadge status={info.getValue()} />,
-      meta: { align: "center" },
-    }),
+    createPaymentStatusColumn(columnHelper),
     createPaymentMethodColumn(columnHelper),
-    columnHelper.accessor("amount_local", {
-      header: "Cantidad Local",
-      cell: ({ row }) => {
-        const { amount_local, currency } = row.original
-        const value = amount_local && currency ? `${formatCurrency(parseFloat(amount_local).toFixed(2))} ${currency}` : null
-        return <NullableCell value={value} />
-      },
-      meta: { align: "center" },
-    }),
-    columnHelper.accessor("amount", {
-      header: "USD",
-      cell: (info) => {
-        const amount = info.getValue()
-        return <NullableCell value={amount ? `${formatCurrencyUSD(parseFloat(amount).toFixed(2))}` : null} />
-      },
-      meta: { align: "center" },
-    }),
-
+    createAmountLocalColumn(columnHelper),
+    createAmountColumn(columnHelper, "amount", "USD", true),
     createReferenceColumn(columnHelper),
     createDateColumn(columnHelper, "payment_date", "Fecha de Pago"),
-
     voucherColumn,
   ]
 }
