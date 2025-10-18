@@ -1,27 +1,32 @@
 import {
-  CalendarIcon,
   HashIcon,
   DollarSignIcon,
   UserIcon,
   MessageCircle,
   ExternalLink,
+  Phone,
+  Mail,
+  Clock,
+  Loader2,
 } from "lucide-react"
 import PropTypes from "prop-types"
-import React from "react"
+import React, { useState } from "react"
 import { toast } from "sonner"
-import CountryFlag from "@/components/customs/country-flag"
-import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
+import CountryFlag from "@/components/customs/country-flag"
+import InfoCard from "@/components/customs/info-card"
 import RecordDocumentDropdown from "@/components/customs/record-document-dropdown"
 import { SelectUpdateRegistroStatus } from "@/components/customs/select-update-registro-status"
 import { Button } from "@/components/ui"
-import { Card, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { getRecordTypeConfig } from "@/constants"
 import { useUpdateRecordStatus } from "@/hooks/queries"
+import { useGetOrdersByRecord } from "@/hooks/queries/useOrder"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { 
-  formatCurrency, 
-  formatDate, 
+import {
+  formatCurrency,
+  formatDate,
   toTitleCase,
   formatPhoneNumber,
   createWhatsAppMessage,
@@ -40,40 +45,24 @@ export const RegistrosDetailHeader = ({ registro }) => {
     user,
     public_id,
     updated_at,
+    phone,
+    email,
+    nationality,
   } = registro
 
   const { id: currentUserId, isAgent, isAdmin } = useCurrentUser()
   const canUpdateStatus = (currentUserId === user?.id && isAgent) || isAdmin
 
-  // Badge configuration
-  const getBadges = () => {
-    const amountUSD = formatCurrency(amount_owed, "USD", { fromCents: false })
-    const amountLocal = formatCurrency(amount_owed_local, currency, { fromCents: false })
-    const paymentTitle = `Por pagar: ${amountUSD} - ${amountLocal}`
-    
-    const { icon: RecordTypeIcon, variant: recordTypeVariant } = getRecordTypeConfig(record_type)
+  const [isWhatsAppLoading, setIsWhatsAppLoading] = useState(false)
+  const [isTrackingLoading, setIsTrackingLoading] = useState(false)
 
-    return [
-      { title: public_id, icon: HashIcon },
-      { title: `Agente: ${user?.name}`, icon: UserIcon },
-      { title: `Última actualización: ${formatDate(updated_at, { showTime: true })}`, icon: CalendarIcon },
-      { title: toTitleCase(record_type), icon: RecordTypeIcon, variant: recordTypeVariant },
-      {
-        title: paymentTitle,
-        icon: DollarSignIcon,
-        variant: (amount_owed > 0 || amount_owed_local > 0) ? "destructive" : "outline",
-      },
-    ]
-  }
-
-  const getBadgeVariant = (badge) => {
-    if (badge.variant) return badge.variant
-    if (badge.title === "No ha sido contactado") return "warning"
-    return "outline"
-  }
+  // Get orders data to check if record has orders
+  const { data: ordersData } = useGetOrdersByRecord({
+    record_id: id,
+  })
 
   // Status update functionality
-  const { mutateAsync: updateRecord } = useUpdateRecordStatus({
+  const { mutateAsync: updateRecord, isPending: isUpdatingStatus } = useUpdateRecordStatus({
     onError: () => toast.error("Error al actualizar el registro"),
   })
 
@@ -89,102 +78,213 @@ export const RegistrosDetailHeader = ({ registro }) => {
     }
   }
 
-  // WhatsApp functionality
-  const handleWhatsAppClick = () => {
-    const phoneNumber = formatPhoneNumber(registro?.phone)
+  // WhatsApp functionality with loading state
+  const handleWhatsAppClick = async () => {
+    setIsWhatsAppLoading(true)
 
-    if (!phoneNumber) {
-      toast.error("No hay número de teléfono disponible")
-      return
+    try {
+      const phoneNumber = formatPhoneNumber(phone)
+
+      if (!phoneNumber) {
+        toast.error("No hay número de teléfono disponible")
+        return
+      }
+
+      const message = createWhatsAppMessage(registro)
+      const encodedMessage = encodeURIComponent(message)
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer")
+      toast.success("WhatsApp abierto correctamente")
+    } catch (error) {
+      console.error("WhatsApp error:", error)
+      toast.error("Error al abrir WhatsApp")
+    } finally {
+      setTimeout(() => setIsWhatsAppLoading(false), 1000)
     }
-
-    const message = createWhatsAppMessage(registro)
-    const encodedMessage = encodeURIComponent(message)
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
-
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer")
   }
 
-  // Tracking functionality
-  const handleTrackingClick = () => {
+  // Tracking functionality with loading state
+  const handleTrackingClick = async () => {
+    setIsTrackingLoading(true)
+
     try {
       const trackingUrl = createTrackingUrl(registro)
       window.open(trackingUrl, "_blank", "noopener,noreferrer")
+      toast.success("Ruta de seguimiento abierta")
     } catch (error) {
       console.error("Error parsing birth date:", error)
       toast.error("Error al procesar la fecha de nacimiento")
+    } finally {
+      setTimeout(() => setIsTrackingLoading(false), 1000)
     }
   }
 
+  // Get payment status info
+  const getPaymentInfo = () => {
+    const orders = ordersData?.data || []
+    const hasOrders = orders.length > 0
+
+    // If no orders exist, show "Sin órdenes creadas"
+    if (!hasOrders) {
+      return {
+        value: "Sin órdenes creadas",
+        variant: "warning",
+        iconColor: "text-yellow-600",
+        valueColor: "text-yellow-700"
+      }
+    }
+
+    const amountUSD = formatCurrency(amount_owed, "USD", { fromCents: false })
+    const amountLocal = formatCurrency(amount_owed_local, currency, { fromCents: false })
+    const hasDebt = amount_owed > 0 || amount_owed_local > 0
+
+    return {
+      value: hasDebt ? `${amountUSD} - ${amountLocal}` : "Pagado",
+      variant: hasDebt ? "destructive" : "success",
+      iconColor: hasDebt ? "text-red-600" : "text-green-600",
+      valueColor: hasDebt ? "text-red-700" : "text-green-700"
+    }
+  }
+
+  const { icon: RecordTypeIcon, variant: recordTypeVariant } = getRecordTypeConfig(record_type)
+  const paymentInfo = getPaymentInfo()
+
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-col lg:flex-row lg:justify-between">
-          {/* Main Content Section */}
-          <div className="flex flex-col gap-2 space-y-2">
-            {/* Title and Status */}
-            <div className="flex items-center gap-2">
-              <CountryFlag nationality={registro?.nationality} />
-              <CardTitle className="text-2xl">
-                {toTitleCase(name)}
-              </CardTitle>
-              <StatusBadge status={status} />
+    <Card className="overflow-hidden">
+      <CardHeader >
+        {/* Header Section */}
+        <div className="flex flex-col space-y-4">
+          {/* Title Row */}
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+            {/* Left: Title and Info */}
+            <div className="flex items-center gap-3 flex-1">
+              <CountryFlag nationality={nationality} className="h-8 w-8" />
+              <div className="flex flex-col">
+                <div className="flex items-center gap-4">
+                  <CardTitle className="text-2xl font-bold text-foreground">
+                    {toTitleCase(name)}
+                  </CardTitle>
+                  <StatusBadge status={status} className="text-sm px-3 py-1" />
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                  <Badge variant="outline" className="text-xs">
+                    <HashIcon className="h-3 w-3 mr-1" />
+                    {public_id}
+                  </Badge>
+                  <Badge variant={recordTypeVariant} className="text-xs">
+                    <RecordTypeIcon className="h-3 w-3 mr-1" />
+                    {toTitleCase(record_type)}
+                  </Badge>
+                </div>
+              </div>
             </div>
 
-            {/* Information Badges */}
-            <div className="flex flex-wrap gap-2">
-              {getBadges().map((badge, idx) => (
-                <IconBadge
-                  key={idx}
-                  title={badge.title}
-                  icon={badge.icon}
-                  variant={getBadgeVariant(badge)}
+            {/* Right: Admin Controls */}
+            {canUpdateStatus && (
+              <div className="flex items-center gap-2">
+                <RecordDocumentDropdown
+                  registro={registro}
+                  isAgent={isAgent}
+                  canUpdateStatus={canUpdateStatus}
                 />
-              ))}
-            </div>
-
-            {/* Action Buttons */}
-            <div className="mt-2 flex items-center gap-2">
-              {isAgent && (
-                <Button
-                  size="sm"
-                  variant="add"
-                  onClick={handleWhatsAppClick}
-                  className="flex items-center gap-2"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  Enviar WhatsApp
-                </Button>
-              )}
-
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={handleTrackingClick}
-                className="flex items-center gap-2"
-              >
-                <ExternalLink className="h-4 w-4" />
-                Ruta de seguimiento
-              </Button>
-            </div>
+                <SelectUpdateRegistroStatus
+                  currentOption={status}
+                  onConfirm={handleStatusUpdate}
+                  disabled={isUpdatingStatus}
+                />
+              </div>
+            )}
           </div>
 
-          {/* Status Update Section */}
-          {canUpdateStatus && (
-            <div className="flex flex-col gap-2 lg:flex-row lg:justify-between">
-              <RecordDocumentDropdown
-                registro={registro}
-                isAgent={isAgent}
-                canUpdateStatus={canUpdateStatus}
-              />
-              <SelectUpdateRegistroStatus
-                currentOption={status}
-                onConfirm={handleStatusUpdate}
-              />
-            </div>
-          )}
+          {/* Quick Info Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <InfoCard
+              icon={UserIcon}
+              label="Agente"
+              value={user?.name || "No asignado"}
+              variant={user?.name ? "default" : "warning"}
+            />
+
+            <InfoCard
+              icon={DollarSignIcon}
+              label="Estado de pago"
+              value={paymentInfo.value}
+              variant={paymentInfo.variant}
+              iconColor={paymentInfo.iconColor}
+              valueColor={paymentInfo.valueColor}
+            />
+
+            <InfoCard
+              icon={Clock}
+              label="Última actualización"
+              value={formatDate(updated_at, { showTime: true })}
+              variant="info"
+            />
+          </div>
         </div>
       </CardHeader>
+
+      <CardContent className="sm:-mt-8">
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center gap-2">
+          {isAgent && phone && (
+            <Button
+              size="sm"
+              variant="default"
+              onClick={handleWhatsAppClick}
+              disabled={isWhatsAppLoading}
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+            >
+              {isWhatsAppLoading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <MessageCircle className="h-4 w-4" />
+              )}
+              WhatsApp
+            </Button>
+          )}
+
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={handleTrackingClick}
+            disabled={isTrackingLoading}
+            className="flex items-center gap-2"
+          >
+            {isTrackingLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <ExternalLink className="h-4 w-4" />
+            )}
+            Ruta de Seguimiento
+          </Button>
+
+          {phone && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => window.open(`tel:${formatPhoneNumber(phone)}`, '_self')}
+              className="flex items-center gap-2"
+            >
+              <Phone className="h-4 w-4" />
+              Llamar
+            </Button>
+          )}
+
+          {email && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => window.open(`mailto:${email}`, '_self')}
+              className="flex items-center gap-2"
+            >
+              <Mail className="h-4 w-4" />
+              Email
+            </Button>
+          )}
+        </div>
+      </CardContent>
     </Card>
   )
 }
