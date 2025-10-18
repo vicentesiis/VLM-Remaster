@@ -1,109 +1,32 @@
-import * as flags from "country-flag-icons/react/3x2"
 import {
   CalendarIcon,
   HashIcon,
   DollarSignIcon,
-  BadgeInfoIcon,
   UserIcon,
   MessageCircle,
   ExternalLink,
-  Check,
-  X,
-  UserCheck,
-  Target,
-  Contact,
 } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
 import { toast } from "sonner"
+import CountryFlag from "@/components/customs/country-flag"
 import IconBadge from "@/components/customs/badge/icon-badge"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import RecordDocumentDropdown from "@/components/customs/record-document-dropdown"
 import { SelectUpdateRegistroStatus } from "@/components/customs/select-update-registro-status"
 import { Button } from "@/components/ui"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
+import { getRecordTypeConfig } from "@/constants"
 import { useUpdateRecordStatus } from "@/hooks/queries"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { formatCurrency, formatDate, toTitleCase } from "@/utils"
-
-// Constants
-const WHATSAPP_MESSAGE_TEMPLATE =
-  "Hola buen día {NOMBRE_REGISTRO} le saluda {NOMBRE_AGENTE} de AsesoriaLaboralMigratoria.com le escribo porque se registro con nosotros a través de {CANAL} y le interesa laborar en el extranjero. Le comparto su folio de registro: {ID_REGISTRO} le proporcionare mas información sobre nuestros servicios y algunas vacantes que tenemos disponibles para usted."
-
-// Country mapping for flags
-const COUNTRY_FLAG_MAP = {
-  "argentina": "AR",
-  "belice": "BZ",
-  "bolivia": "BO",
-  "brasil": "BR",
-  "chile": "CL",
-  "colombia": "CO",
-  "costa rica": "CR",
-  "república dominicana": "DO",
-  "ecuador": "EC",
-  "el salvador": "SV",
-  "guatemala": "GT",
-  "honduras": "HN",
-  "méxico": "MX",
-  "nicaragua": "NI",
-  "panamá": "PA",
-  "paraguay": "PY",
-  "perú": "PE",
-  "uruguay": "UY",
-  "venezuela": "VE"
-}
-
-// Utility functions
-const formatPhoneNumber = (phone) => {
-  const phoneNumber = phone?.replace(/\D/g, "")
-  return phoneNumber?.length === 10 ? `52${phoneNumber}` : phoneNumber
-}
-
-const createWhatsAppMessage = (registro) => {
-  const nombreRegistro = toTitleCase(registro?.name || "")
-  const nombreAgente = toTitleCase(registro?.user?.name || "Agente")
-  const canal = toTitleCase(registro?.channel || "nuestro sitio web")
-  const idRegistro = registro?.public_id || registro?.id || ""
-
-  return WHATSAPP_MESSAGE_TEMPLATE.replace("{NOMBRE_REGISTRO}", nombreRegistro)
-    .replace("{NOMBRE_AGENTE}", nombreAgente)
-    .replace("{CANAL}", canal)
-    .replace("{ID_REGISTRO}", idRegistro)
-}
-
-const createTrackingUrl = (registro) => {
-  const birthDate = new Date(registro.date_of_birth)
-  const day = birthDate.getDate()
-  const month = birthDate.getMonth() + 1
-  const year = birthDate.getFullYear()
-
-  return `https://statusvisas.com/seguimiento?public_id=${registro.public_id}&day=${day}&month=${month}&year=${year}`
-}
-
-// Helper function to get record type config
-const getRecordTypeConfig = (recordType) => {
-  const typeLower = recordType?.toLowerCase()
-
-  switch (typeLower) {
-    case 'lead':
-      return { icon: Contact, variant: 'warning' }
-    case 'prospect':
-      return { icon: Target, variant: 'success' }
-    default:
-      return { icon: UserCheck, variant: 'outline' }
-  }
-}
-
-// Get country flag component
-const getCountryFlag = (nationality) => {
-  if (!nationality) return null
-
-  const countryCode = COUNTRY_FLAG_MAP[nationality.toLowerCase()]
-  if (!countryCode) return null
-
-  const FlagComponent = flags[countryCode]
-  return FlagComponent ? <FlagComponent className="h-8 w-10" /> : null
-}
+import { 
+  formatCurrency, 
+  formatDate, 
+  toTitleCase,
+  formatPhoneNumber,
+  createWhatsAppMessage,
+  createTrackingUrl
+} from "@/utils"
 
 export const RegistrosDetailHeader = ({ registro }) => {
   const {
@@ -184,16 +107,6 @@ export const RegistrosDetailHeader = ({ registro }) => {
 
   // Tracking functionality
   const handleTrackingClick = () => {
-    if (!registro?.public_id) {
-      toast.error("No hay ID público disponible")
-      return
-    }
-
-    if (!registro?.date_of_birth) {
-      toast.error("No hay fecha de nacimiento disponible")
-      return
-    }
-
     try {
       const trackingUrl = createTrackingUrl(registro)
       window.open(trackingUrl, "_blank", "noopener,noreferrer")
@@ -211,11 +124,11 @@ export const RegistrosDetailHeader = ({ registro }) => {
           <div className="flex flex-col gap-2 space-y-2">
             {/* Title and Status */}
             <div className="flex items-center gap-2">
-              {getCountryFlag(registro?.nationality)}
+              <CountryFlag nationality={registro?.nationality} />
               <CardTitle className="text-2xl">
-                {toTitleCase(name ?? "Sin nombre")}
+                {toTitleCase(name)}
               </CardTitle>
-              <StatusBadge status={status ?? "-"} />
+              <StatusBadge status={status} />
             </div>
 
             {/* Information Badges */}

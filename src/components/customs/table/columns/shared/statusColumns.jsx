@@ -2,9 +2,6 @@
 import {
   Check,
   X,
-  UserCheck,
-  Target,
-  Contact
 } from "lucide-react"
 import React from "react"
 import IconBadge from "../../../badge/icon-badge"
@@ -12,23 +9,8 @@ import PaymentStatusBadge from "../../../badge/payment-status-badge"
 import StatusBadge from "../../../badge/status-badge"
 import NullableCell from "../../cells/nullable-cell"
 import { Badge } from "@/components/ui"
+import { getRecordTypeConfig } from "@/constants"
 import { formatDate, toTitleCase } from "@/utils"
-
-
-
-// Helper function to get record type config
-const getRecordTypeConfig = (recordType) => {
-  const typeLower = recordType?.toLowerCase()
-
-  switch (typeLower) {
-    case 'lead':
-      return { icon: Contact, variant: 'warning' }
-    case 'prospect':
-      return { icon: Target, variant: 'success' }
-    default:
-      return { icon: UserCheck, variant: 'outline' }
-  }
-}
 
 /**
  * Creates a status column with StatusBadge component
