@@ -63,7 +63,7 @@ export const getTareasColumns = ({
     contactedColumn: createContactedColumn(columnHelper),
     commentsColumn: createCommentsColumn(columnHelper),
     amountOwedLocalColumn: createAmountOwedLocalColumn(columnHelper, "amount_owed_local", "Por pagar local"),
-    amountOwedColumn: createAmountOwedColumn(columnHelper, "amount_owed", "USD"),
+    amountOwedColumn: createAmountOwedColumn(columnHelper, "amount_owed", "Por pagar USD"),
     nationalityColumn: createNationalityColumn(columnHelper),
     agentColumn: createAgentColumn(columnHelper),
   }

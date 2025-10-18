@@ -135,12 +135,12 @@ export const RegistrosDetailHeader = ({ registro }) => {
       }
     }
 
-    const amountUSD = formatCurrency(amount_owed, "USD", { fromCents: false })
-    const amountLocal = formatCurrency(amount_owed_local, currency, { fromCents: false })
+    const amountUSD = formatCurrency(amount_owed, "USD")
+    const amountLocal = formatCurrency(amount_owed_local, currency)
     const hasDebt = amount_owed > 0 || amount_owed_local > 0
 
     return {
-      value: hasDebt ? `${amountUSD} - ${amountLocal}` : "Pagado",
+      value: hasDebt ? `${amountLocal} - ${amountUSD}` : "Pagado",
       variant: hasDebt ? "destructive" : "success",
       iconColor: hasDebt ? "text-red-600" : "text-green-600",
       valueColor: hasDebt ? "text-red-700" : "text-green-700"
