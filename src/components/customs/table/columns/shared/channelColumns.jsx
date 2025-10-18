@@ -1,4 +1,4 @@
-import { createColumnHelper } from "@tanstack/react-table"
+
 import {
   Facebook,
   Instagram,
@@ -16,7 +16,7 @@ import NullableCell from "../../cells/nullable-cell"
 import { Badge } from "@/components/ui"
 import { toTitleCase } from "@/utils"
 
-const columnHelper = createColumnHelper()
+
 
 // Helper function to get channel icon and color
 const getChannelConfig = (channel) => {
@@ -49,11 +49,13 @@ const getChannelConfig = (channel) => {
 /**
  * Creates a channel column for admin users
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "channel")
+ * @param {string} header - The column header text (default: "Canal")
  * @returns {Object} Column definition
  */
-export const createChannelColumn = (columnHelper) =>
-  columnHelper.accessor("channel", {
-    header: "Canal",
+export const createChannelColumn = (columnHelper, accessor = "channel", header = "Canal") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => {
       const channel = info.getValue()
       if (!channel) return <NullableCell value={null} className="text-center" />
@@ -73,7 +75,7 @@ export const createChannelColumn = (columnHelper) =>
     meta: {
       align: "center",
       variant: "multiSelect",
-      label: "Canal",
+      label: header,
       options: [],
     },
   })
@@ -81,11 +83,13 @@ export const createChannelColumn = (columnHelper) =>
 /**
  * Creates a program column
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "program")
+ * @param {string} header - The column header text (default: "Programa")
  * @returns {Object} Column definition
  */
-export const createProgramColumn = (columnHelper) =>
-  columnHelper.accessor("program", {
-    header: "Programa",
+export const createProgramColumn = (columnHelper, accessor = "program", header = "Programa") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => {
       const program = info.getValue()
       if (!program) return <NullableCell value={null} className="text-center" />
@@ -101,9 +105,8 @@ export const createProgramColumn = (columnHelper) =>
     meta: {
       align: "center",
       variant: "multiSelect",
-      label: "Programa",
+      label: header,
       options: [],
     },
   })
 
-export { columnHelper }

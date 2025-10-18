@@ -1,4 +1,4 @@
-import { createColumnHelper } from "@tanstack/react-table"
+
 import {
   Check,
   X,
@@ -14,7 +14,7 @@ import NullableCell from "../../cells/nullable-cell"
 import { Badge } from "@/components/ui"
 import { formatDate, toTitleCase } from "@/utils"
 
-const columnHelper = createColumnHelper()
+
 
 // Helper function to get record type config
 const getRecordTypeConfig = (recordType) => {
@@ -33,16 +33,18 @@ const getRecordTypeConfig = (recordType) => {
 /**
  * Creates a status column with StatusBadge component
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "status")
+ * @param {string} header - The column header text (default: "Estatus")
  * @returns {Object} Column definition
  */
-export const createStatusColumn = (columnHelper) =>
-  columnHelper.accessor("status", {
-    header: "Estatus",
+export const createStatusColumn = (columnHelper, accessor = "status", header = "Estatus") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => <StatusBadge status={info.getValue()} />,
     meta: {
       align: "center",
       variant: "multiSelect",
-      label: "Estatus",
+      label: header,
       options: [],
       maxWidth: "100px",
     },
@@ -51,11 +53,13 @@ export const createStatusColumn = (columnHelper) =>
 /**
  * Creates a payment status column with PaymentStatusBadge component
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "status")
+ * @param {string} header - The column header text (default: "Estatus")
  * @returns {Object} Column definition
  */
-export const createPaymentStatusColumn = (columnHelper) =>
-  columnHelper.accessor("status", {
-    header: "Estatus",
+export const createPaymentStatusColumn = (columnHelper, accessor = "status", header = "Estatus") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => <PaymentStatusBadge status={info.getValue()} />,
     meta: { align: "center" },
   })
@@ -63,12 +67,14 @@ export const createPaymentStatusColumn = (columnHelper) =>
 /**
  * Creates an assignment date column with conditional badge styling for Leads
  * @param {Object} columnHelper - TanStack table column helper
- * @param {string} title - Component title to determine special behavior
+ * @param {string} accessor - The data accessor key (default: "assignment_date")
+ * @param {string} header - The column header text (default: "Fecha de asignación")
+ * @param {string} title - Component title to determine special behavior (optional)
  * @returns {Object} Column definition
  */
-export const createAssignmentDateColumn = (columnHelper, title = "") =>
-  columnHelper.accessor("assignment_date", {
-    header: "Fecha de asignación",
+export const createAssignmentDateColumn = (columnHelper, accessor = "assignment_date", header = "Fecha de asignación", title = "") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => {
       const assignmentDate = info.getValue()
 
@@ -109,11 +115,13 @@ export const createAssignmentDateColumn = (columnHelper, title = "") =>
 /**
  * Creates a record type column for admin users
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "record_type")
+ * @param {string} header - The column header text (default: "Tipo")
  * @returns {Object} Column definition
  */
-export const createRecordTypeColumn = (columnHelper) =>
-  columnHelper.accessor("record_type", {
-    header: "Tipo",
+export const createRecordTypeColumn = (columnHelper, accessor = "record_type", header = "Tipo") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => {
       const recordType = info.getValue()
       if (!recordType) return <NullableCell value={null} className="text-center" />
@@ -133,7 +141,7 @@ export const createRecordTypeColumn = (columnHelper) =>
     meta: {
       align: "center",
       variant: "select",
-      label: "Tipo",
+      label: header,
       options: [],
     },
   })
@@ -141,11 +149,13 @@ export const createRecordTypeColumn = (columnHelper) =>
 /**
  * Creates a contacted column with boolean check/x icons
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "contacted")
+ * @param {string} header - The column header text (default: "Contacto efectivo")
  * @returns {Object} Column definition
  */
-export const createContactedColumn = (columnHelper) =>
-  columnHelper.accessor("contacted", {
-    header: "Contacto efectivo",
+export const createContactedColumn = (columnHelper, accessor = "contacted", header = "Contacto efectivo") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: ({ getValue }) => {
       const contacted = getValue()
       if (typeof contacted !== "boolean") return <NullableCell value={null} />
@@ -167,4 +177,3 @@ export const createContactedColumn = (columnHelper) =>
     meta: { align: "center" },
   })
 
-export { columnHelper }

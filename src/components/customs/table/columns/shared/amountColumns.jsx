@@ -1,19 +1,21 @@
-import { createColumnHelper } from "@tanstack/react-table"
+
 import React from "react"
 import NullableCell from "../../cells/nullable-cell"
 import { Badge } from "@/components/ui"
 import { formatCurrency, formatCurrencyUSD } from "@/utils"
 
-const columnHelper = createColumnHelper()
+
 
 /**
  * Creates a local amount owed column with currency display
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "amount_owed_local")
+ * @param {string} header - The column header text (default: "Por pagar local")
  * @returns {Object} Column definition
  */
-export const createAmountOwedLocalColumn = (columnHelper) =>
-  columnHelper.accessor("amount_owed_local", {
-    header: "Por pagar local",
+export const createAmountOwedLocalColumn = (columnHelper, accessor = "amount_owed_local", header = "Por pagar local") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => {
       const amount = info.getValue()
       const currency = info.row.original.currency
@@ -41,11 +43,13 @@ export const createAmountOwedLocalColumn = (columnHelper) =>
 /**
  * Creates an amount owed column for admin users
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "amount_owed")
+ * @param {string} header - The column header text (default: "USD")
  * @returns {Object} Column definition
  */
-export const createAmountOwedColumn = (columnHelper) =>
-  columnHelper.accessor("amount_owed", {
-    header: "USD",
+export const createAmountOwedColumn = (columnHelper, accessor = "amount_owed", header = "USD") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => {
       const amount = info.getValue()
       if (amount == null) return <NullableCell value={null} className="text-center" />
@@ -94,17 +98,19 @@ export const createAmountColumn = (columnHelper, accessor, header, isUSD = false
 /**
  * Creates a local amount column with currency display
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "amount_local")
+ * @param {string} header - The column header text (default: "Cantidad Local")
  * @returns {Object} Column definition
  */
-export const createAmountLocalColumn = (columnHelper) =>
-  columnHelper.accessor("amount_local", {
-    header: "Cantidad Local",
+export const createAmountLocalColumn = (columnHelper, accessor = "amount_local", header = "Cantidad Local") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: ({ row }) => {
-      const { amount_local, currency } = row.original
+      const amount_local = row.original[accessor]
+      const currency = row.original.currency
       const value = amount_local && currency ? `${formatCurrency(parseFloat(amount_local).toFixed(2))} ${currency.toUpperCase()}` : null
       return <NullableCell value={value} />
     },
     meta: { align: "center" },
   })
 
-export { columnHelper }

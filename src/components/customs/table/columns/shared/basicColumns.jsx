@@ -1,3 +1,4 @@
+
 import { createColumnHelper } from "@tanstack/react-table"
 import React from "react"
 import NullableCell from "../../cells/nullable-cell"
@@ -9,11 +10,13 @@ const columnHelper = createColumnHelper()
 /**
  * Creates a name column with MainCell component for navigation
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "name")
+ * @param {string} header - The column header text (default: "Nombre")
  * @returns {Object} Column definition
  */
-export const createNameColumn = (columnHelper) =>
-  columnHelper.accessor("name", {
-    header: "Nombre",
+export const createNameColumn = (columnHelper, accessor = "name", header = "Nombre") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => (
       <MainCell
         title={info.getValue()}
@@ -26,11 +29,13 @@ export const createNameColumn = (columnHelper) =>
 /**
  * Creates a phone column for agent users
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "phone")
+ * @param {string} header - The column header text (default: "Teléfono")
  * @returns {Object} Column definition
  */
-export const createPhoneColumn = (columnHelper) =>
-  columnHelper.accessor("phone", {
-    header: "Teléfono",
+export const createPhoneColumn = (columnHelper, accessor = "phone", header = "Teléfono") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => <NullableCell value={info.getValue()} />,
     meta: {
       align: "center",
@@ -40,11 +45,13 @@ export const createPhoneColumn = (columnHelper) =>
 /**
  * Creates a comments column
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "comments")
+ * @param {string} header - The column header text (default: "Comentarios")
  * @returns {Object} Column definition
  */
-export const createCommentsColumn = (columnHelper) =>
-  columnHelper.accessor("comments", {
-    header: "Comentarios",
+export const createCommentsColumn = (columnHelper, accessor = "comments", header = "Comentarios") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => (
       <NullableCell
         value={info.getValue()}
@@ -59,18 +66,20 @@ export const createCommentsColumn = (columnHelper) =>
 /**
  * Creates a nationality column for admin users
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "nationality")
+ * @param {string} header - The column header text (default: "Nacionalidad")
  * @returns {Object} Column definition
  */
-export const createNationalityColumn = (columnHelper) =>
-  columnHelper.accessor("nationality", {
-    header: "Nacionalidad",
+export const createNationalityColumn = (columnHelper, accessor = "nationality", header = "Nacionalidad") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => (
       <NullableCell value={info.getValue()} className="text-center" />
     ),
     meta: {
       align: "center",
       variant: "select",
-      label: "Nacionalidad",
+      label: header,
       options: [],
     },
   })
@@ -78,11 +87,13 @@ export const createNationalityColumn = (columnHelper) =>
 /**
  * Creates an agent column for displaying assigned agent
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "agent")
+ * @param {string} header - The column header text (default: "Agente")
  * @returns {Object} Column definition
  */
-export const createAgentColumn = (columnHelper) =>
-  columnHelper.accessor("agent", {
-    header: "Agente",
+export const createAgentColumn = (columnHelper, accessor = "agent", header = "Agente") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => (
       <NullableCell value={info.getValue()} className="text-center" />
     ),
@@ -125,11 +136,13 @@ export const createTextColumn = (columnHelper, accessor, header) =>
 /**
  * Creates an updated_at column with date formatting
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "updated_at")
+ * @param {string} header - The column header text (default: "Última actualización")
  * @returns {Object} Column definition
  */
-export const createUpdatedAtColumn = (columnHelper) =>
-  columnHelper.accessor("updated_at", {
-    header: "Última actualización",
+export const createUpdatedAtColumn = (columnHelper, accessor = "updated_at", header = "Última actualización") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: (info) => (
       <NullableCell value={formatDate(info.getValue())} className="text-center" />
     ),
@@ -143,16 +156,18 @@ export const createUpdatedAtColumn = (columnHelper) =>
 /**
  * Creates a virtual group filter column for super admin users
  * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "group_id")
+ * @param {string} header - The column header text (default: "Grupo")
  * @returns {Object} Column definition
  */
-export const createGroupFilterColumn = (columnHelper) =>
-  columnHelper.accessor("group_id", {
-    header: "Grupo",
+export const createGroupFilterColumn = (columnHelper, accessor = "group_id", header = "Grupo") =>
+  columnHelper.accessor(accessor, {
+    header,
     cell: () => null,
     meta: {
       align: "center",
       variant: "select",
-      label: "Grupo",
+      label: header,
       options: [],
       isVirtual: true,
     },
