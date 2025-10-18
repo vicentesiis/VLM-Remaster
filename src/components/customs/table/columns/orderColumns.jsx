@@ -49,7 +49,7 @@ export const getOrdersColumns = (canCreateOrder) => {
     createPaymentStatusColumn(columnHelper),
     createPaymentMethodColumn(columnHelper),
     createAmountLocalColumn(columnHelper),
-    createAmountColumn(columnHelper, "amount", "USD", true),
+    createAmountColumn(columnHelper, "amount", "Cantidad USD", true),
     createReferenceColumn(columnHelper),
     createDateColumn(columnHelper, "payment_date", "Fecha de Pago"),
     voucherColumn,
