@@ -22,7 +22,7 @@ export const createAmountOwedLocalColumn = (columnHelper, accessor = "amount_owe
 
       if (amount == null) return <NullableCell value={null} className="text-center" />
 
-      const amountFormated = formatCurrency(amount, currency || 'USD')
+      const amountFormated = formatCurrency(amount, currency || '?')
 
       return (
         <div className="flex justify-center">

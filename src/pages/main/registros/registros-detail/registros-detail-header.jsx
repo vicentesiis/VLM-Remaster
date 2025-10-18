@@ -168,11 +168,11 @@ export const RegistrosDetailHeader = ({ registro }) => {
                   <StatusBadge status={status} className="text-sm px-3 py-1" />
                 </div>
                 <div className="flex items-center gap-2 mt-1">
-                  <Badge variant="outline" className="text-xs">
+                  <Badge variant="outline" className="text-sm">
                     <HashIcon className="h-3 w-3 mr-1" />
                     {public_id}
                   </Badge>
-                  <Badge variant={recordTypeVariant} className="text-xs">
+                  <Badge variant={recordTypeVariant} className="text-sm">
                     <RecordTypeIcon className="h-3 w-3 mr-1" />
                     {toTitleCase(record_type)}
                   </Badge>

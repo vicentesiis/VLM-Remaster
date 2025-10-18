@@ -13,7 +13,7 @@ export const salesReceivableColumns = () => {
       minSize: 200,
     },
     createAmountOwedLocalColumn(columnHelper, "amount_owed_local", "Por pagar local"),
-    createAmountOwedColumn(columnHelper, "amount_owed", "USD"),
+    createAmountOwedColumn(columnHelper, "amount_owed", "Por pagar USD"),
 
   ]
 

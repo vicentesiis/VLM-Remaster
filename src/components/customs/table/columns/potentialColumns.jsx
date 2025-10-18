@@ -15,6 +15,6 @@ export const usePotencialColumns = () => [
   createRecordTypeColumn(columnHelper),
   createProgramColumn(columnHelper),
   createAmountOwedLocalColumn(columnHelper, "amount_owed_local", "Cantidad potencial local"),
-  createAmountOwedColumn(columnHelper, "amount_owed", "USD"),
+  createAmountOwedColumn(columnHelper, "amount_owed", "Cantidad potencial USD"),
   createOrdersCountColumn(columnHelper),
 ]
