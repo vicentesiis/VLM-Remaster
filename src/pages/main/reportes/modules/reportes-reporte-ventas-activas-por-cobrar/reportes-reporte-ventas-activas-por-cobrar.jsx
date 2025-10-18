@@ -6,7 +6,7 @@ import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import PageLayout from "@/components/customs/page-layout/page-layout"
 import { WithStatusState } from "@/components/customs/status-state/with-status-state"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
-import { formatCurrencyUSD } from "@/utils"
+import { formatCurrency } from "@/utils"
 
 const ReportesReporteVentasActivasPorCobrar = () => {
   const { isAgent, isSuperAdmin } = useCurrentUser()
@@ -26,7 +26,7 @@ const ReportesReporteVentasActivasPorCobrar = () => {
     <PageLayout
       title="Ventas activas por cobrar"
       subtitle={
-        !isAgent && isFetched ? formatCurrencyUSD(total_to_be_collected) : ""
+        !isAgent && isFetched ? formatCurrency(total_to_be_collected, 'USD') : ""
       }
     >
       {isSuperAdmin && (

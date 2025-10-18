@@ -8,7 +8,7 @@ import {
 } from "@/components/customs/filter/filter-config"
 import FilterToolbar from "@/components/customs/filter/filter-tool-bar"
 import SectionHeader from "@/components/customs/section-header"
-import { formatCurrency, formatCurrencyUSD } from "@/utils"
+import { formatCurrency } from "@/utils"
 import { formatIfExists } from "@/utils/reportFormatters"
 
 export const HeaderSection = ({
@@ -24,7 +24,7 @@ export const HeaderSection = ({
 }) => {
   const totalSales = formatIfExists(
     reportData?.total_sales,
-    formatCurrencyUSD
+    (amount) => formatCurrency(amount, 'USD')
   )
 
   const totalOrders = formatIfExists(

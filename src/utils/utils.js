@@ -45,7 +45,7 @@ export function formatDate(date, opts = {}) {
     }).format(new Date(date))
 
     return formatted
-  } catch (err) {
+  } catch {
     return ""
   }
 }
@@ -72,22 +72,34 @@ export function toURLSearchParams(params) {
   return searchParams
 }
 
-export function formatCurrency(cents) {
-  return new Intl.NumberFormat({
-    style: "currency",
-    minimumFractionDigits: 0,
-  }).format(cents / 100)
+export function formatCurrency(amount, currency = "USD", options = {}) {
+  // Convert cents to currency units
+  const value = amount / 100
+  
+  // Determine if we need decimals
+  const needsDecimals = value % 1 !== 0
+  
+  // Currency configuration mapping
+  const currencyConfig = {
+    USD: { locale: "en-US", symbol: "$" },
+    MXN: { locale: "es-MX", symbol: "$" },
+    COB: { locale: "en-US", symbol: "$" }, // Colombian Peso - using $ symbol
+    GT: { locale: "es-GT", symbol: "Q" }   // Guatemalan Quetzal
+  }
+  
+  const config = currencyConfig[currency.toUpperCase()] || currencyConfig.USD
+  
+  // Format the number without currency to get just the amount
+  const formatted = new Intl.NumberFormat(config.locale, {
+    minimumFractionDigits: needsDecimals ? 2 : 0,
+    maximumFractionDigits: 2,
+    ...options
+  }).format(value)
+  
+  return `${config.symbol}${formatted} ${currency.toUpperCase()}`
 }
 
-export function formatCurrencyUSD(amount) {
-  const formatted = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: amount === 0 ? 0 : 2,
-    maximumFractionDigits: 2,
-  }).format(amount / 100)
-  return `${formatted} USD`
-}
+
 
 export const getYearOptions = (yearsBack = 6) => {
   const currentYear = new Date().getFullYear()

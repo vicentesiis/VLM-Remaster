@@ -14,7 +14,7 @@ import { Card, CardContent } from "@/components/ui"
 import { useGetAgentPotentialSales } from "@/hooks/queries/UseReports"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { useGroupAndMembersFilter } from "@/hooks/useGroupAndMemebersFilter"
-import { formatCurrency, formatCurrencyUSD } from "@/utils"
+import { formatCurrency } from "@/utils"
 
 const ReportesReporteVentaPorAgentePotencial = () => {
   const [searchParams, setSearchParams] = useState(null)
@@ -56,7 +56,7 @@ const ReportesReporteVentaPorAgentePotencial = () => {
           <SectionHeader
             title={
               isFetched
-                ? formatCurrencyUSD(data?.total_potential_sales || 0)
+                ? formatCurrency(data?.total_potential_sales || 0, 'USD')
                 : undefined
             }
             subtitle={

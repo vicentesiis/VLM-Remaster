@@ -2,7 +2,7 @@
 import React from "react"
 import NullableCell from "../../cells/nullable-cell"
 import { Badge } from "@/components/ui"
-import { formatCurrency, formatCurrencyUSD } from "@/utils"
+import { formatCurrency } from "@/utils"
 
 
 
@@ -22,8 +22,7 @@ export const createAmountOwedLocalColumn = (columnHelper, accessor = "amount_owe
 
       if (amount == null) return <NullableCell value={null} className="text-center" />
 
-      const formattedAmount = formatCurrency(amount)
-      const amountFormated = `${formattedAmount} ${currency?.toUpperCase() || ''}`
+      const amountFormated = formatCurrency(amount, currency || 'USD')
 
       return (
         <div className="flex justify-center">
@@ -54,7 +53,7 @@ export const createAmountOwedColumn = (columnHelper, accessor = "amount_owed", h
       const amount = info.getValue()
       if (amount == null) return <NullableCell value={null} className="text-center" />
 
-      const formattedAmount = formatCurrencyUSD(amount)
+      const formattedAmount = formatCurrency(amount, 'USD')
 
       return (
         <div className="flex justify-center">
@@ -86,9 +85,7 @@ export const createAmountColumn = (columnHelper, accessor, header, isUSD = false
       const amount = info.getValue()
       if (!amount) return <NullableCell value={null} className="text-center" />
       
-      const formattedAmount = isUSD 
-        ? formatCurrencyUSD(parseFloat(amount).toFixed(2))
-        : formatCurrency(amount)
+      const formattedAmount = formatCurrency(amount, isUSD ? 'USD' : 'MXN')
       
       return <NullableCell value={formattedAmount} className="text-center" />
     },
@@ -108,7 +105,7 @@ export const createAmountLocalColumn = (columnHelper, accessor = "amount_local",
     cell: ({ row }) => {
       const amount_local = row.original[accessor]
       const currency = row.original.currency
-      const value = amount_local && currency ? `${formatCurrency(parseFloat(amount_local).toFixed(2))} ${currency.toUpperCase()}` : null
+      const value = amount_local && currency ? formatCurrency(amount_local, currency) : null
       return <NullableCell value={value} />
     },
     meta: { align: "center" },
