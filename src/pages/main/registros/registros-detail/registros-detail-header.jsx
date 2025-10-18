@@ -7,6 +7,11 @@ import {
   UserIcon,
   MessageCircle,
   ExternalLink,
+  Check,
+  X,
+  UserCheck,
+  Target,
+  Contact,
 } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
@@ -75,6 +80,20 @@ const createTrackingUrl = (registro) => {
   return `https://statusvisas.com/seguimiento?public_id=${registro.public_id}&day=${day}&month=${month}&year=${year}`
 }
 
+// Helper function to get record type config
+const getRecordTypeConfig = (recordType) => {
+  const typeLower = recordType?.toLowerCase()
+
+  switch (typeLower) {
+    case 'lead':
+      return { icon: Contact, variant: 'warning' }
+    case 'prospect':
+      return { icon: Target, variant: 'success' }
+    default:
+      return { icon: UserCheck, variant: 'outline' }
+  }
+}
+
 // Get country flag component
 const getCountryFlag = (nationality) => {
   if (!nationality) return null
@@ -105,37 +124,23 @@ export const RegistrosDetailHeader = ({ registro }) => {
 
   // Badge configuration
   const getBadges = () => {
-    const amountUSD = formatCurrency(parseFloat(amount_owed || 0))
-    const amountLocal = amount_owed_local && currency ?
-      `${parseFloat(amount_owed_local).toFixed(2)} ${currency}` : null
+    const amountUSD = formatCurrency(amount_owed, "USD", { fromCents: false })
+    const amountLocal = formatCurrency(amount_owed_local, currency, { fromCents: false })
+    const paymentTitle = `Por pagar: ${amountUSD} - ${amountLocal}`
+    
+    const { icon: RecordTypeIcon, variant: recordTypeVariant } = getRecordTypeConfig(record_type)
 
-    const badges = [
+    return [
       { title: public_id, icon: HashIcon },
-      { title: `Agente: ${user?.name ?? "-"}`, icon: UserIcon },
+      { title: `Agente: ${user?.name}`, icon: UserIcon },
+      { title: `Última actualización: ${formatDate(updated_at, { showTime: true })}`, icon: CalendarIcon },
+      { title: toTitleCase(record_type), icon: RecordTypeIcon, variant: recordTypeVariant },
       {
-        title:
-          updated_at &&
-          `Última actualización: ${formatDate(updated_at, { showTime: true })}`,
-        icon: CalendarIcon,
-      },
-      { title: record_type && `Tipo: ${record_type}`, icon: BadgeInfoIcon },
-      {
-        title: `Por pagar (USD): ${amountUSD}`,
+        title: paymentTitle,
         icon: DollarSignIcon,
-        variant: amount_owed > 0 ? "destructive" : "outline",
+        variant: (amount_owed > 0 || amount_owed_local > 0) ? "destructive" : "outline",
       },
     ]
-
-    // Add local currency badge if available
-    if (amountLocal) {
-      badges.push({
-        title: `Por pagar (Local): ${amountLocal}`,
-        icon: DollarSignIcon,
-        variant: amount_owed_local > 0 ? "destructive" : "outline",
-      })
-    }
-
-    return badges.filter((badge) => badge.title)
   }
 
   const getBadgeVariant = (badge) => {

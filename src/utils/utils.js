@@ -140,21 +140,23 @@ export function getYearOptions(yearsBack = 6) {
 // ============================================================================
 
 /**
- * Formats currency amount from cents to display format
- * @param {number} amount - Amount in cents
+ * Formats currency amount to display format
+ * @param {number} amount - Amount to format
  * @param {string} currency - Currency code (USD, MXN, etc.)
- * @param {Object} options - Additional Intl.NumberFormat options
+ * @param {Object} options - Additional options
+ * @param {boolean} options.fromCents - Whether amount is in cents (default: true)
  * @returns {string} Formatted currency string
  */
 export function formatCurrency(amount, currency = "USD", options = {}) {
-  const value = amount / 100
+  const { fromCents = true, ...intlOptions } = options
+  const value = fromCents ? amount / 100 : amount
   const needsDecimals = value % 1 !== 0
   const config = CURRENCY_CONFIG[currency.toUpperCase()] || CURRENCY_CONFIG.USD
   
   const formatted = new Intl.NumberFormat(config.locale, {
     minimumFractionDigits: needsDecimals ? 2 : 0,
     maximumFractionDigits: 2,
-    ...options
+    ...intlOptions
   }).format(value)
   
   return `${config.symbol}${formatted} ${currency.toUpperCase()}`
