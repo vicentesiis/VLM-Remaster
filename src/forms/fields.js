@@ -62,7 +62,7 @@ export const nationalityField = (options, config = {}) => ({
 
 export const stateField = (options, config = {}) => ({
   name: "state",
-  label: "Estado",
+  label: "Estado de Residencia",
   type: "autocomplete",
   options,
   placeholder: "Selecciona un estado",
@@ -71,7 +71,7 @@ export const stateField = (options, config = {}) => ({
 
 export const documentField = (config = {}) => ({
   name: "document",
-  label: "Documento",
+  label: "Documento de Identidad",
   type: "input",
   autoComplete: "off",
   placeholder: "Pasaporte / CURP",
