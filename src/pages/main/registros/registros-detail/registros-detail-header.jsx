@@ -260,7 +260,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
             Ruta de Seguimiento
           </Button>
 
-          {phone && (
+          {isAgent && phone && (
             <Button
               size="sm"
               variant="outline"
@@ -272,7 +272,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
             </Button>
           )}
 
-          {email && (
+          {isAgent && email && (
             <Button
               size="sm"
               variant="outline"
