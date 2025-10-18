@@ -89,7 +89,7 @@ export function OmniSearch() {
                   : "Buscar por referencia..."
                 : selectedOption === "Registros"
                   ? isFocused
-                    ? "ID, email, teléfono, CURP o pasaporte"
+                    ? "ID, email, teléfono, documento o pasaporte"
                     : "Buscar por identificador..."
                   : isFocused
                     ? "Ingresa el ID"

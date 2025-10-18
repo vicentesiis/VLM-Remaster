@@ -74,7 +74,7 @@ export const documentField = (config = {}) => ({
   label: "Documento de Identidad",
   type: "input",
   autoComplete: "off",
-  placeholder: "Pasaporte / CURP",
+  placeholder: "Pasaporte / Documento de Identidad",
   transform: (val) => val.toUpperCase(),
   className: "uppercase",
   ...config,

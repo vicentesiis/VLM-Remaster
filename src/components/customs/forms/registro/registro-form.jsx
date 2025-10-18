@@ -115,7 +115,7 @@ const RegistroForm = forwardRef(
       documentTypeField(
         [
           { label: "Pasaporte", value: "passport" },
-          { label: "CURP", value: "curp" },
+          { label: "Documento de Identidad", value: "curp" },
         ],
         { disabled: !isAdmin && isEdit }
       ),

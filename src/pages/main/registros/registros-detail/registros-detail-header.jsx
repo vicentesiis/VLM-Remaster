@@ -22,7 +22,6 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { getRecordTypeConfig } from "@/constants"
 import { useUpdateRecordStatus } from "@/hooks/queries"
-import { useGetOrdersByRecord } from "@/hooks/queries/useOrder"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import {
   formatCurrency,
@@ -55,11 +54,6 @@ export const RegistrosDetailHeader = ({ registro }) => {
 
   const [isWhatsAppLoading, setIsWhatsAppLoading] = useState(false)
   const [isTrackingLoading, setIsTrackingLoading] = useState(false)
-
-  // Get orders data to check if record has orders
-  const { data: ordersData } = useGetOrdersByRecord({
-    record_id: id,
-  })
 
   // Status update functionality
   const { mutateAsync: updateRecord, isPending: isUpdatingStatus } = useUpdateRecordStatus({
@@ -122,18 +116,6 @@ export const RegistrosDetailHeader = ({ registro }) => {
 
   // Get payment status info
   const getPaymentInfo = () => {
-    const orders = ordersData?.data || []
-    const hasOrders = orders.length > 0
-
-    // If no orders exist, show "Sin órdenes creadas"
-    if (!hasOrders) {
-      return {
-        value: "Sin órdenes creadas",
-        variant: "warning",
-        iconColor: "text-yellow-600",
-        valueColor: "text-yellow-700"
-      }
-    }
 
     const amountUSD = formatCurrency(amount_owed, "USD")
     const amountLocal = formatCurrency(amount_owed_local, currency)
