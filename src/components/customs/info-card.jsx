@@ -30,7 +30,7 @@ const InfoCard = ({
   return (
     <div 
       className={cn(
-        "flex items-center gap-3 p-4 rounded-lg border transition-colors hover:bg-muted/50",
+        "flex items-center gap-3 p-4 rounded-lg border",
         getVariantStyles(),
         className
       )}
