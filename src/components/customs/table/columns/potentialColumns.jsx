@@ -14,13 +14,7 @@ export const usePotencialColumns = () => [
   createStatusColumn(columnHelper),
   createRecordTypeColumn(columnHelper),
   createProgramColumn(columnHelper),
-  {
-    ...createAmountOwedLocalColumn(columnHelper),
-    header: "Cantidad potencial local",
-  },
-  {
-    ...createAmountOwedColumn(columnHelper),
-    header: "USD",
-  },
+  createAmountOwedLocalColumn(columnHelper, "amount_owed_local", "Cantidad potencial local"),
+  createAmountOwedColumn(columnHelper, "amount_owed", "USD"),
   createOrdersCountColumn(columnHelper),
 ]

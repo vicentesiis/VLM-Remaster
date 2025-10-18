@@ -10,10 +10,10 @@ import { formatCurrency } from "@/utils"
  * Creates a local amount owed column with currency display
  * @param {Object} columnHelper - TanStack table column helper
  * @param {string} accessor - The data accessor key (default: "amount_owed_local")
- * @param {string} header - The column header text (default: "Por pagar local")
+ * @param {string} header - The column header text
  * @returns {Object} Column definition
  */
-export const createAmountOwedLocalColumn = (columnHelper, accessor = "amount_owed_local", header = "Por pagar local") =>
+export const createAmountOwedLocalColumn = (columnHelper, accessor = "amount_owed_local", header) =>
   columnHelper.accessor(accessor, {
     header,
     cell: (info) => {
@@ -43,10 +43,10 @@ export const createAmountOwedLocalColumn = (columnHelper, accessor = "amount_owe
  * Creates an amount owed column for admin users
  * @param {Object} columnHelper - TanStack table column helper
  * @param {string} accessor - The data accessor key (default: "amount_owed")
- * @param {string} header - The column header text (default: "USD")
+ * @param {string} header - The column header text
  * @returns {Object} Column definition
  */
-export const createAmountOwedColumn = (columnHelper, accessor = "amount_owed", header = "USD") =>
+export const createAmountOwedColumn = (columnHelper, accessor = "amount_owed", header) =>
   columnHelper.accessor(accessor, {
     header,
     cell: (info) => {

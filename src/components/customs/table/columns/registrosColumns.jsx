@@ -62,8 +62,8 @@ export const getRegistrosColumns = ({
     phoneColumn: createPhoneColumn(columnHelper),
     contactedColumn: createContactedColumn(columnHelper),
     commentsColumn: createCommentsColumn(columnHelper),
-    amountOwedLocalColumn: createAmountOwedLocalColumn(columnHelper),
-    amountOwedColumn: createAmountOwedColumn(columnHelper),
+    amountOwedLocalColumn: createAmountOwedLocalColumn(columnHelper, "amount_owed_local", "Por pagar local"),
+    amountOwedColumn: createAmountOwedColumn(columnHelper, "amount_owed", "USD"),
     agentColumn: createAgentColumn(columnHelper),
   }
 

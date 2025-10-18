@@ -12,7 +12,7 @@ export const getFinalizedReportColumns = () => {
       recordPath: "record", 
       id: "registro" 
     }),
-    createAmountOwedColumn(columnHelper),
+    createAmountOwedColumn(columnHelper, "amount_owed", "USD"),
     createDateColumn(columnHelper, "created_at", "Fecha de creación"),
     createDateColumn(columnHelper, "assignment_date", "Fecha de asignación"),
     createDateColumn(columnHelper, "end_date", "Fecha de finalización"),

@@ -61,7 +61,7 @@ export const getLeadsColumns = ({
     phoneColumn: createPhoneColumn(columnHelper),
     contactedColumn: createContactedColumn(columnHelper),
     commentsColumn: createCommentsColumn(columnHelper),
-    amountOwedColumn: createAmountOwedColumn(columnHelper),
+    amountOwedColumn: createAmountOwedColumn(columnHelper, "amount_owed", "USD"),
     agentColumn: createAgentColumn(columnHelper),
   }
 
