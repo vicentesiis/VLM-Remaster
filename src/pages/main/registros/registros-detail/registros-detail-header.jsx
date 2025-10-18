@@ -169,11 +169,11 @@ export const RegistrosDetailHeader = ({ registro }) => {
                 </div>
                 <div className="flex items-center gap-2 mt-1">
                   <Badge variant="outline" className="text-sm">
-                    <HashIcon className="h-3 w-3 mr-1" />
+                    <HashIcon className="h-4 w-4 mr-1" />
                     {public_id}
                   </Badge>
                   <Badge variant={recordTypeVariant} className="text-sm">
-                    <RecordTypeIcon className="h-3 w-3 mr-1" />
+                    <RecordTypeIcon className="h-4 w-4 mr-1" />
                     {toTitleCase(record_type)}
                   </Badge>
                 </div>
