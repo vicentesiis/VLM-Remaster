@@ -48,8 +48,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
         { label: "e-mail", value: email?.toLowerCase() },
         { label: "Nacionalidad", value: toTitleCase(nationality) },
         { label: "Estado o Departamento de Residencia", value: toTitleCase(state) },
-        { label: "Documento de Identidad", value: curp?.toUpperCase() },
-        { label: "Pasaporte", value: passport },
+        { label: "Documento de Identidad", value: curp?.toUpperCase() ?? passport?.toUpperCase() ?? "-" },
       ],
     },
     {
