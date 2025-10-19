@@ -382,7 +382,7 @@ export const createRateColumn = (
       const currency = info.row.original[currencyAccessor]
       const rateDesc = info.row.original[descriptionAccessor]
       return rate ? (
-        <span className="text-muted-foreground">{`${rate} ${currency?.toUpperCase()}/${rateDesc}`}</span>
+        <span className="text-muted-foreground">{`$${rate} ${currency?.toUpperCase()}/${rateDesc}`}</span>
       ) : (
         <NullableCell value={null} />
       )

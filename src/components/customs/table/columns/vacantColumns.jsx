@@ -1,4 +1,4 @@
-import { 
+import {
   columnHelper,
   createDateColumn,
   createIdLinkColumn,
@@ -45,30 +45,16 @@ export const getVacantColumns = ({
         options: vacantCategories,
       },
     }),
-    columnHelper.accessor("location_state_province", {
-      header: "Estado",
-      cell: (info) => <NullableCell value={info.getValue()} />,
+    {
+      ...createTextColumn(columnHelper, "location_state_province", "Estado"),
       meta: {
         align: "center",
         variant: "select",
         label: "Estado",
         options: provinceOptions,
       },
-    }),
-    columnHelper.accessor("rate", {
-      header: "Sueldo",
-      cell: (info) => {
-        const rate = info.getValue()
-        const currency = info.row.original.currency
-        const rateDesc = info.row.original.rate_description
-        return rate ? (
-          <span className="text-muted-foreground">{`$${rate} ${currency?.toUpperCase()}/${rateDesc}`}</span>
-        ) : (
-          <NullableCell value={null} />
-        )
-      },
-      meta: { align: "center" },
-    }),
+    },
+    createRateColumn(columnHelper, "rate", "Sueldo", "currency", "rate_description"),
     {
       ...createTextColumn(columnHelper, "positions", "Posiciones"),
       meta: { align: "center", maxWidth: "70px" },
