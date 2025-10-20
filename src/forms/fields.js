@@ -29,7 +29,7 @@ export const phoneField = (config = {}) => ({
   type: "numeric",
   autoComplete: "off",
   maxLength: 10,
-  placeholder: "Número de teléfono (10 dígitos)",
+  placeholder: "Número de teléfono",
   ...config,
 })
 

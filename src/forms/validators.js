@@ -30,9 +30,11 @@ export const emailSchema = skipIfEmpty(
 )
 
 export const phoneSchema = normalizeToEmptyString(
-  z.string().regex(/^\d{10}$/, "El teléfono debe tener exactamente 10 dígitos"),
+  z
+    .string()
+    .regex(/^\d{8,10}$/, "El teléfono debe tener entre 8 y 10 dígitos"),
   "El teléfono es obligatorio"
-)
+);
 
 export const dateOfBirthSchema = z.preprocess(
   (val) => {

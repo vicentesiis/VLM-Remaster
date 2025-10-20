@@ -33,7 +33,6 @@ export const useRegistrosTable = (title, componentType = null) => {
       return null
     }
 
-    console.log("filters", appliedFilters)
     return getParsedRecordParams(
       pagination,
       appliedFilters,

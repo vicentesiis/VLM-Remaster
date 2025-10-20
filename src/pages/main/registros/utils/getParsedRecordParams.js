@@ -47,7 +47,7 @@ function applyRoleFilters(params, filters, title, userId, currentRole) {
       "status",
       "updated_at",
     ],
-    [Roles.AGENT]: ["status", "updated_at"],
+    [Roles.AGENT]: ["status", "updated_at", "program"],
   }
 
   const allowedFilters = roleFilterMap[currentRole] || []
