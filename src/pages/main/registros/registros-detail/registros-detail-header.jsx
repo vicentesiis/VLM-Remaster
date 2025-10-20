@@ -77,7 +77,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
     setIsWhatsAppLoading(true)
 
     try {
-      const phoneNumber = formatPhoneNumber(phone)
+      const phoneNumber = formatPhoneNumber(phone, nationality)
 
       if (!phoneNumber) {
         toast.error("No hay número de teléfono disponible")
@@ -89,7 +89,6 @@ export const RegistrosDetailHeader = ({ registro }) => {
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
 
       window.open(whatsappUrl, "_blank", "noopener,noreferrer")
-      toast.success("WhatsApp abierto correctamente")
     } catch (error) {
       console.error("WhatsApp error:", error)
       toast.error("Error al abrir WhatsApp")
@@ -105,7 +104,6 @@ export const RegistrosDetailHeader = ({ registro }) => {
     try {
       const trackingUrl = createTrackingUrl(registro)
       window.open(trackingUrl, "_blank", "noopener,noreferrer")
-      toast.success("Ruta de seguimiento abierta")
     } catch (error) {
       console.error("Error parsing birth date:", error)
       toast.error("Error al procesar la fecha de nacimiento")
@@ -246,7 +244,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
             <Button
               size="sm"
               variant="outline"
-              onClick={() => window.open(`tel:${formatPhoneNumber(phone)}`, '_self')}
+              onClick={() => window.open(`tel:${formatPhoneNumber(phone, nationality)}`, '_self')}
               className="flex items-center gap-2"
             >
               <Phone className="h-4 w-4" />

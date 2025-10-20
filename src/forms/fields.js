@@ -134,12 +134,12 @@ export const amountField = (country, config = {}) => {
     colombia: {
       label: "Monto de la Órden (COP)",
       symbol: "$",
-      placeholder: "Min $500 - Max $10,000"
+      placeholder: "Min $95,000 - Max $2,000,000"
     },
     guatemala: {
       label: "Monto de la Órden (GTQ)",
       symbol: "Q",
-      placeholder: "Min Q500 - Max Q10,000"
+      placeholder: "Min Q190 - Max Q4,000"
     }
   }
 
@@ -151,7 +151,6 @@ export const amountField = (country, config = {}) => {
     type: "currency",
     placeholder: selectedConfig.placeholder,
     currencySymbol: selectedConfig.symbol,
-    maxLength: 7,
     ...config,
   }
 }

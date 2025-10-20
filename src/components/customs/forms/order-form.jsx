@@ -1,16 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import PropTypes from "prop-types"
-import React, { forwardRef, useImperativeHandle, useEffect } from "react"
+import React, { forwardRef, useImperativeHandle, useEffect, useState } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { z } from "zod"
 import { renderFormField } from "./form-field-renders"
 import { Form } from "@/components/ui/form"
 import { amountField, paymentMethodField, countryField } from "@/forms/fields"
-import { amountSchema, paymentMethodSchema, countrySchema } from "@/forms/validators"
+import { amountSchemaByCountry, paymentMethodSchema, countrySchema } from "@/forms/validators"
 
-export const createFormSchema = (isFromMexico) => {
+export const createFormSchema = (isFromMexico, selectedCountry = null) => {
+  // Determine which country to use for validation
+  const country = isFromMexico ? 'méxico' : selectedCountry
+  
   const baseSchema = {
-    order_amount_local: amountSchema,
+    order_amount_local: country ? amountSchemaByCountry[country] || amountSchemaByCountry.méxico : amountSchemaByCountry.méxico,
     payment_method: paymentMethodSchema,
   }
 
@@ -25,8 +28,10 @@ const OrderForm = forwardRef(({ onSubmit, recordData }, ref) => {
   const isFromMexico = recordData?.nationality?.toLowerCase() === 'méxico' || 
                        recordData?.nationality?.toLowerCase() === 'mexico'
 
+  const [currentCountry, setCurrentCountry] = useState(isFromMexico ? 'méxico' : null)
+
   const form = useForm({
-    resolver: zodResolver(createFormSchema(isFromMexico)),
+    resolver: zodResolver(createFormSchema(isFromMexico, currentCountry)),
     defaultValues: {
       ...(isFromMexico && { country: 'méxico' }),
     },
@@ -43,17 +48,33 @@ const OrderForm = forwardRef(({ onSubmit, recordData }, ref) => {
   const selectedCountry = form.watch("country")
 
   useEffect(() => {
-    if (selectedCountry) {
+    if (selectedCountry && selectedCountry !== currentCountry) {
+      setCurrentCountry(selectedCountry)
+      
+      // Clear payment method and amount when country changes
       form.setValue("payment_method", "")
+      form.setValue("order_amount_local", "")
+      
+      // Create new resolver with updated country schema
+      const newSchema = createFormSchema(isFromMexico, selectedCountry)
+      
+      // Reset the form with new resolver
+      form.reset({
+        country: selectedCountry,
+        payment_method: "",
+        order_amount_local: ""
+      }, {
+        resolver: zodResolver(newSchema)
+      })
     }
-  }, [selectedCountry, form])
+  }, [selectedCountry, currentCountry, form, isFromMexico])
 
-  const currentCountry = isFromMexico ? 'méxico' : selectedCountry
+  const displayCountry = isFromMexico ? 'méxico' : currentCountry
 
   const fields = [
     ...(!isFromMexico ? [countryField()] : []),
-    ...(selectedCountry ? [paymentMethodField(selectedCountry)] : []),
-    ...(isFromMexico || selectedCountry ? [amountField(currentCountry)] : []),
+    ...(currentCountry ? [paymentMethodField(currentCountry)] : []),
+    ...(isFromMexico || currentCountry ? [amountField(displayCountry)] : []),
   ]
 
   return (

@@ -1,14 +1,30 @@
-import { WHATSAPP_MESSAGE_TEMPLATE } from "@/constants"
 import { toTitleCase } from "./utils"
+import { WHATSAPP_MESSAGE_TEMPLATE } from "@/constants"
 
 /**
  * Formats phone number for WhatsApp (adds country code if needed)
  * @param {string} phone - Phone number to format
+ * @param {string} nationality - Country nationality to determine country code
  * @returns {string} Formatted phone number
  */
-export const formatPhoneNumber = (phone) => {
+export const formatPhoneNumber = (phone, nationality) => {
   const phoneNumber = phone?.replace(/\D/g, "")
-  return phoneNumber?.length === 10 ? `52${phoneNumber}` : phoneNumber
+
+  if (!phoneNumber || phoneNumber.length !== 10) {
+    return phoneNumber
+  }
+
+  // Country code mapping based on nationality
+  const countryCodeMap = {
+    'colombia': '57',
+    'guatemala': '502',
+    'méxico': '52',
+  }
+
+  const normalizedNationality = nationality?.toLowerCase()
+  const countryCode = countryCodeMap[normalizedNationality] || '52' // Default to Mexico
+
+  return `${countryCode}${phoneNumber}`
 }
 
 /**

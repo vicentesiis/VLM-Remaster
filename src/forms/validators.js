@@ -38,7 +38,7 @@ export const dateOfBirthSchema = z.preprocess(
   (val) => {
     if (typeof val === "string" || typeof val === "number") {
       const parsed = new Date(val)
-      return isNaN(parsed) ? undefined : parsed
+      return Number.isNaN(parsed.getTime()) ? undefined : parsed
     }
     return val
   },
@@ -75,7 +75,7 @@ export const exitDateTypeSchema = z.preprocess(
     }
     if (typeof val === "string" || typeof val === "number") {
       const parsed = new Date(val)
-      return isNaN(parsed) ? undefined : parsed
+      return Number.isNaN(parsed.getTime()) ? undefined : parsed
     }
     return val
   },
@@ -108,16 +108,42 @@ export const commentsSchema = skipIfEmpty(
     .optional()
 )
 
-export const amountSchema = z.preprocess(
-  (val) => {
-    const parsed = Number(val)
-    return isNaN(parsed) ? undefined : parsed
-  },
-  z
-    .number({ required_error: "El monto es obligatorio" })
-    .min(500, { message: "El monto mínimo es $500" })
-    .max(10000, { message: "El monto máximo es $10,000" })
-)
+// Country-specific amount validation schemas
+export const amountSchemaByCountry = {
+  méxico: z.preprocess(
+    (val) => {
+      const parsed = Number(val)
+      return Number.isNaN(parsed) ? undefined : parsed
+    },
+    z
+      .number({ required_error: "El monto es obligatorio" })
+      .min(500, { message: "El monto mínimo es $500" })
+      .max(10000, { message: "El monto máximo es $10,000" })
+  ),
+  colombia: z.preprocess(
+    (val) => {
+      const parsed = Number(val)
+      return Number.isNaN(parsed) ? undefined : parsed
+    },
+    z
+      .number({ required_error: "El monto es obligatorio" })
+      .min(95000, { message: "El monto mínimo es $95,000 COP" })
+      .max(2000000, { message: "El monto máximo es $2,000,000 COP" })
+  ),
+  guatemala: z.preprocess(
+    (val) => {
+      const parsed = Number(val)
+      return Number.isNaN(parsed) ? undefined : parsed
+    },
+    z
+      .number({ required_error: "El monto es obligatorio" })
+      .min(190, { message: "El monto mínimo es Q190 GTQ" })
+      .max(4000, { message: "El monto máximo es Q4,000 GTQ" })
+  ),
+}
+
+// Default amount schema (for backward compatibility)
+export const amountSchema = amountSchemaByCountry.méxico
 
 export const paymentMethodSchema = normalizeToEmptyString(
   z.string(),
@@ -153,7 +179,7 @@ export const creditSchema = z
   .preprocess(
     (val) => {
       const parsed = Number(val)
-      return isNaN(parsed) ? undefined : parsed
+      return Number.isNaN(parsed) ? undefined : parsed
     },
     z
       .number({ required_error: "El monto es obligatorio" })
