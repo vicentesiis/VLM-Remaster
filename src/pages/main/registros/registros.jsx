@@ -21,6 +21,7 @@ export const Registros = ({ title, columnType }) => {
     refetch,
     isSuperAdmin,
     showFilters,
+    tableKey,
   } = useRegistrosTable(title, columnType)
 
   const handleApplyFilters = useCallback(() => {
@@ -42,6 +43,7 @@ export const Registros = ({ title, columnType }) => {
       <Card>
         <CardContent className="sm:pt-4 pt-4">
           <DataTable
+            key={tableKey}
             table={table}
             isLoading={isFetching}
             isError={isError}

@@ -33,6 +33,7 @@ export const useRegistrosTable = (title, componentType = null) => {
       return null
     }
 
+    console.log("filters", appliedFilters)
     return getParsedRecordParams(
       pagination,
       appliedFilters,
@@ -62,14 +63,14 @@ export const useRegistrosTable = (title, componentType = null) => {
   const groups = useGetGroups({ enabled: isSuperAdmin })
   const { channels, programs, recordTypes, recordStatuses } = useCodexData()
 
-  const channelsOptions = mapToOptions(channels?.data)
-  const programsOptions = mapToOptions(programs?.data)
-  const recordTypesOptions = mapToOptions(recordTypes?.data)
-  const recordStatusesOptions = mapToOptions(
+  const channelsOptions = useMemo(() => mapToOptions(channels?.data), [channels?.data])
+  const programsOptions = useMemo(() => mapToOptions(programs?.data), [programs?.data])
+  const recordTypesOptions = useMemo(() => mapToOptions(recordTypes?.data), [recordTypes?.data])
+  const recordStatusesOptions = useMemo(() => mapToOptions(
     recordStatuses?.data,
     getStatusLabel
-  )
-  const groupsOptions = mapToOptions(groups?.data)
+  ), [recordStatuses?.data])
+  const groupsOptions = useMemo(() => mapToOptions(groups?.data), [groups?.data])
 
   // Determine component type for column resolution
   const resolvedComponentType = useMemo(() => {
@@ -77,28 +78,30 @@ export const useRegistrosTable = (title, componentType = null) => {
     if (componentType) {
       return componentType
     }
-    
+
     // Try to find component type from route configuration based on title
     const routeEntry = Object.entries(componentPropsMap).find(
       ([, props]) => props.title === title
     )
-    
+
     if (routeEntry) {
       const [routeKey, props] = routeEntry
       return props.columnType || routeKey
     }
-    
+
     // Fallback: derive from title
     const titleToComponentMap = {
       "Registros": "registros",
-      "Prospectos": "prospectos", 
+      "Prospectos": "prospectos",
       "Leads": "leads",
       "Clientes": "clientes",
       "Tareas": "tareas"
     }
-    
+
     return titleToComponentMap[title] || "registros"
   }, [title, componentType])
+
+
 
   const columns = useMemo(
     () => {
@@ -111,7 +114,7 @@ export const useRegistrosTable = (title, componentType = null) => {
         recordTypes: recordTypesOptions,
         title,
       }
-      
+
       return getColumnsForComponent(resolvedComponentType, columnOptions)
     },
     [resolvedComponentType, role, groupsOptions, channelsOptions, programsOptions, recordTypesOptions, recordStatusesOptions, title]
@@ -138,6 +141,9 @@ export const useRegistrosTable = (title, componentType = null) => {
       total: data?.total ?? 0,
       hasFetched: isFetched,
     },
+    // Force table to re-render when columns change
+    autoResetAll: false,
+    enableColumnResizing: false,
   })
 
   useEffect(() => {
@@ -167,5 +173,7 @@ export const useRegistrosTable = (title, componentType = null) => {
     refetch,
     isSuperAdmin,
     showFilters: title !== "Tareas",
+    // Add a key that changes when data is loaded to force re-render
+    tableKey: `${channelsOptions?.length || 0}-${programsOptions?.length || 0}-${recordStatusesOptions?.length || 0}`,
   }
 }

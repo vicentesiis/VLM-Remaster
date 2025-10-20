@@ -273,9 +273,9 @@ export const groupNameField = (config = {}) => ({
 
 export const creditField = (config = {}) => ({
   name: "credit",
-  label: "Cantidad a tomar a cuenta",
+  label: "Cantidad a tomar a cuenta (USD)",
   type: "currency",
-  placeholder: "Min $0 - Max $3,879",
+  placeholder: "Min $0 USD - Max $500 USD",
   maxLength: 5,
   ...config,
 })
