@@ -10,10 +10,6 @@ import { WHATSAPP_MESSAGE_TEMPLATE } from "@/constants"
 export const formatPhoneNumber = (phone, nationality) => {
   const phoneNumber = phone?.replace(/\D/g, "")
 
-  if (!phoneNumber || phoneNumber.length !== 10) {
-    return phoneNumber
-  }
-
   // Country code mapping based on nationality
   const countryCodeMap = {
     'colombia': '57',
