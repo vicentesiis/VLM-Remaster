@@ -1,8 +1,8 @@
-import React from "react"
 import RegistrosIndexRedirect from "./registros-index-redirect"
 import { componentPropsMap } from "./route-props"
 import Ajustes from "@/pages/main/ajustes/ajustes"
 import Cuentas from "@/pages/main/ajustes/modules/cuentas"
+import DashboardPage from "@/pages/main/dashboard/dashboard-page"
 import Registros from "@/pages/main/registros/registros"
 import RegistrosDetail from "@/pages/main/registros/registros-detail/registros-detail"
 import ReporteReporteCorteAgente from "@/pages/main/reportes/modules/reportes-reporte-de-corte-de-agente"
@@ -27,6 +27,7 @@ const UnauthorizedAccess = () => <>Unauthorized Access</>
 
 export const componentMap = {
   home: RegistrosIndexRedirect,
+  dashboard: DashboardPage,
   registros: Registros,
   misProspectos: Registros,
   misLeads: Registros,

@@ -1,4 +1,3 @@
-import React from "react"
 import { Routes, Route, Outlet, Navigate } from "react-router-dom"
 import { Toaster } from "sonner"
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout"

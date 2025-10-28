@@ -11,17 +11,27 @@ export const RolesCapabilities = {
     canCreateOrders: true,
     canDeleteUsers: true,
     canViewReports: true,
+    canViewDashboard: false,
   },
   [Roles.ADMIN]: {
     canManageRecords: true,
     canCreateOrders: false,
     canDeleteUsers: false,
     canViewReports: true,
+    canViewDashboard: false,
   },
   [Roles.AGENT]: {
     canManageRecords: false,
     canCreateOrders: false,
     canDeleteUsers: false,
     canViewReports: true,
+    canViewDashboard: true,
+  },
+  [Roles.LEADER]: {
+    canManageRecords: false,
+    canCreateOrders: false,
+    canDeleteUsers: false,
+    canViewReports: true,
+    canViewDashboard: true,
   },
 }

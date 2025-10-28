@@ -16,10 +16,17 @@ import {
   CheckCircle2,
   ReceiptText,
   HandCoins,
+  LayoutDashboard,
 } from "lucide-react"
 import { Roles } from "@/constants"
 
 export const menuItems = [
+  {
+    title: "Dashboard",
+    to: "/dashboard",
+    icon: LayoutDashboard,
+    allowedRoutes: [Roles.AGENT, Roles.LEADER],
+  },
   {
     title: "Tareas",
     to: "/tareas",
