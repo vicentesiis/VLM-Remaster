@@ -1,6 +1,7 @@
 export * from "./apiClient";
 export * from "./axiosInstance";
 export * from "./codexApi";
+export * from "./dashboardApi";
 export * from "./groupApi";
 export * from "./orderApi";
 export * from "./plainAxios";

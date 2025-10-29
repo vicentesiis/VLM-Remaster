@@ -1,8 +1,9 @@
+import React from "react"
 import RegistrosIndexRedirect from "./registros-index-redirect"
 import { componentPropsMap } from "./route-props"
 import Ajustes from "@/pages/main/ajustes/ajustes"
 import Cuentas from "@/pages/main/ajustes/modules/cuentas"
-import DashboardPage from "@/pages/main/dashboard/dashboard-page"
+import Dashboard from "@/pages/main/dashboard/dashboard"
 import Registros from "@/pages/main/registros/registros"
 import RegistrosDetail from "@/pages/main/registros/registros-detail/registros-detail"
 import ReporteReporteCorteAgente from "@/pages/main/reportes/modules/reportes-reporte-de-corte-de-agente"
@@ -18,16 +19,9 @@ import Usuarios from "@/pages/main/usuarios/usuarios"
 import Vacantes from "@/pages/main/vacantes/vacantes"
 import VacantesDetail from "@/pages/main/vacantes/vacantes-detail/vacantes-detail"
 
-const ReportePersonal = () => <>Reporte Personal</>
-const VentasPotenciales = () => <>Ventas Potenciales</>
-const ControlDeFinalizados = () => <>Control de Finalizados</>
-const VentasPorCanal = () => <>Ventas por Canal</>
-const CortesPorAgente = () => <>Cortes por Agente</>
-const UnauthorizedAccess = () => <>Unauthorized Access</>
-
 export const componentMap = {
   home: RegistrosIndexRedirect,
-  dashboard: DashboardPage,
+  dashboard: Dashboard,
   registros: Registros,
   misProspectos: Registros,
   misLeads: Registros,
@@ -49,13 +43,7 @@ export const componentMap = {
   reportes: Reportes,
   vacantes: Vacantes,
   vacantDetail: VacantesDetail,
-  reportePersonal: ReportePersonal,
-  ventasPotenciales: VentasPotenciales,
-  controlDeFinalizados: ControlDeFinalizados,
-  ventasPorCanal: VentasPorCanal,
-  cortesPorAgente: CortesPorAgente,
-  usuarios: Usuarios,
-  unauthorizedAccess: UnauthorizedAccess,
+  usuarios: Usuarios
 }
 
 export const GenericRouteWrapper = ({ routeKey, ...routeParams }) => {
