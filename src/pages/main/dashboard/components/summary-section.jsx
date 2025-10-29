@@ -1,12 +1,13 @@
 
+import { TrendingUp, Users, CircleDollarSign, Target } from "lucide-react";
+import React from "react";
+import { KPICard } from "./kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
 import { Progress } from "@/components/ui/progress";
-import { TrendingUp, Users, CircleDollarSign, Target } from "lucide-react";
 import { formatCurrency } from "@/utils";
-import { KPICard } from "./kpi-card";
 
-export function SummarySection({ dashboardData, payoffProgress }) {
-  const { context, personal_goals: goals, group_monthly_sales } = dashboardData || {};
+export function SummarySection({ dashboardData, payoffProgress, potentialSales }) {
+  const { context, personal_goals: goals } = dashboardData || {};
 
   return (
     <Card>
@@ -27,13 +28,13 @@ export function SummarySection({ dashboardData, payoffProgress }) {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <KPICard
             title="Ventas mensuales"
-            value={formatCurrency(goals?.monthly_sales ?? 0, "USD", { fromCents: false })}
+            value={formatCurrency(goals?.monthly_sales ?? 0)}
             subtitle="Tus ventas del mes"
             icon={TrendingUp}
           />
           <KPICard
             title="Por cobrar"
-            value={formatCurrency(goals?.to_payoff ?? 0, "USD", { fromCents: false })}
+            value={formatCurrency(goals?.to_payoff ?? 0)}
             subtitle="Saldo restante"
             icon={CircleDollarSign}
           />
@@ -44,8 +45,8 @@ export function SummarySection({ dashboardData, payoffProgress }) {
             icon={Target}
           />
           <KPICard
-            title="Ventas del grupo"
-            value={formatCurrency(group_monthly_sales ?? 0, "USD", { fromCents: false })}
+            title="Ventas potenciales"
+            value={potentialSales}
             subtitle="Mes en curso"
             icon={Users}
           />

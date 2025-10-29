@@ -1,41 +1,18 @@
-import { Badge } from "@/components/ui"
-import { columnHelper, createTextColumn } from "@/components/customs/table/columns/shared/commonColumns"
-import { formatCurrency } from "@/utils"
+import React from "react"
 import NullableCell from "@/components/customs/table/cells/nullable-cell"
+import {
+  columnHelper,
+  createTextColumn,
+  createAmountColumn,
+  createAmountLocalColumn
+} from "@/components/customs/table/columns/shared/commonColumns"
+import { Badge } from "@/components/ui"
 
 export const getProgramPricingColumns = () => {
   return [
     createTextColumn(columnHelper, "program_name", "Programa"),
-    
-    columnHelper.accessor("price", {
-      header: "Precio USD",
-      cell: (info) => {
-        const price = info.getValue()
-        return price ? (
-          <NullableCell value={formatCurrency(price, 'USD', { fromCents: false })} className="text-center font-medium" />
-        ) : (
-          <NullableCell value={null} className="text-center" />
-        )
-      },
-      meta: { align: "center" },
-    }),
-
-    columnHelper.accessor("price_local", {
-      header: "Precio Local",
-      cell: (info) => {
-        const priceLocal = info.getValue()
-        const currency = info.row.original.currency
-        return priceLocal && currency ? (
-          <NullableCell 
-            value={formatCurrency(priceLocal, currency, { fromCents: false })} 
-            className="text-center font-medium" 
-          />
-        ) : (
-          <NullableCell value={null} className="text-center" />
-        )
-      },
-      meta: { align: "center" },
-    }),
+    createAmountColumn(columnHelper, "price", "Precio USD", true),
+    createAmountLocalColumn(columnHelper, "price_local", "Precio Local"),
 
     columnHelper.accessor("currency", {
       header: "Moneda",

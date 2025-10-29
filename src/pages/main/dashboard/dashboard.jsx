@@ -10,9 +10,11 @@ import {
 import { useDashboardData } from "./hooks/useDashboardData";
 import PageLayout from "@/components/customs/page-layout/page-layout";
 import { WithStatusState } from "@/components/customs/status-state/with-status-state";
+import { useGetMyPotentialSales } from "@/hooks/queries/UseReports";
 
 const Dashboard = () => {
   const { dashboardData, isFetching, isError, isFetched } = useDashboardData();
+  const { data: potencialSalesData } = useGetMyPotentialSales()
 
   const [currencyFilter, setCurrencyFilter] = useState("all");
 
@@ -46,6 +48,12 @@ const Dashboard = () => {
         <section className="grid gap-4 lg:gap-5 lg:grid-cols-12">
           {/* LEFT COLUMN (8 cols) */}
           <div className="lg:col-span-8 space-y-4 order-1">
+
+            <SummarySection
+              dashboardData={dashboardData}
+              payoffProgress={payoffProgress}
+              potentialSales={potencialSalesData?.total_amount ?? 0}
+            />
             <PricingSection
               currencyFilter={currencyFilter}
               setCurrencyFilter={setCurrencyFilter}
@@ -55,11 +63,6 @@ const Dashboard = () => {
               isFetching={isFetching}
               isError={isError}
               isFetched={isFetched}
-            />
-
-            <SummarySection
-              dashboardData={dashboardData}
-              payoffProgress={payoffProgress}
             />
           </div>
 
