@@ -21,44 +21,55 @@ export function PricingSection({
     <Card>
       <SectionCardHeader
         icon={TrendingUp}
-        title="Precios y Tipo de Cambio"
-        description="Información actualizada de precios y tasas de cambio"
+        title="Precios por Programa y Tipo de Cambio"
+        description="Información actualizada de precios por programa y tasas de cambio"
       />
       <CardContent>
-        <div className="pb-4">
-          <h3 className="text-sm font-medium flex items-center gap-2 pb-2">
-            <div className="w-2 h-2 rounded-full bg-green-500"></div>
-            Tipos de Cambio Actuales
-          </h3>
-          <ExchangeChips rates={exchangeRates} />
-        </div>
-
-        <div className="py-4">
-          <div className="flex items-center gap-2 justify-between pb-4">
-            <h3 className="text-sm font-medium flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-              Tabla de Precios por programa
+        {/* ===== Exchange Rates ===== */}
+        <section className="border-b pb-3">
+          <header className="flex items-center justify-between pb-1">
+            <h3 className="text-sm  font-semibold flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+              Tipos de cambio actuales
             </h3>
-            <Select value={currencyFilter} onValueChange={setCurrencyFilter}>
-              <SelectTrigger className="h-9 w-[180px]">
-                <SelectValue placeholder="Filtrar moneda" />
-              </SelectTrigger>
-              <SelectContent className=" shadow-lg">
-                <SelectItem value="all" className="font-medium">
-                  Todas las monedas
-                </SelectItem>
-                {allCurrencies.map((c) => (
-                  <SelectItem
-                    key={c}
-                    value={c}
-                    className="uppercase font-mono font-medium"
-                  >
-                    {c.toUpperCase()}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          </header>
+
+          <div className="pt-2">
+            <ExchangeChips rates={exchangeRates} />
           </div>
+        </section>
+
+        {/* ===== Pricing Table ===== */}
+        <section className="py-4">
+          <header className="flex items-center justify-between pb-3 border-b">
+            <h3 className="text-sm font-semibold flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+              Tabla de precios por programa
+            </h3>
+
+            <div className="flex items-center gap-2">
+              <Select value={currencyFilter} onValueChange={setCurrencyFilter}>
+                <SelectTrigger className="h-9 w-[180px]">
+                  <SelectValue placeholder="Filtrar moneda" />
+                </SelectTrigger>
+                <SelectContent className="shadow-lg">
+                  <SelectItem value="all" className="font-medium">
+                    Todas las monedas
+                  </SelectItem>
+                  {allCurrencies.map((c) => (
+                    <SelectItem
+                      key={c}
+                      value={c}
+                      className="uppercase font-mono font-medium"
+                    >
+                      {c.toUpperCase()}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </header>
+
           <DataTable
             table={programPricingTable}
             isLoading={isFetching}
@@ -66,8 +77,9 @@ export function PricingSection({
             hasFetched={isFetched}
             showPagination={false}
           />
-        </div>
+        </section>
       </CardContent>
     </Card>
   );
 }
+

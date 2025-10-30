@@ -14,7 +14,7 @@ export function SectionCardHeader({
 
     return (
         <div className={cn(
-            "flex items-center gap-3 px-6 py-2.5 border-b bg-gradient-to-r from-muted/50 to-muted/30 rounded-t-xl backdrop-blur-sm",
+            "flex items-center gap-3 px-6 py-2.5 border-b bg-muted",
             hover.container
         )}>
             {Icon && (
@@ -27,7 +27,7 @@ export function SectionCardHeader({
                     {title}
                 </CardTitle>
                 {description && (
-                    <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                         {description}
                     </p>
                 )}

@@ -24,7 +24,7 @@ export function KPICard({
     >
       {/* Header (Title + Icon) */}
       <div className="flex items-center justify-between mb-3">
-        <p className="text-sm font-medium text-muted-foreground tracking-tight line-clamp-2 leading-snug">
+        <p className="font-medium text-muted-foreground tracking-tight line-clamp-2 leading-snug">
           {title}
         </p>
         {Icon && (

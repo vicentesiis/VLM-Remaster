@@ -11,7 +11,7 @@ export function AsideDashboard({ dashboardData }) {
 
   return (
     <div className="space-y-4">
-      <DashboardCard icon={Award} title="Tokens">
+      <DashboardCard icon={Award} title="Tokens disponibles">
         <div className="text-2xl font-semibold">
           {personal_goals?.tokens ?? 0}
         </div>
