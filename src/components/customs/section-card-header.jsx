@@ -14,7 +14,7 @@ export function SectionCardHeader({
 
     return (
         <div className={cn(
-            "flex items-center gap-3 px-6 py-2.5 border-b bg-muted",
+            "flex items-center gap-3 px-6 py-2.5 border-b bg-muted rounded-t-xl",
             hover.container
         )}>
             {Icon && (
