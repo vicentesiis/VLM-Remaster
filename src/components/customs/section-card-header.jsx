@@ -7,18 +7,18 @@ export function SectionCardHeader({
     description
 }) {
     return (
-        <div className="flex items-center gap-3 p-4 border-b bg-muted rounded-t-xl">
+        <div className="flex items-center gap-1 px-4 py-2.5 border-b bg-muted/40 rounded-t-xl">
             {Icon && (
-                <div className={`p-2 rounded-lg`}>
-                    <Icon className="h-5 w-5" />
+                <div className={`px-2 rounded-lg`}>
+                    <Icon className="!size-5 text-primary" />
                 </div>
             )}
             <div>
-                <CardTitle>
+                <CardTitle className="text-accent-foreground text-lg">
                     {title}
                 </CardTitle>
                 {description && (
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-sm text-accent-foreground">
                         {description}
                     </p>
                 )}

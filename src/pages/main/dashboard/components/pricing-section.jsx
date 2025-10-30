@@ -25,19 +25,19 @@ export function PricingSection({
         description="Información actualizada de precios y tasas de cambio"
       />
       <CardContent>
-        <div className="space-y-3">
-          <h3 className="text-sm font-medium flex items-center gap-2">
+        <div className="pb-4">
+          <h3 className="text-sm font-medium flex items-center gap-2 pb-2">
             <div className="w-2 h-2 rounded-full bg-green-500"></div>
             Tipos de Cambio Actuales
           </h3>
           <ExchangeChips rates={exchangeRates} />
         </div>
 
-        <div className="space-y-3">
-          <div className="flex items-center gap-2 justify-between">
+        <div className="py-4">
+          <div className="flex items-center gap-2 justify-between pb-4">
             <h3 className="text-sm font-medium flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-              Tabla de Precios
+              Tabla de Precios por programa
             </h3>
             <Select value={currencyFilter} onValueChange={setCurrencyFilter}>
               <SelectTrigger className="h-9 w-[180px]">

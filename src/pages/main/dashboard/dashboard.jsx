@@ -45,14 +45,13 @@ const Dashboard = () => {
   return (
     <PageLayout title="Dashboard">
       <WithStatusState isLoading={isFetching} isError={isError}>
-        <section className="grid gap-4 lg:gap-5 lg:grid-cols-12">
-          {/* LEFT COLUMN (8 cols) */}
+        <section className="grid gap-4 lg:gap-5 lg:grid-cols-12 p-4 sm:p-0">
           <div className="lg:col-span-8 space-y-4 order-1">
 
             <SummarySection
               dashboardData={dashboardData}
               payoffProgress={payoffProgress}
-              potentialSales={potencialSalesData?.total_amount ?? 0}
+              // potentialSales={potencialSalesData?.total_amount ?? 0}
             />
             <PricingSection
               currencyFilter={currencyFilter}
