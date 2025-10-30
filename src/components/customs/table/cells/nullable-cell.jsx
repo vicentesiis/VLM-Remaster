@@ -5,7 +5,7 @@ import { cn } from "@/lib"
 export const NullableCell = ({ value, className }) => (
   <div
     className={cn(
-      "flex h-full w-full items-center justify-center text-sm text-muted-foreground",
+      "flex h-full w-full items-center justify-center text-sm",
       className
     )}
   >
