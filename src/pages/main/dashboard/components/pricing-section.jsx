@@ -24,7 +24,7 @@ export function PricingSection({
         title="Precios por Programa y Tipo de Cambio"
         description="Información actualizada de precios por programa y tasas de cambio"
       />
-      <CardContent>
+      <CardContent className="pt-4">
         {/* ===== Exchange Rates ===== */}
         <section className="border-b pb-3">
           <header className="flex items-center justify-between pb-1">

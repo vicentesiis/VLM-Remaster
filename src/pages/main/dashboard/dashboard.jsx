@@ -40,25 +40,15 @@ const Dashboard = () => {
   return (
     <PageLayout title="Dashboard">
       <WithStatusState isLoading={isFetching} isError={isError}>
-        <section className="grid gap-4 lg:gap-5 lg:grid-cols-12 p-4 sm:p-0">
+        <section className="grid gap-4 lg:gap-5 lg:grid-cols-12 p-4 sm:p-0 mb-4">
           <div className="lg:col-span-8 space-y-4 order-1">
 
             <IndividualSummarySection
               dashboardData={dashboardData}
             />
-            
+
             <GroupSummarySection
               dashboardData={dashboardData}
-            />
-            <PricingSection
-              currencyFilter={currencyFilter}
-              setCurrencyFilter={setCurrencyFilter}
-              allCurrencies={allCurrencies}
-              exchangeRates={dashboardData?.exchange_rates}
-              programPricingTable={programPricingTable}
-              isFetching={isFetching}
-              isError={isError}
-              isFetched={isFetched}
             />
           </div>
 
@@ -69,6 +59,16 @@ const Dashboard = () => {
           </aside>
 
         </section>
+        <PricingSection
+          currencyFilter={currencyFilter}
+          setCurrencyFilter={setCurrencyFilter}
+          allCurrencies={allCurrencies}
+          exchangeRates={dashboardData?.exchange_rates}
+          programPricingTable={programPricingTable}
+          isFetching={isFetching}
+          isError={isError}
+          isFetched={isFetched}
+        />
       </WithStatusState>
     </PageLayout>
   );
