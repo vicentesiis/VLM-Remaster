@@ -48,7 +48,6 @@ const Dashboard = () => {
             <SummarySection
               dashboardData={dashboardData}
               payoffProgress={payoffProgress}
-            // potentialSales={potencialSalesData?.total_amount ?? 0}
             />
             <PricingSection
               currencyFilter={currencyFilter}
@@ -63,7 +62,11 @@ const Dashboard = () => {
           </div>
 
           {/* RIGHT COLUMN (4 cols) */}
-          <AsideDashboard dashboardData={dashboardData} />
+          <aside className="lg:col-span-4 order-2">
+            <AsideDashboard dashboardData={dashboardData} />
+
+          </aside>
+
         </section>
       </WithStatusState>
     </PageLayout>

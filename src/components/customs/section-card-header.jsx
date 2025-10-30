@@ -1,6 +1,7 @@
+import React from "react";
 import { CardTitle } from "@/components/ui";
-import { cn } from "@/lib/utils";
 import { useHoverEffects } from "@/hooks/use-hover-effects";
+import { cn } from "@/lib/utils";
 
 export function SectionCardHeader({
     icon: Icon,
@@ -13,11 +14,11 @@ export function SectionCardHeader({
 
     return (
         <div className={cn(
-            "flex items-center gap-3 px-6 py-4 border-b bg-gradient-to-r from-muted/50 to-muted/30 rounded-t-xl backdrop-blur-sm",
+            "flex items-center gap-3 px-6 py-2.5 border-b bg-gradient-to-r from-muted/50 to-muted/30 rounded-t-xl backdrop-blur-sm",
             hover.container
         )}>
             {Icon && (
-                <div className="flex items-center justify-center w-10 h-10 bg-primary/10 border border-primary/20 rounded-lg shadow-sm">
+                <div className="flex items-center justify-center w-8 h-8 bg-primary/10 border border-primary/20 rounded-lg shadow-sm">
                     <Icon className={cn("w-5 h-5 text-primary", hover.icon)} />
                 </div>
             )}

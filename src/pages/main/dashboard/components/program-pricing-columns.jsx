@@ -2,15 +2,15 @@ import React from "react"
 import NullableCell from "@/components/customs/table/cells/nullable-cell"
 import {
   columnHelper,
-  createTextColumn,
   createAmountColumn,
-  createAmountLocalColumn
+  createAmountLocalColumn,
+  createProgramColumn
 } from "@/components/customs/table/columns/shared/commonColumns"
 import { Badge } from "@/components/ui"
 
 export const getProgramPricingColumns = () => {
   return [
-    createTextColumn(columnHelper, "program_name", "Programa"),
+    createProgramColumn(columnHelper, "program_name", "Programa"),
     createAmountColumn(columnHelper, "price", "Precio USD", true),
     createAmountLocalColumn(columnHelper, "price_local", "Precio Local"),
 
