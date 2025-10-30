@@ -1,4 +1,5 @@
 import React from "react"
+import { useHoverEffects } from "@/hooks/use-hover-effects"
 import { cn } from "@/lib/utils"
 
 export function KPICard({
@@ -7,42 +8,40 @@ export function KPICard({
   subtitle,
   icon: Icon,
   className,
+  hoverVariant = "medium",
+  withGradient = true,
 }) {
+  const hover = useHoverEffects(hoverVariant, withGradient, true)
+
   return (
     <div
       className={cn(
-        "flex flex-col justify-between rounded-xl border p-4 md:p-5 bg-background",
-        "transition-all duration-200 hover:shadow-md hover:-translate-y-[1px] hover:border-accent/60",
-        "focus-within:ring-2 focus-within:ring-accent/40",
+        "flex flex-col justify-between rounded-xl border bg-gradient-to-br from-background to-muted/20 p-5 md:p-6",
+        "transition-all duration-200",
+        hover.container,
         className
       )}
     >
-      {/* Header Row */}
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-col justify-between flex-1 min-h-[4.25rem]">
-          {/* Title (allow up to 2 lines without pushing value) */}
-          <p className="text-sm font-medium text-muted-foreground tracking-tight line-clamp-2 leading-snug h-[2.25rem]">
-            {title}
-          </p>
-
-          {/* Value region locked to consistent height */}
-          <div className="h-[2rem] flex items-end">
-            <h3 className="text-2xl font-semibold text-foreground leading-tight truncate">
-              {value}
-            </h3>
-          </div>
-        </div>
-
+      {/* Header (Title + Icon) */}
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-sm font-medium text-muted-foreground tracking-tight line-clamp-2 leading-snug">
+          {title}
+        </p>
         {Icon && (
-          <div className={`px-2 rounded-lg`}>
-            <Icon className="!size-5 text-primary" />
-          </div>
+          <Icon className={cn("w-5 h-5 text-primary", hover.icon)} />
         )}
       </div>
 
-      {/* Subtitle / Footer */}
+      {/* Value (alone on its line) */}
+      <div className="mb-1">
+        <h3 className="text-2xl font-bold text-foreground leading-none tracking-tight">
+          {value}
+        </h3>
+      </div>
+
+      {/* Subtitle */}
       {subtitle && (
-        <p className="mt-3 text-xs text-muted-foreground leading-snug line-clamp-2">
+        <p className="mt-3 text-xs text-muted-foreground leading-relaxed line-clamp-2 font-medium">
           {subtitle}
         </p>
       )}

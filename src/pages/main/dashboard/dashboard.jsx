@@ -4,17 +4,14 @@ import {
   getProgramPricingColumns,
   PricingSection,
   SummarySection,
-  GroupSalesHero,
-  TopSellersCard
+  AsideDashboard
 } from "./components";
 import { useDashboardData } from "./hooks/useDashboardData";
 import PageLayout from "@/components/customs/page-layout/page-layout";
 import { WithStatusState } from "@/components/customs/status-state/with-status-state";
-import { useGetMyPotentialSales } from "@/hooks/queries/UseReports";
 
 const Dashboard = () => {
   const { dashboardData, isFetching, isError, isFetched } = useDashboardData();
-  const { data: potencialSalesData } = useGetMyPotentialSales()
 
   const [currencyFilter, setCurrencyFilter] = useState("all");
 
@@ -51,7 +48,7 @@ const Dashboard = () => {
             <SummarySection
               dashboardData={dashboardData}
               payoffProgress={payoffProgress}
-              // potentialSales={potencialSalesData?.total_amount ?? 0}
+            // potentialSales={potencialSalesData?.total_amount ?? 0}
             />
             <PricingSection
               currencyFilter={currencyFilter}
@@ -66,10 +63,7 @@ const Dashboard = () => {
           </div>
 
           {/* RIGHT COLUMN (4 cols) */}
-          <aside className="lg:col-span-4 space-y-4 order-2">
-            <GroupSalesHero groupMonthlySales={dashboardData?.group_monthly_sales} />
-            <TopSellersCard topSellers={dashboardData?.top_sellers} />
-          </aside>
+          <AsideDashboard dashboardData={dashboardData} />
         </section>
       </WithStatusState>
     </PageLayout>
