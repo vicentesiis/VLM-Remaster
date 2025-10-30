@@ -1,5 +1,4 @@
 import React from "react"
-import { Trophy } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { formatCurrency } from "@/utils"
 
@@ -68,7 +67,6 @@ export function TopSellersList({
                         className={cn(
                             "group flex items-center justify-between rounded-xl border bg-card p-2.5",
                         )}
-                        onClick={() => onItemClick?.(seller, index)}
                     >
                         {/* Left: rank + avatar + identity */}
                         <div className="flex items-center gap-3 min-w-0">
@@ -79,7 +77,6 @@ export function TopSellersList({
                                     styles.badge,
                                     styles.ring
                                 )}
-                                aria-label={`Lugar ${index + 1}`}
                                 title={`Lugar ${index + 1}`}
                             >
                                 {index + 1}
@@ -88,18 +85,18 @@ export function TopSellersList({
 
                             {/* Name + username */}
                             <div className="min-w-0">
-                                <p className="font-medium leading-tight truncate">
+                                <p className="font-medium leading-tight">
                                     {seller.name}
                                 </p>
-                                <p className="text-xs text-muted-foreground leading-tight truncate">
+                                <p className="text-xs text-muted-foreground leading-tight">
                                     {seller.username}
                                 </p>
                             </div>
                         </div>
 
                         {/* Right: amount + trophy for #1 */}
-                        <div className="flex items-center gap-2">
-                            <p className="font-semibold tabular-nums">
+                        <div className="flex gap-2">
+                            <p className="font-semibold tabular-nums text-right">
                                 {formatCurrency(seller.total_sales ?? 0)}
                             </p>
                         </div>

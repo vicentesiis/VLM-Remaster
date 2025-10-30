@@ -3,7 +3,8 @@ import React, { useMemo, useState } from "react";
 import {
   getProgramPricingColumns,
   PricingSection,
-  SummarySection,
+  IndividualSummarySection,
+  GroupSummarySection,
   AsideDashboard
 } from "./components";
 import { useDashboardData } from "./hooks/useDashboardData";
@@ -34,10 +35,7 @@ const Dashboard = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const goals = dashboardData?.personal_goals;
-  const payoffProgress = goals
-    ? Math.max(0, Math.min(100, Math.round(((goals.monthly_sales - goals.to_payoff) / Math.max(1, goals.monthly_sales)) * 100)))
-    : 0;
+
 
   return (
     <PageLayout title="Dashboard">
@@ -45,9 +43,12 @@ const Dashboard = () => {
         <section className="grid gap-4 lg:gap-5 lg:grid-cols-12 p-4 sm:p-0">
           <div className="lg:col-span-8 space-y-4 order-1">
 
-            <SummarySection
+            <IndividualSummarySection
               dashboardData={dashboardData}
-              payoffProgress={payoffProgress}
+            />
+            
+            <GroupSummarySection
+              dashboardData={dashboardData}
             />
             <PricingSection
               currencyFilter={currencyFilter}

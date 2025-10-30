@@ -32,10 +32,7 @@ export function ExchangeChips({ rates }) {
           <span className="flex items-center gap-1.5">
             <DollarSign className="h-4 w-4 text-emerald-600" />
             <span className="font-mono text-foreground">
-              1 USD =  {Number(r.rate_to_usd).toLocaleString()}
-              <span className="uppercase font-semibold ml-2">
-                {r.currency}
-              </span>
+              1 USD =  {Number(r.rate_to_usd).toLocaleString()} {r.currency.toUpperCase()}
             </span>
           </span>
         </Badge>

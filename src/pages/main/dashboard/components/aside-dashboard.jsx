@@ -6,7 +6,7 @@ import { useGetMyPotentialSales } from "@/hooks/queries/UseReports";
 import { formatCurrency } from "@/utils";
 
 export function AsideDashboard({ dashboardData }) {
-  const { group_monthly_sales, top_sellers, personal_goals } = dashboardData || {};
+  const { top_sellers, personal_goals } = dashboardData || {};
   const { data: potencialSalesData } = useGetMyPotentialSales();
 
   return (
@@ -18,23 +18,20 @@ export function AsideDashboard({ dashboardData }) {
         <p className="text-xs text-muted-foreground mt-1">Recompensas del mes</p>
       </DashboardCard>
 
-      {/* Ventas potenciales */}
       <DashboardCard icon={Target} title="Ventas potenciales">
         <div className="text-2xl font-semibold">
-          {formatCurrency(potencialSalesData?.total_amount ?? 0, "USD", { fromCents: false })}
+          {formatCurrency(potencialSalesData?.total_amount ?? 0)}
         </div>
         <p className="text-xs text-muted-foreground mt-1">Oportunidades en curso</p>
       </DashboardCard>
 
-      {/* Ventas del grupo */}
-      <DashboardCard icon={Users} title="Ventas del grupo">
+      <DashboardCard icon={Users} title="Ventas desde el último corte">
         <div className="text-2xl font-semibold">
-          {formatCurrency(group_monthly_sales ?? 0, "USD", { fromCents: false })}
+          {formatCurrency(personal_goals.to_payoff)}
         </div>
-        <p className="text-xs text-muted-foreground mt-1">Total del equipo en el mes</p>
+        <p className="text-xs text-muted-foreground mt-1"> Monto generado desde el último período de cierre</p>
       </DashboardCard>
 
-      {/* Top sellers */}
       {
         top_sellers?.length > 0 && (
           <DashboardCard icon={Trophy} title="Top 3 vendedores del mes">
