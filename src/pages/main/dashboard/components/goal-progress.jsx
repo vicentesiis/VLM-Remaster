@@ -59,13 +59,13 @@ export function GoalProgress({
                 <div className="flex items-center gap-2">
                     {showIcon && (
                         <div className={cn(
-                            "flex items-center justify-center rounded-full transition-all duration-300",
+                            "flex items-center justify-center rounded-full transition-all duration-300 ",
                             interactive && hoverEffects.icon,
                             isCompleted
                                 ? "text-green-600 bg-green-100"
                                 : isNearCompletion
                                     ? "text-amber-600 bg-amber-100"
-                                    : "text-muted-foreground bg-muted",
+                                    : "bg-muted text-primary",
                             iconSizes[size] === "h-3 w-3" ? "p-0.5" : iconSizes[size] === "h-4 w-4" ? "p-1" : "p-1.5"
                         )}>
                             {isCompleted ? (
