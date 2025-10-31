@@ -14,7 +14,7 @@ export const getCorteColumns = () => {
   return [
     createDateColumn(columnHelper, "created_at", "Fecha de Creación"),
     createAmountLocalColumn(columnHelper),
-    createAmountColumn(columnHelper, "amount", "Cantidad USD"),
+    createAmountColumn(columnHelper, "amount", "Cantidad USD", true),
     createReferenceColumn(columnHelper),
     createPaymentMethodColumn(columnHelper),
     createDateColumn(columnHelper, "expiration_date", "Fecha de Expiración"),
