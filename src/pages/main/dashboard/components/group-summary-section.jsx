@@ -13,6 +13,7 @@ export function GroupSummarySection({ dashboardData }) {
 
   const groupMonthlySales = group_monthly_sales ?? 0;
   const toGoal = Math.max(0, groupGoal - groupMonthlySales);
+  const hasShortfall = toGoal > 0; // indica si hay faltante
 
   return (
     <Card>
@@ -37,6 +38,8 @@ export function GroupSummarySection({ dashboardData }) {
             value={formatCurrency(toGoal)}
             subtitle="Restante para alcanzar el objetivo grupal"
             icon={CircleDollarSign}
+            className={hasShortfall ? "border-red-500/50 bg-gradient-to-br from-red-50 to-red-100/20 dark:from-red-950/30 dark:to-red-900/10" : ""}
+            valueClassName={hasShortfall ? "text-red-600 dark:text-red-400" : ""}
           />
 
           <KPICard

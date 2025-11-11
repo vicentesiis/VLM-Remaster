@@ -1,5 +1,6 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import React, { useMemo, useState } from "react";
+import { useMemo } from "react";
+import React from "react";
 import {
   getProgramPricingColumns,
   PricingSection,
@@ -14,23 +15,42 @@ import { WithStatusState } from "@/components/customs/status-state/with-status-s
 const Dashboard = () => {
   const { dashboardData, isFetching, isError, isFetched } = useDashboardData();
 
-  const [currencyFilter, setCurrencyFilter] = useState("all");
+  // Transform pricing data to group by program type (a, b, c)
+  const transformedPricing = useMemo(() => {
+    const pricing = dashboardData?.program_pricing ?? [];
+    const programMap = new Map();
+
+    pricing.forEach((item) => {
+      // Extract program letter (a, b, or c)
+      const match = item.program_name.match(/program_([abc])/);
+      if (!match) return;
+
+      const programLetter = match[1];
+
+      if (!programMap.has(programLetter)) {
+        programMap.set(programLetter, {
+          program: `Programa ${programLetter.toUpperCase()}`,
+          usd: item.price,
+        });
+      }
+
+      // Add currency-specific price
+      const program = programMap.get(programLetter);
+      program[item.currency.toLowerCase()] = item.price_local;
+    });
+
+    return Array.from(programMap.values());
+  }, [dashboardData?.program_pricing]);
 
   const allCurrencies = useMemo(
     () => Array.from(new Set(dashboardData?.program_pricing?.map((p) => p.currency) ?? [])),
     [dashboardData?.program_pricing]
   );
 
-  const filteredPricing = useMemo(() => {
-    const src = dashboardData?.program_pricing ?? [];
-    if (currencyFilter === "all") return src;
-    return src.filter((p) => p.currency === currencyFilter);
-  }, [currencyFilter, dashboardData?.program_pricing]);
-
-  const programPricingColumns = useMemo(() => getProgramPricingColumns(), []);
+  const programPricingColumns = useMemo(() => getProgramPricingColumns(allCurrencies), [allCurrencies]);
 
   const programPricingTable = useReactTable({
-    data: filteredPricing,
+    data: transformedPricing,
     columns: programPricingColumns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -60,9 +80,6 @@ const Dashboard = () => {
 
         </section>
         <PricingSection
-          currencyFilter={currencyFilter}
-          setCurrencyFilter={setCurrencyFilter}
-          allCurrencies={allCurrencies}
           exchangeRates={dashboardData?.exchange_rates}
           programPricingTable={programPricingTable}
           isFetching={isFetching}

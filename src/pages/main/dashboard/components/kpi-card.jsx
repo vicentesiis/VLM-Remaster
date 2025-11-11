@@ -10,6 +10,7 @@ export function KPICard({
   className,
   hoverVariant = "medium",
   withGradient = true,
+  valueClassName,
 }) {
   const hover = useHoverEffects(hoverVariant, withGradient, true)
 
@@ -34,7 +35,7 @@ export function KPICard({
 
       {/* Value (alone on its line) */}
       <div className="mb-1">
-        <h3 className="text-2xl font-bold text-foreground leading-none tracking-tight">
+        <h3 className={cn("text-2xl font-bold text-foreground leading-none tracking-tight", valueClassName)}>
           {value}
         </h3>
       </div>

@@ -25,7 +25,7 @@ export const menuItems = [
     title: "Dashboard",
     to: "/dashboard",
     icon: LayoutDashboard,
-    allowedRoutes: [Roles.AGENT, Roles.LEADER],
+    allowedRoutes: [Roles.AGENT, Roles.LEADER, Roles.ADMIN],
   },
   {
     title: "Tareas",

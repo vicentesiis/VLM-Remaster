@@ -1,32 +1,42 @@
-import React from "react"
 import NullableCell from "@/components/customs/table/cells/nullable-cell"
 import {
   columnHelper,
   createAmountColumn,
-  createAmountLocalColumn,
-  createProgramColumn
 } from "@/components/customs/table/columns/shared/commonColumns"
-import { Badge } from "@/components/ui"
+import { formatCurrency } from "@/utils"
 
-export const getProgramPricingColumns = () => {
-  return [
-    createProgramColumn(columnHelper, "program_name", "Programa"),
-    createAmountColumn(columnHelper, "price", "Precio USD", true),
-    createAmountLocalColumn(columnHelper, "price_local", "Precio Local"),
-
-    columnHelper.accessor("currency", {
-      header: "Moneda",
+export const getProgramPricingColumns = (currencies = []) => {
+  const columns = [
+    columnHelper.accessor("program", {
+      header: "Programa",
       cell: (info) => {
-        const currency = info.getValue()
-        return currency ? (
-          <div className="flex justify-center">
-            <Badge variant="outline">{currency.toUpperCase()}</Badge>
+        const value = info.getValue();
+        return (
+          <div className="font-medium">
+            {value || <NullableCell value={null} />}
           </div>
-        ) : (
-          <NullableCell value={null} className="text-center" />
-        )
+        );
       },
-      meta: { align: "center" },
+      size: 0,
     }),
-  ]
+    createAmountColumn(columnHelper, "usd", "Precio USD", true),
+  ];
+
+  // Add a column for each currency
+  currencies.forEach((currency) => {
+    const currencyKey = currency.toLowerCase();
+    columns.push(
+      columnHelper.accessor(currencyKey, {
+        header: currency.toUpperCase(),
+        cell: ({ row }) => {
+          const amount = row.original[currencyKey];
+          const value = amount != null ? formatCurrency(amount, currency.toUpperCase()) : null;
+          return <NullableCell value={value} className="text-center" />;
+        },
+        meta: { align: "center" },
+      })
+    );
+  });
+
+  return columns;
 }

@@ -4,7 +4,7 @@ export const routes = [
   {
     path: "/dashboard",
     routeKey: "dashboard",
-    allowedRoles: [Roles.AGENT, Roles.LEADER],
+    allowedRoles: [Roles.AGENT, Roles.LEADER, Roles.ADMIN],
   },
   {
     path: "/tareas",
