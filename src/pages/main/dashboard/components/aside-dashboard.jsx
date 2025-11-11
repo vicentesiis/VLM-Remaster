@@ -1,4 +1,4 @@
-import { Users, Trophy, Award, Target } from "lucide-react";
+import { Coins, Gift, TrendingUp, DollarSign, Trophy } from "lucide-react";
 import React from "react";
 import { DashboardCard } from "./dashboard-card";
 import { TopSellersList } from "./top-seller-list";
@@ -7,42 +7,42 @@ import { formatCurrency } from "@/utils";
 
 export function AsideDashboard({ dashboardData }) {
   const { top_sellers, personal_goals } = dashboardData || {};
-  const { data: potencialSalesData } = useGetMyPotentialSales();
+  const { data: potentialSalesData } = useGetMyPotentialSales();
 
   return (
     <div className="space-y-4">
-      <DashboardCard icon={Award} title="Tokens disponibles">
+      <DashboardCard icon={Coins} title="Tokens disponibles">
         <div className="text-2xl font-semibold">
           {personal_goals?.tokens ?? 0}
         </div>
-        <p className="text-xs text-muted-foreground mt-1">Recompensas del mes</p>
+        <p className="text-xs text-muted-foreground mt-1">
+          Recompensas del mes
+        </p>
       </DashboardCard>
 
-      <DashboardCard icon={Target} title="Ventas potenciales">
+      <DashboardCard icon={TrendingUp} title="Ventas potenciales">
         <div className="text-2xl font-semibold">
-          {formatCurrency(potencialSalesData?.total_amount ?? 0)}
+          {formatCurrency(potentialSalesData?.total_amount ?? 0)}
         </div>
-        <p className="text-xs text-muted-foreground mt-1">Oportunidades en curso</p>
+        <p className="text-xs text-muted-foreground mt-1">
+          Oportunidades en curso
+        </p>
       </DashboardCard>
 
-      <DashboardCard icon={Users} title="Ventas desde el último corte">
+      <DashboardCard icon={DollarSign} title="Ventas desde el último corte">
         <div className="text-2xl font-semibold">
-          {formatCurrency(personal_goals.to_payoff)}
+          {formatCurrency(personal_goals?.to_payoff ?? 0)}
         </div>
-        <p className="text-xs text-muted-foreground mt-1"> Monto generado desde el último período de cierre</p>
+        <p className="text-xs text-muted-foreground mt-1">
+          Monto generado desde el último período de cierre
+        </p>
       </DashboardCard>
 
-      {
-        top_sellers?.length > 0 && (
-          <DashboardCard icon={Trophy} title="Top 3 vendedores del mes">
-            <TopSellersList
-              sellers={top_sellers}
-              limit={3}
-            />
-          </DashboardCard>
-        )
-      }
+      {top_sellers?.length > 0 && (
+        <DashboardCard icon={Trophy} title="Top 3 vendedores del mes">
+          <TopSellersList sellers={top_sellers} limit={3} />
+        </DashboardCard>
+      )}
     </div>
-
   );
 }

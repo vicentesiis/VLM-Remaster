@@ -21,12 +21,8 @@ export function GoalProgress({
     const isCompleted = progressPercentage >= 100;
     const isNearCompletion = progressPercentage >= 80;
 
-    // Get hover effects based on completion status and user preference
-    const effectVariant = interactive ? (
-        isCompleted ? "glow" :
-            isNearCompletion ? "medium" :
-                hoverVariant
-    ) : "none";
+    // Get hover effects based on user preference (same for all states)
+    const effectVariant = interactive ? hoverVariant : "none";
 
     const hoverEffects = useHoverEffects(effectVariant, true, true);
 
@@ -84,7 +80,7 @@ export function GoalProgress({
                     </span>
                 </div>
 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-2">
                     <span className={cn(
                         "font-bold transition-all duration-200",
                         interactive && "group-hover:scale-105",
@@ -97,14 +93,6 @@ export function GoalProgress({
                     )}>
                         {progressPercentage}%
                     </span>
-                    {isCompleted && (
-                        <span className={cn(
-                            "text-xs text-green-600 font-medium transition-all duration-200",
-                            interactive && "group-hover:scale-105 group-hover:text-green-700"
-                        )}>
-                            ¡Completado!
-                        </span>
-                    )}
                 </div>
             </div>
 
@@ -133,22 +121,6 @@ export function GoalProgress({
                     <div className="absolute inset-0 rounded-full bg-primary/10 blur-sm -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 )}
             </div>
-
-            {/* Optional status message */}
-            {progressPercentage > 0 && (
-                <div className={cn(
-                    "text-xs text-muted-foreground transition-colors duration-200",
-                    interactive && "group-hover:text-foreground/80",
-                    sizeClasses[size]
-                )}>
-                    {isCompleted
-                        ? "¡Meta alcanzada!"
-                        : isNearCompletion
-                            ? "¡Casi lo logras!"
-                            : `${100 - progressPercentage}% restante para completar`
-                    }
-                </div>
-            )}
         </div>
     );
 }
