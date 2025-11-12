@@ -1,7 +1,6 @@
 import PropTypes from "prop-types"
 import React from "react"
 import { Link } from "react-router-dom"
-import { P } from "@/components/ui/typography"
 import { toTitleCase } from "@/utils"
 
 export const MainCell = ({ path, title, public_id }) => {
@@ -14,7 +13,7 @@ export const MainCell = ({ path, title, public_id }) => {
         className="truncate font-semibold text-primary hover:underline"
         title={`Ver Registro ${title}`}
       >
-        <P className="truncate">{toTitleCase(title)}</P>
+        <p className="truncate leading-7">{toTitleCase(title)}</p>
       </Link>
 
       <div className="flex items-center gap-1 text-sm text-muted-foreground">

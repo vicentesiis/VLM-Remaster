@@ -1,6 +1,5 @@
 import { Separator } from "@radix-ui/react-dropdown-menu"
 import * as React from "react"
-import { H1, PLead } from "@/components/ui/typography"
 import { cn } from "@/lib/utils"
 
 const Card = React.forwardRef(({ className, ...props }, ref) => (
@@ -34,9 +33,9 @@ const CardTitle = React.forwardRef(({ className, ...props }, ref) => (
 CardTitle.displayName = "CardTitle"
 
 const CardSubTitle = React.forwardRef(({ className, ...props }, ref) => (
-  <PLead
+  <p
     ref={ref}
-    className={cn("font-semibold leading-none tracking-tight", className)}
+    className={cn("text-lg font-semibold leading-none tracking-tight text-muted-foreground", className)}
     {...props}
   />
 ))

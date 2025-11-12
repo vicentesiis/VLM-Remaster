@@ -2,14 +2,13 @@ import PropTypes from "prop-types"
 import React from "react"
 import { CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { H3 } from "@/components/ui/typography"
 
 const VacantDetails = ({ vacant }) => {
   const { description, responsibilities, requirements, translated } = vacant
 
   return (
     <div>
-      <H3 className="text-xl">Detalles del Puesto</H3>
+      <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Detalles del Puesto</h3>
       <Separator className="w-80" />
       <CardContent className="space-y-4 px-0 sm:px-4">
         {translated ? (

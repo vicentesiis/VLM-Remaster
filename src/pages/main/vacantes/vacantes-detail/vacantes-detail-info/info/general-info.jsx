@@ -5,7 +5,6 @@ import RegistroDialog from "@/components/customs/dialogs/registro-dialog"
 import { Button } from "@/components/ui"
 import { CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { H3 } from "@/components/ui/typography"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { formatDate, toTitleCase } from "@/utils"
 
@@ -34,7 +33,7 @@ const GeneralInfo = ({ vacant }) => {
 
   return (
     <div>
-      <H3 className="text-xl">Información General</H3>
+      <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Información General</h3>
       <Separator className="w-80" />
       <CardContent className="text-md space-y-2 px-0 text-gray-700 sm:px-4">
         <div className="flex items-center gap-4">

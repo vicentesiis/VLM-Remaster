@@ -4,7 +4,6 @@ import ReassingRecordDialog from "@/components/customs/dialogs/reassing-record-d
 import RegistroDialog from "@/components/customs/dialogs/registro-dialog"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { H3, PLead, ListStyle } from "@/components/ui/typography"
 
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { toTitleCase } from "@/utils/utils"
@@ -95,7 +94,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
 
           return (
             <div key={sectionIndex} className="space-y-2">
-              <H3 className="text-lg">{section.title}</H3>
+              <h3 className="scroll-m-20 text-lg font-semibold tracking-tight">{section.title}</h3>
               <Separator />
               <CardContent className="space-y-4 px-0 sm:px-4">
                 {groupIntoPairs(content).map((row, rowIndex) => (
@@ -108,10 +107,10 @@ export const RegistrosDetailInfo = ({ registro }) => {
                         key={index}
                         className="flex flex-row justify-between py-2 sm:w-1/2 sm:items-center sm:py-0 sm:pr-16"
                       >
-                        <PLead className="text-sm">{detail.label}:</PLead>
-                        <ListStyle className="text-sm font-bold">
+                        <p className="text-sm text-muted-foreground">{detail.label}:</p>
+                        <span className="text-sm font-bold">
                           {detail.value || "-"}
-                        </ListStyle>
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -121,10 +120,10 @@ export const RegistrosDetailInfo = ({ registro }) => {
                 {comments && (
                   <div className="pt-2">
                     <div className="flex flex-col gap-4 sm:flex-row sm:gap-16">
-                      <PLead className="text-sm">{comments.label}:</PLead>
-                      <ListStyle className="text-sm font-bold">
+                      <p className="text-sm text-muted-foreground">{comments.label}:</p>
+                      <span className="text-sm font-bold">
                         {comments.value || "-"}
-                      </ListStyle>
+                      </span>
                     </div>
                   </div>
                 )}

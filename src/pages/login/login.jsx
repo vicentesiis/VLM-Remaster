@@ -18,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { H2, Lead, H3 } from "@/components/ui/typography"
 import { useAuth } from "@/hooks/useAuth"
 import "@/styles/LoginAnimationBackground.css"
 
@@ -71,8 +70,8 @@ export const Login = () => {
       className="backdrop rounded-lg p-4 shadow-lg md:p-10 md:py-6"
     >
       <CardHeader className="flex-col sm:w-[400px]">
-        <H2 className="text-[28px] lg:text-3xl">Bienvenid@</H2>
-        <Lead className="">Por favor ingresa tus datos</Lead>
+        <h2 className="scroll-m-20 border-b pb-2 text-[28px] font-semibold tracking-tight first:mt-0 lg:text-3xl">Bienvenid@</h2>
+        <p className="text-xl text-muted-foreground">Por favor ingresa tus datos</p>
       </CardHeader>
 
       <CardContent>
@@ -157,9 +156,9 @@ export const Login = () => {
       {/* Logo */}
       <div className="absolute z-10 mt-8 flex items-center gap-3 sm:ml-16 sm:mt-16">
         <img src={logo} alt="NorthEntry" width={60} />
-        <H3 className="3xl:text-4xl text-xl font-normal md:text-3xl">
+        <h3 className="3xl:text-4xl scroll-m-20 text-xl font-normal tracking-tight md:text-3xl">
           NorthEntry
-        </H3>
+        </h3>
       </div>
 
       {/* Centered Card */}

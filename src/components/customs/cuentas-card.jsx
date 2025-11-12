@@ -4,7 +4,6 @@ import React from "react"
 import { Button } from "../ui"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { H3, H4, P, ListStyle, LabelStyle } from "@/components/ui/typography"
 
 export const CuentasCard = ({ accounts }) => {
   const HeaderContent = ({ title, description, status, onActionClick }) => (
@@ -19,19 +18,19 @@ export const CuentasCard = ({ accounts }) => {
       </Button>
 
       <div className="flex items-center gap-2 pr-16">
-        <H3>{title}</H3>
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">{title}</h3>
         <Badge variant={status}>
-          <P className="-my-0.5 text-sm">{status}</P>
+          <p className="-my-0.5 text-sm">{status}</p>
         </Badge>
       </div>
-      <H4 className={"font-light"}>{description}</H4>
+      <h4 className="scroll-m-20 font-light tracking-tight">{description}</h4>
     </div>
   )
 
   const DetailItem = ({ label, value }) => (
     <div className="flex items-center justify-between gap-2">
-      <LabelStyle className={"font-extralight"}>{label}</LabelStyle>
-      <ListStyle className="text-sm font-normal">{value}</ListStyle>
+      <label className="flex items-center text-sm font-extralight leading-none">{label}</label>
+      <span className="text-sm font-normal">{value}</span>
     </div>
   )
 
