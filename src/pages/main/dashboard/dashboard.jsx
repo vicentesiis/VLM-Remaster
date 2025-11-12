@@ -11,9 +11,11 @@ import {
 import { useDashboardData } from "./hooks/useDashboardData";
 import PageLayout from "@/components/customs/page-layout/page-layout";
 import { WithStatusState } from "@/components/customs/status-state/with-status-state";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 const Dashboard = () => {
   const { dashboardData, isFetching, isError, isFetched } = useDashboardData();
+  const { isAdmin } = useCurrentUser();
 
   // Transform pricing data to group by program type (a, b, c)
   const transformedPricing = useMemo(() => {
@@ -63,9 +65,11 @@ const Dashboard = () => {
         <section className="grid gap-4 lg:gap-5 lg:grid-cols-12 p-4 sm:p-0 mb-4">
           <div className="lg:col-span-8 space-y-4 order-1">
 
-            <IndividualSummarySection
-              dashboardData={dashboardData}
-            />
+            {!isAdmin && (
+              <IndividualSummarySection
+                dashboardData={dashboardData}
+              />
+            )}
 
             <GroupSummarySection
               dashboardData={dashboardData}
@@ -74,7 +78,7 @@ const Dashboard = () => {
 
           {/* RIGHT COLUMN (4 cols) */}
           <aside className="lg:col-span-4 order-2">
-            <AsideDashboard dashboardData={dashboardData} />
+            <AsideDashboard dashboardData={dashboardData} isAdmin={isAdmin} />
 
           </aside>
 

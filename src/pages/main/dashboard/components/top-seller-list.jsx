@@ -27,15 +27,6 @@ function rankStyles(i) {
     return map[i] ?? map[2];
 }
 
-function initials(name = "") {
-    return name
-        .split(" ")
-        .filter(Boolean)
-        .slice(0, 2)
-        .map((s) => s[0]?.toUpperCase())
-        .join("");
-}
-
 /**
  * TopSellersList
  *
@@ -55,7 +46,13 @@ export function TopSellersList({
 }) {
     const items = sellers.slice(0, limit);
 
-    if (!items.length) return null;
+    if (!items.length) {
+        return (
+            <div className={cn("text-center py-8 text-muted-foreground", className)}>
+                <p>Aún no hay top vendedores</p>
+            </div>
+        );
+    }
 
     return (
         <ul className={cn("space-y-2", className)}>

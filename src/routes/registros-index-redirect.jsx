@@ -1,3 +1,4 @@
+import React from "react"
 import { Navigate } from "react-router-dom"
 import { Roles } from "@/constants/appConstants"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
@@ -7,12 +8,9 @@ const RegistrosIndexRedirect = () => {
   switch (role) {
     case Roles.SUPER_ADMIN:
       return <Navigate to="/registros/registros" replace />
-    case Roles.ADMIN:
-      return <Navigate to="/tareas" replace />
-    case Roles.AGENT:
+    case Roles.ADMIN: case Roles.AGENT: case Roles.LEADER:
       return <Navigate to="/dashboard" replace />
-    case Roles.LEADER:
-      return <Navigate to="/dashboard" replace />
+
 
     default:
       return <Navigate to="/unauthorized" replace />
