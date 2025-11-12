@@ -129,7 +129,7 @@ const GeneralInfo = ({ vacant }) => {
 }
 
 GeneralInfo.propTypes = {
-  vacant: PropTypes.object.isRequired,
+  vacant: PropTypes.object,
 }
 
 export default GeneralInfo

@@ -12,7 +12,7 @@ export const DefaultCell = ({ title, align }) => {
 }
 
 DefaultCell.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   align: PropTypes.oneOf(["left", "center", "right"]),
 }
 

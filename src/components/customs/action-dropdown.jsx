@@ -50,13 +50,13 @@ ActionDropdown.propTypes = {
       title: PropTypes.string,
       options: PropTypes.arrayOf(
         PropTypes.shape({
-          title: PropTypes.string.isRequired,
-          onSelect: PropTypes.func.isRequired,
+          title: PropTypes.string,
+          onSelect: PropTypes.func,
           danger: PropTypes.bool,
         })
-      ).isRequired,
+      ),
     })
-  ).isRequired,
+  ),
 }
 
 export default ActionDropdown

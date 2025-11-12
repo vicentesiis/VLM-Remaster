@@ -67,8 +67,8 @@ const InfoCard = ({
 
 InfoCard.propTypes = {
   icon: PropTypes.elementType,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  value: PropTypes.string,
   iconColor: PropTypes.string,
   valueColor: PropTypes.string,
   variant: PropTypes.oneOf(["default", "success", "warning", "destructive", "info"]),

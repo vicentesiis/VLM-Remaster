@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { cn } from "@/lib/utils"
 import { formatCurrency } from "@/utils"
@@ -103,3 +104,9 @@ export function TopSellersList({
         </ul>
     );
 }
+
+TopSellersList.propTypes = {
+    sellers: PropTypes.array,
+    limit: PropTypes.number,
+    className: PropTypes.string,
+};

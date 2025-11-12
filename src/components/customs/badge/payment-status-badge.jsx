@@ -14,7 +14,7 @@ const PaymentStatusBadge = ({ status }) => {
 }
 
 PaymentStatusBadge.propTypes = {
-  status: PropTypes.string.isRequired,
+  status: PropTypes.string,
 }
 
 export default PaymentStatusBadge

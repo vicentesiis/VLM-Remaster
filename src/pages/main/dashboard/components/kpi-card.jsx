@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { useHoverEffects } from "@/hooks/use-hover-effects"
 import { cn } from "@/lib/utils"
@@ -49,3 +50,14 @@ export function KPICard({
     </div>
   )
 }
+
+KPICard.propTypes = {
+  title: PropTypes.string,
+  value: PropTypes.any,
+  subtitle: PropTypes.string,
+  icon: PropTypes.any,
+  className: PropTypes.string,
+  hoverVariant: PropTypes.string,
+  withGradient: PropTypes.bool,
+  valueClassName: PropTypes.string,
+};

@@ -31,7 +31,7 @@ export const UserTypeBadgeCell = ({ title }) => {
 }
 
 UserTypeBadgeCell.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 }
 
 export default UserTypeBadgeCell

@@ -1,4 +1,5 @@
 import { CheckCircle, Target } from "lucide-react";
+import PropTypes from "prop-types";
 import React from "react";
 import { Progress } from "@/components/ui/progress";
 import { useHoverEffects } from "@/hooks/use-hover-effects";
@@ -124,3 +125,14 @@ export function GoalProgress({
         </div>
     );
 }
+
+GoalProgress.propTypes = {
+    label: PropTypes.string,
+    currentValue: PropTypes.number,
+    goalValue: PropTypes.number,
+    className: PropTypes.string,
+    showIcon: PropTypes.bool,
+    size: PropTypes.string,
+    hoverVariant: PropTypes.string,
+    interactive: PropTypes.bool,
+};

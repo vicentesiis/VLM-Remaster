@@ -34,8 +34,8 @@ const InputCurrency = React.forwardRef(
 InputCurrency.displayName = "InputCurrency"
 
 InputCurrency.propTypes = {
-  control: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
+  control: PropTypes.object,
+  name: PropTypes.string,
   maxLength: PropTypes.number,
   currencySymbol: PropTypes.string,
 }

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { SectionCardHeader } from "@/components/customs";
 import { Card, CardContent } from "@/components/ui";
@@ -29,3 +30,12 @@ export function DashboardCard({
     </Card>
   );
 }
+
+DashboardCard.propTypes = {
+  icon: PropTypes.any,
+  title: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  cardProps: PropTypes.object,
+  contentProps: PropTypes.object,
+};

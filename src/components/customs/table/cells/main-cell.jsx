@@ -25,9 +25,9 @@ export const MainCell = ({ path, title, public_id }) => {
 }
 
 MainCell.propTypes = {
-  path: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  public_id: PropTypes.string.isRequired,
+  path: PropTypes.string,
+  title: PropTypes.string,
+  public_id: PropTypes.string,
 }
 
 export default MainCell

@@ -31,7 +31,7 @@ export const IconAvatar = ({
 }
 
 IconAvatar.propTypes = {
-  icon: PropTypes.elementType.isRequired,
+  icon: PropTypes.elementType,
   bgColor: PropTypes.string,
   iconColor: PropTypes.string,
   size: PropTypes.oneOf(["sm", "md", "lg"]),

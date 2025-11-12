@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import { H3 } from "@/components/ui"
 
@@ -13,6 +14,10 @@ export const FullScreenLoader = ({ message = "Preparando contenido..." }) => {
       </H3>
     </div>
   )
+}
+
+FullScreenLoader.propTypes = {
+  message: PropTypes.string,
 }
 
 export default FullScreenLoader

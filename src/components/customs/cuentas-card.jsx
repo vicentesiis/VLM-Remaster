@@ -63,7 +63,7 @@ export const CuentasCard = ({ accounts }) => {
 }
 
 CuentasCard.propTypes = {
-  accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  accounts: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default CuentasCard

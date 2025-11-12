@@ -56,7 +56,7 @@ const VacantDetails = ({ vacant }) => {
 }
 
 VacantDetails.propTypes = {
-  vacant: PropTypes.object.isRequired,
+  vacant: PropTypes.object,
 }
 
 export default VacantDetails

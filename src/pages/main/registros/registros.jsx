@@ -68,6 +68,6 @@ export const Registros = ({ title, columnType }) => {
 export default Registros
 
 Registros.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   columnType: PropTypes.string,
 }

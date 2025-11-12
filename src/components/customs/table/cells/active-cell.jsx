@@ -16,7 +16,7 @@ export const ActiveCell = ({ isActive }) => {
 }
 
 ActiveCell.propTypes = {
-  isActive: PropTypes.bool.isRequired,
+  isActive: PropTypes.bool,
 }
 
 export default ActiveCell

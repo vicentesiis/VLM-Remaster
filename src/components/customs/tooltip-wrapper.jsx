@@ -12,8 +12,8 @@ export const TooltipWrapper = ({ children, content, side = "top", delay = 100 })
 )
 
 TooltipWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
-  content: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  content: PropTypes.string,
   side: PropTypes.oneOf(["top", "bottom", "left", "right"]),
   delay: PropTypes.number,
 }

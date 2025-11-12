@@ -131,7 +131,7 @@ H1.propTypes =
   Muted.propTypes =
     {
       className: PropTypes.string,
-      children: PropTypes.node.isRequired,
+      children: PropTypes.node,
     }
 
 export {

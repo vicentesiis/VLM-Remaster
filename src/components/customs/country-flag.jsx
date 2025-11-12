@@ -1,4 +1,5 @@
 import * as flags from "country-flag-icons/react/3x2"
+import PropTypes from "prop-types"
 import { COUNTRY_FLAG_MAP } from "@/constants"
 
 /**
@@ -16,6 +17,11 @@ export const CountryFlag = ({ nationality, className = "h-8 w-10" }) => {
 
   const FlagComponent = flags[countryCode]
   return FlagComponent ? <FlagComponent className={className} /> : null
+}
+
+CountryFlag.propTypes = {
+  nationality: PropTypes.string,
+  className: PropTypes.string,
 }
 
 export default CountryFlag

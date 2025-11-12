@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react"
 import RegistrosIndexRedirect from "./registros-index-redirect"
 import { componentPropsMap } from "./route-props"
@@ -53,4 +54,8 @@ export const GenericRouteWrapper = ({ routeKey, ...routeParams }) => {
   if (!Component) return <>Unknown Component</>
 
   return <Component {...componentProps} {...routeParams} />
+}
+
+GenericRouteWrapper.propTypes = {
+  routeKey: PropTypes.string,
 }

@@ -14,7 +14,7 @@ const StatusBadge = ({ status }) => {
 }
 
 StatusBadge.propTypes = {
-  status: PropTypes.string.isRequired,
+  status: PropTypes.string,
 }
 
 export default StatusBadge

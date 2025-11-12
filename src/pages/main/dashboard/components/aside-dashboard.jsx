@@ -1,4 +1,5 @@
 import { Coins, TrendingUp, DollarSign, Trophy } from "lucide-react";
+import PropTypes from "prop-types";
 import React from "react";
 import { DashboardCard } from "./dashboard-card";
 import { TopSellersList } from "./top-seller-list";
@@ -48,3 +49,8 @@ export function AsideDashboard({ dashboardData, isAdmin }) {
     </div>
   );
 }
+
+AsideDashboard.propTypes = {
+  dashboardData: PropTypes.any,
+  isAdmin: PropTypes.bool,
+};
