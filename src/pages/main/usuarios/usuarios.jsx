@@ -92,17 +92,18 @@ const Usuarios = () => {
           )}
 
           <div className="flex flex-col gap-4 sm:flex-row">
-            {!isAgent && shouldFetch && (
+            {!isAgent && (
               <GroupResponsible
                 admin={admin}
                 leader={leader}
                 group={selectedGroupId}
+                isLoading={isFetching && !isFetched}
               />
             )}
 
             <DataTable
               table={table}
-              isLoading={shouldFetch ? isFetching : false}
+              isLoading={shouldFetch ? isFetching && !isFetched : false}
               isError={shouldFetch ? isError : false}
               hasFetched={shouldFetch ? isFetched : false}
               showPagination={false}
