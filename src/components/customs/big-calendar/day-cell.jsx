@@ -23,7 +23,7 @@ export const DayCell = ({
       onClick={!isOutsideMonth && hasOrders ? () => onClick?.({ date, data }) : undefined}
       className={cn(
         "group relative min-h-[80px] p-2 transition-all duration-200",
-        isOutsideMonth && "cursor-not-allowed bg-muted/60",
+        isOutsideMonth && "cursor-not-allowed bg-muted/60 opacity-40",
         hasNoSales && "cursor-default bg-background opacity-60",
         hasOrders && !isOutsideMonth && "cursor-pointer hover:bg-accent/50 hover:shadow-inner",
         isSelected && hasOrders && "bg-primary/10 ring-2 ring-primary ring-inset"

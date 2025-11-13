@@ -10,7 +10,6 @@ import { Card, CardContent } from "@/components/ui"
 import { Button } from "@/components/ui/button"
 import { formatCurrency } from "@/utils"
 
-// 👉 Header separado para mostrar totales y filtro
 const HeaderSection = ({
   values,
   onChange,
@@ -32,7 +31,7 @@ const HeaderSection = ({
 
   return (
     <SectionHeader
-      extra={searchTriggered ? totalSales : ""}
+      title={searchTriggered ? totalSales : ""}
       subtitle={searchTriggered ? totalOrdersString : ""}
       emptyMessage={!searchTriggered ? "Aplica filtros para generar el reporte" : ""}
       highlightPositive={searchTriggered && totalAmount > 0}
