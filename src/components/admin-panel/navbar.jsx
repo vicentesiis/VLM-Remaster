@@ -10,7 +10,7 @@ export function NewNavbar({ title, subtitle }) {
         <div className="flex items-center space-x-3 md:space-x-4 lg:space-x-0">
           <SheetMenu />
           <div className="flex items-center gap-1.5 md:gap-2">
-            <h1 className="text-lg font-semibold tracking-tight text-foreground transition-colors md:text-xl">
+            <h1 className="text-lg font-semibold tracking-tight text-foreground transition-colors md:text-2xl">
               {title}
             </h1>
             {subtitle && (
@@ -18,7 +18,7 @@ export function NewNavbar({ title, subtitle }) {
                 <span className="hidden text-muted-foreground/40 md:inline">
                   /
                 </span>
-                <p className="text-base font-medium text-primary md:text-lg">
+                <p className="text-base font-medium text-primary md:text-xl">
                   {subtitle}
                 </p>
               </>

@@ -17,6 +17,8 @@ import {
   YAxis,
 } from "recharts"
 import { AxisDomain } from "recharts/types/util/types"
+
+import { EmptyState } from "./empty-state"
 import { useOnWindowResize } from "@/hooks"
 import { cx } from "@/lib/utils"
 import {
@@ -553,6 +555,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   legendPosition?: "left" | "center" | "right"
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   customTooltip?: React.ComponentType<TooltipProps>
+  emptyStateMessage?: string
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
@@ -587,6 +590,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       legendPosition = "right",
       tooltipCallback,
       customTooltip,
+      emptyStateMessage = "Sin registros en el mes",
       ...other
     } = props
     const CustomTooltip = customTooltip
@@ -604,6 +608,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
 
     const prevActiveRef = React.useRef<boolean | undefined>(undefined)
     const prevLabelRef = React.useRef<string | undefined>(undefined)
+
+    const hasData = React.useMemo(() => {
+      if (!data || data.length === 0) return false
+      return categories.some((category) =>
+        data.some((item) => item[category] != null && item[category] !== 0)
+      )
+    }, [data, categories])
 
     function valueToPercent(value: number) {
       return `${(value * 100).toFixed(0)}%`
@@ -648,11 +659,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     return (
       <div
         ref={forwardedRef}
-        className={cx("h-80 w-full", className)}
+        className={cx("h-80 w-full relative", className)}
         tremor-id="tremor-raw"
         {...other}
       >
-        <ResponsiveContainer>
+        <ResponsiveContainer className={!hasData ? "blur-sm pointer-events-none" : ""}>
           <RechartsBarChart
             data={data}
             onClick={
@@ -874,6 +885,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             ))}
           </RechartsBarChart>
         </ResponsiveContainer>
+        {!hasData && <EmptyState message={emptyStateMessage} />}
       </div>
     )
   }

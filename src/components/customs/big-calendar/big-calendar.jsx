@@ -3,6 +3,7 @@ import React, { useMemo } from "react"
 import BigCalendarHeader from "./big-calendar-header"
 import DayCell from "./day-cell"
 import { Card } from "@/components/ui/card"
+import { EmptyState } from "@/components/ui/empty-state"
 import {
   parseMonthYear,
   getCalendarWeeks,
@@ -73,13 +74,7 @@ export const BigCalendar = ({
       <div className={`divide-y divide-border ${!hasData ? 'blur-sm pointer-events-none' : ''}`}>
         {calendarWeeks}
       </div>
-      {!hasData && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background/30">
-          <div className="bg-background border rounded-lg px-6 py-4 shadow-lg">
-            <p className="text-muted-foreground font-medium">No hay ventas en el mes seleccionado</p>
-          </div>
-        </div>
-      )}
+      {!hasData && <EmptyState message="No hay ventas en el mes seleccionado" />}
     </Card>
   )
 }
