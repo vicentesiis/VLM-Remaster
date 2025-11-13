@@ -29,6 +29,15 @@ export const BigCalendar = ({
     }, {})
   }, [data])
 
+  const hasData = useMemo(() => {
+    if (!Array.isArray(data)) return false
+    if (data.length === 0) return false
+    
+    return data.some(entry => 
+      (entry.total_day_sales > 0) || (entry.total_day_orders > 0)
+    )
+  }, [data])
+
   const calendarWeeks = useMemo(() => {
     const { weeks } = getCalendarWeeks(zeroBasedMonth, numericYear)
 
@@ -59,11 +68,18 @@ export const BigCalendar = ({
   }, [zeroBasedMonth, numericYear, dataMap, selectedDate])
 
   return (
-    <Card className="overflow-hidden rounded-lg border shadow-sm">
+    <Card className="overflow-hidden rounded-lg border shadow-sm relative">
       <BigCalendarHeader />
-      <div className="divide-y divide-border">
+      <div className={`divide-y divide-border ${!hasData ? 'blur-sm pointer-events-none' : ''}`}>
         {calendarWeeks}
       </div>
+      {!hasData && (
+        <div className="absolute inset-0 flex items-center justify-center bg-background/30">
+          <div className="bg-background border rounded-lg px-6 py-4 shadow-lg">
+            <p className="text-muted-foreground font-medium">No hay ventas en el mes seleccionado</p>
+          </div>
+        </div>
+      )}
     </Card>
   )
 }

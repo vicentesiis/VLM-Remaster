@@ -1,4 +1,4 @@
-import { ShoppingBag, DollarSign } from "lucide-react"
+import { ShoppingBag } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
 import { cn } from "@/lib"
@@ -16,15 +16,17 @@ export const DayCell = ({
   const numberOfOrders = data?.total_day_orders ?? 0
 
   const hasOrders = numberOfOrders > 0
+  const hasNoSales = !isOutsideMonth && !hasOrders
 
   return (
     <div
-      onClick={!isOutsideMonth ? () => onClick?.({ date, data }) : undefined}
+      onClick={!isOutsideMonth && hasOrders ? () => onClick?.({ date, data }) : undefined}
       className={cn(
         "group relative min-h-[80px] p-2 transition-all duration-200",
-        isOutsideMonth && "cursor-not-allowed bg-muted/20 opacity-40",
-        !isOutsideMonth && "cursor-pointer hover:bg-accent/50 hover:shadow-inner",
-        isSelected && !isOutsideMonth && "bg-primary/10 ring-2 ring-primary ring-inset"
+        isOutsideMonth && "cursor-not-allowed bg-muted/60",
+        hasNoSales && "cursor-default bg-background opacity-60",
+        hasOrders && !isOutsideMonth && "cursor-pointer hover:bg-accent/50 hover:shadow-inner",
+        isSelected && hasOrders && "bg-primary/10 ring-2 ring-primary ring-inset"
       )}
     >
       {/* Day Number */}
@@ -32,8 +34,8 @@ export const DayCell = ({
         <span
           className={cn(
             "flex h-7 w-7 items-center justify-center rounded-full text-sm font-medium transition-colors",
-            hasOrders && !isOutsideMonth && "bg-primary text-primary-foreground shadow-sm",
-            !hasOrders && !isOutsideMonth && "text-foreground group-hover:bg-accent",
+            hasOrders && "bg-primary text-primary-foreground shadow-sm",
+            hasNoSales && "text-muted-foreground/80",
             isOutsideMonth && "text-muted-foreground"
           )}
         >
@@ -57,7 +59,7 @@ export const DayCell = ({
       )}
 
       {/* Hover Effect Indicator */}
-      {!isOutsideMonth && (
+      {hasOrders && !isOutsideMonth && (
         <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-200 group-hover:w-full" />
       )}
     </div>
