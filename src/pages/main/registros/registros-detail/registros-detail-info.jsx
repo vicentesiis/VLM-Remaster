@@ -43,9 +43,9 @@ export const RegistrosDetailInfo = ({ registro }) => {
       content: [
         { label: "Nombre", value: toTitleCase(name) },
         { label: "Fecha de Nacimiento", value: formatDate(date_of_birth) },
+        { label: "Nacionalidad", value: toTitleCase(nationality) },
         { label: "Teléfono", value: phone },
         { label: "e-mail", value: email?.toLowerCase() },
-        { label: "Nacionalidad", value: toTitleCase(nationality) },
         { label: "Estado o Departamento de Residencia", value: toTitleCase(state) },
         { label: "Documento de Identidad", value: curp?.toUpperCase() ?? passport?.toUpperCase() ?? "-" },
       ],
@@ -58,20 +58,14 @@ export const RegistrosDetailInfo = ({ registro }) => {
         { label: "Programa", value: toTitleCase(program) },
         { label: "Tipo de Registro", value: toTitleCase(record_type) },
         { label: "Estatus", value: toTitleCase(status) },
+        { label: "ID de la Vacante", value: job },
         { label: "Fecha de Asignación", value: formatDate(assignment_date) },
         { label: "Fecha de Salida", value: formatDate(exit_date) },
         { label: "Fecha de Finalización", value: formatDate(end_date) },
-        { label: "ID de la Vacante", value: job },
         { label: "Comentarios", value: comments },
       ],
     },
   ]
-
-  const groupIntoPairs = (content) =>
-    content.reduce((acc, _, i) => {
-      if (i % 2 === 0) acc.push(content.slice(i, i + 2))
-      return acc
-    }, [])
 
   return (
     <Card className="relative">
@@ -83,54 +77,27 @@ export const RegistrosDetailInfo = ({ registro }) => {
           )}
         </div>
       )}
-      <CardContent className="flex flex-col gap-4 px-4 py-6 sm:px-8">
-        {sections.map((section, sectionIndex) => {
-          const content = [...section.content]
-          const commentsIndex = content.findIndex(
-            (item) => item.label.toLowerCase() === "comentarios"
-          )
-          const comments =
-            commentsIndex !== -1 ? content.splice(commentsIndex, 1)[0] : null
-
-          return (
-            <div key={sectionIndex} className="space-y-2">
-              <h3 className="scroll-m-20 text-lg font-semibold tracking-tight">{section.title}</h3>
-              <Separator />
-              <CardContent className="space-y-4 px-0 sm:px-4">
-                {groupIntoPairs(content).map((row, rowIndex) => (
-                  <div
-                    key={rowIndex}
-                    className="flex flex-col sm:flex-row sm:items-center"
-                  >
-                    {row.map((detail, index) => (
-                      <div
-                        key={index}
-                        className="flex flex-row justify-between py-2 sm:w-1/2 sm:items-center sm:py-0 sm:pr-16"
-                      >
-                        <p className="text-sm text-muted-foreground">{detail.label}:</p>
-                        <span className="text-sm font-bold">
-                          {detail.value || "-"}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-
-                {/* Comentarios */}
-                {comments && (
-                  <div className="pt-2">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:gap-16">
-                      <p className="text-sm text-muted-foreground">{comments.label}:</p>
-                      <span className="text-sm font-bold">
-                        {comments.value || "-"}
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
+      <CardContent className="flex flex-col gap-6 px-4 py-6 sm:px-8">
+        {sections.map((section, sectionIndex) => (
+          <div key={sectionIndex} className="space-y-3">
+            <h3 className="text-lg font-semibold tracking-tight">
+              {section.title}
+            </h3>
+            <Separator />
+            <div className="grid grid-cols-1 gap-x-8 gap-y-4 pt-2 md:grid-cols-2 xl:grid-cols-3">
+              {section.content.map((detail, index) => (
+                <div key={index} className="flex flex-col gap-1">
+                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    {detail.label}
+                  </p>
+                  <span className="text-sm font-semibold leading-relaxed">
+                    {detail.value || "-"}
+                  </span>
+                </div>
+              ))}
             </div>
-          )
-        })}
+          </div>
+        ))}
       </CardContent>
     </Card>
   )
