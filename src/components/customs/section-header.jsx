@@ -9,13 +9,13 @@ const SectionHeader = ({ title, extra, subtitle, actions, className, emptyMessag
         <div className="flex-1 space-y-1.5">
           <div className="flex flex-wrap items-baseline gap-2.5">
             {title && (
-              <h1 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+              <h1 className="text-2xl font-bold tracking-tight text-foreground md:text-2xl">
                 {title}
               </h1>
             )}
             {extra && (
               <span className={cn(
-                "text-lg font-medium md:text-2xl",
+                "text-lg font-medium md:text-xl",
                 highlightPositive ? "text-green-600 dark:text-green-500 font-semibold" : "text-muted-foreground/80"
               )}>
                 {extra}
