@@ -112,7 +112,7 @@ export const ReassingRecordDialog = ({ record }) => {
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="edit" size="sm">
+        <Button variant="reassing" size="sm">
           <Repeat />
           Reasignar registro
         </Button>

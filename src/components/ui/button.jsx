@@ -23,6 +23,8 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline dark:text-primary/90",
         add: "bg-green-600 text-white shadow-xs hover:bg-green-700 focus-visible:ring-green-500/30 dark:bg-green-700 dark:hover:bg-green-600",
         edit: "bg-orange-600 text-white shadow-xs hover:bg-orange-700 focus-visible:ring-2 focus-visible:ring-orange-500/30 focus-visible:ring-offset-1 dark:bg-orange-700 dark:hover:bg-orange-600",
+        reassing:
+           "bg-amber-600 text-white shadow-xs hover:bg-amber-700 focus-visible:ring-2 focus-visible:ring-amber-500/30 focus-visible:ring-offset-1 dark:bg-amber-700 dark:hover:bg-amber-600",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
