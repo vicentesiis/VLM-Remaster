@@ -57,6 +57,7 @@ export const ReportesReporteVentasGlobales = () => {
         <CardContent>
           <SectionHeader
             title={data ? formatCurrency(data?.total_sales) : ""}
+            emptyMessage={!isFetched ? "Aplica filtros para generar el reporte" : ""}
             actions={
               <FilterToolbar
                 filterConfig={[

@@ -34,6 +34,7 @@ const HeaderSection = ({
     <SectionHeader
       extra={searchTriggered ? totalSales : ""}
       subtitle={searchTriggered ? totalOrdersString : ""}
+      emptyMessage={!searchTriggered ? "Aplica filtros para generar el reporte" : ""}
       actions={
         showFilters && (
           <div className="flex items-center gap-2">

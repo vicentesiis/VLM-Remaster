@@ -61,6 +61,7 @@ export const ReportesReporteVentasPorAgente = () => {
             monthSelected={monthNYearSelected}
             reportData={reportData}
             isFetching={isFetching}
+            isIdle={isIdle}
           />
 
           <WithStatusState

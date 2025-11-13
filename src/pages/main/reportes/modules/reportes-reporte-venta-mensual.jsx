@@ -32,11 +32,13 @@ const HeaderSection = ({
   totalOrdersString,
   isFetching,
   channelOptions,
+  isIdle,
 }) => (
   <SectionHeader
     title={monthSelected}
     extra={totalSalesString}
     subtitle={totalOrdersString}
+    emptyMessage={isIdle ? "Aplica filtros para generar el reporte" : ""}
     className="pb-6"
     actions={
       <FilterToolbar
@@ -193,6 +195,7 @@ export const ReportesReporteVentalMensual = () => {
             totalOrdersString={totalOrdersString}
             isFetching={isFetching}
             channelOptions={channelOptions}
+            isIdle={isIdle}
           />
           <NavigateSection
             filters={filters}

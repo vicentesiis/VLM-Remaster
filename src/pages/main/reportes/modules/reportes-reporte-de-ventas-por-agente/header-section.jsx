@@ -21,6 +21,7 @@ export const HeaderSection = ({
   monthSelected,
   reportData,
   isFetching,
+  isIdle,
 }) => {
   const totalSales = formatIfExists(
     reportData?.total_sales,
@@ -36,6 +37,7 @@ export const HeaderSection = ({
       title={monthSelected}
       extra={totalSales}
       subtitle={totalOrders}
+      emptyMessage={isIdle ? "Aplica filtros para generar el reporte" : ""}
       actions={
         <FilterToolbar
           filterConfig={[
@@ -60,6 +62,7 @@ HeaderSection.propTypes = {
   handleSearch: PropTypes.any,
   isAgent: PropTypes.any,
   isFetching: PropTypes.any,
+  isIdle: PropTypes.any,
   listOfGroups: PropTypes.any,
   listOfUsers: PropTypes.any,
   monthSelected: PropTypes.any,
