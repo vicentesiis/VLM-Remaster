@@ -14,6 +14,8 @@ import React, { useState } from "react"
 import { toast } from "sonner"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import CountryFlag from "@/components/customs/country-flag"
+import ReassingRecordDialog from "@/components/customs/dialogs/reassing-record-dialog"
+import RegistroDialog from "@/components/customs/dialogs/registro-dialog"
 import InfoCard from "@/components/customs/info-card"
 import RecordDocumentDropdown from "@/components/customs/record-document-dropdown"
 import { SelectUpdateRegistroStatus } from "@/components/customs/select-update-registro-status"
@@ -49,8 +51,10 @@ export const RegistrosDetailHeader = ({ registro }) => {
     nationality,
   } = registro
 
-  const { id: currentUserId, isAgent, isAdmin } = useCurrentUser()
+  const { id: currentUserId, isAgent, isAdmin, isSuperAdmin } = useCurrentUser()
   const canUpdateStatus = (currentUserId === user?.id && isAgent) || isAdmin
+  const canUpdateRecord = (currentUserId === user?.id && isAgent) || isAdmin
+  const canReassingRecord = isAdmin || isSuperAdmin
 
   const [isWhatsAppLoading, setIsWhatsAppLoading] = useState(false)
   const [isTrackingLoading, setIsTrackingLoading] = useState(false)
@@ -161,18 +165,24 @@ export const RegistrosDetailHeader = ({ registro }) => {
             </div>
 
             {/* Right: Admin Controls */}
-            {canUpdateStatus && (
+            {(canUpdateStatus || canUpdateRecord || canReassingRecord) && (
               <div className="flex items-center gap-2">
-                <RecordDocumentDropdown
-                  registro={registro}
-                  isAgent={isAgent}
-                  canUpdateStatus={canUpdateStatus}
-                />
-                <SelectUpdateRegistroStatus
-                  currentOption={status}
-                  onConfirm={handleStatusUpdate}
-                  disabled={isUpdatingStatus}
-                />
+                {canReassingRecord && <ReassingRecordDialog record={registro} />}
+                {canUpdateRecord && <RegistroDialog mode="edit" recordToEdit={registro} />}
+                {canUpdateStatus && (
+                  <>
+                    <RecordDocumentDropdown
+                      registro={registro}
+                      isAgent={isAgent}
+                      canUpdateStatus={canUpdateStatus}
+                    />
+                    <SelectUpdateRegistroStatus
+                      currentOption={status}
+                      onConfirm={handleStatusUpdate}
+                      disabled={isUpdatingStatus}
+                    />
+                  </>
+                )}
               </div>
             )}
           </div>
