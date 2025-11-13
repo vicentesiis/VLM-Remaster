@@ -26,12 +26,13 @@ const HeaderSection = ({
   isDownloading,
   orders,
 }) => {
-  const totalSales = `Total de ventas: ${formatCurrency(totalAmount, 'USD')}`
+  const totalSales = `Total de ventas:`
   const totalOrdersString = `${totalOrders} Órdenes`
 
   return (
     <SectionHeader
       title={searchTriggered ? totalSales : ""}
+      extra={searchTriggered ? formatCurrency(totalAmount, 'USD'): ""}
       subtitle={searchTriggered ? totalOrdersString : ""}
       emptyMessage={!searchTriggered ? "Aplica filtros para generar el reporte" : ""}
       highlightPositive={searchTriggered && totalAmount > 0}

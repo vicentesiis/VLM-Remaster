@@ -31,6 +31,7 @@ export const SalesReceivableCard = ({
               : "Total a cobrar:"
           }
           extra={formatCurrency(total_to_be_collected, 'USD')}
+          highlightPositive={total_to_be_collected > 0 ? true : false}
         />
         <DataTable table={table} hasFetched showPagination={false} />
       </CardContent>
