@@ -9,11 +9,13 @@ import {
   Card,
   CardContent,
   CardTitle,
-  DialogFooter,
-  DialogFooterCustom,
-  DialogHeaderCustom,
+  CustomDialog,
+  CustomDialogTrigger,
+  CustomDialogContent,
+  CustomDialogHeader,
+  CustomDialogBody,
+  CustomDialogFooter,
 } from "@/components/ui"
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateGroup, useCreateUser } from "@/hooks/queries"
 
 const GroupDialog = ({ trigger, open, onOpenChange }) => {
@@ -73,61 +75,64 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
   }, [dialogOpen])
 
   return (
-    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+    <CustomDialog open={dialogOpen} onOpenChange={setDialogOpen}>
       {typeof trigger !== "undefined" ? (
-        trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>
+        trigger && <CustomDialogTrigger asChild>{trigger}</CustomDialogTrigger>
       ) : (
-        <DialogTrigger asChild>
+        <CustomDialogTrigger asChild>
           <Button variant="add">
             {React.createElement(Users2)}
             Nuevo Grupo
           </Button>
-        </DialogTrigger>
+        </CustomDialogTrigger>
       )}
-      <DialogContent className="max-h-full overflow-y-auto bg-gray-100 dark:bg-gray-950 sm:max-w-3xl">
-        <DialogHeaderCustom
+      <CustomDialogContent className="bg-gray-100 dark:bg-gray-950 sm:max-w-3xl">
+        <CustomDialogHeader
           icon={Users2}
           title="Nuevo Grupo"
           iconBgClass="bg-green-600"
         />
 
-        <Card
-          className={
-            step === "create-group"
-              ? "pointer-events-none select-none opacity-50"
-              : ""
-          }
-        >
-          <CardContent>
-            <CardTitle className="my-3 text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
-              Datos del Administrador
-            </CardTitle>
-            <AdminForm
-              ref={usuarioFormRef}
-              onSubmit={handleSubmit}
-              itComesFromGroupForm={true}
-            />
-          </CardContent>
-        </Card>
+        <CustomDialogBody>
+          <Card
+            className={
+              step === "create-group"
+                ? "pointer-events-none select-none opacity-50"
+                : ""
+            }
+          >
+            <CardContent>
+              <CardTitle className="my-3 text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
+                Datos del Administrador
+              </CardTitle>
+              <AdminForm
+                ref={usuarioFormRef}
+                onSubmit={handleSubmit}
+                itComesFromGroupForm={true}
+              />
+            </CardContent>
+          </Card>
 
-        <Card
-          className={
-            step === "create-admin"
-              ? "pointer-events-none select-none opacity-50"
-              : ""
-          }
-        >
-          <CardContent>
-            <CardTitle className="my-3 flex items-center gap-2 text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
-              Datos del Grupo
-              <p className="text-sm text-muted-foreground">
-                {createdAdmin ? ` (Admin a asignar: ${createdAdmin.name})` : ""}
-              </p>
-            </CardTitle>
-            <GroupForm ref={groupFormRef} onSubmit={handleSubmit} />
-          </CardContent>
-        </Card>
-        <DialogFooterCustom
+          <Card
+            className={
+              step === "create-admin"
+                ? "pointer-events-none select-none opacity-50"
+                : ""
+            }
+          >
+            <CardContent>
+              <CardTitle className="my-3 flex items-center gap-2 text-lg font-semibold text-primary sm:-mt-3 sm:mb-2">
+                Datos del Grupo
+                <p className="text-sm text-muted-foreground">
+                  {createdAdmin ? ` (Admin a asignar: ${createdAdmin.name})` : ""}
+                </p>
+              </CardTitle>
+              <GroupForm ref={groupFormRef} onSubmit={handleSubmit} />
+            </CardContent>
+          </Card>
+        </CustomDialogBody>
+
+        <CustomDialogFooter
           actionLabel={step === "create-admin" ? "Crear Admin" : "Crear Grupo"}
           actionVariant="add"
           isLoading={isSubmitting}
@@ -137,8 +142,8 @@ const GroupDialog = ({ trigger, open, onOpenChange }) => {
               : groupFormRef.current?.submit()
           }
         />
-      </DialogContent>
-    </Dialog>
+      </CustomDialogContent>
+    </CustomDialog>
   )
 }
 

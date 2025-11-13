@@ -101,36 +101,41 @@ const DialogHeaderCustom = ({
   return (
     <div
       className={cn(
-        "sticky top-0 z-10 -mx-6 flex h-14 items-center gap-1 border-b bg-background px-4 sm:px-6",
+        "sticky top-0 z-10 -mx-6 flex h-16 items-center gap-3 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:h-[4.5rem] sm:px-6",
         className
       )}
       {...props}
     >
       {Icon && (
-        <div className="flex items-center gap-2 pr-1">
+        <div className="flex items-center gap-3">
           <div
             className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-full text-white",
+              "flex h-10 w-10 items-center justify-center rounded-xl text-white shadow-sm transition-transform hover:scale-105 sm:h-11 sm:w-11",
               iconBgClass
             )}
           >
-            <Icon className="size-5" />
+            <Icon className="size-5 sm:size-6" />
           </div>
-          <div className="h-6 w-0.5 bg-border" />
+          <div className="h-8 w-px bg-gradient-to-b from-transparent via-border to-transparent sm:h-10" />
         </div>
       )}
 
-      <div className="flex-1">
+      <div className="flex-1 min-w-0">
         <DialogTitle asChild>
-          <h1 className="text-sm font-semibold leading-tight tracking-tight dark:text-white sm:text-xl">
+          <h1 className="truncate text-base font-semibold leading-tight tracking-tight text-foreground sm:text-xl">
             {title}
           </h1>
         </DialogTitle>
       </div>
 
       <DialogClose asChild>
-        <Button variant="secondary" size="icon" className="rounded-full">
-          <X className="size-4" />
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="h-9 w-9 rounded-full hover:bg-muted sm:h-10 sm:w-10"
+        >
+          <X className="size-4 sm:size-5" />
+          <span className="sr-only">Cerrar</span>
         </Button>
       </DialogClose>
     </div>
@@ -153,7 +158,7 @@ const DialogFooterCustom = ({
   return (
     <div
       className={cn(
-        "-pb-2 -mx-6 -mb-4 flex flex-col gap-2 border-t bg-background px-6 py-2 sm:flex-row sm:justify-end sm:gap-2 sm:py-0 sm:pt-3",
+        "sticky bottom-0 -mx-6 mt-4 flex flex-col-reverse gap-2 border-t bg-background/95 px-4 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:flex-row sm:justify-end sm:gap-3 sm:px-6",
         className
       )}
     >
@@ -162,7 +167,8 @@ const DialogFooterCustom = ({
           size="lg"
           variant={cancelVariant}
           onClick={onCancel}
-          className="w-full sm:w-auto"
+          disabled={isLoading}
+          className="w-full sm:w-auto sm:min-w-[120px]"
         >
           {cancelLabel}
         </Button>
@@ -173,7 +179,7 @@ const DialogFooterCustom = ({
         variant={actionVariant}
         onClick={onAction}
         isLoading={isLoading}
-        className="w-full sm:w-auto"
+        className="w-full sm:w-auto sm:min-w-[120px]"
         {...actionProps}
       >
         {actionLabel}

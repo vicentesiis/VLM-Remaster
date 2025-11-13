@@ -7,10 +7,13 @@ import {
   Button,
   Card,
   CardContent,
-  DialogFooterCustom,
-  DialogHeaderCustom,
+  CustomDialog,
+  CustomDialogTrigger,
+  CustomDialogContent,
+  CustomDialogHeader,
+  CustomDialogBody,
+  CustomDialogFooter,
 } from "@/components/ui"
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateUser, useUpdateUser } from "@/hooks/queries"
 
 const UsuarioDialog = ({
@@ -78,43 +81,45 @@ const UsuarioDialog = ({
   }
 
   return (
-    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+    <CustomDialog open={dialogOpen} onOpenChange={setDialogOpen}>
       {typeof trigger !== "undefined" ? (
-        trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>
+        trigger && <CustomDialogTrigger asChild>{trigger}</CustomDialogTrigger>
       ) : (
-        <DialogTrigger asChild>
+        <CustomDialogTrigger asChild>
           <Button variant={buttonVariant}>
             {React.createElement(icon)}
             {title}
           </Button>
-        </DialogTrigger>
+        </CustomDialogTrigger>
       )}
-      <DialogContent className="max-h-full overflow-y-auto bg-gray-100 dark:bg-gray-950 sm:h-auto sm:max-w-3xl">
-        <DialogHeaderCustom
+      <CustomDialogContent className="bg-gray-100 dark:bg-gray-950 sm:max-w-3xl">
+        <CustomDialogHeader
           icon={icon}
           title={title}
           iconBgClass={iconBgClass}
         />
 
-        <Card>
-          <CardContent>
-            <UsuarioForm
-              ref={formRef}
-              onSubmit={handleSubmit}
-              defaultValues={normalizedUser}
-              isEdit={isEdit}
-            />
-          </CardContent>
-        </Card>
+        <CustomDialogBody>
+          <Card>
+            <CardContent>
+              <UsuarioForm
+                ref={formRef}
+                onSubmit={handleSubmit}
+                defaultValues={normalizedUser}
+                isEdit={isEdit}
+              />
+            </CardContent>
+          </Card>
+        </CustomDialogBody>
 
-        <DialogFooterCustom
+        <CustomDialogFooter
           actionLabel={buttonText}
           actionVariant={buttonVariant}
           isLoading={isSubmitting}
           onAction={() => formRef.current?.submit()}
         />
-      </DialogContent>
-    </Dialog>
+      </CustomDialogContent>
+    </CustomDialog>
   )
 }
 

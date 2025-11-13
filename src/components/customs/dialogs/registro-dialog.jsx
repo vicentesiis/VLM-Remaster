@@ -4,8 +4,15 @@ import React, { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import RegistroForm from "../forms/registro/registro-form"
-import { Button, DialogFooterCustom, DialogHeaderCustom } from "@/components/ui"
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
+import {
+  Button,
+  CustomDialog,
+  CustomDialogTrigger,
+  CustomDialogContent,
+  CustomDialogHeader,
+  CustomDialogBody,
+  CustomDialogFooter,
+} from "@/components/ui"
 import { useCreateRecord, useUpdateRecord } from "@/hooks/queries/useRecord"
 
 const RegistroDialog = ({ trigger, mode = "add", recordToEdit, vacantId }) => {
@@ -65,38 +72,40 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit, vacantId }) => {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+    <CustomDialog open={open} onOpenChange={setOpen}>
+      <CustomDialogTrigger asChild>
         {trigger || (
           <Button variant={buttonVariant} size="sm">
             {React.createElement(icon)}
             {title}
           </Button>
         )}
-      </DialogTrigger>
-      <DialogContent className="h-full overflow-y-auto bg-gray-100 dark:bg-zinc-800 sm:max-w-7xl 2xl:max-h-[calc(100vh-150px)]">
-        <DialogHeaderCustom
+      </CustomDialogTrigger>
+      <CustomDialogContent className="bg-gray-100 dark:bg-zinc-800 sm:max-w-7xl">
+        <CustomDialogHeader
           icon={icon}
           title={title}
           iconBgClass={iconBgClass}
         />
 
-        <RegistroForm
-          ref={formRef}
-          onSubmit={handleSubmit}
-          defaultValues={recordToEdit}
-          isEdit={isEdit}
-          vacantId={vacantId}
-        />
+        <CustomDialogBody>
+          <RegistroForm
+            ref={formRef}
+            onSubmit={handleSubmit}
+            defaultValues={recordToEdit}
+            isEdit={isEdit}
+            vacantId={vacantId}
+          />
+        </CustomDialogBody>
 
-        <DialogFooterCustom
+        <CustomDialogFooter
           actionLabel={buttonText}
           actionVariant={buttonVariant}
           isLoading={isSubmitting}
           onAction={() => formRef.current?.submit()}
         />
-      </DialogContent>
-    </Dialog>
+      </CustomDialogContent>
+    </CustomDialog>
   )
 }
 

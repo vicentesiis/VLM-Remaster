@@ -7,10 +7,13 @@ import {
   Button,
   Card,
   CardContent,
-  DialogFooterCustom,
-  DialogHeaderCustom,
+  CustomDialog,
+  CustomDialogTrigger,
+  CustomDialogContent,
+  CustomDialogHeader,
+  CustomDialogBody,
+  CustomDialogFooter,
 } from "@/components/ui"
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog"
 import { useCreateOrder } from "@/hooks/queries/useOrder"
 import { useGetRecordById } from "@/hooks/queries/useRecord"
 
@@ -46,36 +49,38 @@ const OrderDialog = ({ trigger, recordId }) => {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+    <CustomDialog open={open} onOpenChange={setOpen}>
+      <CustomDialogTrigger asChild>
         {trigger || (
           <Button variant={"add"} size="sm">
             <FileText />
             Crear Órden
           </Button>
         )}
-      </DialogTrigger>
-      <DialogContent className="bg-gray-100 dark:bg-gray-950">
-        <DialogHeaderCustom
+      </CustomDialogTrigger>
+      <CustomDialogContent className="bg-gray-100 dark:bg-gray-950">
+        <CustomDialogHeader
           icon={FileText}
           title={"Crear Órden"}
           iconBgClass={"bg-green-600"}
         />
 
-        <Card>
-          <CardContent>
-            <OrderForm ref={formRef} onSubmit={handleSubmit} recordData={recordData} />
-          </CardContent>
-        </Card>
+        <CustomDialogBody>
+          <Card>
+            <CardContent>
+              <OrderForm ref={formRef} onSubmit={handleSubmit} recordData={recordData} />
+            </CardContent>
+          </Card>
+        </CustomDialogBody>
 
-        <DialogFooterCustom
+        <CustomDialogFooter
           actionLabel="Crear Órden"
           actionVariant="add"
           isLoading={isSubmitting}
           onAction={() => formRef.current?.submit()}
         />
-      </DialogContent>
-    </Dialog>
+      </CustomDialogContent>
+    </CustomDialog>
   )
 }
 
