@@ -33,7 +33,7 @@ export const BigCalendar = ({
     const { weeks } = getCalendarWeeks(zeroBasedMonth, numericYear)
 
     return weeks.map((week, weekIndex) => (
-      <div className="flex w-full" key={`week-${weekIndex}`}>
+      <div className="grid grid-cols-7 divide-x divide-border" key={`week-${weekIndex}`}>
         {week.map(({ day, month }) => {
           const usedMonth = month < 0 ? zeroBasedMonth : month
           const date = new Date(numericYear, usedMonth, day)
@@ -59,9 +59,11 @@ export const BigCalendar = ({
   }, [zeroBasedMonth, numericYear, dataMap, selectedDate])
 
   return (
-    <Card className="rounded-md rounded-b-none">
+    <Card className="overflow-hidden rounded-lg border shadow-sm">
       <BigCalendarHeader />
-      {calendarWeeks}
+      <div className="divide-y divide-border">
+        {calendarWeeks}
+      </div>
     </Card>
   )
 }

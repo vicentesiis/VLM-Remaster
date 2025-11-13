@@ -1,8 +1,6 @@
-import { Wallet } from "lucide-react"
+import { ShoppingBag, DollarSign } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
-import IconBadge from "../badge/icon-badge"
-import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib"
 import { formatCurrency } from "@/utils"
 
@@ -20,38 +18,49 @@ export const DayCell = ({
   const hasOrders = numberOfOrders > 0
 
   return (
-    <Card
+    <div
       onClick={!isOutsideMonth ? () => onClick?.({ date, data }) : undefined}
       className={cn(
-        "w-full rounded-none transition-colors",
-        isOutsideMonth && "cursor-not-allowed bg-black/10",
-        !isOutsideMonth && "cursor-pointer hover:bg-muted/50",
-        isSelected && !isOutsideMonth && "border-primary bg-secondary/50"
+        "group relative min-h-[80px] p-2 transition-all duration-200",
+        isOutsideMonth && "cursor-not-allowed bg-muted/20 opacity-40",
+        !isOutsideMonth && "cursor-pointer hover:bg-accent/50 hover:shadow-inner",
+        isSelected && !isOutsideMonth && "bg-primary/10 ring-2 ring-primary ring-inset"
       )}
     >
-      <CardContent className="relative flex h-20 items-center justify-center !p-0">
+      {/* Day Number */}
+      <div className="flex items-start justify-between">
         <span
           className={cn(
-            "absolute right-2 top-2 w-6 rounded-full py-1 text-center text-xs",
-            hasOrders ? "bg-primary text-white" : "text-muted-foreground"
+            "flex h-7 w-7 items-center justify-center rounded-full text-sm font-medium transition-colors",
+            hasOrders && !isOutsideMonth && "bg-primary text-primary-foreground shadow-sm",
+            !hasOrders && !isOutsideMonth && "text-foreground group-hover:bg-accent",
+            isOutsideMonth && "text-muted-foreground"
           )}
         >
           {day}
         </span>
 
+        {/* Orders Badge */}
         {hasOrders && (
-          <div className="absolute left-2 top-2">
-            <IconBadge title={numberOfOrders} icon={Wallet} variant="ghost" />
+          <div className="flex items-center gap-1 rounded-full bg-blue-500/10 px-2 py-0.5 text-xs font-medium text-blue-600 dark:bg-blue-500/20 dark:text-blue-400">
+            <ShoppingBag className="h-3 w-3" />
+            <span>{numberOfOrders}</span>
           </div>
         )}
+      </div>
 
-        {sales > 0 && (
-          <div className="text-md mt-2 text-center font-semibold text-emerald-500">
-            {formatCurrency(sales, 'USD')}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      {/* Sales Amount */}
+      {sales > 0 && (
+        <span className="my-2 block border-l-4 border-emerald-500 pl-2 text-lg font-semibold text-emerald-700 dark:text-emerald-300">
+          {formatCurrency(sales, "USD")}
+        </span>
+      )}
+
+      {/* Hover Effect Indicator */}
+      {!isOutsideMonth && (
+        <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-200 group-hover:w-full" />
+      )}
+    </div>
   )
 }
 
