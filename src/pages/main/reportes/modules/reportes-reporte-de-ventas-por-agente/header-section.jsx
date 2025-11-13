@@ -38,6 +38,7 @@ export const HeaderSection = ({
       extra={totalSales}
       subtitle={totalOrders}
       emptyMessage={isIdle ? "Aplica filtros para generar el reporte" : ""}
+      highlightPositive={!isIdle && (reportData?.total_sales || 0) > 0}
       actions={
         <FilterToolbar
           filterConfig={[

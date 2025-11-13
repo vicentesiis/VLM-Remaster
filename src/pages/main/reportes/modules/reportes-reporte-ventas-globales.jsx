@@ -58,6 +58,7 @@ export const ReportesReporteVentasGlobales = () => {
           <SectionHeader
             title={data ? formatCurrency(data?.total_sales) : ""}
             emptyMessage={!isFetched ? "Aplica filtros para generar el reporte" : ""}
+            highlightPositive={isFetched && (data?.total_sales || 0) > 0}
             actions={
               <FilterToolbar
                 filterConfig={[

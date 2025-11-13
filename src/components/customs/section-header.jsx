@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import React from "react"
 import { cn } from "@/lib/utils"
 
-const SectionHeader = ({ title, extra, subtitle, actions, className, emptyMessage }) => {
+const SectionHeader = ({ title, extra, subtitle, actions, className, emptyMessage, highlightPositive }) => {
   return (
     <div className={cn("py-4 md:py-0 md:pb-4", className)}>
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between md:gap-4">
@@ -14,7 +14,10 @@ const SectionHeader = ({ title, extra, subtitle, actions, className, emptyMessag
               </h1>
             )}
             {extra && (
-              <span className="text-lg font-medium text-muted-foreground/80 md:text-2xl">
+              <span className={cn(
+                "text-lg font-medium md:text-2xl",
+                highlightPositive ? "text-green-600 dark:text-green-500 font-semibold" : "text-muted-foreground/80"
+              )}>
                 {extra}
               </span>
             )}
@@ -50,6 +53,7 @@ SectionHeader.propTypes = {
   actions: PropTypes.node,
   className: PropTypes.string,
   emptyMessage: PropTypes.string,
+  highlightPositive: PropTypes.bool,
 }
 
 export default SectionHeader

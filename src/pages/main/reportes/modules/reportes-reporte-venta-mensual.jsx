@@ -33,6 +33,7 @@ const HeaderSection = ({
   isFetching,
   channelOptions,
   isIdle,
+  totalSales,
 }) => (
   <SectionHeader
     title={monthSelected}
@@ -40,6 +41,7 @@ const HeaderSection = ({
     subtitle={totalOrdersString}
     emptyMessage={isIdle ? "Aplica filtros para generar el reporte" : ""}
     className="pb-6"
+    highlightPositive={!isIdle && totalSales > 0}
     actions={
       <FilterToolbar
         filterConfig={[
@@ -104,6 +106,7 @@ const SalesTableSection = ({ selectedDate, selectedDayData, table }) => {
         extra={totalSales}
         subtitle={totalOrders}
         className="mt-4"
+        highlightPositive={selectedDayData?.total_day_sales > 0}
       />
 
       <DataTable
@@ -196,6 +199,7 @@ export const ReportesReporteVentalMensual = () => {
             isFetching={isFetching}
             channelOptions={channelOptions}
             isIdle={isIdle}
+            totalSales={reportData?.total_sales || 0}
           />
           <NavigateSection
             filters={filters}

@@ -53,7 +53,7 @@ export const DayCell = ({
 
       {/* Sales Amount */}
       {sales > 0 && (
-        <span className="my-2 block border-l-4 border-emerald-500 pl-2 text-lg font-semibold text-emerald-700 dark:text-emerald-300">
+        <span className="my-2 block border-l-4 border-emerald-500 pl-2 text-lg font-semibold text-green-600 dark:text-green-500">
           {formatCurrency(sales, "USD")}
         </span>
       )}

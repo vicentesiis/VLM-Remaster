@@ -110,6 +110,7 @@ export const ReportesReporteDeRegistros = () => {
             subtitle={totalContactedInfoWithPercentage}
             extra={totalRegistrationInfo}
             emptyMessage={!isFetched ? "Aplica filtros para generar el reporte" : ""}
+            highlightPositive={isFetched && totalRegistration > 0}
             actions={
               <FilterToolbar
                 filterConfig={[

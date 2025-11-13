@@ -27,6 +27,7 @@ export const SalesTableSection = ({ selectedDate, selectedDayData, table }) => {
         extra={totalSales}
         subtitle={totalOrders}
         className="mt-4"
+        highlightPositive={(selectedDayData?.total_day_sales || 0) > 0}
       />
 
       <DataTable table={table} showPagination={false} hasFetched />
