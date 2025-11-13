@@ -50,10 +50,12 @@ const ReportesReporteVentasActivasPorCobrar = () => {
         isIdle={!isFetched}
         isEmpty={total_to_be_collected === 0}
       >
-        <div className="grid gap-4">
-          {data.map((entry) => (
-            <SalesReceivableCard key={entry.username} {...entry} />
-          ))}
+        <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
+          {data
+            .sort((a, b) => b.records.length - a.records.length)
+            .map((entry) => (
+              <SalesReceivableCard key={entry.username} {...entry} />
+            ))}
         </div>
       </WithStatusState>
     </PageLayout>
