@@ -1,7 +1,8 @@
 import PropTypes from "prop-types"
-import React from "react"
 
+import React from "react"
 import { Badge } from "@/components/ui/badge"
+import { useHoverEffects } from "@/hooks/use-hover-effects"
 import { toTitleCase } from "@/utils/utils"
 
 export const InfoSection = ({ title, items, getStatusVariant }) => {
@@ -31,22 +32,28 @@ export const InfoSection = ({ title, items, getStatusVariant }) => {
 
 const InfoItem = ({ item, getStatusVariant }) => {
   const ItemIcon = item.icon
+  const hoverEffects = useHoverEffects('subtle', true, true)
 
   return (
     <div
       className={`
-        group flex gap-4 rounded-lg border border-border bg-background/40 p-4
-        transition-colors hover:border-primary/40 hover:bg-accent/50
+        flex items-center gap-4 rounded-lg border border-border bg-background/40 p-2
+        ${hoverEffects.container}
         ${item.fullWidth ? "md:col-span-2 xl:col-span-3" : ""}
       `}
     >
       {/* Icon */}
-      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-muted/60">
-        <ItemIcon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-foreground" />
+      <div className="flex pl-2 flex-shrink-0 items-center justify-center rounded-md">
+        <ItemIcon
+          className={`
+            size-6 text-muted-foreground transition-colors group-hover:text-foreground
+            ${hoverEffects.icon}
+          `}
+        />
       </div>
 
       {/* Text */}
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
+      <div className="relative z-10 flex min-w-0 flex-1 flex-col justify-center gap-1">
         <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground/90">
           {item.label}
         </p>

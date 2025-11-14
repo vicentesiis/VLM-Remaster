@@ -1,21 +1,22 @@
-import { 
+import {
   Briefcase,
-  Calendar, 
-  CreditCard, 
+  Calendar,
+  CreditCard,
   FileText,
-  Mail, 
-  MapPin, 
+  Mail,
+  MapPin,
   MessageSquare,
-  Phone, 
+  Phone,
   User,
-  Clock
+  Clock,
+  Globe2,
+  Tag,
 } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
 
 import InfoSection from "@/components/customs/info-section"
 import { Card, CardContent } from "@/components/ui/card"
-
 import { toTitleCase } from "@/utils/utils"
 
 const formatDate = (isoDate) =>
@@ -59,28 +60,81 @@ export const RegistrosDetailInfo = ({ registro }) => {
       icon: User,
       items: [
         { label: "Nombre", value: toTitleCase(name), icon: User },
-        { label: "Fecha de Nacimiento", value: formatDate(date_of_birth), icon: Calendar },
-        { label: "Nacionalidad", value: toTitleCase(nationality), icon: MapPin },
         { label: "Teléfono", value: phone, icon: Phone },
-        { label: "e-mail", value: email?.toLowerCase(), icon: Mail },
-        { label: "Estado o Departamento de Residencia", value: toTitleCase(state), icon: MapPin },
-        { label: "Documento de Identidad", value: curp?.toUpperCase() ?? passport?.toUpperCase() ?? "-", icon: CreditCard },
+        { label: "E-mail", value: email?.toLowerCase(), icon: Mail },
+        { label: "Fecha de Nacimiento", value: formatDate(date_of_birth), icon: Calendar },
+        { label: "Nacionalidad", value: toTitleCase(nationality), icon: Globe2 },
+
+
+        {
+          label: "Estado o Departamento de Residencia",
+          value: toTitleCase(state),
+          icon: MapPin,
+        },
+        {
+          label: "Documento de Identidad",
+          value: curp?.toUpperCase() ?? passport?.toUpperCase() ?? "-",
+          icon: CreditCard,
+        },
       ],
     },
     {
       title: "Información de Proceso",
       icon: Briefcase,
       items: [
-        { label: "Agente Asignado", value: toTitleCase(user?.name), icon: User },
-        { label: "Canal", value: toTitleCase(channel), icon: FileText },
-        { label: "Programa", value: toTitleCase(program), icon: Briefcase },
-        { label: "Tipo de Registro", value: toTitleCase(record_type), icon: FileText },
-        { label: "Estatus", value: status, icon: Clock, isBadge: true },
-        { label: "ID de la Vacante", value: job, icon: Briefcase },
-        { label: "Fecha de Asignación", value: formatDate(assignment_date), icon: Calendar },
-        { label: "Fecha de Salida", value: formatDate(exit_date), icon: Calendar },
-        { label: "Fecha de Finalización", value: formatDate(end_date), icon: Calendar },
-        { label: "Comentarios", value: comments, icon: MessageSquare, fullWidth: true },
+        {
+          label: "Agente Asignado",
+          value: toTitleCase(user?.name),
+          icon: User,
+        },
+        {
+          label: "Canal",
+          value: toTitleCase(channel),
+          icon: MessageSquare,
+        },
+        {
+          label: "Programa",
+          value: toTitleCase(program),
+          icon: Briefcase,
+        },
+        {
+          label: "Tipo de Registro",
+          value: toTitleCase(record_type),
+          icon: FileText,
+          isBadge: true,
+        },
+        {
+          label: "Estatus",
+          value: status,
+          icon: Clock,
+          isBadge: true,
+        },
+        {
+          label: "ID de la Vacante",
+          value: job,
+          icon: Tag,
+        },
+        {
+          label: "Fecha de Asignación",
+          value: formatDate(assignment_date),
+          icon: Calendar,
+        },
+        {
+          label: "Fecha de Salida",
+          value: formatDate(exit_date),
+          icon: Calendar,
+        },
+        {
+          label: "Fecha de Finalización",
+          value: formatDate(end_date),
+          icon: Calendar,
+        },
+        {
+          label: "Comentarios",
+          value: comments,
+          icon: MessageSquare,
+          fullWidth: true,
+        },
       ],
     },
   ]

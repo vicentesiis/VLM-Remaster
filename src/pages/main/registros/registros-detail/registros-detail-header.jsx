@@ -142,7 +142,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
           {/* Title Row */}
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
             {/* Left: Title and Info */}
-            <div className="flex items-center gap-3 flex-1">
+            <div className="flex items-center gap-5 flex-1">
               <CountryFlag nationality={nationality} className="size-20" />
               <div className="flex flex-col">
                 <div className="flex items-center gap-4">
@@ -189,7 +189,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
           </div>
 
           {/* Quick Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-1">
             <InfoCard
               icon={UserIcon}
               label="Agente"
