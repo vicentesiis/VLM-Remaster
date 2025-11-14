@@ -2,15 +2,15 @@ import PropTypes from "prop-types"
 import React from "react"
 import { cn } from "@/lib/utils"
 
-const InfoCard = ({ 
-  icon: Icon, 
-  label, 
-  value, 
-  iconColor, 
-  valueColor, 
+const InfoCard = ({
+  icon: Icon,
+  label,
+  value,
+  iconColor,
+  valueColor,
   variant = "default",
   className,
-  ...props 
+  ...props
 }) => {
   const getVariantStyles = () => {
     switch (variant) {
@@ -28,7 +28,7 @@ const InfoCard = ({
   }
 
   return (
-    <div 
+    <div
       className={cn(
         "flex items-center gap-3 p-4 rounded-lg border",
         getVariantStyles(),
@@ -38,22 +38,22 @@ const InfoCard = ({
     >
       {Icon && (
         <div className="flex-shrink-0">
-          <Icon 
+          <Icon
             className={cn(
               "h-5 w-5",
               iconColor || "text-muted-foreground"
-            )} 
+            )}
           />
         </div>
       )}
-      
+
       <div className="flex flex-col min-w-0 flex-1">
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
           {label}
         </span>
-        <span 
+        <span
           className={cn(
-            "text-sm font-semibold truncate",
+            "font-semibold truncate",
             valueColor || "text-foreground"
           )}
           title={value}

@@ -2,26 +2,21 @@ import PropTypes from "prop-types"
 import React from "react"
 
 import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
 import { toTitleCase } from "@/utils/utils"
 
-export const InfoSection = ({ title, icon: Icon, items, getStatusVariant }) => {
+export const InfoSection = ({ title, items, getStatusVariant }) => {
   return (
-    <div className="space-y-3 rounded-xl border bg-card/60 p-4 shadow-sm md:p-5">
-      {/* Header */}
+    <div className="space-y-5">
       <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-primary/20">
-          <Icon className="h-4 w-4 text-primary" />
-        </div>
-        <h3 className="text-base font-semibold tracking-tight md:text-lg">
+        <div className="h-px w-6 bg-border"></div>
+        <h3 className="font-bold text-muted-foreground uppercase tracking-wide">
           {title}
         </h3>
+        <div className="h-px flex-1 bg-border"></div>
       </div>
 
-      <Separator className="mt-1" />
-
-      {/* Content grid */}
-      <div className="grid grid-cols-1 gap-4 pt-3 md:grid-cols-2 xl:grid-cols-3">
+      {/* Items Grid */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {items.map((item) => (
           <InfoItem
             key={item.label}
@@ -39,18 +34,20 @@ const InfoItem = ({ item, getStatusVariant }) => {
 
   return (
     <div
-      className={`group flex gap-3 rounded-lg border bg-background/40 p-3 transition-colors hover:border-primary/30 hover:bg-accent/60 ${
-        item.fullWidth ? "md:col-span-2 xl:col-span-3" : ""
-      }`}
+      className={`
+        group flex gap-4 rounded-lg border border-border bg-background/40 p-4
+        transition-colors hover:border-primary/40 hover:bg-accent/50
+        ${item.fullWidth ? "md:col-span-2 xl:col-span-3" : ""}
+      `}
     >
       {/* Icon */}
-      <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-muted/70">
-        <ItemIcon className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-foreground" />
+      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-muted/60">
+        <ItemIcon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-foreground" />
       </div>
 
       {/* Text */}
-      <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground/90">
           {item.label}
         </p>
 
@@ -62,7 +59,7 @@ const InfoItem = ({ item, getStatusVariant }) => {
             {toTitleCase(item.value) || "-"}
           </Badge>
         ) : (
-          <span className="break-words text-sm font-medium leading-relaxed text-foreground">
+          <span className="break-words text-[0.95rem] font-medium leading-relaxed text-foreground">
             {item.value || "-"}
           </span>
         )}

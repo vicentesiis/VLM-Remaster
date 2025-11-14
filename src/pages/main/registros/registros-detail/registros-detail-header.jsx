@@ -143,7 +143,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
             {/* Left: Title and Info */}
             <div className="flex items-center gap-3 flex-1">
-              <CountryFlag nationality={nationality} className="h-8 w-8" />
+              <CountryFlag nationality={nationality} className="size-20" />
               <div className="flex flex-col">
                 <div className="flex items-center gap-4">
                   <CardTitle className="text-2xl font-bold text-foreground">
@@ -166,11 +166,11 @@ export const RegistrosDetailHeader = ({ registro }) => {
 
             {/* Right: Admin Controls */}
             {(canUpdateStatus || canUpdateRecord || canReassingRecord) && (
-              <div className="flex items-center gap-2">
-                {canReassingRecord && <ReassingRecordDialog record={registro} />}
-                {canUpdateRecord && <RegistroDialog mode="edit" recordToEdit={registro} />}
+              <div className="flex flex-col items-end gap-2">
+
+                {/* Row 1 – Status dropdowns */}
                 {canUpdateStatus && (
-                  <>
+                  <div className="flex items-center gap-2">
                     <RecordDocumentDropdown
                       registro={registro}
                       isAgent={isAgent}
@@ -181,8 +181,9 @@ export const RegistrosDetailHeader = ({ registro }) => {
                       onConfirm={handleStatusUpdate}
                       disabled={isUpdatingStatus}
                     />
-                  </>
+                  </div>
                 )}
+
               </div>
             )}
           </div>
@@ -273,6 +274,15 @@ export const RegistrosDetailHeader = ({ registro }) => {
               Email
             </Button>
           )}
+          <div className="flex items-center gap-2 ml-auto">
+            {canReassingRecord && (
+              <ReassingRecordDialog record={registro} />
+            )}
+
+            {canUpdateRecord && (
+              <RegistroDialog mode="edit" recordToEdit={registro} />
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>
