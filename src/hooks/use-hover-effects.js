@@ -8,27 +8,26 @@ export const hoverVariants = {
   
   subtle: cn(
     "transition-all duration-200 ease-out",
-    "hover:shadow-sm hover:-translate-y-0.5 hover:border-accent/40",
-    "focus-within:ring-1 focus-within:ring-accent/30"
+    "hover:shadow-sm hover:-translate-y-0.5 hover:brightness-105",
+    "focus-within:ring-1 focus-within:ring-foreground/10"
   ),
   
   medium: cn(
     "transition-all duration-300 ease-out",
-    "hover:shadow-md hover:shadow-primary/5 hover:-translate-y-1 hover:border-primary/30",
-    "focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary/40"
+    "hover:shadow-md hover:-translate-y-1 hover:brightness-105",
+    "focus-within:ring-2 focus-within:ring-foreground/20"
   ),
   
   strong: cn(
     "transition-all duration-300 ease-out",
-    "hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2 hover:border-primary/50 hover:scale-[1.02]",
-    "focus-within:ring-2 focus-within:ring-primary/30 focus-within:border-primary/50"
+    "hover:shadow-lg hover:-translate-y-2 hover:brightness-110 hover:scale-[1.02]",
+    "focus-within:ring-2 focus-within:ring-foreground/20"
   ),
   
   glow: cn(
     "transition-all duration-400 ease-out",
-    "hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-2 hover:border-primary/60 hover:scale-105",
-    "focus-within:ring-3 focus-within:ring-primary/40 focus-within:border-primary/60",
-    "hover:bg-gradient-to-br hover:from-primary/5 hover:to-transparent"
+    "hover:shadow-xl hover:-translate-y-2 hover:brightness-110 hover:scale-105",
+    "focus-within:ring-3 focus-within:ring-foreground/30"
   )
 }
 
@@ -39,22 +38,22 @@ export const gradientOverlayVariants = {
   none: "",
   
   subtle: cn(
-    "before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-br before:from-accent/3 before:to-transparent",
+    "before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-br before:from-foreground/3 before:to-transparent",
     "before:opacity-0 before:transition-opacity before:duration-200 hover:before:opacity-100"
   ),
   
   medium: cn(
-    "before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-br before:from-primary/5 before:to-transparent",
+    "before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-br before:from-foreground/5 before:to-transparent",
     "before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
   ),
   
   strong: cn(
-    "before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-br before:from-primary/8 before:to-accent/3",
+    "before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-br before:from-foreground/8 before:to-foreground/3",
     "before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
   ),
   
   glow: cn(
-    "before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-br before:from-primary/12 before:via-primary/6 before:to-accent/4",
+    "before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-br before:from-foreground/12 before:via-foreground/6 before:to-foreground/4",
     "before:opacity-0 before:transition-opacity before:duration-400 hover:before:opacity-100"
   )
 }
@@ -71,18 +70,18 @@ export const iconHoverVariants = {
   ),
   
   medium: cn(
-    "transition-all duration-200 ease-out",
-    "group-hover:scale-110 group-hover:text-primary"
+    "transition-transform duration-200 ease-out",
+    "group-hover:scale-110"
   ),
   
   strong: cn(
-    "transition-all duration-300 ease-out",
-    "group-hover:scale-125 group-hover:text-primary group-hover:rotate-3"
+    "transition-transform duration-300 ease-out",
+    "group-hover:scale-125 group-hover:rotate-3"
   ),
   
   glow: cn(
-    "transition-all duration-400 ease-out",
-    "group-hover:scale-125 group-hover:text-primary group-hover:rotate-6 group-hover:drop-shadow-sm"
+    "transition-transform duration-400 ease-out",
+    "group-hover:scale-125 group-hover:rotate-6 group-hover:drop-shadow-sm"
   )
 }
 

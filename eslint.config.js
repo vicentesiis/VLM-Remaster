@@ -19,6 +19,7 @@ export default defineConfig([
     settings: {
       react: {
         version: "detect", // Automatically detect the React version
+        runtime: "automatic", // Use automatic JSX runtime (React 17+)
       },
     },
     rules: {

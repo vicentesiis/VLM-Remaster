@@ -1,5 +1,7 @@
 import PropTypes from "prop-types"
 import React from "react"
+
+import { useHoverEffects } from "@/hooks/use-hover-effects"
 import { cn } from "@/lib/utils"
 
 const InfoCard = ({
@@ -9,9 +11,14 @@ const InfoCard = ({
   iconColor,
   valueColor,
   variant = "default",
+  hoverVariant = "medium",
+  withGradient = true,
+  withIconEffects = true,
   className,
   ...props
 }) => {
+  const hoverEffects = useHoverEffects(hoverVariant, withGradient, withIconEffects)
+  
   const getVariantStyles = () => {
     switch (variant) {
       case "success":
@@ -32,6 +39,7 @@ const InfoCard = ({
       className={cn(
         "flex items-center gap-3 p-4 rounded-lg border",
         getVariantStyles(),
+        hoverEffects.container,
         className
       )}
       {...props}
@@ -41,13 +49,14 @@ const InfoCard = ({
           <Icon
             className={cn(
               "h-5 w-5",
-              iconColor || "text-muted-foreground"
+              iconColor || "text-muted-foreground",
+              hoverEffects.icon
             )}
           />
         </div>
       )}
 
-      <div className="flex flex-col min-w-0 flex-1">
+      <div className="flex flex-col min-w-0 flex-1 relative z-10">
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
           {label}
         </span>
@@ -72,6 +81,9 @@ InfoCard.propTypes = {
   iconColor: PropTypes.string,
   valueColor: PropTypes.string,
   variant: PropTypes.oneOf(["default", "success", "warning", "destructive", "info"]),
+  hoverVariant: PropTypes.oneOf(["none", "subtle", "medium", "strong", "glow"]),
+  withGradient: PropTypes.bool,
+  withIconEffects: PropTypes.bool,
   className: PropTypes.string,
 }
 
