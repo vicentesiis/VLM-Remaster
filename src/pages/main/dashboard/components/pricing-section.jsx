@@ -37,7 +37,7 @@ export function PricingSection({
 
         {/* ===== Pricing Table ===== */}
         <section className="py-4">
-          <header className="flex items-center justify-between pb-3 border-b">
+          <header className="flex items-center justify-between pb-2">
             <h3 className="text-sm font-semibold flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-blue-500"></div>
               Tabla de precios por servicio

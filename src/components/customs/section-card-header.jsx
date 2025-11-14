@@ -10,7 +10,7 @@ export function SectionCardHeader({
 
     return (
         <div className={cn(
-            "flex items-center gap-3 px-6 py-2.5 border-b bg-muted rounded-t-xl",
+            "flex items-center gap-3 px-6 py-2.5 border-b bg-accent/70 rounded-t-xl",
         )}>
             {Icon && (
                 <div className="flex items-center justify-center w-8 h-8 bg-primary/10 border border-primary/20 rounded-lg shadow-sm">
