@@ -16,7 +16,7 @@ export const RegistrosOrders = ({ registro }) => {
   return (
     <Card>
       <CardContent>
-        <div className="mt-4 flex justify-between sm:mt-0">
+        <div className="flex justify-between pb-2">
           <CardTitle className="mb-4">Lista de Órdenes</CardTitle>
           {canCreateOrder && <OrderDialog recordId={recordId} />}
         </div>

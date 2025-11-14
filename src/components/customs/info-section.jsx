@@ -2,6 +2,7 @@ import PropTypes from "prop-types"
 import React from "react"
 
 import StatusBadge from "@/components/customs/badge/status-badge"
+import { SectionTitle } from "@/components/customs/section-title"
 import { Badge } from "@/components/ui/badge"
 import { getRecordTypeConfig } from "@/constants"
 import { useHoverEffects } from "@/hooks/use-hover-effects"
@@ -10,13 +11,7 @@ import { toTitleCase } from "@/utils/utils"
 export const InfoSection = ({ title, items, getStatusVariant }) => {
   return (
     <div className="space-y-5">
-      <div className="flex items-center gap-3">
-        <div className="h-px w-6 bg-border"></div>
-        <h3 className="font-bold text-muted-foreground uppercase tracking-wide">
-          {title}
-        </h3>
-        <div className="h-px flex-1 bg-border"></div>
-      </div>
+      <SectionTitle title={title} />
 
       {/* Items Grid */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -75,7 +70,7 @@ const InfoItem = ({ item, getStatusVariant }) => {
         ) : isRecordTypeBadge && RecordTypeIcon ? (
           <Badge
             variant={recordTypeConfig.variant}
-            className="w-fit text-sm"
+            className="w-fit"
           >
             <RecordTypeIcon className="h-4 w-4 mr-1" />
             {toTitleCase(item.value) || "-"}

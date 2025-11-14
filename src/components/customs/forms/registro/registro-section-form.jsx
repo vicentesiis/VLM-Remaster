@@ -1,17 +1,14 @@
 import PropTypes from "prop-types"
 import React from "react"
 import { renderFormField } from "../form-field-renders"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+import { SectionTitle } from "@/components/customs/section-title"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 export const RegistroSectionForm = ({ form, title, fields }) => {
   return (
     <Card>
       <CardHeader className="px-4 sm:-mb-10 sm:-mt-2">
-        <CardTitle className="text-lg font-semibold text-primary">
-          {title}
-        </CardTitle>
-        <Separator />
+        <SectionTitle title={title} />
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
