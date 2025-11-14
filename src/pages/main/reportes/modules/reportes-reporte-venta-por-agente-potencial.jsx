@@ -62,7 +62,7 @@ const ReportesReporteVentaPorAgentePotencial = () => {
             subtitle={
               isFetched ? `Registros: ${data?.records?.length ?? 0}` : undefined
             }
-            emptyMessage={!isRegularAgent && !isFetched ? "Aplica filtros para generar el reporte" : ""}
+            emptyMessage={!isRegularAgent && !isFetched ? "Aplica los filtros para generar el reporte" : ""}
             highlightPositive={isFetched && (data?.total_potential_sales || 0) > 0}
             actions={
               !isRegularAgent ? (

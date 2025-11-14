@@ -47,14 +47,19 @@ export function StatusState({
   const fallback = typeDefaults[type] ?? typeDefaults.loading
 
   return (
-    <Card className={cn(
-      "flex flex-col items-center justify-center gap-6 py-16 px-8 text-center border-dashed transition-all duration-200",
-      className
-    )}>
-      <div className={cn(
-        "flex items-center justify-center rounded-full p-2 transition-all duration-200",
-        fallback.iconBg
-      )}>
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center gap-6 py-16 px-8 text-center transition-all duration-200",
+        "rounded-xl border border-dotted border-muted-foreground/40 bg-card shadow-md",
+        className
+      )}
+    >
+      <div
+        className={cn(
+          "flex items-center justify-center rounded-full p-2 transition-all duration-200",
+          fallback.iconBg
+        )}
+      >
         {fallback.icon}
       </div>
 
@@ -62,13 +67,14 @@ export function StatusState({
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
           {title || fallback.title}
         </h3>
+
         {(description || fallback.description) && (
           <p className="text-muted-foreground leading-relaxed">
             {description || fallback.description}
           </p>
         )}
       </div>
-    </Card>
+    </div>
   )
 }
 

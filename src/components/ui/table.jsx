@@ -1,5 +1,6 @@
 import * as React from "react"
 
+import { hoverVariants } from "@/hooks/use-hover-effects"
 import { cn } from "@/lib/utils"
 
 const Table = React.forwardRef(({ className, ...props }, ref) => (
@@ -39,11 +40,13 @@ const TableFooter = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TableFooter.displayName = "TableFooter"
 
-const TableRow = React.forwardRef(({ className, ...props }, ref) => (
+const TableRow = React.forwardRef(({ className, hoverVariant = "subtle", ...props }, ref) => (
   <tr
     ref={ref}
     className={cn(
-      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
+      "border-b data-[state=selected]:bg-muted",
+      hoverVariants[hoverVariant] || hoverVariants.subtle,
+      "hover:bg-muted",
       className
     )}
     {...props}

@@ -1,25 +1,20 @@
 import React from "react";
 import { CardTitle } from "@/components/ui";
-import { useHoverEffects } from "@/hooks/use-hover-effects";
 import { cn } from "@/lib/utils";
 
 export function SectionCardHeader({
     icon: Icon,
     title,
     description,
-    hoverVariant = "subtle",
-    withGradient = false,
 }) {
-    const hover = useHoverEffects(hoverVariant, withGradient, true);
 
     return (
         <div className={cn(
             "flex items-center gap-3 px-6 py-2.5 border-b bg-muted rounded-t-xl",
-            hover.container
         )}>
             {Icon && (
                 <div className="flex items-center justify-center w-8 h-8 bg-primary/10 border border-primary/20 rounded-lg shadow-sm">
-                    <Icon className={cn("w-5 h-5 text-primary", hover.icon)} />
+                    <Icon className={cn("w-5 h-5 text-primary")} />
                 </div>
             )}
             <div className="flex-1 min-w-0">

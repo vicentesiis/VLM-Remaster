@@ -138,11 +138,11 @@ export const RegistrosDetailHeader = ({ registro }) => {
     <Card className="overflow-hidden">
       <CardHeader >
         {/* Header Section */}
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-2">
           {/* Title Row */}
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
             {/* Left: Title and Info */}
-            <div className="flex items-center gap-5 flex-1">
+            <div className="flex items-center gap-4 flex-1 -mt-2">
               <CountryFlag nationality={nationality} className="size-20" />
               <div className="flex flex-col">
                 <div className="flex items-center gap-4">
@@ -152,11 +152,11 @@ export const RegistrosDetailHeader = ({ registro }) => {
                   <StatusBadge status={status} className="text-sm px-3 py-1" />
                 </div>
                 <div className="flex items-center gap-2 mt-1">
-                  <Badge variant="outline" className="text-sm">
+                  <Badge variant="outline" >
                     <HashIcon className="h-4 w-4 mr-1" />
                     {public_id}
                   </Badge>
-                  <Badge variant={recordTypeVariant} className="text-sm">
+                  <Badge variant={recordTypeVariant}>
                     <RecordTypeIcon className="h-4 w-4 mr-1" />
                     {toTitleCase(record_type)}
                   </Badge>

@@ -36,7 +36,7 @@ const ReporteReporteRecordFinalizado = () => {
       <Card>
         <CardContent>
           <SectionHeader
-            emptyMessage={!isAdmin && !isFetched ? "Aplica filtros para generar el reporte" : ""}
+            emptyMessage={!isAdmin && !isFetched ? "Aplica los filtros para generar el reporte" : ""}
             actions={
               !isAdmin && showFilters && (
                 <FilterToolbar

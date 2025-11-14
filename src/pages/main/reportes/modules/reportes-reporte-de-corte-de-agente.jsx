@@ -34,7 +34,7 @@ const HeaderSection = ({
       title={searchTriggered ? totalSales : ""}
       extra={searchTriggered ? formatCurrency(totalAmount, 'USD'): ""}
       subtitle={searchTriggered ? totalOrdersString : ""}
-      emptyMessage={!searchTriggered ? "Aplica filtros para generar el reporte" : ""}
+      emptyMessage={!searchTriggered ? "Aplica los filtros para generar el reporte" : ""}
       highlightPositive={searchTriggered && totalAmount > 0}
       actions={
         showFilters && (
