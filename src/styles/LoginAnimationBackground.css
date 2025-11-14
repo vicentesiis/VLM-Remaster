@@ -1,17 +1,67 @@
 .login-background {
-  background: linear-gradient(300deg, #7e0000, #003060, #001932);
-  background-size: 200% 200%;
-  animation: gradientShift 12s ease-in-out infinite;
+  position: relative;
+  background: linear-gradient(300deg, #7e0000, #003060, #001932, #7e0000);
+  background-size: 300% 300%;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+.login-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(126, 0, 0, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(0, 48, 96, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 40% 20%, rgba(0, 25, 50, 0.2) 0%, transparent 50%);
+  animation: pulseGlow 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.login-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(126, 0, 0, 0.1) 50%, transparent 100%);
+  animation: shimmer 10s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
   }
-  50% {
+  33% {
     background-position: 100% 50%;
+  }
+  66% {
+    background-position: 50% 100%;
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
   }
 }

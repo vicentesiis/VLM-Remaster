@@ -65,83 +65,88 @@ export const Login = () => {
   }
 
   const renderLoginCard = () => (
-    <Card
-      shadow="sm"
-      className="backdrop rounded-lg p-4 shadow-lg md:p-10 md:py-6"
-    >
-      <CardHeader className="flex-col sm:w-[400px]">
-        <h2 className="scroll-m-20 border-b pb-2 text-[28px] font-semibold tracking-tight first:mt-0 lg:text-3xl">Bienvenid@</h2>
-        <p className="text-xl text-muted-foreground">Por favor ingresa tus datos</p>
+    <Card className="w-full max-w-md backdrop-blur-sm bg-white/95 shadow-2xl border-0">
+      <CardHeader className="!pb-2">
+        <h2 className="text-4xl font-bold tracking-tight text-center">
+          Bienvenid@
+        </h2>
+        <p className="text-base text-muted-foreground text-center">
+          Por favor ingresa tus datos para continuar
+        </p>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="px-6 pb-8">
         <Form {...form}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col space-y-6"
-          >
-            <div className="mb-2 space-y-2">
-              <FormField
-                name="user"
-                control={control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-md text-primary">
-                      Usuario
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        ref={userInputRef}
-                        placeholder="Ingresa tu Usuario"
-                        type="text"
-                        autoCapitalize="none"
-                        {...field}
-                        onChange={(e) => {
-                          field.onChange(e)
-                          loginMutation.reset()
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <FormField
+              name="user"
+              control={control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-base font-medium">
+                    Usuario
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      ref={userInputRef}
+                      placeholder="Ingresa tu usuario"
+                      type="text"
+                      autoCapitalize="none"
+                      autoComplete="username"
+                      className="h-12 text-base"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e)
+                        loginMutation.reset()
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              <FormField
-                name="password"
-                control={control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-md text-primary">
-                      Contraseña
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Ingresa tu Contraseña"
-                        type="password"
-                        {...field}
-                        onChange={(e) => {
-                          field.onChange(e)
-                          loginMutation.reset()
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-base font-medium">
+                    Contraseña
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Ingresa tu contraseña"
+                      type="password"
+                      autoComplete="current-password"
+                      className="h-12 text-base"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e)
+                        loginMutation.reset()
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             {loginMutation.isError && (
-              <Alert variant="destructive">
-                <AlertTitle>Error de inicio de sesión</AlertTitle>
-                <AlertDescription>
-                  Usuario o contraseña incorrectos
+              <Alert variant="destructive" className="animate-in fade-in-50">
+                <AlertTitle className="text-base font-semibold">
+                  Error de inicio de sesión
+                </AlertTitle>
+                <AlertDescription className="text-base">
+                  Usuario o contraseña incorrectos. Por favor, intenta nuevamente.
                 </AlertDescription>
               </Alert>
             )}
 
-            <Button className="w-full" isLoading={loginMutation.isPending}>
+            <Button
+              className="w-full h-12 text-lg mt-6"
+              isLoading={loginMutation.isPending}
+            >
               Iniciar Sesión
             </Button>
           </form>
@@ -151,18 +156,23 @@ export const Login = () => {
   )
 
   return (
-    <section className="login-background relative h-screen overflow-hidden text-white">
-
+    <section className="login-background relative min-h-screen overflow-hidden">
       {/* Logo */}
-      <div className="absolute z-10 mt-8 flex items-center gap-3 sm:ml-16 sm:mt-16">
-        <img src={logo} alt="NorthEntry" width={60} />
-        <h3 className="3xl:text-4xl scroll-m-20 text-xl font-normal tracking-tight md:text-3xl">
+      <div className="absolute top-6 left-6 z-10 flex items-center gap-3 sm:top-10 sm:left-10">
+        <img
+          src={logo}
+          alt="NorthEntry Logo"
+          width={60}
+          height={60}
+          className="drop-shadow-lg"
+        />
+        <h3 className="text-2xl font-semibold tracking-tight text-white drop-shadow-md sm:text-3xl lg:text-4xl">
           NorthEntry
         </h3>
       </div>
 
       {/* Centered Card */}
-      <div className="relative z-10 grid h-full place-items-center">
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-12">
         {renderLoginCard()}
       </div>
     </section>
