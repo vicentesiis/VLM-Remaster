@@ -10,7 +10,7 @@ import {
   User,
   Clock,
   Globe2,
-  Tag,
+  Layers,
 } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
@@ -64,8 +64,6 @@ export const RegistrosDetailInfo = ({ registro }) => {
         { label: "E-mail", value: email?.toLowerCase(), icon: Mail },
         { label: "Fecha de Nacimiento", value: formatDate(date_of_birth), icon: Calendar },
         { label: "Nacionalidad", value: toTitleCase(nationality), icon: Globe2 },
-
-
         {
           label: "Estado o Departamento de Residencia",
           value: toTitleCase(state),
@@ -95,7 +93,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
         {
           label: "Programa",
           value: toTitleCase(program),
-          icon: Briefcase,
+          icon: Layers,
         },
         {
           label: "Tipo de Registro",
@@ -112,7 +110,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
         {
           label: "ID de la Vacante",
           value: job,
-          icon: Tag,
+          icon: Briefcase,
         },
         {
           label: "Fecha de Asignación",

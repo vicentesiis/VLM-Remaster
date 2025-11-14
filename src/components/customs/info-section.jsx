@@ -1,7 +1,9 @@
 import PropTypes from "prop-types"
-
 import React from "react"
+
+import StatusBadge from "@/components/customs/badge/status-badge"
 import { Badge } from "@/components/ui/badge"
+import { getRecordTypeConfig } from "@/constants"
 import { useHoverEffects } from "@/hooks/use-hover-effects"
 import { toTitleCase } from "@/utils/utils"
 
@@ -34,6 +36,16 @@ const InfoItem = ({ item, getStatusVariant }) => {
   const ItemIcon = item.icon
   const hoverEffects = useHoverEffects('subtle', true, true)
 
+  // Check if this is a status badge
+  const isStatusBadge = item.isBadge && item.label.toLowerCase().includes('estatus')
+  
+  // Check if this is a record type badge
+  const isRecordTypeBadge = item.isBadge && item.label.toLowerCase().includes('tipo de registro')
+  
+  // Get record type config if needed
+  const recordTypeConfig = isRecordTypeBadge ? getRecordTypeConfig(item.value) : null
+  const RecordTypeIcon = recordTypeConfig?.icon
+
   return (
     <div
       className={`
@@ -58,7 +70,17 @@ const InfoItem = ({ item, getStatusVariant }) => {
           {item.label}
         </p>
 
-        {item.isBadge ? (
+        {isStatusBadge ? (
+          <StatusBadge status={item.value}  />
+        ) : isRecordTypeBadge && RecordTypeIcon ? (
+          <Badge
+            variant={recordTypeConfig.variant}
+            className="w-fit text-sm"
+          >
+            <RecordTypeIcon className="h-4 w-4 mr-1" />
+            {toTitleCase(item.value) || "-"}
+          </Badge>
+        ) : item.isBadge ? (
           <Badge
             variant={getStatusVariant?.(item.value)}
             className="w-fit px-2.5 py-0.5 text-xs"

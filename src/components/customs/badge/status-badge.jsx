@@ -10,7 +10,7 @@ const StatusBadge = ({ status }) => {
   const label = RECORD_STATUSES_LABEL[status] || status
   const variant = STATUS_TO_VARIANT_MAP[status] || "outline"
 
-  return <Badge variant={variant}>{label}</Badge>
+  return <Badge className={"w-fit"} variant={variant}>{label}</Badge>
 }
 
 StatusBadge.propTypes = {
