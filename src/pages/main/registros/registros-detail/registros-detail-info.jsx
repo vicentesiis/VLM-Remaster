@@ -77,7 +77,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
       ],
     },
     {
-      title: "Información de Proceso",
+      title: "Información del Proceso",
       icon: Briefcase,
       items: [
         {
