@@ -111,13 +111,12 @@ const RegistroForm = forwardRef(
       dateOfBirthField(),
       nationalityField(nacionalidadOptions),
       stateField(estadosOptions),
-      documentField({ disabled: !isAdmin && isEdit }),
+      documentField(),
       documentTypeField(
         [
           { label: "Pasaporte", value: "passport" },
           { label: "Documento de Identidad", value: "curp" },
         ],
-        { disabled: !isAdmin && isEdit }
       ),
       ...(isEdit ? [exitDate()] : []),
     ]
