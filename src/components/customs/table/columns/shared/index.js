@@ -23,7 +23,8 @@ export {
   createNationalityColumn,
   createAgentColumn,
   columnHelper,
-  createAmountOwedLocalColumn
+  createAmountOwedLocalColumn,
+  createWhatsAppActionColumn
 } from './commonColumns.jsx'
 
 // Export all column utility functions

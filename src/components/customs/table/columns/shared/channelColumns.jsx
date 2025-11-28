@@ -1,22 +1,22 @@
 
-import {
-  Facebook,
-  Instagram,
-  MessageCircle,
-  Send,
-  Music,
-  Mail,
-  Phone,
-  Globe,
-  MoreHorizontal
-} from "lucide-react"
 import React from "react"
+import {
+  FaFacebook,
+  FaInstagram,
+  FaWhatsapp,
+  FaTelegram,
+  FaTiktok
+} from "react-icons/fa"
+import {
+  MdEmail,
+  MdPhone,
+  MdLanguage,
+  MdMoreHoriz
+} from "react-icons/md"
 import IconBadge from "../../../badge/icon-badge"
 import NullableCell from "../../cells/nullable-cell"
 import { Badge } from "@/components/ui"
 import { toTitleCase } from "@/utils"
-
-
 
 // Helper function to get channel icon and color
 const getChannelConfig = (channel) => {
@@ -24,25 +24,25 @@ const getChannelConfig = (channel) => {
 
   switch (channelLower) {
     case 'facebook':
-      return { icon: Facebook, variant: 'facebook' }
+      return { icon: FaFacebook, variant: 'facebook' }
     case 'instagram':
-      return { icon: Instagram, variant: 'instagram' }
+      return { icon: FaInstagram, variant: 'instagram' }
     case 'whatsapp':
-      return { icon: MessageCircle, variant: 'whatsapp' }
+      return { icon: FaWhatsapp, variant: 'whatsapp' }
     case 'telegram':
-      return { icon: Send, variant: 'telegram' }
+      return { icon: FaTelegram, variant: 'telegram' }
     case 'tiktok':
-      return { icon: Music, variant: 'tiktok' }
+      return { icon: FaTiktok, variant: 'tiktok' }
     case 'email':
-      return { icon: Mail, variant: 'email' }
+      return { icon: MdEmail, variant: 'email' }
     case 'phone':
-      return { icon: Phone, variant: 'phone' }
+      return { icon: MdPhone, variant: 'phone' }
     case 'web':
-      return { icon: Globe, variant: 'web' }
+      return { icon: MdLanguage, variant: 'web' }
     case 'other':
-      return { icon: MoreHorizontal, variant: 'other' }
+      return { icon: MdMoreHoriz, variant: 'other' }
     default:
-      return { icon: Globe, variant: 'outline' }
+      return { icon: MdLanguage, variant: 'outline' }
   }
 }
 

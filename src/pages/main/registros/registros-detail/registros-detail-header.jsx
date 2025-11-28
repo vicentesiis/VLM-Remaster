@@ -2,7 +2,6 @@ import {
   HashIcon,
   DollarSignIcon,
   UserIcon,
-  MessageCircle,
   ExternalLink,
   Phone,
   Mail,
@@ -11,6 +10,7 @@ import {
 } from "lucide-react"
 import PropTypes from "prop-types"
 import React, { useState } from "react"
+import { FaWhatsapp } from "react-icons/fa"
 import { toast } from "sonner"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import CountryFlag from "@/components/customs/country-flag"
@@ -230,7 +230,7 @@ export const RegistrosDetailHeader = ({ registro }) => {
               {isWhatsAppLoading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                <MessageCircle className="h-4 w-4" />
+                <FaWhatsapp className="h-4 w-4" />
               )}
               WhatsApp
             </Button>

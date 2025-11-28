@@ -5,16 +5,29 @@ import {
   FileText,
   Mail,
   MapPin,
-  MessageSquare,
   Phone,
   User,
   Clock,
   Globe2,
   Layers,
+  MessageSquare,
 } from "lucide-react"
 import PropTypes from "prop-types"
-import React from "react"
 
+import React from "react"
+import {
+  FaFacebook,
+  FaInstagram,
+  FaWhatsapp,
+  FaTelegram,
+  FaTiktok
+} from "react-icons/fa"
+import {
+  MdEmail,
+  MdPhone,
+  MdLanguage,
+  MdMoreHoriz
+} from "react-icons/md"
 import InfoSection from "@/components/customs/info-section"
 import { Card, CardContent } from "@/components/ui/card"
 import { toTitleCase } from "@/utils/utils"
@@ -30,6 +43,33 @@ const getStatusVariant = (status) => {
     completado: "success",
   }
   return statusMap[status?.toLowerCase()] || "default"
+}
+
+const getChannelIcon = (channel) => {
+  const channelLower = channel?.toLowerCase()
+
+  switch (channelLower) {
+    case 'facebook':
+      return FaFacebook
+    case 'instagram':
+      return FaInstagram
+    case 'whatsapp':
+      return FaWhatsapp
+    case 'telegram':
+      return FaTelegram
+    case 'tiktok':
+      return FaTiktok
+    case 'email':
+      return MdEmail
+    case 'phone':
+      return MdPhone
+    case 'web':
+      return MdLanguage
+    case 'other':
+      return MdMoreHoriz
+    default:
+      return MdLanguage
+  }
 }
 
 export const RegistrosDetailInfo = ({ registro }) => {
@@ -88,7 +128,7 @@ export const RegistrosDetailInfo = ({ registro }) => {
         {
           label: "Canal",
           value: toTitleCase(channel),
-          icon: MessageSquare,
+          icon: getChannelIcon(channel),
         },
         {
           label: "Programa",

@@ -13,6 +13,7 @@ import {
   createGroupFilterColumn,
   createAmountOwedColumn,
   createAgentColumn,
+  createWhatsAppActionColumn,
   applyRoleBasedColumns,
   injectDynamicOptions,
   createBaseColumns,
@@ -63,6 +64,7 @@ export const getLeadsColumns = ({
     commentsColumn: createCommentsColumn(columnHelper),
     amountOwedColumn: createAmountOwedColumn(columnHelper),
     agentColumn: createAgentColumn(columnHelper),
+    whatsAppActionColumn: createWhatsAppActionColumn(columnHelper),
   }
 
   // Apply role-based column filtering
