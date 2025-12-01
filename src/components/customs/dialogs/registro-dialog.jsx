@@ -95,6 +95,7 @@ const RegistroDialog = ({ trigger, mode = "add", recordToEdit, vacantId }) => {
             defaultValues={recordToEdit}
             isEdit={isEdit}
             vacantId={vacantId}
+            recordId={recordToEdit?.id}
           />
         </CustomDialogBody>
 

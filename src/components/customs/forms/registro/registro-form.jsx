@@ -38,6 +38,7 @@ import {
   exitDateTypeSchema,
 } from "@/forms/validators"
 import { useCodexData } from "@/hooks/queries/useCodexData"
+import { useGetOrdersByRecord } from "@/hooks/queries/useOrder"
 import { useCurrentUser } from "@/hooks/useCurrentUser"
 import { mapToOptions } from "@/utils/utils"
 
@@ -59,7 +60,7 @@ export const formSchema = z.object({
 })
 
 const RegistroForm = forwardRef(
-  ({ onSubmit, defaultValues, isEdit = false, vacantId }, ref) => {
+  ({ onSubmit, defaultValues, isEdit = false, vacantId, recordId }, ref) => {
     const form = useForm({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -93,8 +94,15 @@ const RegistroForm = forwardRef(
       submit: () => submitHandler(),
     }))
 
-    const { isAdmin } = useCurrentUser()
+    const { isAdmin, isAgent, isLeader } = useCurrentUser()
     const { nationalities, mexicoStates, programs, channels } = useCodexData()
+
+    const { data: ordersData } = useGetOrdersByRecord(
+      { record_id: recordId },
+      { enabled: isEdit && recordId && (isAgent || isLeader) }
+    )
+
+    const hasOrders = ordersData?.data && ordersData.data.length > 0
 
     const nacionalidadOptions = mapToOptions(nationalities.data)
     const estadosOptions = mapToOptions(mexicoStates.data)
@@ -126,10 +134,18 @@ const RegistroForm = forwardRef(
 
     const programHasChanged = programValue && programValue !== initialProgram
 
+    const isProgramDisabled = isEdit && (
+      isAdmin ? false :
+        (isAgent || isLeader) ? hasOrders :
+          true
+    )
+
+    const shouldShowCreditField = isEdit && programHasChanged && isAdmin
+
     const vacantInfoFields = [
       jobField(),
-      programField(programaOptions, { disabled: !isAdmin && isEdit }),
-      ...(isEdit && programHasChanged ? [creditField()] : []),
+      programField(programaOptions, { disabled: isProgramDisabled }),
+      ...(shouldShowCreditField ? [creditField()] : []),
       channelField(channelOptions, { disabled: !isAdmin && isEdit }),
       commentsField(),
     ]
@@ -162,6 +178,7 @@ RegistroForm.propTypes = {
   isEdit: PropTypes.bool,
   onSubmit: PropTypes.func,
   vacantId: PropTypes.any,
+  recordId: PropTypes.any,
 }
 
 RegistroForm.displayName = "RegistroForm"
