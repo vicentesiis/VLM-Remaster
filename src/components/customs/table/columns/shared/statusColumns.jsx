@@ -166,7 +166,7 @@ export const createContactedColumn = (columnHelper, accessor = "contacted", head
  * @param {string} header - The column header text (default: "Contactado por WhatsApp")
  * @returns {Object} Column definition
  */
-export const createContactedWappColumn = (columnHelper, accessor = "contacted_wapp", header = "Contactado por WhatsApp") =>
+export const createContactedWappColumn = (columnHelper, accessor = "contacted_wapp", header = "Contactado WhatsApp") =>
   columnHelper.accessor(accessor, {
     header,
     cell: ({ getValue }) => {

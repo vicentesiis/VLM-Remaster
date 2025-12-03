@@ -12,6 +12,7 @@ import PropTypes from "prop-types"
 import React, { useState } from "react"
 import { FaWhatsapp } from "react-icons/fa"
 import { toast } from "sonner"
+import { updateRecordContactedWapp } from "@/api/recordApi"
 import StatusBadge from "@/components/customs/badge/status-badge"
 import CountryFlag from "@/components/customs/country-flag"
 import ReassingRecordDialog from "@/components/customs/dialogs/reassing-record-dialog"
@@ -76,7 +77,6 @@ export const RegistrosDetailHeader = ({ registro }) => {
     }
   }
 
-  // WhatsApp functionality with loading state
   const handleWhatsAppClick = async () => {
     setIsWhatsAppLoading(true)
 
@@ -86,6 +86,14 @@ export const RegistrosDetailHeader = ({ registro }) => {
       if (!phoneNumber) {
         toast.error("No hay número de teléfono disponible")
         return
+      }
+
+      if (registro.contacted_wapp !== true && registro.id) {
+        try {
+          await updateRecordContactedWapp(registro.id)
+        } catch (error) {
+          console.error("Error updating contacted_wapp:", error)
+        }
       }
 
       const message = createWhatsAppMessage(registro)
