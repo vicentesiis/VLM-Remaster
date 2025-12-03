@@ -141,9 +141,9 @@ export const applyRoleBasedColumns = (baseColumns, role, availableColumns, compo
           availableColumns.programColumn,
           availableColumns.phoneColumn,
           availableColumns.contactedColumn,
-          availableColumns.contactedWappColumn,
           availableColumns.commentsColumn,
           availableColumns.whatsAppActionColumn,
+          availableColumns.contactedWappColumn,
         ].filter(Boolean)
       }
 
