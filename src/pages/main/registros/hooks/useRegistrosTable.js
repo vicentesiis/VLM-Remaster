@@ -139,6 +139,7 @@ export const useRegistrosTable = (title, componentType = null) => {
     meta: {
       total: data?.total ?? 0,
       hasFetched: isFetched,
+      refetch,
     },
     // Force table to re-render when columns change
     autoResetAll: false,

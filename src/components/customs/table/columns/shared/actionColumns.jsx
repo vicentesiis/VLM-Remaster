@@ -21,15 +21,15 @@ export const createWhatsAppActionColumn = (
   columnHelper.display({
     id,
     header,
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
       const registro = row.original
       const { phone, nationality } = registro
-      console.log("Registro", registro)
+      const refetch = table.options.meta?.refetch
 
       const [isWhatsAppLoading, setIsWhatsAppLoading] = useState(false)
 
       const handleWhatsAppClick = async (e) => {
-        e.stopPropagation() // Prevent row click events
+        e.stopPropagation()
         setIsWhatsAppLoading(true)
 
         try {
@@ -43,7 +43,9 @@ export const createWhatsAppActionColumn = (
           if (registro.contacted_wapp !== true && registro.id) {
             try {
               await updateRecordContactedWapp(registro.id)
-              registro.contacted_wapp = true
+              if (refetch) {
+                await refetch()
+              }
             } catch (error) {
               console.error("Error updating contacted_wapp:", error)
             }
