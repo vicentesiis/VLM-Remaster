@@ -159,3 +159,35 @@ export const createContactedColumn = (columnHelper, accessor = "contacted", head
     meta: { align: "center" },
   })
 
+/**
+ * Creates a WhatsApp contacted column with boolean check/x icons
+ * @param {Object} columnHelper - TanStack table column helper
+ * @param {string} accessor - The data accessor key (default: "contacted_wapp")
+ * @param {string} header - The column header text (default: "Contactado por WhatsApp")
+ * @returns {Object} Column definition
+ */
+export const createContactedWappColumn = (columnHelper, accessor = "contacted_wapp", header = "Contactado por WhatsApp") =>
+  columnHelper.accessor(accessor, {
+    header,
+    cell: ({ getValue }) => {
+      const contactedWapp = getValue()
+      const isContacted = contactedWapp === true
+      
+      return (
+        <div
+          className={`mx-auto flex h-6 w-6 items-center justify-center rounded-full border ${isContacted
+            ? "border-green-500 bg-green-100 text-green-700"
+            : "border-red-500 bg-red-100 text-red-700"
+            }`}
+        >
+          {isContacted ? (
+            <Check className="h-4 w-4" strokeWidth={2.5} />
+          ) : (
+            <X className="h-4 w-4" strokeWidth={2.5} />
+          )}
+        </div>
+      )
+    },
+    meta: { align: "center" },
+  })
+

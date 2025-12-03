@@ -42,3 +42,7 @@ export const reassignRecord = ({ record_id, user_id }) => {
     },
   })
 }
+
+export const updateRecordContactedWapp = (record_id) => {
+  return apiClient.patch(`/records/record/contacted/wapp/${record_id}`)
+}

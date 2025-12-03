@@ -18,6 +18,7 @@ export {
   createPhoneColumn,
   createCommentsColumn,
   createContactedColumn,
+  createContactedWappColumn,
   createGroupFilterColumn,
   createAmountOwedColumn,
   createNationalityColumn,

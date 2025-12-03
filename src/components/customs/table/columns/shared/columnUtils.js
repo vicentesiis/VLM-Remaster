@@ -130,7 +130,7 @@ export const applyRoleBasedColumns = (baseColumns, role, availableColumns, compo
         ].filter(Boolean)
 
       case 'leads': {
-        // For agents/leaders: Nombre, Status, Fecha de asignación, Programa, Telefono, Contacto efectivo, Coment, WhatsApp
+        // For agents/leaders: Nombre, Status, Fecha de asignación, Programa, Telefono, Contacto efectivo, Contactado por WhatsApp, Coment, WhatsApp
         const leadsBaseWithoutUpdatedAt = [
           availableColumns.nameColumn || baseColumns.find(col => col.accessorKey === 'name'),
           availableColumns.statusColumn || baseColumns.find(col => col.accessorKey === 'status'),
@@ -141,6 +141,7 @@ export const applyRoleBasedColumns = (baseColumns, role, availableColumns, compo
           availableColumns.programColumn,
           availableColumns.phoneColumn,
           availableColumns.contactedColumn,
+          availableColumns.contactedWappColumn,
           availableColumns.commentsColumn,
           availableColumns.whatsAppActionColumn,
         ].filter(Boolean)

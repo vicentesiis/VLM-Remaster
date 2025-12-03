@@ -1,8 +1,8 @@
 import { Loader2 } from "lucide-react"
-import { useState } from "react"
-import React from "react"
+import React, { useState } from "react"
 import { FaWhatsapp } from "react-icons/fa"
 import { toast } from "sonner"
+import { updateRecordContactedWapp } from "@/api/recordApi"
 import { Button } from "@/components/ui/button"
 import { formatPhoneNumber, createWhatsAppMessage } from "@/utils"
 
@@ -24,6 +24,7 @@ export const createWhatsAppActionColumn = (
     cell: ({ row }) => {
       const registro = row.original
       const { phone, nationality } = registro
+      console.log("Registro", registro)
 
       const [isWhatsAppLoading, setIsWhatsAppLoading] = useState(false)
 
@@ -39,6 +40,15 @@ export const createWhatsAppActionColumn = (
             return
           }
 
+          if (registro.contacted_wapp !== true && registro.id) {
+            try {
+              await updateRecordContactedWapp(registro.id)
+              registro.contacted_wapp = true
+            } catch (error) {
+              console.error("Error updating contacted_wapp:", error)
+            }
+          }
+
           const message = createWhatsAppMessage(registro)
           const encodedMessage = encodeURIComponent(message)
           const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
@@ -52,7 +62,6 @@ export const createWhatsAppActionColumn = (
         }
       }
 
-      // Don't render button if no phone number
       if (!phone) {
         return null
       }
