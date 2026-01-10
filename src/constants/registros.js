@@ -28,7 +28,9 @@ export const COUNTRY_FLAG_MAP = {
   "paraguay": "PY",
   "perú": "PE",
   "uruguay": "UY",
-  "venezuela": "VE"
+  "venezuela": "VE",
+  "canada": "CA",
+  "usa": "US",
 }
 
 // Record type configuration for badges and UI

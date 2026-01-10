@@ -14,7 +14,7 @@ export const InfoSection = ({ title, items, getStatusVariant }) => {
       <SectionTitle title={title} />
 
       {/* Items Grid */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-2">
         {items.map((item) => (
           <InfoItem
             key={item.label}
@@ -33,10 +33,10 @@ const InfoItem = ({ item, getStatusVariant }) => {
 
   // Check if this is a status badge
   const isStatusBadge = item.isBadge && item.label.toLowerCase().includes('estatus')
-  
+
   // Check if this is a record type badge
   const isRecordTypeBadge = item.isBadge && item.label.toLowerCase().includes('tipo de registro')
-  
+
   // Get record type config if needed
   const recordTypeConfig = isRecordTypeBadge ? getRecordTypeConfig(item.value) : null
   const RecordTypeIcon = recordTypeConfig?.icon
@@ -46,7 +46,7 @@ const InfoItem = ({ item, getStatusVariant }) => {
       className={`
         flex items-center gap-4 rounded-lg border border-border bg-background/40 p-2
         ${hoverEffects.container}
-        ${item.fullWidth ? "md:col-span-2 xl:col-span-3" : ""}
+        ${item.fullWidth ? "md:col-span-2 xl:col-span-2" : ""}
       `}
     >
       {/* Icon */}
@@ -66,7 +66,7 @@ const InfoItem = ({ item, getStatusVariant }) => {
         </p>
 
         {isStatusBadge ? (
-          <StatusBadge status={item.value}  />
+          <StatusBadge status={item.value} />
         ) : isRecordTypeBadge && RecordTypeIcon ? (
           <Badge
             variant={recordTypeConfig.variant}

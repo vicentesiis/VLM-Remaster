@@ -18,7 +18,7 @@ const InfoCard = ({
   ...props
 }) => {
   const hoverEffects = useHoverEffects(hoverVariant, withGradient, withIconEffects)
-  
+
   const getVariantStyles = () => {
     switch (variant) {
       case "success":
