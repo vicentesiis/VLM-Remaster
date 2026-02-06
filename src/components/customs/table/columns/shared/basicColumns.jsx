@@ -338,7 +338,7 @@ export const createIdLinkColumn = (
   header = "ID",
   basePath = "/detalle",
   maxWidth = "100px",
-  openInNewTab = true
+  openInNewTab = false
 ) =>
   columnHelper.accessor(accessor, {
     header,

@@ -47,7 +47,10 @@ export function DataTableSkeleton({
         <Table>
           <TableHeader>
             {Array.from({ length: 1 }).map((_, i) => (
-              <TableRow key={i} className="hover:bg-transparent">
+              <TableRow
+                key={i}
+                className="hover:!bg-transparent hover:!shadow-none hover:!translate-y-0 hover:!brightness-100"
+              >
                 {Array.from({ length: columnCount }).map((_, j) => (
                   <TableHead
                     key={j}

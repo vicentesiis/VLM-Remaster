@@ -28,6 +28,7 @@ export function DataTable({
 }) {
   const hasData =
     Array.isArray(table.options.data) && table.options.data.length > 0
+  const visibleColumnsCount = table.getVisibleLeafColumns().length
 
   const isEmpty = hasFetched && !hasData
 
@@ -41,7 +42,10 @@ export function DataTable({
         <Table className>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow
+                key={headerGroup.id}
+                className="hover:!bg-transparent hover:!shadow-none hover:!translate-y-0 hover:!brightness-100"
+              >
                 {headerGroup.headers.map((header) => {
                   const meta = header.column.columnDef.meta || {}
                   return (
@@ -73,25 +77,25 @@ export function DataTable({
           <TableBody>
             {isLoading ? (
               <DataTableBodySkeleton
-                columnCount={table.getAllLeafColumns().length}
+                columnCount={visibleColumnsCount}
                 rowCount={10}
               />
             ) : !hasFetched ? (
               <TableMessageCell
-                colSpan={table.getAllColumns().length}
+                colSpan={visibleColumnsCount}
                 message="Esperando búsqueda..."
                 variant="info"
               />
             ) : isError ? (
               <TableMessageCell
-                colSpan={table.getAllColumns().length}
+                colSpan={visibleColumnsCount}
                 message="Ocurrió un error al cargar los datos"
                 className="text-destructive"
                 variant="error"
               />
             ) : isEmpty ? (
               <TableMessageCell
-                colSpan={table.getAllColumns().length}
+                colSpan={visibleColumnsCount}
                 message="Sin resultados"
                 variant="empty"
               />

@@ -1,20 +1,41 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo } from "react"
 import { getParsedVacantParams } from "./getParsedVacantParams"
 import { getVacantColumns } from "@/components/customs/table/columns/vacantColumns"
 import { useCodexData } from "@/hooks/queries"
 import { useGetVacants } from "@/hooks/queries/useVacants"
+import { useVacantesFiltersStore } from "@/hooks/useVacantesFiltersStore"
 import { translateJobCategories } from "@/utils/utils"
+
+let hasHandledReloadReset = false
+const VACANTS_QUERY_STALE_TIME = 1000 * 60 * 10
+const VACANTS_QUERY_GC_TIME = 1000 * 60 * 30
 
 export const useVacantsTable = () => {
   const queryClient = useQueryClient()
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 20,
-  })
-  const [columnFilters, setColumnFilters] = useState([])
-  const [appliedFilters, setAppliedFilters] = useState([])
+  const pagination = useVacantesFiltersStore((state) => state.pagination)
+  const setPagination = useVacantesFiltersStore((state) => state.setPagination)
+  const columnFilters = useVacantesFiltersStore((state) => state.columnFilters)
+  const setColumnFilters = useVacantesFiltersStore(
+    (state) => state.setColumnFilters
+  )
+  const appliedFilters = useVacantesFiltersStore((state) => state.appliedFilters)
+  const setAppliedFilters = useVacantesFiltersStore(
+    (state) => state.setAppliedFilters
+  )
+  const resetFilters = useVacantesFiltersStore((state) => state.resetFilters)
+
+  useEffect(() => {
+    const navigationEntry = performance.getEntriesByType("navigation")?.[0]
+    const isReload = navigationEntry?.type === "reload"
+
+    if (!isReload || hasHandledReloadReset) return
+
+    resetFilters()
+    queryClient.removeQueries({ queryKey: ["vacants"] })
+    hasHandledReloadReset = true
+  }, [queryClient, resetFilters])
 
   const selectedCountry = useMemo(() => {
     return columnFilters.find((f) => f.id === "country")?.value ?? null
@@ -40,7 +61,13 @@ export const useVacantsTable = () => {
 
   const { data, isFetched, isFetching, isError, refetch } = useGetVacants(
     parsedParams,
-    { enabled: parsedParams !== null }
+    {
+      enabled: parsedParams !== null,
+      staleTime: VACANTS_QUERY_STALE_TIME,
+      gcTime: VACANTS_QUERY_GC_TIME,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
   )
 
   const tableData = useMemo(() => {
@@ -75,7 +102,7 @@ export const useVacantsTable = () => {
       setPagination((prev) => ({ ...prev, pageIndex: 0 }))
       queryClient.removeQueries({ queryKey: ["vacants"] })
     }
-  }, [columnFilters, appliedFilters])
+  }, [columnFilters, appliedFilters, queryClient, setAppliedFilters, setPagination])
 
   return {
     table,
