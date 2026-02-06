@@ -21,8 +21,11 @@ const LoadingSkeleton = () => (
   </div>
 )
 
-export const GroupResponsible = ({ admin, leader, isLoading }) => {
+export const GroupResponsible = ({ admin, leader, group, isLoading }) => {
   const { isAgent } = useCurrentUser()
+  const hasSelectedGroup = Boolean(group)
+  const hasAdmin = Boolean(admin && Object.keys(admin).length > 0)
+  const hasLeader = Boolean(leader && Object.keys(leader).length > 0)
   
   if (isLoading) {
     return (
@@ -39,14 +42,14 @@ export const GroupResponsible = ({ admin, leader, isLoading }) => {
     <div className="w-full sm:w-[300px]">
       <div className="space-y-3">
         {/* Admin Section */}
-        {!isAgent && admin && (
+        {!isAgent && hasAdmin && (
           <div className="relative">
             <UserRoleCard {...admin} role="admin" />
           </div>
         )}
 
         {/* Leader Section */}
-        {leader && (
+        {hasLeader && (
           <div className="relative">
             <UserRoleCard {...leader} role="lider" />
             {typeof leader?.active === "boolean" && !leader.active && (
@@ -58,12 +61,20 @@ export const GroupResponsible = ({ admin, leader, isLoading }) => {
         )}
 
         {/* Empty State */}
-        {!admin && !leader && (
-          <div className="rounded-xl border border-dashed bg-muted/30 p-6 text-center">
-            <p className="text-sm text-muted-foreground">
-              No hay responsables asignados
-            </p>
-          </div>
+        {!hasAdmin && !hasLeader && (
+          <UserRoleCard
+            isEmpty
+            emptyTitle={
+              hasSelectedGroup
+                ? "Sin responsables asignados"
+                : "Selecciona un grupo"
+            }
+            emptyDescription={
+              hasSelectedGroup
+                ? "Este grupo no tiene admin ni líder activos por ahora."
+                : "Elige un grupo y presiona Buscar para ver sus responsables."
+            }
+          />
         )}
       </div>
     </div>

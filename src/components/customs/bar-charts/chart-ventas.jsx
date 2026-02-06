@@ -41,6 +41,7 @@ export const ChartVentas = ({
             ? formatCurrencyUSD
             : (val) => String(val)
         }
+        emptyStateMessage="No hay ventas registradas para el año seleccionado"
       />
     </div>
   )

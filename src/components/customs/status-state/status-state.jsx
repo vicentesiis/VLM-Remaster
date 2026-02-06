@@ -1,15 +1,14 @@
-import { AlertTriangle, Loader2, Search, Inbox } from "lucide-react"
+import { AlertTriangle, Loader2, Search, Inbox, FolderOpen } from "lucide-react"
 import PropTypes from "prop-types"
 import React from "react"
 
-import { Card } from "@/components/ui"
 import { cn } from "@/lib/utils"
 
 const typeDefaults = {
   loading: {
     title: "Cargando...",
     description: "Por favor espera mientras se cargan los datos.",
-    icon: <Loader2 className="h-16 w-16 animate-spin text-primary" />,
+    icon: <Loader2 className="h-14 w-14 animate-spin text-primary" />,
     bgColor: "bg-primary/5",
     iconBg: "bg-primary/10",
   },
@@ -17,7 +16,7 @@ const typeDefaults = {
     title: "Error al cargar los datos",
     description:
       "Ocurrió un error al obtener la información. Intenta nuevamente.",
-    icon: <AlertTriangle className="h-16 w-16 text-destructive" />,
+    icon: <AlertTriangle className="h-14 w-14 text-destructive" />,
     bgColor: "bg-destructive/5",
     iconBg: "bg-destructive/10",
   },
@@ -25,14 +24,14 @@ const typeDefaults = {
     title: "Esperando búsqueda...",
     description:
       "Aplica los filtros necesarios y presiona \"Buscar\" para continuar.",
-    icon: <Search className="h-16 w-16 text-muted-foreground" />,
+    icon: <Search className="h-14 w-14 text-muted-foreground" />,
     bgColor: "bg-muted/30",
     iconBg: "bg-muted/50",
   },
   empty: {
     title: "Sin resultados",
     description: "No se encontraron resultados.",
-    icon: <Inbox className="h-16 w-16 text-muted-foreground" />,
+    icon: <FolderOpen className="h-14 w-14 text-muted-foreground" />,
     bgColor: "bg-muted/30",
     iconBg: "bg-muted/50",
   },
@@ -56,7 +55,7 @@ export function StatusState({
     >
       <div
         className={cn(
-          "flex items-center justify-center rounded-full p-2 transition-all duration-200",
+          "flex items-center justify-center rounded-full p-3 transition-all duration-200",
           fallback.iconBg
         )}
       >

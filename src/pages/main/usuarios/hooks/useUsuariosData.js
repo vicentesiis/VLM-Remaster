@@ -39,8 +39,8 @@ export function useUsuariosData() {
     }
     return rawMembers
   }, [rawMembers, isAgent])
-  const admin = response?.data?.admin ?? {}
-  const leader = response?.data?.leader ?? {}
+  const admin = response?.data?.admin ?? null
+  const leader = response?.data?.leader ?? null
 
   const groupName = isSuperAdmin
     ? response?.data?.name || ""

@@ -35,7 +35,7 @@ const PageLayout = ({ routeKey, title, subtitle, children }) => {
     <>
       <NewNavbar title={resolvedTitle} subtitle={resolvedSubtitle} />
       {isAgent && renderRegistroDialog()}
-      <div className="relative mx-auto max-w-screen-2xl sm:px-10 sm:py-6">
+      <div className="relative mx-auto max-w-screen-3xl sm:px-6 sm:py-6 2xl:px-32 2xl:py-8">
         {children}
       </div>
     </>
