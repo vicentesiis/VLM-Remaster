@@ -56,7 +56,16 @@ export const VacantesDetailInfo = ({ vacant }) => {
     { label: "Teléfono", value: employer_phone, icon: Phone },
     {
       label: "Link de la Vacante",
-      value: url ? <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline truncate">{url}</a> : null,
+      value: url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full break-all whitespace-normal text-blue-600 underline"
+        >
+          {url}
+        </a>
+      ) : null,
       icon: LinkIcon,
       fullWidth: true
     }

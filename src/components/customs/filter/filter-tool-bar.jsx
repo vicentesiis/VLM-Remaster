@@ -4,6 +4,7 @@ import React from "react"
 import { toast } from "sonner"
 import LabeledSelect from "./labeled-select"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 const FilterToolbar = ({
   filterConfig = [],
@@ -12,6 +13,7 @@ const FilterToolbar = ({
   onSearch,
   context = {},
   isLoading = false,
+  className,
 }) => {
   const handleValidatedSearch = () => {
     const isMissing = (value) =>
@@ -46,7 +48,12 @@ const FilterToolbar = ({
   }
 
   return (
-    <div className="flex flex-col items-end gap-2 lg:flex-row">
+    <div
+      className={cn(
+        "flex w-full flex-col items-stretch gap-2 md:flex-row md:items-end",
+        className
+      )}
+    >
       {filterConfig.map((config) => {
         if (!config) return null
 
@@ -66,10 +73,15 @@ const FilterToolbar = ({
             options={options}
             value={values[config.key]}
             onValueChange={onChange[config.key]}
+            className="w-full md:w-auto"
           />
         )
       })}
-      <Button isLoading={isLoading} onClick={handleValidatedSearch}>
+      <Button
+        isLoading={isLoading}
+        onClick={handleValidatedSearch}
+        className="w-full md:w-auto"
+      >
         <SearchIcon />
         Buscar
       </Button>
@@ -81,6 +93,7 @@ FilterToolbar.propTypes = {
   context: PropTypes.object,
   filterConfig: PropTypes.array,
   isLoading: PropTypes.bool,
+  className: PropTypes.string,
   onChange: PropTypes.any,
   onSearch: PropTypes.any,
   values: PropTypes.any,

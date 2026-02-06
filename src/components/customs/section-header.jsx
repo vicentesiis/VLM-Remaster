@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils"
 const SectionHeader = ({ title, extra, subtitle, actions, className, emptyMessage, highlightPositive }) => {
   return (
     <div className={cn("py-4 md:py-0 md:pb-4", className)}>
-      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between md:gap-4">
-        <div className="flex-1 space-y-1.5">
+      <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-start md:justify-between md:gap-4">
+        <div className="min-w-[240px] flex-1 space-y-1.5">
           <div className="flex flex-wrap items-baseline gap-2.5">
             {title && (
               <h1 className="text-2xl font-bold tracking-tight text-foreground md:text-2xl">
@@ -37,7 +37,7 @@ const SectionHeader = ({ title, extra, subtitle, actions, className, emptyMessag
         </div>
 
         {actions && (
-          <div className="flex flex-wrap items-center gap-2 md:flex-nowrap md:gap-3">
+          <div className="flex w-full flex-wrap items-center gap-2 md:w-auto md:justify-end md:gap-3">
             {actions}
           </div>
         )}

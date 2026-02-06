@@ -60,10 +60,10 @@ const Usuarios = () => {
   })
 
   const actions = useMemo(() => (
-    <div className="flex flex-col gap-2 sm:flex-row">
+    <div className="flex w-full flex-col gap-2 lg:w-auto lg:flex-row lg:items-center lg:justify-end">
       {isSuperAdmin ? (
         <>
-          <div className="flex justify-center gap-2">
+          <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 lg:w-auto lg:grid-cols-1">
             <GroupDialog />
             {shouldFetch && <UpdateGroupPhoneDialog group={response?.data} />}
           </div>
@@ -74,6 +74,7 @@ const Usuarios = () => {
             context={{ groups: listOfGroups }}
             onSearch={handleSearch}
             isLoading={isFetching}
+            className="w-full lg:w-auto"
           />
         </>
       ) : (
