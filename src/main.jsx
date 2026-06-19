@@ -4,6 +4,11 @@ import { createRoot } from "react-dom/client"
 import { BrowserRouter } from "react-router-dom"
 import App from "./App.jsx"
 import "./index.css"
+import { initMocks } from "./mocks"
+
+if (import.meta.env.VITE_USE_MOCKS === "true") {
+  initMocks()
+}
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
