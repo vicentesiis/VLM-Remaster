@@ -112,58 +112,260 @@ export const initUserMocks = (mock) => {
   })
 
   // 7. GET /records/records and /records/records_by_user
+  const mockRecords = [
+    {
+      id: "rec-1",
+      public_id: "rec-pub-1",
+      searchable_id: "rec-1",
+      name: "Juan Pérez",
+      status: "lead",
+      email: "juan@example.com",
+      phone: "+528112345678",
+      created_at: "2026-06-10T12:00:00Z",
+      updated_at: "2026-06-18T18:00:00Z",
+      assignment_date: "2026-06-11T12:00:00Z",
+      record_type: "lead",
+      channel: "facebook",
+      program: "program_a",
+      amount_owed_local: 2700000, // $27,000.00 MXN in cents
+      amount_owed: 150000, // $1,500.00 USD in cents
+      currency: "MXN",
+      comments: "Interesado en vacante de ingeniería, pendiente de validación.",
+      nationality: "mexicana",
+      state: "Nuevo León",
+      curp: "PERJ900101HDFRRN01",
+      passport: "",
+      user: { id: "mock-user-123", name: "Administrador Mock" }
+    },
+    {
+      id: "rec-2",
+      public_id: "rec-pub-2",
+      searchable_id: "rec-2",
+      name: "María López",
+      status: "prospect",
+      email: "maria@example.com",
+      phone: "+528122345678",
+      created_at: "2026-06-11T14:30:00Z",
+      updated_at: "2026-06-17T09:15:00Z",
+      assignment_date: "2026-06-12T10:00:00Z",
+      record_type: "prospect",
+      channel: "whatsapp",
+      program: "program_b",
+      amount_owed_local: 4500000, // $45,000.00 MXN in cents
+      amount_owed: 250000, // $2,500.00 USD in cents
+      currency: "MXN",
+      comments: "Habló por WhatsApp, solicita facilidades de pago.",
+      nationality: "mexicana",
+      state: "Nuevo León",
+      curp: "LOPM920202HDFRRN02",
+      passport: "",
+      user: { id: "mock-user-123", name: "Administrador Mock" }
+    },
+    {
+      id: "rec-3",
+      public_id: "rec-pub-3",
+      searchable_id: "rec-3",
+      name: "Carlos Mendoza",
+      status: "client",
+      email: "carlos.m@example.com",
+      phone: "+573001234567",
+      created_at: "2026-05-20T09:00:00Z",
+      updated_at: "2026-06-18T10:00:00Z",
+      assignment_date: "2026-05-21T09:30:00Z",
+      record_type: "prospect",
+      channel: "instagram",
+      program: "program_c",
+      amount_owed_local: 0,
+      amount_owed: 0,
+      currency: "COP",
+      comments: "Pago completo del programa. Proceso finalizado.",
+      nationality: "colombiana",
+      state: "Antioquia",
+      curp: "",
+      passport: "PASCOL123456",
+      user: { id: "mock-user-2", name: "Sofía Rodríguez" }
+    },
+    {
+      id: "rec-4",
+      public_id: "rec-pub-4",
+      searchable_id: "rec-4",
+      name: "Ana Gómez",
+      status: "finalized",
+      email: "ana.gomez@example.com",
+      phone: "+541123456789",
+      created_at: "2026-04-15T11:00:00Z",
+      updated_at: "2026-06-15T16:00:00Z",
+      assignment_date: "2026-04-16T12:00:00Z",
+      record_type: "prospect",
+      channel: "email",
+      program: "program_b",
+      amount_owed_local: 0,
+      amount_owed: 0,
+      currency: "ARS",
+      comments: "Contrato firmado y primer pago recibido. Todo en orden.",
+      nationality: "argentina",
+      state: "Buenos Aires",
+      curp: "",
+      passport: "PASARG987654",
+      user: { id: "mock-user-3", name: "Carlos Mendoza" }
+    }
+  ]
+
   const handleRecordsRequest = (config) => {
     console.log("[Mock] GET records requested with params:", config.params)
     return [
       200,
       {
-        total: 2,
-        data: [
-          {
-            id: "rec-1",
-            public_id: "rec-pub-1",
-            searchable_id: "rec-1",
-            name: "Juan Pérez",
-            status: "lead",
-            email: "juan@example.com",
-            phone: "+521234567890",
-            created_at: "2026-06-10T12:00:00Z",
-            updated_at: "2026-06-18T18:00:00Z",
-            assignment_date: "2026-06-11T12:00:00Z",
-            record_type: "lead",
-            channel: "facebook",
-            program: "program_a",
-            amount_owed_local: 2700000, // $27,000.00 MXN in cents
-            amount_owed: 150000, // $1,500.00 USD in cents
-            currency: "MXN",
-            comments: "Interesado en vacante de ingeniería, pendiente de validación.",
-          },
-          {
-            id: "rec-2",
-            public_id: "rec-pub-2",
-            searchable_id: "rec-2",
-            name: "María López",
-            status: "prospect",
-            email: "maria@example.com",
-            phone: "+521234567891",
-            created_at: "2026-06-11T14:30:00Z",
-            updated_at: "2026-06-17T09:15:00Z",
-            assignment_date: "2026-06-12T10:00:00Z",
-            record_type: "prospect",
-            channel: "whatsapp",
-            program: "program_b",
-            amount_owed_local: 4500000, // $45,000.00 MXN in cents
-            amount_owed: 250000, // $2,500.00 USD in cents
-            currency: "MXN",
-            comments: "Habló por WhatsApp, solicita facilidades de pago.",
-          },
-        ],
+        total: mockRecords.length,
+        data: mockRecords,
       },
     ]
   }
 
   mock.onGet(/\/records\/records.*/).reply(handleRecordsRequest)
   mock.onGet(/\/records\/records_by_user.*/).reply(handleRecordsRequest)
+
+  // GET /records/record
+  mock.onGet(/\/records\/record(\?.*)?$/).reply((config) => {
+    const params = config.params || {}
+    const searchableId = params.searchable_id
+    console.log("[Mock] GET /records/record searchable_id:", searchableId)
+    const record = mockRecords.find(
+      (r) =>
+        r.id === searchableId ||
+        r.public_id === searchableId ||
+        r.searchable_id === searchableId
+    ) || mockRecords[1]
+    return [200, { data: record }]
+  })
+
+  // GET /orders/by-record
+  mock.onGet(/\/orders\/by-record.*/).reply((config) => {
+    const params = config.params || {}
+    const recordId = params.record_id
+    console.log("[Mock] GET /orders/by-record record_id:", recordId)
+
+    const isRec1 = recordId === "rec-1" || recordId === "rec-pub-1"
+    const orders = [
+      {
+        id: `ord-${recordId}-1`,
+        created_at: "2026-06-12T10:00:00Z",
+        status: "paid",
+        payment_method: "spei",
+        amount_local: isRec1 ? 2700000 : 4500000,
+        amount: isRec1 ? 150000 : 250000,
+        currency: "MXN",
+        reference: "123456789012345678",
+        payment_date: "2026-06-12T10:05:00Z",
+        paid_to_user: true,
+        user: { name: "Administrador Mock", username: "admin" },
+        record: { name: isRec1 ? "Juan Pérez" : "María López", public_id: isRec1 ? "rec-pub-1" : "rec-pub-2" }
+      }
+    ]
+
+    if (!isRec1) {
+      orders.push({
+        id: `ord-${recordId}-2`,
+        created_at: "2026-06-15T14:30:00Z",
+        status: "pending",
+        payment_method: "cash",
+        amount_local: 2000000,
+        amount: 110000,
+        currency: "MXN",
+        reference: "987654321098765432",
+        payment_date: null,
+        paid_to_user: false,
+        user: { name: "Administrador Mock", username: "admin" },
+        record: { name: "María López", public_id: "rec-pub-2" }
+      })
+    }
+
+    return [200, { data: orders }]
+  })
+
+  // GET /reports/sales/group
+  mock.onGet(/\/reports\/sales\/group.*/).reply((config) => {
+    const params = config.params || {}
+    const startDateStr = params.start_date
+    const endDateStr = params.end_date
+    console.log("[Mock] GET /reports/sales/group start_date:", startDateStr, "end_date:", endDateStr)
+
+    const startDate = startDateStr ? new Date(startDateStr) : new Date()
+    const endDate = endDateStr ? new Date(endDateStr) : new Date()
+
+    const group_daily_sales = []
+    let total_sales = 0
+    let total_orders = 0
+
+    const currentDate = new Date(startDate)
+    while (currentDate <= endDate) {
+      const dayNum = currentDate.getDate()
+      const hasSales = dayNum % 3 === 0 || dayNum === 15 || dayNum === 18
+
+      if (hasSales) {
+        const dayOrdersCount = (dayNum % 2) + 1
+        const orders = []
+        let daySalesUsd = 0
+
+        for (let i = 0; i < dayOrdersCount; i++) {
+          const ordId = `ord-${dayNum}-${i}`
+          const isRec1 = (dayNum + i) % 2 === 0
+          const order = {
+            id: ordId,
+            created_at: new Date(currentDate.getFullYear(), currentDate.getMonth(), dayNum, 10 + i, 0, 0).toISOString(),
+            status: "paid",
+            payment_method: i === 0 ? "spei" : "cash",
+            amount_local: isRec1 ? 2700000 : 4500000,
+            amount: isRec1 ? 150000 : 250000,
+            currency: "MXN",
+            reference: `REF${dayNum}${i}998822`,
+            payment_date: new Date(currentDate.getFullYear(), currentDate.getMonth(), dayNum, 10 + i, 5, 0).toISOString(),
+            paid_to_user: true,
+            user: {
+              name: isRec1 ? "Administrador Mock" : "Sofía Rodríguez",
+              username: isRec1 ? "admin" : "sofia.r"
+            },
+            record: {
+              name: isRec1 ? "Juan Pérez" : "María López",
+              public_id: isRec1 ? "rec-pub-1" : "rec-pub-2"
+            }
+          }
+          orders.push(order)
+          daySalesUsd += order.amount
+        }
+
+        group_daily_sales.push({
+          date: new Date(currentDate).toISOString(),
+          total_day_sales: daySalesUsd,
+          total_day_orders: dayOrdersCount,
+          orders: orders
+        })
+
+        total_sales += daySalesUsd
+        total_orders += dayOrdersCount
+      } else {
+        group_daily_sales.push({
+          date: new Date(currentDate).toISOString(),
+          total_day_sales: 0,
+          total_day_orders: 0,
+          orders: []
+        })
+      }
+
+      currentDate.setDate(currentDate.getDate() + 1)
+    }
+
+    return [
+      200,
+      {
+        data: {
+          total_sales,
+          total_orders,
+          group_daily_sales
+        }
+      }
+    ]
+  })
 
   // 8. GET /groups/all
   mock.onGet("/groups/all?with_members=true").reply(() => {
