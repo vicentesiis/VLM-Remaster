@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | VLM Control Panel</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Dashboard Specific Styles */
+    .dashboard-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    
+    .dashboard-grid-2x1 {
+      display: grid;
+      grid-template-columns: 2.2fr 1.8fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    
+    .metric-value {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+    
+    .metric-trend {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .trend-up {
+      color: var(--accent-success);
+    }
+    
+    .trend-down {
+      color: var(--accent-danger);
+    }
+    
+    .metric-icon-bg {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .bg-indigo-glow {
+      background-color: var(--accent-primary-glow);
+      color: var(--accent-primary);
+      border: 1px solid rgba(99, 102, 241, 0.15);
+    }
+    
+    .bg-emerald-glow {
+      background-color: var(--accent-success-glow);
+      color: var(--accent-success);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+    }
+    
+    .bg-amber-glow {
+      background-color: var(--accent-warning-glow);
+      color: var(--accent-warning);
+      border: 1px solid rgba(245, 158, 11, 0.15);
+    }
+    
+    .bg-rose-glow {
+      background-color: var(--accent-danger-glow);
+      color: var(--accent-danger);
+      border: 1px solid rgba(244, 63, 94, 0.15);
+    }
+
+    /* Progress tracker */
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background-color: rgba(0, 0, 0, 0.06);
+      border-radius: 4px;
+      margin-top: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-primary) 0%, #a855f7 100%);
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    }
+
+    /* SVG Chart */
+    .chart-container {
+      width: 100%;
+      height: 240px;
+      position: relative;
+      margin-top: 10px;
+    }
+
+    /* Channels Progress List */
+    .channel-row {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .channel-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .channel-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+    }
+
+    .channel-bar-bg {
+      width: 120px;
+      height: 6px;
+      background-color: rgba(0, 0, 0, 0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .channel-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    /* Top Sellers Rank UI */
+    .rank-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .rank-1 {
+      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      color: #fff;
+      box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+    }
+
+    .rank-2 {
+      background: linear-gradient(135deg, #e4e4e7 0%, #a1a1aa 100%);
+      color: #18181b;
+    }
+
+    .rank-3 {
+      background: linear-gradient(135deg, #b45309 0%, #78350f 100%);
+      color: #fff;
+    }
+
+    .rank-other {
+      background-color: rgba(0, 0, 0, 0.04);
+      color: var(--text-secondary);
+    }
+
+    .seller-avatar-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-icon-container">
+          <svg class="logo-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 20V4L18 20V4" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 4L12 20" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <circle cx="18" cy="4" r="3.5" fill="#f43f5e" />
+          </svg>
+        </div>
+        <span class="logo-text">NorthEntry</span>
+      </div>
+      <nav class="sidebar-nav">
+        <!-- Main Platform items -->
+        <a href="dashboard.html" class="nav-link active">
+          <i data-lucide="layout-grid"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="check-square"></i>
+          <span>Tareas</span>
+        </a>
+        <a href="detalle.html" class="nav-link">
+          <i data-lucide="file-text"></i>
+          <span>Registros</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="users"></i>
+          <span>Clientes</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="contact"></i>
+          <span>Leads</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="handshake"></i>
+          <span>Clientes</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="target"></i>
+          <span>Prospectos</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="briefcase"></i>
+          <span>Vacantes</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="dollar-sign"></i>
+          <span>Ventas</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="credit-card"></i>
+          <span>Ventas activas por cobrar</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="user-cog"></i>
+          <span>Usuarios</span>
+        </a>
+
+        <!-- Section: Reportes -->
+        <span class="nav-label" style="margin-top: 16px;">Reportes</span>
+        <a href="#" class="nav-link">
+          <i data-lucide="user-check"></i>
+          <span>Ventas por agente</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="clipboard-list"></i>
+          <span>Registros por agente</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="calendar"></i>
+          <span>Ventas mensuales</span>
+        </a>
+        <a href="ventas-potenciales.html" class="nav-link">
+          <i data-lucide="trending-up"></i>
+          <span>Ventas potenciales</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="dollar-sign"></i>
+          <span>Ventas activas por cobrar</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="check-circle-2"></i>
+          <span>Control de finalizados</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="globe"></i>
+          <span>Ventas globales</span>
+        </a>
+        <a href="#" class="nav-link" style="margin-bottom: 20px;">
+          <i data-lucide="file-spreadsheet"></i>
+          <span>Cortes por Agente</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <img class="user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar Administrador">
+        <div class="user-info">
+          <span class="user-name">Sofía Mendoza</span>
+          <span class="user-role">Super Administradora</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Navbar -->
+      <header class="navbar">
+        <div class="navbar-left">
+          <div class="breadcrumb-path">
+            <span>Plataforma</span>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Dashboard</span>
+          </div>
+        </div>
+        <div class="navbar-right">
+          <div class="search-bar">
+            <i data-lucide="search"></i>
+            <input type="text" placeholder="Buscar registros, órdenes...">
+          </div>
+          <button class="navbar-icon-btn">
+            <i data-lucide="bell"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Viewport Content -->
+      <main class="content-viewport">
+        <!-- Title and actions -->
+        <div class="heading-container">
+          <div>
+            <h1 class="page-title">Panel de Control</h1>
+            <p class="page-description">Vista general del rendimiento del grupo, metas y tipo de cambio.</p>
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <button class="btn btn-secondary">
+              <i data-lucide="download"></i> Exportar Reporte
+            </button>
+            <button class="btn btn-primary">
+              <i data-lucide="plus"></i> Registrar Venta
+            </button>
+          </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="dashboard-grid-4">
+          <!-- Card 1 -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Ventas Grupales</span>
+              <div class="metric-icon-bg bg-indigo-glow">
+                <i data-lucide="line-chart"></i>
+              </div>
+            </div>
+            <div class="metric-value">$148,963.00 <span style="font-size: 14px; font-weight: 500; color: var(--text-muted)">MXN</span></div>
+            <div class="metric-trend trend-up">
+              <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+              <span>+14.2% este mes</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Ventas Individuales</span>
+              <div class="metric-icon-bg bg-emerald-glow">
+                <i data-lucide="user"></i>
+              </div>
+            </div>
+            <div class="metric-value">$41,285.00 <span style="font-size: 14px; font-weight: 500; color: var(--text-muted)">MXN</span></div>
+            <div class="metric-trend trend-up">
+              <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
+              <span>+8.7% este mes</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Meta de Grupo (Junio)</span>
+              <div class="metric-icon-bg bg-amber-glow">
+                <i data-lucide="target"></i>
+              </div>
+            </div>
+            <div class="metric-value">83.2%</div>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              <span>$124K recolectado</span>
+              <span>Meta: $150K</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar" style="width: 83.2%;"></div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Tipo de Cambio (USD)</span>
+              <div class="metric-icon-bg bg-rose-glow">
+                <i data-lucide="dollar-sign"></i>
+              </div>
+            </div>
+            <div class="metric-value" style="font-size: 24px;">$17.84 <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">MXN / USD</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); margin-top: 10px; border-top: 1px solid var(--border-color); padding-top: 8px;">
+              <span style="display: flex; align-items: center; gap: 4px;"><i data-lucide="trending-down" style="width: 12px; height: 12px; color: var(--accent-danger);"></i> Compra: $17.40</span>
+              <span style="display: flex; align-items: center; gap: 4px;"><i data-lucide="trending-up" style="width: 12px; height: 12px; color: var(--accent-success);"></i> Venta: $18.15</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="dashboard-grid-2x1">
+          <!-- Chart Card -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <span class="card-title">Rendimiento Histórico de Ventas</span>
+                <p class="card-subtitle">Ventas grupales consolidadas de la última semana</p>
+              </div>
+              <div class="badge badge-info">
+                <span class="status-dot" style="background-color: var(--accent-primary); box-shadow: 0 0 8px var(--accent-primary);"></span>
+                <span>Junio 2026</span>
+              </div>
+            </div>
+            
+            <div class="chart-container">
+              <svg width="100%" height="100%" viewBox="0 0 500 220" preserveAspectRatio="none">
+                <!-- Grids -->
+                <line x1="0" y1="40" x2="500" y2="40" stroke="rgba(0,0,0,0.04)" stroke-dasharray="4" />
+                <line x1="0" y1="100" x2="500" y2="100" stroke="rgba(0,0,0,0.04)" stroke-dasharray="4" />
+                <line x1="0" y1="160" x2="500" y2="160" stroke="rgba(0,0,0,0.04)" stroke-dasharray="4" />
+                <line x1="0" y1="210" x2="500" y2="210" stroke="rgba(0,0,0,0.08)" />
+                
+                <!-- Chart Area Fill Gradient -->
+                <defs>
+                  <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--accent-primary)" stop-opacity="0.3" />
+                    <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                
+                <!-- Path Fill -->
+                <path d="M 0 160 Q 80 180 160 110 T 320 80 T 500 40 L 500 210 L 0 210 Z" fill="url(#chartGrad)" />
+                
+                <!-- Path Line -->
+                <path d="M 0 160 Q 80 180 160 110 T 320 80 T 500 40" fill="none" stroke="var(--accent-primary)" stroke-width="3.5" stroke-linecap="round" />
+                
+                <!-- Interaction points -->
+                <circle cx="160" cy="110" r="5" fill="#fff" stroke="var(--accent-primary)" stroke-width="2.5" />
+                <circle cx="320" cy="80" r="5" fill="#fff" stroke="var(--accent-primary)" stroke-width="2.5" />
+                <circle cx="500" cy="40" r="5" fill="#fff" stroke="var(--accent-primary)" stroke-width="2.5" />
+                
+                <!-- Tooltip values visual indicators -->
+                <text x="160" y="90" fill="var(--text-primary)" font-size="10" font-family="sans-serif" font-weight="600" text-anchor="middle">$115K</text>
+                <text x="320" y="60" fill="var(--text-primary)" font-size="10" font-family="sans-serif" font-weight="600" text-anchor="middle">$132K</text>
+                <text x="470" y="25" fill="var(--text-primary)" font-size="10" font-family="sans-serif" font-weight="600" text-anchor="middle">$148K</text>
+              </svg>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 10px;">
+              <span>12 Jun</span>
+              <span>13 Jun</span>
+              <span>14 Jun</span>
+              <span>15 Jun</span>
+              <span>16 Jun</span>
+              <span>17 Jun</span>
+              <span>Hoy</span>
+            </div>
+          </div>
+
+          <!-- Channel & Acquisition Card -->
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="card-header" style="margin-bottom: 12px;">
+                <div>
+                  <span class="card-title">Canales de Prospección</span>
+                  <p class="card-subtitle">Volumen de ventas cerrado por medio de origen</p>
+                </div>
+              </div>
+              
+              <div class="channel-row">
+                <!-- Item 1 -->
+                <div class="channel-item">
+                  <span class="channel-name"><i data-lucide="message-square" style="color: #25d366; width: 16px; height: 16px;"></i> WhatsApp Business</span>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="channel-bar-bg">
+                      <div class="channel-bar-fill" style="width: 58%; background-color: #25d366;"></div>
+                    </div>
+                    <span style="font-weight: 600; width: 35px; text-align: right;">58%</span>
+                  </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="channel-item">
+                  <span class="channel-name"><i data-lucide="phone" style="color: var(--accent-primary); width: 16px; height: 16px;"></i> Llamadas Directas</span>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="channel-bar-bg">
+                      <div class="channel-bar-fill" style="width: 24%; background-color: var(--accent-primary);"></div>
+                    </div>
+                    <span style="font-weight: 600; width: 35px; text-align: right;">24%</span>
+                  </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="channel-item">
+                  <span class="channel-name"><i data-lucide="globe" style="color: var(--accent-success); width: 16px; height: 16px;"></i> Formulario Web</span>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="channel-bar-bg">
+                      <div class="channel-bar-fill" style="width: 16%; background-color: var(--accent-success);"></div>
+                    </div>
+                    <span style="font-weight: 600; width: 35px; text-align: right;">16%</span>
+                  </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="channel-item">
+                  <span class="channel-name"><i data-lucide="mail" style="color: var(--accent-warning); width: 16px; height: 16px;"></i> Campañas de Correo</span>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="channel-bar-bg">
+                      <div class="channel-bar-fill" style="width: 12%; background-color: var(--accent-warning);"></div>
+                    </div>
+                    <span style="font-weight: 600; width: 35px; text-align: right;">12%</span>
+                  </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="channel-item">
+                  <span class="channel-name"><i data-lucide="users" style="color: #ec4899; width: 16px; height: 16px;"></i> Recomendados</span>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="channel-bar-bg">
+                      <div class="channel-bar-fill" style="width: 8%; background-color: #ec4899;"></div>
+                    </div>
+                    <span style="font-weight: 600; width: 35px; text-align: right;">8%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Meta metrics summary info -->
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 20px;">
+              <div>
+                <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Lead a Venta</span>
+                <div style="font-size: 17px; font-weight: 700; margin-top: 2px; color: var(--text-primary);">4.8%</div>
+              </div>
+              <div>
+                <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Ticket Promedio</span>
+                <div style="font-size: 17px; font-weight: 700; margin-top: 2px; color: var(--text-primary);">$12,400 <span style="font-size: 10px; color: var(--text-secondary)">MXN</span></div>
+              </div>
+              <div>
+                <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Tiempo Cierre</span>
+                <div style="font-size: 17px; font-weight: 700; margin-top: 2px; color: var(--text-primary);">14 días</div>
+              </div>
+              <div>
+                <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">CAC Estimado</span>
+                <div style="font-size: 17px; font-weight: 700; margin-top: 2px; color: var(--text-primary);">$1,250 <span style="font-size: 10px; color: var(--text-secondary)">MXN</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Sellers Table Card -->
+        <div class="card">
+          <div class="card-header" style="margin-bottom: 20px;">
+            <div>
+              <span class="card-title">Ranking de Vendedores (Top Sellers)</span>
+              <p class="card-subtitle">Mejores vendedores ordenados por volumen facturado de junio</p>
+            </div>
+            <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Ver Todos</button>
+          </div>
+
+          <div class="table-container">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px;">Rango</th>
+                  <th>Vendedor</th>
+                  <th>Ventas Cerradas</th>
+                  <th>Monto Facturado</th>
+                  <th>Conversión</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="rank-badge rank-1">1</div></td>
+                  <td>
+                    <div class="seller-avatar-container">
+                      <img class="user-avatar" style="width: 32px; height: 32px;" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Avatar">
+                      <div>
+                        <span style="font-weight: 600;">María López</span>
+                        <div style="font-size: 11px; color: var(--text-muted);">Grupo Norte</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="font-weight: 500;">38 órdenes</td>
+                  <td style="font-weight: 600; color: var(--accent-success);">$38,420.00 MXN</td>
+                  <td>12.4%</td>
+                  <td><span class="badge badge-success">Meta Cumplida</span></td>
+                </tr>
+                <tr>
+                  <td><div class="rank-badge rank-2">2</div></td>
+                  <td>
+                    <div class="seller-avatar-container">
+                      <img class="user-avatar" style="width: 32px; height: 32px;" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Avatar">
+                      <div>
+                        <span style="font-weight: 600;">Alejandro Ruiz</span>
+                        <div style="font-size: 11px; color: var(--text-muted);">Grupo Centro</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="font-weight: 500;">32 órdenes</td>
+                  <td style="font-weight: 600; color: var(--accent-success);">$31,050.00 MXN</td>
+                  <td>10.2%</td>
+                  <td><span class="badge badge-success">Meta Cumplida</span></td>
+                </tr>
+                <tr>
+                  <td><div class="rank-badge rank-3">3</div></td>
+                  <td>
+                    <div class="seller-avatar-container">
+                      <img class="user-avatar" style="width: 32px; height: 32px;" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Avatar">
+                      <div>
+                        <span style="font-weight: 600;">Daniel Pérez</span>
+                        <div style="font-size: 11px; color: var(--text-muted);">Grupo Norte</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="font-weight: 500;">27 órdenes</td>
+                  <td style="font-weight: 600; color: var(--text-primary);">$26,480.00 MXN</td>
+                  <td>9.1%</td>
+                  <td><span class="badge badge-info">Activo</span></td>
+                </tr>
+                <tr>
+                  <td><div class="rank-badge rank-other">4</div></td>
+                  <td>
+                    <div class="seller-avatar-container">
+                      <img class="user-avatar" style="width: 32px; height: 32px;" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" alt="Avatar">
+                      <div>
+                        <span style="font-weight: 600;">Laura Gómez</span>
+                        <div style="font-size: 11px; color: var(--text-muted);">Grupo Sur</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="font-weight: 500;">22 órdenes</td>
+                  <td style="font-weight: 600; color: var(--text-primary);">$21,540.00 MXN</td>
+                  <td>8.5%</td>
+                  <td><span class="badge badge-info">Activo</span></td>
+                </tr>
+                <tr>
+                  <td><div class="rank-badge rank-other">5</div></td>
+                  <td>
+                    <div class="seller-avatar-container">
+                      <img class="user-avatar" style="width: 32px; height: 32px;" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="Avatar">
+                      <div>
+                        <span style="font-weight: 600;">Carlos Sánchez</span>
+                        <div style="font-size: 11px; color: var(--text-muted);">Grupo Centro</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="font-weight: 500;">19 órdenes</td>
+                  <td style="font-weight: 600; color: var(--text-primary);">$19,450.00 MXN</td>
+                  <td>7.8%</td>
+                  <td><span class="badge badge-warning">En progresión</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Lucide Script for Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

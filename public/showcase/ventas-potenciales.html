@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ventas Potenciales | CRM Pipeline | NorthEntry</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Additional Pipeline Board specific styling */
+    .pipeline-meta-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .pipeline-summary-pill {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-icon-container">
+          <svg class="logo-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 20V4L18 20V4" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 4L12 20" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <circle cx="18" cy="4" r="3.5" fill="#f43f5e" />
+          </svg>
+        </div>
+        <span class="logo-text">NorthEntry</span>
+      </div>
+      <nav class="sidebar-nav">
+        <!-- Main Platform items -->
+        <a href="dashboard.html" class="nav-link">
+          <i data-lucide="layout-grid"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="check-square"></i>
+          <span>Tareas</span>
+        </a>
+        <a href="detalle.html" class="nav-link">
+          <i data-lucide="file-text"></i>
+          <span>Registros</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="users"></i>
+          <span>Clientes</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="contact"></i>
+          <span>Leads</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="handshake"></i>
+          <span>Clientes</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="target"></i>
+          <span>Prospectos</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="briefcase"></i>
+          <span>Vacantes</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="dollar-sign"></i>
+          <span>Ventas</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="credit-card"></i>
+          <span>Ventas activas por cobrar</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="user-cog"></i>
+          <span>Usuarios</span>
+        </a>
+
+        <!-- Section: Reportes -->
+        <span class="nav-label" style="margin-top: 16px;">Reportes</span>
+        <a href="#" class="nav-link">
+          <i data-lucide="user-check"></i>
+          <span>Ventas por agente</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="clipboard-list"></i>
+          <span>Registros por agente</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="calendar"></i>
+          <span>Ventas mensuales</span>
+        </a>
+        <a href="ventas-potenciales.html" class="nav-link active">
+          <i data-lucide="trending-up"></i>
+          <span>Ventas potenciales</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="dollar-sign"></i>
+          <span>Ventas activas por cobrar</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="check-circle-2"></i>
+          <span>Control de finalizados</span>
+        </a>
+        <a href="#" class="nav-link">
+          <i data-lucide="globe"></i>
+          <span>Ventas globales</span>
+        </a>
+        <a href="#" class="nav-link" style="margin-bottom: 20px;">
+          <i data-lucide="file-spreadsheet"></i>
+          <span>Cortes por Agente</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <img class="user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar Administrador">
+        <div class="user-info">
+          <span class="user-name">Sofía Mendoza</span>
+          <span class="user-role">Super Administradora</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Navbar -->
+      <header class="navbar">
+        <div class="navbar-left">
+          <div class="breadcrumb-path">
+            <span>Reportes</span>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Ventas Potenciales</span>
+          </div>
+        </div>
+        <div class="navbar-right">
+          <div class="search-bar">
+            <i data-lucide="search"></i>
+            <input type="text" placeholder="Buscar prospectos, tratos...">
+          </div>
+          <button class="navbar-icon-btn">
+            <i data-lucide="bell"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Viewport Content -->
+      <main class="content-viewport">
+        <!-- Title and actions -->
+        <div class="heading-container" style="margin-bottom: 24px;">
+          <div>
+            <h1 class="page-title">Embudo de Ventas (Pipeline)</h1>
+            <p class="page-description">Visualización y gestión del pipeline de ventas potenciales y tratos comerciales en curso.</p>
+          </div>
+          <div class="pipeline-meta-group">
+            <div class="pipeline-summary-pill">
+              <i data-lucide="layers" style="width: 16px; height: 16px; color: var(--accent-primary);"></i>
+              <span>Tratos Activos: <strong>12</strong></span>
+            </div>
+            <div class="pipeline-summary-pill">
+              <i data-lucide="dollar-sign" style="width: 16px; height: 16px; color: var(--accent-success);"></i>
+              <span>Valor Total: <strong>$248,270.00 MXN</strong></span>
+            </div>
+            <button class="btn btn-primary">
+              <i data-lucide="plus"></i> Nuevo Trato
+            </button>
+          </div>
+        </div>
+
+        <!-- Kanban Board Grid -->
+        <div class="kanban-board">
+          
+          <!-- Column 1: Prospectos -->
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <div class="kanban-column-header-top">
+                <span class="kanban-column-title"><span class="kanban-priority-dot" style="background-color: var(--text-muted)"></span> Prospectos</span>
+                <span class="kanban-column-badge">3</span>
+              </div>
+              <span class="kanban-column-value">Total: $18,000 MXN</span>
+            </div>
+            <div class="kanban-cards-container">
+              <!-- Card 1 -->
+              <div class="kanban-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Inmobiliaria Bosques</span>
+                  <span class="kanban-priority-dot high" title="Alta Prioridad"></span>
+                </div>
+                <div class="kanban-card-amount">$8,500.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="message-square" style="width:10px; height:10px;"></i> WhatsApp</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80" alt="Alejandro R.">
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="kanban-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Distribuidora del Golfo</span>
+                  <span class="kanban-priority-dot medium" title="Media Prioridad"></span>
+                </div>
+                <div class="kanban-card-amount">$4,500.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-info" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="globe" style="width:10px; height:10px;"></i> Web Form</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=50&q=80" alt="Laura G.">
+                </div>
+              </div>
+              <!-- Card 3 -->
+              <div class="kanban-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Ramiro Sánchez</span>
+                  <span class="kanban-priority-dot low" title="Baja Prioridad"></span>
+                </div>
+                <div class="kanban-card-amount">$5,000.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-warning" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="phone" style="width:10px; height:10px;"></i> Llamada</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=50&q=80" alt="Daniel P.">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Calificados -->
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <div class="kanban-column-header-top">
+                <span class="kanban-column-title"><span class="kanban-priority-dot" style="background-color: var(--accent-primary)"></span> Calificados</span>
+                <span class="kanban-column-badge">3</span>
+              </div>
+              <span class="kanban-column-value">Total: $31,000 MXN</span>
+            </div>
+            <div class="kanban-cards-container">
+              <!-- Card 1 -->
+              <div class="kanban-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Alimentos del Sur</span>
+                  <span class="kanban-priority-dot high"></span>
+                </div>
+                <div class="kanban-card-amount">$15,000.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="message-square" style="width:10px; height:10px;"></i> WhatsApp</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80" alt="Sofía M.">
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="kanban-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Corporativo Toluca</span>
+                  <span class="kanban-priority-dot medium"></span>
+                </div>
+                <div class="kanban-card-amount">$12,000.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-info" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="mail" style="width:10px; height:10px;"></i> Correo</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80" alt="Alejandro R.">
+                </div>
+              </div>
+              <!-- Card 3 -->
+              <div class="kanban-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">García & Asociados</span>
+                  <span class="kanban-priority-dot low"></span>
+                </div>
+                <div class="kanban-card-amount">$4,000.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-warning" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="phone" style="width:10px; height:10px;"></i> Llamada</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=50&q=80" alt="Carlos S.">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Propuesta -->
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <div class="kanban-column-header-top">
+                <span class="kanban-column-title"><span class="kanban-priority-dot" style="background-color: var(--accent-warning)"></span> Propuesta</span>
+                <span class="kanban-column-badge">2</span>
+              </div>
+              <span class="kanban-column-value">Total: $54,000 MXN</span>
+            </div>
+            <div class="kanban-cards-container">
+              <!-- Card 1 -->
+              <div class="kanban-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Tecnologías Avanzadas</span>
+                  <span class="kanban-priority-dot high"></span>
+                </div>
+                <div class="kanban-card-amount">$32,000.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-info" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="mail" style="width:10px; height:10px;"></i> Correo</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80" alt="Sofía M.">
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="kanban-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Clínica Dental CDMX</span>
+                  <span class="kanban-priority-dot medium"></span>
+                </div>
+                <div class="kanban-card-amount">$22,000.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-warning" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="phone" style="width:10px; height:10px;"></i> Llamada</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=50&q=80" alt="Laura G.">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 4: Negociación -->
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <div class="kanban-column-header-top">
+                <span class="kanban-column-title"><span class="kanban-priority-dot" style="background-color: var(--accent-danger)"></span> Negociación</span>
+                <span class="kanban-column-badge">2</span>
+              </div>
+              <span class="kanban-column-value">Total: $40,270 MXN</span>
+            </div>
+            <div class="kanban-cards-container">
+              <!-- Card 1: Logística Mexicana (Linked to detalle.html) -->
+              <a href="detalle.html" class="kanban-card highlight" style="display:flex; flex-direction:column; text-decoration:none;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title" style="color: var(--accent-warning);">Logística Mexicana S.A.</span>
+                  <span class="kanban-priority-dot high"></span>
+                </div>
+                <div class="kanban-card-amount" style="color: var(--text-primary);">$38,420.00 MXN</div>
+                <div style="font-size: 10px; color: var(--accent-warning); font-weight: 600; display:flex; align-items:center; gap:4px; margin-top:-2px;">
+                  <i data-lucide="eye" style="width: 12px; height: 12px;"></i> Ver Ficha (María López)
+                </div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px; background-color: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.3); color: #25d366;"><i data-lucide="message-square" style="width:10px; height:10px;"></i> WhatsApp</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80" alt="Sofía M.">
+                </div>
+              </a>
+              <!-- Card 2 -->
+              <div class="kanban-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Pérez Hermanos</span>
+                  <span class="kanban-priority-dot medium"></span>
+                </div>
+                <div class="kanban-card-amount">$1,850.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-info" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="credit-card" style="width:10px; height:10px;"></i> Tarjeta</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=50&q=80" alt="Daniel P.">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 5: Ganado / Cerrados -->
+          <div class="kanban-column">
+            <div class="kanban-column-header">
+              <div class="kanban-column-header-top">
+                <span class="kanban-column-title"><span class="kanban-priority-dot" style="background-color: var(--accent-success)"></span> Ganados</span>
+                <span class="kanban-column-badge">2</span>
+              </div>
+              <span class="kanban-column-value">Total: $105,000 MXN</span>
+            </div>
+            <div class="kanban-cards-container">
+              <!-- Card 1 -->
+              <div class="kanban-card won">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Supermercados Alfa</span>
+                  <span class="badge badge-success" style="padding: 2px 6px; font-size: 9px;"><i data-lucide="check" style="width:10px; height:10px;"></i> Ganado</span>
+                </div>
+                <div class="kanban-card-amount">$65,000.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="banknote" style="width:10px; height:10px;"></i> SPEI</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80" alt="Alejandro R.">
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="kanban-card won">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <span class="kanban-card-title">Grupo Arca</span>
+                  <span class="badge badge-success" style="padding: 2px 6px; font-size: 9px;"><i data-lucide="check" style="width:10px; height:10px;"></i> Ganado</span>
+                </div>
+                <div class="kanban-card-amount">$40,000.00 MXN</div>
+                <div class="kanban-card-meta">
+                  <div class="kanban-card-tags">
+                    <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="banknote" style="width:10px; height:10px;"></i> SPEI</span>
+                  </div>
+                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80" alt="Sofía M.">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Lucide Script for Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
