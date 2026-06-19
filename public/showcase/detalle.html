@@ -8,12 +8,19 @@
     <style>
       /* Profile Redesign Specific Styles */
       .profile-hero {
-        background-color: var(--bg-primary, #ffffff);
+        background-color: var(--bg-card);
         border: 1px solid var(--border-color);
         border-radius: 12px;
         padding: 32px;
         margin-bottom: 28px;
         position: relative;
+        box-shadow: var(--shadow-card);
+        transition: var(--transition-smooth);
+      }
+
+      .profile-hero:hover {
+        border-color: var(--border-hover);
+        box-shadow: var(--shadow-card-hover);
       }
 
       .profile-hero-content {
@@ -237,13 +244,7 @@
         top: 10px;
         bottom: 10px;
         width: 2px;
-        background: linear-gradient(
-          180deg,
-          var(--accent-success) 0%,
-          var(--accent-success) 50%,
-          var(--accent-primary) 70%,
-          rgba(0, 0, 0, 0.05) 90%
-        );
+        background-color: var(--border-color);
       }
 
       .timeline-node {
@@ -256,69 +257,28 @@
 
       .timeline-node-dot {
         position: absolute;
-        left: -28px;
-        top: 2px;
-        width: 22px;
-        height: 22px;
+        left: -24px;
+        top: 4px;
+        width: 14px;
+        height: 14px;
         border-radius: 50%;
         background-color: var(--bg-secondary);
-        border: 2px solid var(--text-muted);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        border: 2px solid var(--border-color);
         z-index: 2;
         transition: var(--transition-smooth);
-      }
-
-      .timeline-node-dot i {
-        width: 11px;
-        height: 11px;
-        color: var(--text-muted);
       }
 
       /* Completed Status */
       .timeline-node.completed .timeline-node-dot {
         border-color: var(--accent-success);
         background-color: var(--accent-success);
-        box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
-      }
-
-      .timeline-node.completed .timeline-node-dot i {
-        color: #fff;
       }
 
       /* Active Status */
       .timeline-node.active .timeline-node-dot {
         border-color: var(--accent-primary);
         background-color: var(--bg-primary);
-        box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
-        animation: pulse-node-border 2s infinite;
-      }
-
-      .timeline-node.active .timeline-node-dot i {
-        color: var(--accent-primary);
-        animation: spin-cw 4s linear infinite;
-      }
-
-      @keyframes pulse-node-border {
-        0% {
-          box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
-        }
-        70% {
-          box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
-        }
-      }
-
-      @keyframes spin-cw {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
+        border-width: 3px;
       }
 
       .node-header {
@@ -795,76 +755,85 @@
               <div class="timeline-container-modern">
                 <!-- Stage 1 -->
                 <div class="timeline-node completed">
-                  <div class="timeline-node-dot">
-                    <i data-lucide="check"></i>
-                  </div>
+                  <div class="timeline-node-dot"></div>
                   <div class="node-header">
                     <span class="node-title">Registro & Calificación</span>
                     <span class="node-date">14 May 2026</span>
                   </div>
                   <p class="node-details">
-                    Lead capturado desde Landing Page de Campaña. Calificado
-                    como VIP.
+                    Lead capturado automáticamente desde campaña B2B Facebook. Perfil analizado y pre-calificado como oportunidad VIP por el sistema de scoring (92/100).
                   </p>
                 </div>
 
                 <!-- Stage 2 -->
                 <div class="timeline-node completed">
-                  <div class="timeline-node-dot">
-                    <i data-lucide="check"></i>
-                  </div>
+                  <div class="timeline-node-dot"></div>
                   <div class="node-header">
-                    <span class="node-title">Primer Contacto Exitoso</span>
-                    <span class="node-date">15 May 2026</span>
+                    <span class="node-title">Asignación Ejecutiva</span>
+                    <span class="node-date">14 May 2026</span>
                   </div>
                   <p class="node-details">
-                    Llamada de diagnóstico realizada por Sofía Mendoza. Interés
-                    confirmado.
+                    Oportunidad asignada a Sofía Mendoza por cruce de territorio geográfico y vertical del cliente.
                   </p>
                 </div>
 
                 <!-- Stage 3 -->
                 <div class="timeline-node completed">
-                  <div class="timeline-node-dot">
-                    <i data-lucide="check"></i>
-                  </div>
+                  <div class="timeline-node-dot"></div>
                   <div class="node-header">
-                    <span class="node-title">Propuesta Técnica Enviada</span>
-                    <span class="node-date">22 May 2026</span>
+                    <span class="node-title">Primer Contacto Exitoso</span>
+                    <span class="node-date">15 May 2026</span>
                   </div>
                   <p class="node-details">
-                    Cotización de Plan Enterprise y documentación técnica
-                    enviada por correo.
+                    Llamada de diagnóstico de 30 mins realizada. Se detectaron necesidades de logística inversa y escalabilidad para Q3.
                   </p>
                 </div>
 
-                <!-- Stage 4 (Active) -->
-                <div class="timeline-node active">
-                  <div class="timeline-node-dot">
-                    <i data-lucide="refresh-cw"></i>
+                <!-- Stage 4 -->
+                <div class="timeline-node completed">
+                  <div class="timeline-node-dot"></div>
+                  <div class="node-header">
+                    <span class="node-title">Reunión de Demostración</span>
+                    <span class="node-date">18 May 2026</span>
                   </div>
+                  <p class="node-details">
+                    Sesión remota presentando la plataforma VLM Enterprise al equipo de Operaciones de Logística Mexicana. Feedback excelente.
+                  </p>
+                </div>
+
+                <!-- Stage 5 -->
+                <div class="timeline-node completed">
+                  <div class="timeline-node-dot"></div>
+                  <div class="node-header">
+                    <span class="node-title">Propuesta Enviada</span>
+                    <span class="node-date">22 May 2026</span>
+                  </div>
+                  <p class="node-details">
+                    Cotización de Plan Enterprise (15 licencias) y anexos de integración API enviados a Dirección.
+                  </p>
+                </div>
+
+                <!-- Stage 6 (Active) -->
+                <div class="timeline-node active">
+                  <div class="timeline-node-dot"></div>
                   <div class="node-header">
                     <span class="node-title">Negociación de Contrato</span>
                     <span class="node-date">En Proceso</span>
                   </div>
                   <p class="node-details">
-                    Revisión de SLA legales entre equipos jurídicos de ambas
-                    partes.
+                    Revisión de acuerdos de nivel de servicio (SLA) en proceso entre equipos jurídicos. Pendiente firma de NDA actualizado.
                   </p>
                 </div>
 
-                <!-- Stage 5 -->
+                <!-- Stage 7 -->
                 <div class="timeline-node">
-                  <div class="timeline-node-dot">
-                    <i data-lucide="lock"></i>
-                  </div>
+                  <div class="timeline-node-dot"></div>
                   <div class="node-header">
                     <span class="node-title">Cierre & Activación</span>
                     <span class="node-date">Pendiente</span>
                   </div>
                   <p class="node-details">
-                    Cierre de venta formal y asignación de credenciales
-                    Enterprise.
+                    Facturación inicial, firma digital y entrega de credenciales maestras.
                   </p>
                 </div>
               </div>

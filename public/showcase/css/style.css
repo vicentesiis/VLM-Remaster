@@ -543,6 +543,7 @@ body {
   max-height: 100%;
   backdrop-filter: blur(8px);
   transition: var(--transition-smooth);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .kanban-column:hover {
@@ -602,9 +603,10 @@ body {
 .kanban-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
+  border-left: 3px solid transparent;
   border-radius: 10px;
   padding: 14px;
-  cursor: pointer;
+  cursor: grab;
   transition: var(--transition-smooth);
   position: relative;
   overflow: hidden;
@@ -622,6 +624,17 @@ body {
   box-shadow: var(--shadow-card-hover);
 }
 
+.kanban-card:active {
+  cursor: grabbing;
+  transform: translateY(-4px) rotate(1deg);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.kanban-card.border-high { border-left-color: var(--accent-danger); }
+.kanban-card.border-medium { border-left-color: var(--accent-warning); }
+.kanban-card.border-low { border-left-color: var(--accent-success); }
+.kanban-card.border-none { border-left-color: transparent; }
+
 .kanban-card.highlight {
   border-color: rgba(245, 158, 11, 0.4);
   background-color: rgba(245, 158, 11, 0.04);
@@ -631,6 +644,33 @@ body {
   border-color: rgba(245, 158, 11, 0.7);
   background-color: rgba(245, 158, 11, 0.06);
   box-shadow: 0 8px 20px rgba(245, 158, 11, 0.1);
+}
+
+.kanban-ghost-card {
+  background-color: transparent;
+  border: 1px dashed var(--border-color);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  width: 100%;
+  margin-top: 4px;
+}
+.kanban-ghost-card:hover {
+  border-color: var(--text-muted);
+  color: var(--text-secondary);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+.kanban-ghost-card i {
+  width: 14px;
+  height: 14px;
 }
 
 .kanban-card-title {

@@ -157,7 +157,7 @@
         <!-- Title and actions -->
         <div class="heading-container" style="margin-bottom: 24px;">
           <div>
-            <h1 class="page-title">Embudo de Ventas (Pipeline)</h1>
+            <h1 class="page-title">Ventas Potenciales</h1>
             <p class="page-description">Visualización y gestión del pipeline de ventas potenciales y tratos comerciales en curso.</p>
           </div>
           <div class="pipeline-meta-group">
@@ -189,7 +189,7 @@
             </div>
             <div class="kanban-cards-container">
               <!-- Card 1 -->
-              <div class="kanban-card">
+              <div class="kanban-card border-high">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Inmobiliaria Bosques</span>
                   <span class="kanban-priority-dot high" title="Alta Prioridad"></span>
@@ -199,11 +199,11 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="message-square" style="width:10px; height:10px;"></i> WhatsApp</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80" alt="Alejandro R.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
               <!-- Card 2 -->
-              <div class="kanban-card">
+              <div class="kanban-card border-medium">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Distribuidora del Golfo</span>
                   <span class="kanban-priority-dot medium" title="Media Prioridad"></span>
@@ -213,11 +213,11 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-info" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="globe" style="width:10px; height:10px;"></i> Web Form</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=50&q=80" alt="Laura G.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
               <!-- Card 3 -->
-              <div class="kanban-card">
+              <div class="kanban-card border-low">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Ramiro Sánchez</span>
                   <span class="kanban-priority-dot low" title="Baja Prioridad"></span>
@@ -227,9 +227,12 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-warning" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="phone" style="width:10px; height:10px;"></i> Llamada</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=50&q=80" alt="Daniel P.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
+              <button class="kanban-ghost-card">
+                <i data-lucide="plus"></i> Nuevo Trato
+              </button>
             </div>
           </div>
 
@@ -244,7 +247,7 @@
             </div>
             <div class="kanban-cards-container">
               <!-- Card 1 -->
-              <div class="kanban-card">
+              <div class="kanban-card border-high">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Alimentos del Sur</span>
                   <span class="kanban-priority-dot high"></span>
@@ -254,11 +257,11 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="message-square" style="width:10px; height:10px;"></i> WhatsApp</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80" alt="Sofía M.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
               <!-- Card 2 -->
-              <div class="kanban-card">
+              <div class="kanban-card border-medium">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Corporativo Toluca</span>
                   <span class="kanban-priority-dot medium"></span>
@@ -268,11 +271,11 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-info" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="mail" style="width:10px; height:10px;"></i> Correo</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80" alt="Alejandro R.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
               <!-- Card 3 -->
-              <div class="kanban-card">
+              <div class="kanban-card border-low">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">García & Asociados</span>
                   <span class="kanban-priority-dot low"></span>
@@ -282,9 +285,12 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-warning" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="phone" style="width:10px; height:10px;"></i> Llamada</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=50&q=80" alt="Carlos S.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
+              <button class="kanban-ghost-card">
+                <i data-lucide="plus"></i> Nuevo Trato
+              </button>
             </div>
           </div>
 
@@ -299,7 +305,7 @@
             </div>
             <div class="kanban-cards-container">
               <!-- Card 1 -->
-              <div class="kanban-card">
+              <div class="kanban-card border-high">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Tecnologías Avanzadas</span>
                   <span class="kanban-priority-dot high"></span>
@@ -309,11 +315,11 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-info" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="mail" style="width:10px; height:10px;"></i> Correo</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80" alt="Sofía M.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
               <!-- Card 2 -->
-              <div class="kanban-card">
+              <div class="kanban-card border-medium">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Clínica Dental CDMX</span>
                   <span class="kanban-priority-dot medium"></span>
@@ -323,9 +329,12 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-warning" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="phone" style="width:10px; height:10px;"></i> Llamada</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=50&q=80" alt="Laura G.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
+              <button class="kanban-ghost-card">
+                <i data-lucide="plus"></i> Nuevo Trato
+              </button>
             </div>
           </div>
 
@@ -340,7 +349,7 @@
             </div>
             <div class="kanban-cards-container">
               <!-- Card 1: Logística Mexicana (Linked to detalle.html) -->
-              <a href="detalle.html" class="kanban-card highlight" style="display:flex; flex-direction:column; text-decoration:none;">
+              <a href="detalle.html" class="kanban-card border-high highlight" style="display:flex; flex-direction:column; text-decoration:none;">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title" style="color: var(--accent-warning);">Logística Mexicana S.A.</span>
                   <span class="kanban-priority-dot high"></span>
@@ -353,11 +362,11 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px; background-color: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.3); color: #25d366;"><i data-lucide="message-square" style="width:10px; height:10px;"></i> WhatsApp</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80" alt="Sofía M.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </a>
               <!-- Card 2 -->
-              <div class="kanban-card">
+              <div class="kanban-card border-high">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Pérez Hermanos</span>
                   <span class="kanban-priority-dot medium"></span>
@@ -367,9 +376,12 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-info" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="credit-card" style="width:10px; height:10px;"></i> Tarjeta</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=50&q=80" alt="Daniel P.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
+              <button class="kanban-ghost-card">
+                <i data-lucide="plus"></i> Nuevo Trato
+              </button>
             </div>
           </div>
 
@@ -384,7 +396,7 @@
             </div>
             <div class="kanban-cards-container">
               <!-- Card 1 -->
-              <div class="kanban-card won">
+              <div class="kanban-card border-low won">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Supermercados Alfa</span>
                   <span class="badge badge-success" style="padding: 2px 6px; font-size: 9px;"><i data-lucide="check" style="width:10px; height:10px;"></i> Ganado</span>
@@ -394,11 +406,11 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="banknote" style="width:10px; height:10px;"></i> SPEI</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80" alt="Alejandro R.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
               <!-- Card 2 -->
-              <div class="kanban-card won">
+              <div class="kanban-card border-low won">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                   <span class="kanban-card-title">Grupo Arca</span>
                   <span class="badge badge-success" style="padding: 2px 6px; font-size: 9px;"><i data-lucide="check" style="width:10px; height:10px;"></i> Ganado</span>
@@ -408,9 +420,12 @@
                   <div class="kanban-card-tags">
                     <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px;"><i data-lucide="banknote" style="width:10px; height:10px;"></i> SPEI</span>
                   </div>
-                  <img class="user-avatar" style="width: 20px; height: 20px;" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80" alt="Sofía M.">
+                  <span style="font-size: 10px; color: var(--text-muted); display:flex; align-items:center; gap:4px;"><i data-lucide="clock" style="width:10px; height:10px;"></i> Hace 2 hrs</span>
                 </div>
               </div>
+              <button class="kanban-ghost-card">
+                <i data-lucide="plus"></i> Nuevo Trato
+              </button>
             </div>
           </div>
 
