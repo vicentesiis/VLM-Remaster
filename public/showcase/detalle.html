@@ -138,14 +138,14 @@
       }
 
       .btn-contact-phone {
-        background-color: rgba(99, 102, 241, 0.08);
-        border-color: rgba(99, 102, 241, 0.2);
+        background-color: rgba(var(--accent-primary-rgb), 0.08);
+        border-color: rgba(var(--accent-primary-rgb), 0.2);
         color: #6366f1;
       }
 
       .btn-contact-phone:hover {
-        background-color: rgba(99, 102, 241, 0.16);
-        border-color: rgba(99, 102, 241, 0.35);
+        background-color: rgba(var(--accent-primary-rgb), 0.16);
+        border-color: rgba(var(--accent-primary-rgb), 0.35);
       }
 
       /* 360 Information Fields */
@@ -167,23 +167,23 @@
         display: flex;
         align-items: flex-start;
         gap: 14px;
-        background-color: rgba(0, 0, 0, 0.005);
-        border: 1px solid rgba(0, 0, 0, 0.02);
+        background-color: var(--bg-secondary);
+        border: 1px solid var(--border-color);
         padding: 14px;
         border-radius: 10px;
         transition: var(--transition-smooth);
       }
 
       .field-card:hover {
-        background-color: rgba(255, 255, 255, 0.02);
-        border-color: var(--border-color);
+        background-color: var(--accent-primary-glow);
+        border-color: rgba(var(--accent-primary-rgb), 0.25);
       }
 
       .field-icon {
         width: 32px;
         height: 32px;
         border-radius: 8px;
-        background-color: rgba(255, 255, 255, 0.03);
+        background-color: var(--bg-card);
         border: 1px solid var(--border-color);
         display: flex;
         align-items: center;
@@ -194,8 +194,8 @@
 
       .field-card:hover .field-icon {
         color: var(--accent-primary);
-        background-color: rgba(99, 102, 241, 0.08);
-        border-color: rgba(99, 102, 241, 0.2);
+        background-color: rgba(var(--accent-primary-rgb), 0.08);
+        border-color: rgba(var(--accent-primary-rgb), 0.2);
       }
 
       .field-content {
@@ -208,7 +208,7 @@
       .notes-box {
         margin-top: 24px;
         padding: 16px;
-        background-color: rgba(99, 102, 241, 0.02);
+        background-color: rgba(var(--accent-primary-rgb), 0.02);
         border-left: 3px solid var(--accent-primary);
         border-radius: 0 10px 10px 0;
         font-size: 13.5px;
@@ -509,16 +509,17 @@
                 padding: 6px 12px;
                 border: 1px solid var(--border-color);
                 border-radius: 8px;
-                background-color: rgba(255, 255, 255, 0.02);
+                background-color: var(--bg-card);
+                box-shadow: var(--shadow-xs);
                 transition: var(--transition-smooth);
               "
               onmouseover="
                 this.style.borderColor = 'var(--border-hover)'
-                this.style.backgroundColor = 'rgba(255,255,255,0.04)'
+                this.style.backgroundColor = 'var(--bg-secondary)'
               "
               onmouseout="
                 this.style.borderColor = 'var(--border-color)'
-                this.style.backgroundColor = 'rgba(255,255,255,0.02)'
+                this.style.backgroundColor = 'var(--bg-card)'
               "
             >
               <i data-lucide="arrow-left" style="width: 14px; height: 14px"></i>

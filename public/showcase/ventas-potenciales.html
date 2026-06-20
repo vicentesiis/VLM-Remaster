@@ -14,15 +14,19 @@
     }
     
     .pipeline-summary-pill {
-      background-color: rgba(255, 255, 255, 0.02);
+      background-color: var(--bg-card);
       border: 1px solid var(--border-color);
-      padding: 6px 12px;
-      border-radius: 8px;
+      box-shadow: var(--shadow-xs);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 13px;
+      color: var(--text-secondary);
+      white-space: nowrap;
     }
+    .pipeline-summary-pill strong { color: var(--text-primary); }
   </style>
 </head>
 <body>
