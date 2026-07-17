@@ -397,10 +397,7 @@
             <i data-lucide="contact"></i>
             <span>Leads</span>
           </a>
-          <a href="#" class="nav-link">
-            <i data-lucide="handshake"></i>
-            <span>Clientes</span>
-          </a>
+
           <a href="#" class="nav-link">
             <i data-lucide="target"></i>
             <span>Prospectos</span>
@@ -442,7 +439,7 @@
           </a>
           <a href="#" class="nav-link">
             <i data-lucide="dollar-sign"></i>
-            <span>Ventas activas por cobrar</span>
+            <span>Cobranza Activa</span>
           </a>
           <a href="#" class="nav-link">
             <i data-lucide="check-circle-2"></i>
@@ -494,125 +491,63 @@
 
         <!-- Viewport Content -->
         <main class="content-viewport">
-          <!-- Back action -->
-          <div style="margin-bottom: 20px">
-            <a
-              href="ventas-potenciales.html"
-              style="
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text-secondary);
-                text-decoration: none;
-                font-size: 13px;
-                font-weight: 600;
-                padding: 6px 12px;
-                border: 1px solid var(--border-color);
-                border-radius: 8px;
-                background-color: var(--bg-card);
-                box-shadow: var(--shadow-xs);
-                transition: var(--transition-smooth);
-              "
-              onmouseover="
-                this.style.borderColor = 'var(--border-hover)'
-                this.style.backgroundColor = 'var(--bg-secondary)'
-              "
-              onmouseout="
-                this.style.borderColor = 'var(--border-color)'
-                this.style.backgroundColor = 'var(--bg-card)'
-              "
-            >
-              <i data-lucide="arrow-left" style="width: 14px; height: 14px"></i>
-              Volver al Pipeline CRM
-            </a>
-          </div>
-
-          <!-- Visual Hero Card profile banner -->
+          <!-- Visual Hero Card -->
           <div class="profile-hero">
             <div class="profile-hero-content">
               <div class="profile-identity">
-                <div class="profile-avatar-wrapper">
-                  <img
-                    class="profile-avatar-large"
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80"
-                    alt="María López"
-                  />
-                  <span
-                    class="profile-status-dot-active"
-                    title="Cliente Activo"
-                  ></span>
-                </div>
-
+                <img
+                  src="https://flagcdn.com/w80/us.png"
+                  alt="USA Flag"
+                  style="width: 64px; height: auto; border-radius: 6px; border: 1px solid var(--border-color); object-fit: cover; flex-shrink: 0;"
+                />
                 <div class="profile-details-column">
-                  <div
-                    style="
-                      display: flex;
-                      align-items: center;
-                      gap: 12px;
-                      flex-wrap: wrap;
-                    "
-                  >
+                  <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                     <h1 class="profile-name-title">María López Casillas</h1>
-                    <span class="badge badge-success"
-                      ><i
-                        data-lucide="check"
-                        style="width: 12px; height: 12px"
-                      ></i>
-                      Cliente VIP</span
-                    >
+                    <span class="badge badge-info">
+                      <i data-lucide="hash" style="width: 12px; height: 12px;"></i>
+                      REG-0042
+                    </span>
+                    <span class="badge badge-success">
+                      <i data-lucide="shopping-cart" style="width: 12px; height: 12px;"></i>
+                      Venta
+                    </span>
                   </div>
-
-                  <p
-                    style="
-                      font-size: 14px;
-                      color: var(--text-secondary);
-                      margin-top: 2px;
-                    "
-                  >
+                  <p style="font-size: 14px; color: var(--text-secondary); margin-top: 2px;">
                     Directora de Adquisiciones en
-                    <strong style="color: var(--text-primary)"
-                      >Logística Mexicana S.A.</strong
-                    >
+                    <strong style="color: var(--text-primary)">Logística Mexicana S.A.</strong>
                   </p>
-
                   <div class="profile-contact-row">
-                    <span class="contact-badge"
-                      ><i data-lucide="shield-check"></i> Asignado:
-                      <strong>Sofía Mendoza</strong></span
-                    >
+                    <span class="contact-badge"><i data-lucide="user"></i> Agente: <strong>Sofía Mendoza</strong></span>
                     <span style="color: var(--border-hover)">•</span>
-                    <span class="contact-badge"
-                      ><i data-lucide="map-pin"></i> Zona:
-                      <strong>Norte (CDMX)</strong></span
-                    >
+                    <span class="contact-badge"><i data-lucide="clock"></i> Actualizado: <strong>18 Jun 2026, 14:30</strong></span>
                   </div>
                 </div>
               </div>
 
-              <!-- Quick CRM Action buttons -->
-              <div class="hero-actions-container">
-                <a
-                  href="https://wa.me/525512345678"
-                  target="_blank"
-                  class="btn-contact-action btn-contact-whatsapp"
-                >
-                  <i
-                    data-lucide="message-square"
-                    style="width: 16px; height: 16px"
-                  ></i>
-                  WhatsApp
-                </a>
-                <a
-                  href="tel:+525512345678"
-                  class="btn-contact-action btn-contact-phone"
-                >
-                  <i
-                    data-lucide="phone-call"
-                    style="width: 16px; height: 16px"
-                  ></i>
-                  Llamada Rápida
-                </a>
+              <div style="text-align: right;">
+                <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Saldo Pendiente</div>
+                <div style="font-size: 24px; font-weight: 700; color: var(--accent-danger);">$38,420.00 MXN</div>
+                <div style="font-size: 13px; color: var(--text-secondary);">~ $2,154.00 USD</div>
               </div>
+            </div>
+
+            <div style="display: flex; gap: 8px; padding-top: 16px; border-top: 1px solid var(--border-color); margin-top: 16px;">
+              <a href="https://wa.me/525512345678" target="_blank" class="btn btn-secondary" style="gap: 6px; padding: 8px 14px; font-size: 12px;">
+                <i data-lucide="message-square" style="width: 14px; height: 14px; color: #25d366;"></i>
+                WhatsApp
+              </a>
+              <button class="btn btn-secondary" style="gap: 6px; padding: 8px 14px; font-size: 12px;">
+                <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+                Ruta de Seguimiento
+              </button>
+              <a href="tel:+525512345678" class="btn btn-secondary" style="gap: 6px; padding: 8px 14px; font-size: 12px;">
+                <i data-lucide="phone" style="width: 14px; height: 14px;"></i>
+                Llamar
+              </a>
+              <a href="mailto:maria.lopez@logmex.com" class="btn btn-secondary" style="gap: 6px; padding: 8px 14px; font-size: 12px;">
+                <i data-lucide="mail" style="width: 14px; height: 14px;"></i>
+                Email
+              </a>
             </div>
           </div>
 
