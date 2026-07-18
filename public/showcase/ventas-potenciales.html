@@ -133,8 +133,11 @@
       <header class="navbar">
         <div class="navbar-left">
           <div class="breadcrumb-path">
-            <span>Reportes</span>
-            <span class="breadcrumb-separator">/</span>
+            <a href="index.html" class="breadcrumb-back" title="Volver al inicio" aria-label="Volver al inicio">
+              <i data-lucide="chevron-left"></i>
+            </a>
+            <span class="breadcrumb-section">Reportes</span>
+            <span class="breadcrumb-sep"><i data-lucide="chevron-right"></i></span>
             <span class="breadcrumb-current">Ventas Potenciales</span>
           </div>
         </div>
@@ -142,9 +145,14 @@
           <div class="search-bar">
             <i data-lucide="search"></i>
             <input type="text" placeholder="Buscar prospectos, tratos...">
+            <kbd class="search-kbd">⌘K</kbd>
           </div>
-          <button class="navbar-icon-btn">
+          <button class="navbar-icon-btn has-badge" title="Notificaciones" aria-label="Tienes 3 notificaciones">
             <i data-lucide="bell"></i>
+            <span class="badge-count" aria-hidden="true">3</span>
+          </button>
+          <button class="navbar-icon-btn" title="Cerrar sesión" aria-label="Cerrar sesión">
+            <i data-lucide="log-out"></i>
           </button>
         </div>
       </header>
