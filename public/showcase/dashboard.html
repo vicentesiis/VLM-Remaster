@@ -21,13 +21,36 @@
       margin-bottom: 28px;
     }
     
+    /* Dashboard metric grid: balanced vertical distribution + tighter padding */
+    .dashboard-grid-4 .card {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .dashboard-grid-4 .card .card-header {
+      margin-bottom: 14px;
+    }
+
+    /* Push the trailing block (trend / progress / footer row) to the bottom of each
+       card so cards 1, 2, 3 don't show dead space below their content. */
+    .dashboard-grid-4 .card > *:last-child {
+      margin-top: auto;
+    }
+
     .metric-value {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
-      letter-spacing: -1px;
-      margin-top: 8px;
-      margin-bottom: 4px;
+      letter-spacing: -0.7px;
+      margin-top: 0;
+      margin-bottom: 6px;
       color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    /* Compact variant for values that include a longer unit suffix (e.g. "MXN / USD") */
+    .metric-value--compact {
+      font-size: 24px;
     }
     
     .metric-trend {
@@ -332,7 +355,7 @@
                 <i data-lucide="line-chart"></i>
               </div>
             </div>
-            <div class="metric-value">$73,100.00 <span style="font-size: 14px; font-weight: 500; color: var(--text-muted)">MXN</span></div>
+            <div class="metric-value">$73,100.00 <span style="font-size: 13px; font-weight: 500; color: var(--text-muted)">MXN</span></div>
             <div class="metric-trend trend-up">
               <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
               <span>+14.2% este mes</span>
@@ -347,7 +370,7 @@
                 <i data-lucide="user"></i>
               </div>
             </div>
-            <div class="metric-value">$7,200.00 <span style="font-size: 14px; font-weight: 500; color: var(--text-muted)">MXN</span></div>
+            <div class="metric-value">$7,200.00 <span style="font-size: 13px; font-weight: 500; color: var(--text-muted)">MXN</span></div>
             <div class="metric-trend trend-up">
               <i data-lucide="arrow-up-right" style="width: 16px; height: 16px;"></i>
               <span>+8.7% este mes</span>
@@ -363,7 +386,7 @@
               </div>
             </div>
             <div class="metric-value">72.5%</div>
-            <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 8px;">
               <span>$54.5K recolectado</span>
               <span>Meta: $75K</span>
             </div>
@@ -380,7 +403,7 @@
                 <i data-lucide="dollar-sign"></i>
               </div>
             </div>
-            <div class="metric-value" style="font-size: 24px;">$17.84 <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">MXN / USD</span></div>
+            <div class="metric-value metric-value--compact">$17.84 <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">MXN / USD</span></div>
             <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); margin-top: 10px; border-top: 1px solid var(--border-color); padding-top: 8px;">
               <span style="display: flex; align-items: center; gap: 4px;"><i data-lucide="trending-down" style="width: 12px; height: 12px; color: var(--accent-danger);"></i> Compra: $17.40</span>
               <span style="display: flex; align-items: center; gap: 4px;"><i data-lucide="trending-up" style="width: 12px; height: 12px; color: var(--accent-success);"></i> Venta: $18.15</span>
