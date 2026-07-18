@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import logo from "@/assets/logo.png"
 import { Menu } from "@/components/admin-panel/menu"
+import { SidebarFooter } from "@/components/admin-panel/sidebar-footer"
 import { SidebarToggle } from "@/components/admin-panel/sidebar-toggle"
 import { Button } from "@/components/ui/button"
 import { useSidebar } from "@/hooks/use-sidebar"
@@ -24,11 +25,11 @@ export function Sidebar() {
       <div
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
-        className="relative flex h-full flex-col overflow-y-auto px-3 py-4 shadow-md dark:shadow-zinc-800"
+        className="relative flex h-full flex-col overflow-hidden px-3 py-4 shadow-md dark:shadow-zinc-800"
       >
         <Button
           className={cn(
-            "transition-transform duration-300 ease-in-out",
+            "shrink-0 transition-transform duration-300 ease-in-out",
             !getOpenState() ? "translate-x-1" : "translate-x-0"
           )}
           variant="link"
@@ -48,7 +49,10 @@ export function Sidebar() {
             </h1>
           </Link>
         </Button>
-        <Menu isOpen={getOpenState()} />
+        <div className="min-h-0 flex-1">
+          <Menu isOpen={getOpenState()} />
+        </div>
+        <SidebarFooter isOpen={getOpenState()} />
       </div>
     </aside>
   )

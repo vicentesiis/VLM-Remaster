@@ -45,8 +45,11 @@ export function CollapseMenuButton({
     <Collapsible
       open={isCollapsed}
       onOpenChange={setIsCollapsed}
-      className="w-full"
+      className="relative w-full"
     >
+      {isSubmenuActive && (
+        <span className="absolute left-0 top-1/2 z-10 h-6 w-[3px] -translate-y-1/2 rounded-r bg-primary" />
+      )}
       <CollapsibleTrigger
         className="mb-1 [&[data-state=open]>div>div>svg]:rotate-180"
         asChild
@@ -88,34 +91,38 @@ export function CollapseMenuButton({
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent className="data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden">
-        {submenus.map(({ href, label, active }, index) => (
-          <Button
-            key={index}
-            variant={
-              (active === undefined && pathname === href) || active
-                ? "secondary"
-                : "ghost"
-            }
-            className="mb-1 h-10 w-full justify-start"
-            asChild
-          >
-            <Link href={href}>
-              <span className="ml-2 mr-4">
-                <Dot size={18} />
-              </span>
-              <p
-                className={cn(
-                  "max-w-[170px] truncate",
-                  isOpen
-                    ? "translate-x-0 opacity-100"
-                    : "-translate-x-96 opacity-0"
-                )}
+        {submenus.map(({ href, label, active }, index) => {
+          const isItemActive =
+            (active === undefined && pathname === href) || active
+          return (
+            <div className="relative w-full" key={index}>
+              {isItemActive && (
+                <span className="absolute left-0 top-1/2 z-10 h-6 w-[3px] -translate-y-1/2 rounded-r bg-primary" />
+              )}
+              <Button
+                variant={isItemActive ? "secondary" : "ghost"}
+                className="mb-1 h-10 w-full justify-start"
+                asChild
               >
-                {label}
-              </p>
-            </Link>
-          </Button>
-        ))}
+                <Link href={href}>
+                  <span className="ml-2 mr-4">
+                    <Dot size={18} />
+                  </span>
+                  <p
+                    className={cn(
+                      "max-w-[170px] truncate",
+                      isOpen
+                        ? "translate-x-0 opacity-100"
+                        : "-translate-x-96 opacity-0"
+                    )}
+                  >
+                    {label}
+                  </p>
+                </Link>
+              </Button>
+            </div>
+          )
+        })}
       </CollapsibleContent>
     </Collapsible>
   ) : (
@@ -124,26 +131,31 @@ export function CollapseMenuButton({
         <Tooltip delayDuration={100}>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant={isSubmenuActive ? "secondary" : "ghost"}
-                className="mb-1 h-10 w-full justify-start"
-              >
-                <div className="flex w-full items-center justify-between">
-                  <div className="flex items-center">
-                    <span className={cn(isOpen === false ? "" : "mr-4")}>
-                      <Icon size={18} />
-                    </span>
-                    <p
-                      className={cn(
-                        "max-w-[200px] truncate",
-                        isOpen === false ? "opacity-0" : "opacity-100"
-                      )}
-                    >
-                      {label}
-                    </p>
+              <div className="relative w-full">
+                {isSubmenuActive && (
+                  <span className="absolute left-0 top-1/2 z-10 h-6 w-[3px] -translate-y-1/2 rounded-r bg-primary" />
+                )}
+                <Button
+                  variant={isSubmenuActive ? "secondary" : "ghost"}
+                  className="mb-1 h-10 w-full justify-start"
+                >
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex items-center">
+                      <span className={cn(isOpen === false ? "" : "mr-4")}>
+                        <Icon size={18} />
+                      </span>
+                      <p
+                        className={cn(
+                          "max-w-[200px] truncate",
+                          isOpen === false ? "opacity-0" : "opacity-100"
+                        )}
+                      >
+                        {label}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </Button>
+                </Button>
+              </div>
             </DropdownMenuTrigger>
           </TooltipTrigger>
           <TooltipContent side="right" align="start" alignOffset={2}>

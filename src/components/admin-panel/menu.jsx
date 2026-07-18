@@ -39,7 +39,10 @@ export function Menu({ isOpen }) {
               )}
 
               {menus.map(({ href, label, icon: Icon, active }, index) => (
-                <div className="w-full" key={index}>
+                <div className="relative w-full" key={index}>
+                  {active && (
+                    <span className="absolute left-0 top-1/2 z-10 h-6 w-[3px] -translate-y-1/2 rounded-r bg-primary" />
+                  )}
                   <TooltipProvider disableHoverableContent>
                     <Tooltip delayDuration={100}>
                       <TooltipTrigger asChild>
