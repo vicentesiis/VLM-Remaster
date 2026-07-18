@@ -589,7 +589,7 @@ body {
 }
 
 .kanban-column {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(241, 245, 249, 0.7);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   display: flex;
@@ -601,7 +601,7 @@ body {
 
 .kanban-column:hover {
   border-color: rgba(0, 0, 0, 0.08);
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(241, 245, 249, 0.9);
 }
 
 .kanban-column-header {
